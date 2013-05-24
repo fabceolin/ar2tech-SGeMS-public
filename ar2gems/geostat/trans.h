@@ -30,7 +30,7 @@
 #include <geostat/utilities.h>
 #include <geostat/geostat_algo.h>
 #include <GsTL/utils/smartptr.h>
-#include <grid/grid_model/neighborhood.h>
+#include <grid/neighborhood.h>
 #include <math/gstlpoint.h>
 #include <math/continuous_distribution.h>
 

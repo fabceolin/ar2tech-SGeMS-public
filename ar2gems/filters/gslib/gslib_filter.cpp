@@ -56,10 +56,10 @@
 #include <utils/gstl_messages.h>
 #include <appli/manager_repository.h>
 #include <filters/gslib/filter_qt_dialogs.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/point_set.h>
+#include <grid/cartesian_grid.h>
+#include <grid/point_set.h>
 #include <utils/string_manipulation.h>
-#include <grid/grid_model/reduced_grid.h>
+#include <grid/reduced_grid.h>
 
 #include <qdialog.h>
 #include <qapplication.h>

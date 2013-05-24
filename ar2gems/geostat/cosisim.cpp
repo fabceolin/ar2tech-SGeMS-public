@@ -54,11 +54,11 @@
 
 #include <geostat/cosisim.h>
 #include <geostat/parameters_handler.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/gval_iterator.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_property_manager.h>
+#include <grid/geostat_grid.h>
+#include <grid/point_set.h>
+#include <grid/gval_iterator.h>
+#include <grid/grid_property.h>
+#include <grid/grid_property_manager.h>
 #include <utils/gstl_messages.h>
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>

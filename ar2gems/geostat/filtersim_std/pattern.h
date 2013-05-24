@@ -58,7 +58,7 @@
 #ifndef __filtersim_pattern_type_H__
 #define __filtersim_pattern_type_H__
 
-#include <grid/grid_model/rgrid.h>
+#include <grid/rgrid.h>
 #include <geostat/common.h>
 #include <vector>
 #include <cmath>

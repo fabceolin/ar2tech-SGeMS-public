@@ -29,9 +29,9 @@
 #define __NONPARAM_DISTRIBUTION_BUILDER_H__ 
 
 #include <math/non_parametric_distribution.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
-#include <grid/grid_model/grid_weight_property.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
+#include <grid/grid_weight_property.h>
 
 #include <boost/math/distributions.hpp>
 

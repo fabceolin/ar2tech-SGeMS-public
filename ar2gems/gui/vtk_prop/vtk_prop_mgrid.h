@@ -27,7 +27,7 @@
 
 #include <gui/common.h>
 #include <gui/vtk_prop/vtk_prop_strati_grid.h>
-#include <grid/grid_model/reduced_grid.h>
+#include <grid/reduced_grid.h>
 
 #include <vtkDataSetMapper.h>
 #include <vtkActor.h>

@@ -59,12 +59,12 @@
 #include <qwt/qwt_symbol.h>
 #include <qwt/qwt_data.h>
 #include <qwt/qwt_plot_curve.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
 #include <appli/project.h>
 #include <math/scatterplot.h>
 #include <utils/string_manipulation.h>
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 
 #include <qlabel.h>
 #include <qgroupbox.h>

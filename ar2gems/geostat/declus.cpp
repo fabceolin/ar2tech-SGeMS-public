@@ -32,14 +32,14 @@
 #include <utils/gstl_messages.h>
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/gval_iterator.h>
-#include <grid/grid_model/point_set_neighborhood.h>
+#include <grid/geostat_grid.h>
+#include <grid/point_set.h>
+#include <grid/gval_iterator.h>
+#include <grid/point_set_neighborhood.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/point_set.h>
+#include <grid/point_set.h>
 #include <appli/utilities.h>
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 
 Named_interface* Declus::create_new_interface( std::string& ) {
   return new Declus;

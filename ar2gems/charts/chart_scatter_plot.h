@@ -30,9 +30,9 @@
 #include <charts/chart_base.h>
 #include <charts/common.h>
 
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_weight_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/grid_property.h>
+#include <grid/grid_weight_property.h>
+#include <grid/grid_region.h>
 
 #include <charts/scatter_plot_proxy_model.h>
 #include <charts/chart_display_control.h>

@@ -35,13 +35,13 @@
 #define GRID_PARAM_VIEWER_H_
 
 #include <appli/project.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/reduced_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/log_data_grid.h>
-#include <grid/grid_model/structured_grid.h>
-#include <grid/grid_model/grid_property_set.h>
+#include <grid/geostat_grid.h>
+#include <grid/cartesian_grid.h>
+#include <grid/reduced_grid.h>
+#include <grid/point_set.h>
+#include <grid/log_data_grid.h>
+#include <grid/structured_grid.h>
+#include <grid/grid_property_set.h>
 #include <gui/vtk_prop/vtk_prop_strati_grid.h>
 #include <gui/vtk_prop/vtk_prop_cgrid.h>
 #include <gui/vtk_prop/vtk_prop_mgrid.h>

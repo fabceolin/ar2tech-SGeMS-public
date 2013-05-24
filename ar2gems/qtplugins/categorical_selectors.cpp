@@ -28,9 +28,9 @@
 #include <appli/manager_repository.h>
 #include <utils/gstl_messages.h>
 #include <QKeySequence>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_categorical_property.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_categorical_property.h>
 #include <utils/string_manipulation.h>
 #include <utils/manager.h>
 

@@ -29,10 +29,10 @@
 #include <charts/common.h>
 #include <math/categorical_distribution.h>
 #include <charts/chart_base.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_categorical_property.h>
-#include <grid/grid_model/grid_weight_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/grid_property.h>
+#include <grid/grid_categorical_property.h>
+#include <grid/grid_weight_property.h>
+#include <grid/grid_region.h>
 #include <charts/categorical_histogram_proxy_model.h>
 
 

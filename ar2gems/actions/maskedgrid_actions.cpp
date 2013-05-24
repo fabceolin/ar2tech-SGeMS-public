@@ -32,9 +32,9 @@
 #include <appli/manager_repository.h>
 #include <appli/project.h>
 #include <filters/filter.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/reduced_grid.h> 
+#include <grid/geostat_grid.h>
+#include <grid/cartesian_grid.h>
+#include <grid/reduced_grid.h> 
 
 Named_interface* Create_mgrid_from_cgrid::create_new_interface( std::string& ) {
   return new Create_mgrid_from_cgrid();

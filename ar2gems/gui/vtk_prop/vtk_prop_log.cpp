@@ -34,7 +34,7 @@
 #include <gui/vtk_prop/vtk_prop_log.h>
 
 #include <gui/vtk_prop/vtk_prop_pointset.h>
-#include <grid/grid_model/point_set.h>
+#include <grid/point_set.h>
 #include <gui/utils/colormap.h>
 
 

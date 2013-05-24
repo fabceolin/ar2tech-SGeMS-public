@@ -53,15 +53,15 @@
 **********************************************************************/
 
 #include <grid/library_grid_init.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/property_copier.h>
+#include <grid/cartesian_grid.h>
+#include <grid/rgrid.h>
+#include <grid/point_set.h>
+#include <grid/property_copier.h>
 #include <utils/gstl_messages.h>
-#include <grid/grid_model/reduced_grid.h>
-#include <grid/grid_model/log_data_grid.h>
-#include <grid/grid_model/structured_grid.h>
-#include <grid/grid_model/grid_downscaler.h>
+#include <grid/reduced_grid.h>
+#include <grid/log_data_grid.h>
+#include <grid/structured_grid.h>
+#include <grid/grid_downscaler.h>
 #include <grid/property_transformer.h>
 #include <grid/grid_filter.h>
 

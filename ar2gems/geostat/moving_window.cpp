@@ -29,9 +29,9 @@
 #include <utils/gstl_plugins.h>
 #include <utils/error_messages_handler.h>
 #include <utils/string_manipulation.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/rgrid_neighborhood.h>
-#include <grid/grid_model/gval_iterator.h>
+#include <grid/geostat_grid.h>
+#include <grid/rgrid_neighborhood.h>
+#include <grid/gval_iterator.h>
 #include <math/gstlpoint.h>
 #include <geostat/utilities.h>
 #include <algorithm>

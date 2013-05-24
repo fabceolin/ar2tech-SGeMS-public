@@ -34,8 +34,8 @@
 #ifndef COLORMAP_CONTROLLER_H_
 #define COLORMAP_CONTROLLER_H_
 
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_categorical_property.h>
+#include <grid/grid_property.h>
+#include <grid/grid_categorical_property.h>
 #include <qtplugins/categorical_selectors.h>
 #include <gui/utils/colormap.h>
 #include <gui/vtk_prop/vtk_prop_gstl.h>

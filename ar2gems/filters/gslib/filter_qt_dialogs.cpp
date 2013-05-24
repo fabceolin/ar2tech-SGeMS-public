@@ -56,7 +56,7 @@
 #include <filters/gslib/gslib_filter.h>
 #include <utils/gstl_messages.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/grid_property.h>
+#include <grid/grid_property.h>
 
 
 #include <qpushbutton.h>

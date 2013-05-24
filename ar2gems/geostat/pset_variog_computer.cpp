@@ -53,8 +53,8 @@
 **********************************************************************/
 
 #include <geostat/pset_variog_computer.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/grid_property.h>
+#include <grid/point_set.h>
+#include <grid/grid_property.h>
 #include <math/discrete_function.h>
 #include <math/gstlvector.h>
 #include <math/correlation_measure.h>

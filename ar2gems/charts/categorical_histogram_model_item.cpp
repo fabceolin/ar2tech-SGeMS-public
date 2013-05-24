@@ -27,7 +27,7 @@
 
 #include <charts/categorical_histogram_model_item.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/geostat_grid.h>
 
 #include <QStringList>
 #include <QMimeData>

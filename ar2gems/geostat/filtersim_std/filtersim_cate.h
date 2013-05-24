@@ -61,8 +61,8 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h>
 #include <utils/gstl_types.h>
-#include <grid/grid_model/geovalue.h>
-#include <grid/grid_model/property_copier.h>
+#include <grid/geovalue.h>
+#include <grid/property_copier.h>
 
 #include <GsTL/utils/smartptr.h>
 

@@ -30,7 +30,7 @@
 #include <gui/common.h>
 #include <gui/vtk_prop/vtk_prop_strati_grid.h>
 //#include <gui/vtk_prop/oinv_slice.h>
-#include <grid/grid_model/structured_grid.h> 
+#include <grid/structured_grid.h> 
 
 #include <vtkDataSetMapper.h>
 #include <vtkActor.h>

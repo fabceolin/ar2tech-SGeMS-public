@@ -29,7 +29,7 @@
 
 #include <utils/manager.h>
 #include <appli/root_model.h>
-#include <grid/grid_model/grid_categorical_property.h>
+#include <grid/grid_categorical_property.h>
 
 #include <qtplugins/common.h>
 

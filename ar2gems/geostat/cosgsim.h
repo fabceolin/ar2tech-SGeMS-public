@@ -59,7 +59,7 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 
-#include <grid/grid_model/neighborhood.h> 
+#include <grid/neighborhood.h> 
  
 #include <GsTL/utils/smartptr.h> 
 #include <GsTL/geometry/covariance.h> 
@@ -67,7 +67,7 @@
 #include <GsTL/cdf/non_param_cdf.h> 
 #include <GsTL/kriging/cokriging_combiner.h> 
 #include <GsTL/kriging/cokriging_constraints.h> 
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 #include <string> 
  
 

@@ -37,8 +37,8 @@
 
 #include <utils/manager.h>
 #include <appli/root_model.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_property_manager.h>
+#include <grid/grid_property.h>
+#include <grid/grid_property_manager.h>
 #include <qtplugins/common.h>
 #include <qtplugins/grid_proxy_model.h>
 

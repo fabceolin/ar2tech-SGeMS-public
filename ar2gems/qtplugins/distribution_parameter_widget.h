@@ -30,10 +30,10 @@
 #include <QWidget>
 #include <math/continuous_distribution.h>
 #include <math/non_parametric_distribution.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_weight_property.h>
-#include <grid/grid_model/grid_region.h>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_weight_property.h>
+#include <grid/grid_region.h>
+#include <grid/geostat_grid.h>
 
 #include <qtplugins/common.h>
 #include <qtplugins/selectors.h>

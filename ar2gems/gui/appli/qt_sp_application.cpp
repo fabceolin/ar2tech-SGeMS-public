@@ -99,8 +99,8 @@
 #include <utils/error_messages_handler.h>
 #include <utils/gstl_messages.h>
 #include <actions/defines.h>
-#include <grid/grid_model/gval_iterator.h>
-#include <grid/grid_model/reduced_grid.h>
+#include <grid/gval_iterator.h>
+#include <grid/reduced_grid.h>
 #include <actions/distribution_action.h>
 #include <filters/filter.h>
 #include <gui/utils/new_region_from_grid_filter_dialog.h>

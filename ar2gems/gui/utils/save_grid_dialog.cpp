@@ -29,8 +29,8 @@
 #include <utils/manager.h>
 #include <appli/manager_repository.h>
 #include <filters/filter.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/reduced_grid.h>
+#include <grid/geostat_grid.h>
+#include <grid/reduced_grid.h>
 
 #include <QGridLayout>
 #include <QLabel>

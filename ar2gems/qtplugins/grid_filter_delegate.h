@@ -30,7 +30,7 @@
 #include <qtplugins/common.h>
 #include <qtplugins/selectors.h>
 #include <qtplugins/categorical_selectors.h>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/geostat_grid.h>
 #include <grid/grid_filter.h>
 
 

@@ -35,7 +35,7 @@
 
 #include <appli/project.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/grid_property_set.h>
+#include <grid/grid_property_set.h>
 #include <actions/obj_manag_actions.h>
 //#include <gui/models/project_ItemModel.h>
 #include <gui/models/gstl_item.h>

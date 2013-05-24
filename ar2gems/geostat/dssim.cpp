@@ -58,11 +58,11 @@
 #include <utils/gstl_messages.h>
 #include <utils/error_messages_handler.h>
 #include <utils/string_manipulation.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/combined_neighborhood.h>
-#include <grid/grid_model/gval_iterator.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/point_set.h>
+#include <grid/geostat_grid.h>
+#include <grid/combined_neighborhood.h>
+#include <grid/gval_iterator.h>
+#include <grid/cartesian_grid.h>
+#include <grid/point_set.h>
 #include <appli/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>

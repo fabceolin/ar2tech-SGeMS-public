@@ -57,9 +57,9 @@
 
 
 #include <math/discrete_function.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/rgrid.h>
+#include <grid/geostat_grid.h>
+#include <grid/point_set.h>
+#include <grid/rgrid.h>
 
 
 #include <gui/variogram2/first_scr.h>

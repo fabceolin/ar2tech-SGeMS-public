@@ -37,8 +37,8 @@
 
 #include <utils/manager.h>
 #include <appli/root_model.h>
-#include <grid/grid_model/grid_region.h>
-#include <grid/grid_model/grid_region_manager.h>
+#include <grid/grid_region.h>
+#include <grid/grid_region_manager.h>
 #include <qtplugins/common.h>
 //#include <gui/viewer/visualization_parameters.h>
 #include <qtplugins/grid_proxy_model.h>

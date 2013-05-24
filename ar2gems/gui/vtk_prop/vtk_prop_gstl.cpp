@@ -32,8 +32,8 @@
 #include <gui/utils/colorscale.h>
 #include <gui/utils/colormap.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_property.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_property.h>
 #include <utils/string_manipulation.h>
 
 #include <algorithm>

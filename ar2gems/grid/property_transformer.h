@@ -30,9 +30,9 @@
 
 #include <grid/common.h>
 #include <utils/named_interface.h> 
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_property.h> 
-#include <grid/grid_model/grid_region.h> 
+#include <grid/geostat_grid.h>
+#include <grid/grid_property.h> 
+#include <grid/grid_region.h> 
 #include <Eigen/Core>
 #include <QtXml>
 #include <vector> 

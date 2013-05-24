@@ -65,11 +65,11 @@
 #include <qwt/qwt_scale_engine.h>
 #include <qwt/qwt_plot_grid.h>
 #include <qwt/qwt_legend.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_property.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_property.h>
 #include <utils/gstl_messages.h>
 #include <utils/simpleps.h>
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 #include <qspinbox.h>
 #include <qlineedit.h>
 #include <qsplitter.h>

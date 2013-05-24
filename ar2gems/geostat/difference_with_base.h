@@ -56,8 +56,8 @@
 #include <GsTL/utils/smartptr.h>
 #include <utils/error_messages_handler.h>
 
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_region_temp_selector.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_region_temp_selector.h>
 
 #include <geostat/geostat_algo.h>
 #include <geostat/parameters_handler.h>

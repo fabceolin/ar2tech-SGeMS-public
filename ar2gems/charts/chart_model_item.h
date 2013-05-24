@@ -30,10 +30,10 @@
 #include <utils/manager.h>
 #include <appli/root_model.h>
 #include <charts/common.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_weight_property.h>
-#include <grid/grid_model/grid_property_set.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_weight_property.h>
+#include <grid/grid_property_set.h>
 
 #include <QModelIndex>
 #include <QVariant>

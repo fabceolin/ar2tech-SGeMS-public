@@ -29,8 +29,8 @@
 #include <utils/error_messages_handler.h>
 #include <actions/common.h>
 #include <actions/defines.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_categorical_property.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_categorical_property.h>
 #include <appli/manager_repository.h>
 #include <appli/project.h>
 

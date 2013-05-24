@@ -35,7 +35,7 @@
 #define VTK_PROP_LOG_H_
 
 #include <gui/vtk_prop/vtk_prop_gstl.h>
-#include <grid/grid_model/log_data_grid.h>
+#include <grid/log_data_grid.h>
 
 
 #include <vtkProp.h>

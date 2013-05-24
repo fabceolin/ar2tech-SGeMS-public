@@ -59,11 +59,11 @@
 #define __filtersim_pattern_paste_H__
 
 #include <geostat/common.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/rgrid_neighborhood.h>
-#include <grid/grid_model/gval_iterator.h>
-#include <grid/grid_model/sgrid_cursor.h>
-#include <grid/grid_model/geovalue.h>
+#include <grid/rgrid.h>
+#include <grid/rgrid_neighborhood.h>
+#include <grid/gval_iterator.h>
+#include <grid/sgrid_cursor.h>
+#include <grid/geovalue.h>
 
 #include <algorithm>
 

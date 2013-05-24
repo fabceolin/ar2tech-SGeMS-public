@@ -56,11 +56,11 @@
 #define __GSTLAPPLI_GEOSTAT_UTILITIES_H__ 
  
 #include <geostat/common.h>
-#include <grid/grid_model/geostat_grid.h> 
+#include <grid/geostat_grid.h> 
 #include <math/gstlpoint.h> 
 #include <math/non_parametric_distribution.h> 
 #include <math/continuous_distribution.h>
-#include <grid/grid_model/neighborhood.h> 
+#include <grid/neighborhood.h> 
 #include <utils/progress_notifier.h>
  
 #include <GsTL/kriging/kriging_constraints.h> 

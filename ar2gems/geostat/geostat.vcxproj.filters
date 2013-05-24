@@ -134,9 +134,24 @@
     <ClCompile Include="kriging_cross_validation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="inverse_distance_estimator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nearest_neighbor_estimator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sgsim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clustering_from_centroids.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="cokriging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cokriging_cross_validation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
@@ -148,40 +163,16 @@
     <ClInclude Include="cosisim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\dev_finder.h">
+    <ClInclude Include="declus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="difference_with_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\distance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\distance_kernels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dssim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\filters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\filtersim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\filtersim_cate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\filtersim_cont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Filtersim_filters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\filtersim_servo_system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\filtersim_tau_updating.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="geostat_algo.h">
@@ -199,28 +190,16 @@
     <ClInclude Include="indicator_kriging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\is_categorical.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\is_categorical.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\is_categorical.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\kernelized_kmeans.h">
+    <ClInclude Include="kmeans_clustering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="kriging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="kriging_cross_validation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="kriging_mean.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\layer_sequential_simulation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\layer_servo_system_sampler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="library_geostat_init.h">
@@ -229,13 +208,7 @@
     <ClInclude Include="LU_sim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\mapping_pattern_id.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="moving_window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\NodeDropped.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="nuTauModel.h">
@@ -247,18 +220,6 @@
     <ClInclude Include="parameters_handler_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\partition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\patch_helper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\pattern.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\pattern_paster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PostKriging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -268,43 +229,10 @@
     <ClInclude Include="Postsim_categorical.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filtersim_std\prototype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\prototype_help.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\Prototype_kernelized_kmeans.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\prototype_list.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pset_variog_computer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="snesim_mti\search_tree_mti.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\sequential_patch_simulation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sgsim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sisim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\snesim_std.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\tau_updating.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_std\tau_updating.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filtersim_std\TI_manipulation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="trans.h">
@@ -313,28 +241,13 @@
     <ClInclude Include="transcat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="snesim_std\tree_list.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snesim_mti\tree_list_mti.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="declus.h">
+    <ClInclude Include="inverse_distance_estimator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="kmeans_clustering.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="clustering_from_centroids.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cokriging_cross_validation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kriging_cross_validation.h">
+    <ClInclude Include="nearest_neighbor_estimator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

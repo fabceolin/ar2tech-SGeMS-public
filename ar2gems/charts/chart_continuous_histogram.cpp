@@ -26,7 +26,7 @@
 
 #include <charts/chart_continuous_histogram.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/grid_region_temp_selector.h>
+#include <grid/grid_region_temp_selector.h>
 #include <qtplugins/color_delegate.h>
 #include <charts/region_weight_delegate.h>
 #include <charts/histogram_style_delegate.h>

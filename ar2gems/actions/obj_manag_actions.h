@@ -58,8 +58,8 @@
 #include <actions/common.h>
 #include <actions/action.h> 
 #include <filters/filter.h> 
-#include <grid/grid_model/geostat_grid.h> 
-#include <grid/grid_model/property_copier.h>
+#include <grid/geostat_grid.h> 
+#include <grid/property_copier.h>
 
 #include <qstring.h>
  

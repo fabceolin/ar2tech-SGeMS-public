@@ -61,9 +61,9 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h>
 #include <utils/gstl_types.h>
-#include <grid/grid_model/geovalue.h>
-#include <grid/grid_model/property_copier.h> 
-#include <grid/grid_model/sgrid_cursor.h> 
+#include <grid/geovalue.h>
+#include <grid/property_copier.h> 
+#include <grid/sgrid_cursor.h> 
 
 #include <GsTL/cdf/categ_non_param_cdf.h>
 #include <GsTL/cdf/non_param_cdf.h>
@@ -71,7 +71,7 @@
 
 #include <vector>
 #include <string>
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 #include "layer_servo_system_sampler.h"
 
 using namespace std;

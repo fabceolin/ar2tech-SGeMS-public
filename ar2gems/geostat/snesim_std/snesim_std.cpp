@@ -54,14 +54,13 @@
 ** Modified by Jianbing Wu, SCRF, Stanford University, June 2004
 **********************************************************************/
 
-#include <grid/grid_model/strati_grid.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/gval_iterator.h>
-#include <grid/grid_model/rgrid_neighborhood.h>
+#include <grid/strati_grid.h>
+#include <grid/rgrid.h>
+#include <grid/gval_iterator.h>
+#include <grid/rgrid_neighborhood.h>
 #include <appli/manager_repository.h>
 #include <math/random_numbers.h>
 #include <geostat/parameters_handler.h>
-#include <grid/grid_model/grid_initializer.h>
 #include <geostat/utilities.h>
 #include <appli/utilities.h>
 #include <utils/gstl_plugins.h>

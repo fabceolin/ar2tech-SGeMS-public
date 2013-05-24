@@ -52,12 +52,12 @@
 **
 **********************************************************************/
 #include "trans.h"
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
-#include <grid/grid_model/gval_iterator.h>
+#include <grid/geostat_grid.h>
+#include <grid/point_set.h>
+#include <grid/cartesian_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
+#include <grid/gval_iterator.h>
 #include <GsTL/cdf/cdf_basics.h>
 #include <GsTL/cdf/gaussian_cdf.h>
 #include <GsTL/cdf/First2_moments_cdf.h>
@@ -66,7 +66,7 @@
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
 #include <geostat/parameters_handler.h>
-#include <grid/grid_model/property_copier.h>
+#include <grid/property_copier.h>
 
 #include <fstream>
 

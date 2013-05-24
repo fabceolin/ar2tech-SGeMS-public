@@ -60,11 +60,11 @@
 #include <gui/vtk_prop/vtk_prop_pointset.h>
 #include <gui/vtk_prop/vtk_prop_log.h>
 #include <gui/vtk_prop/vtk_prop_structured_grid.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/reduced_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/log_data_grid.h>
-#include <grid/grid_model/structured_grid.h>
+#include <grid/cartesian_grid.h>
+#include <grid/reduced_grid.h>
+#include <grid/point_set.h>
+#include <grid/log_data_grid.h>
+#include <grid/structured_grid.h>
 #include <utils/gstl_messages.h>
 #include <gui/QWidget_value_accessors/qcombobox_accessor.h>
 #include <gui/QWidget_value_accessors/qlineedit_accessor.h>

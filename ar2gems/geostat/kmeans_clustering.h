@@ -28,9 +28,9 @@
 #ifndef __GSTLAPPLI_KMEANS_CLUSTERING_H__ 
 #define __GSTLAPPLI_KMEANS_CLUSTERING_H__ 
  
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
+#include <grid/geostat_grid.h>
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 

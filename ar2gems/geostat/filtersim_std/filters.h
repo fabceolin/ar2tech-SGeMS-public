@@ -60,7 +60,7 @@
 #define _filtersim__filters_H
 
 #include <geostat/common.h>
-#include <grid/grid_model/neighborhood.h>
+#include <grid/neighborhood.h>
 #include <utils/string_manipulation.h>
 
 #include <GsTL/math/math_functions.h>

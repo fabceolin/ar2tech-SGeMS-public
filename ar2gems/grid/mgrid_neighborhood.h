@@ -55,8 +55,8 @@
 #ifndef MGRID_NEIGHBORHOOD_H
 #define MGRID_NEIGHBORHOOD_H
 
-#include <grid/grid_model/rgrid_neighborhood.h>
-#include <grid/grid_model/rgrid.h>
+#include <grid/rgrid_neighborhood.h>
+#include <grid/rgrid.h>
 #include <grid/maskedgridcursor.h>
 
 class GRID_DECL MgridNeighborhood : public Rgrid_ellips_neighborhood

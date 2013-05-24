@@ -30,7 +30,7 @@
 #include <utils/gstl_messages.h>
 #include <utils/string_manipulation.h>
 
-#include <grid/grid_model/grid_categorical_property.h>
+#include <grid/grid_categorical_property.h>
 
 
 #include <vtkKMeansStatistics.h>

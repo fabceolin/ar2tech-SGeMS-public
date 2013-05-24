@@ -73,11 +73,11 @@
 #include <appli/project.h>
 #include <filters/filter.h>
 #include <filters/save_project_objects.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/grid_categorical_property.h>
-#include <grid/grid_model/grid_downscaler.h>
+#include <grid/geostat_grid.h>
+#include <grid/cartesian_grid.h>
+#include <grid/rgrid.h>
+#include <grid/grid_categorical_property.h>
+#include <grid/grid_downscaler.h>
 
 
 #include <geostat/utilities.h>
@@ -99,7 +99,7 @@
 
 // TL modified
 #include <actions/python_wrapper.h>
-#include <grid/grid_model/reduced_grid.h>
+#include <grid/reduced_grid.h>
 //#include <q3progressdialog.h>
 #include <qapplication.h>
 //#include <filters/gslib/gslib_filter.h>

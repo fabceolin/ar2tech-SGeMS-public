@@ -31,7 +31,7 @@
 #include <filters/common.h>
 #include <filters/filter.h> 
 #include <filters/csv_filter_qt_dialogs.h>
-#include <grid/grid_model/grid_property.h>
+#include <grid/grid_property.h>
 #include <vector>
 
 

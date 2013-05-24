@@ -69,8 +69,8 @@
 #include <GsTL/kriging/MM1_covariance.h>
 #include <GsTL/kriging/MM2_covariance.h>
 
-#include <grid/grid_model/geostat_grid.h> 
-#include <grid/grid_model/point_set.h> 
+#include <grid/geostat_grid.h> 
+#include <grid/point_set.h> 
 
 #include <GsTL/utils/smartptr.h>
 #include <string>

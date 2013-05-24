@@ -28,9 +28,9 @@
 #define __GSTLAPPLI_GEOSTAT_NODES_DROPPED_H__
 
 #include <geostat/common.h>
-#include <grid/grid_model/geovalue.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/gval_iterator.h>
+#include <grid/geovalue.h>
+#include <grid/rgrid.h>
+#include <grid/gval_iterator.h>
 
 #include <algorithm>
 #include <vector>

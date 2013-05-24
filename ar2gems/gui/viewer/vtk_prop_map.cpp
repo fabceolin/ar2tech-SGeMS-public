@@ -35,7 +35,7 @@
 
 #include <utils/gstl_messages.h>
 #include <appli/manager_repository.h>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/geostat_grid.h>
 
 
 Vtk_prop_map::Vtk_prop_map(vtkRenderer* vtk_renderer):

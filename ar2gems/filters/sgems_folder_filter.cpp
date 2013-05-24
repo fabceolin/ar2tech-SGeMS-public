@@ -33,14 +33,14 @@
 
 #include <filters/sgems_folder_filter.h>
 #include <filters/sgems_folder_grid_geometry.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/reduced_grid.h>
-#include <grid/grid_model/log_data_grid.h>
-#include <grid/grid_model/structured_grid.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/geostat_grid.h>
+#include <grid/cartesian_grid.h>
+#include <grid/point_set.h>
+#include <grid/reduced_grid.h>
+#include <grid/log_data_grid.h>
+#include <grid/structured_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
 #include <appli/manager_repository.h>
 #include <appli/project.h>
 #include <actions/defines.h>

@@ -57,11 +57,11 @@
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
 #include <qwt/qwt_symbol.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
 #include <appli/project.h>
 #include <math/qpplot.h>
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 
 #include <qlabel.h>
 #include <qgroupbox.h>

@@ -53,8 +53,8 @@
 **********************************************************************/
 
 #include <geostat/grid_variog_computer.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/sgrid_cursor.h>
+#include <grid/rgrid.h>
+#include <grid/sgrid_cursor.h>
 #include <math/discrete_function.h>
 #include <math/correlation_measure.h>
 #include <utils/progress_notifier.h>

@@ -39,7 +39,7 @@
 
 #include <utils/named_interface.h>
 #include <utils/gstl_messages.h>
-#include <grid/grid_model/grid_categorical_property.h>
+#include <grid/grid_categorical_property.h>
 
 
 

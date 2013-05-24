@@ -31,9 +31,9 @@
 #include <charts/common.h>
 
 #include <math/continuous_distribution.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_weight_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/grid_property.h>
+#include <grid/grid_weight_property.h>
+#include <grid/grid_region.h>
 #include <math/continuous_distribution.h>
 
 #include <charts/histogram_proxy_model.h>

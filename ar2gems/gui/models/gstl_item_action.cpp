@@ -39,8 +39,8 @@
 #include <appli/project.h>
 #include <utils/error_messages_handler.h>
 #include <utils/gstl_messages.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_property.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_property.h>
 
 #include <qtplugins/rename_dialog.h>
 

@@ -57,9 +57,9 @@
 
 #include <geostat/geostat_algo.h>
 #include <GsTL/utils/smartptr.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/neighborhood.h>
+#include <grid/point_set.h>
+#include <grid/rgrid.h>
+#include <grid/neighborhood.h>
 #include <math/gstlpoint.h>
 
 #include <geostat/parameters_handler.h>

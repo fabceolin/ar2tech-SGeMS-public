@@ -62,11 +62,11 @@
 #include <filters/sgems_folder_grid_geometry.h>
 #include <utils/gstl_messages.h>
 
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/log_data_grid.h>
-#include <grid/grid_model/reduced_grid.h>
-#include <grid/grid_model/structured_grid.h>
+#include <grid/cartesian_grid.h>
+#include <grid/point_set.h>
+#include <grid/log_data_grid.h>
+#include <grid/reduced_grid.h>
+#include <grid/structured_grid.h>
 
 int library_filters_init::references_ = 0;
 

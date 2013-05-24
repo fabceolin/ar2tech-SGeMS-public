@@ -34,7 +34,7 @@
 #ifndef PROPERTY_STATS_VIEW_H_
 #define PROPERTY_STATS_VIEW_H_
 
-#include <grid/grid_model/grid_property.h>
+#include <grid/grid_property.h>
 #include <gui/utils/colormap.h>
 #include <gui/vtk_prop/vtk_prop_gstl.h>
 

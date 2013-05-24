@@ -1,7 +1,7 @@
 #include <grid/coordinate_mapper.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/structured_grid.h>
+#include <grid/geostat_grid.h>
+#include <grid/rgrid.h>
+#include <grid/structured_grid.h>
 
 Coordinate_mapper::Coordinate_mapper(Geostat_grid* grid):grid_(grid) {}
 

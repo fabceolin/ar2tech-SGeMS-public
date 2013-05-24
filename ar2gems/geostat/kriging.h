@@ -59,7 +59,7 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/geometry/Block_covariance.h>

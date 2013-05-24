@@ -59,10 +59,10 @@
 #define __filtersim_DEV_finder_H__
 
 #include <geostat/common.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/rgrid_neighborhood.h>
-#include <grid/grid_model/gval_iterator.h>
+#include <grid/rgrid.h>
+#include <grid/grid_property.h>
+#include <grid/rgrid_neighborhood.h>
+#include <grid/gval_iterator.h>
 
 #include <algorithm>
 

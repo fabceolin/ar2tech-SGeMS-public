@@ -54,8 +54,8 @@
 **
 **********************************************************************/
 
-#include <grid/grid_model/neighborhood.h>
-#include <grid/grid_model/rgrid.h>
+#include <grid/neighborhood.h>
+#include <grid/rgrid.h>
 
 #include "distance.h"
 #include "mapping_pattern_id.h"

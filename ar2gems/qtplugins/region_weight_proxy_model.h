@@ -30,7 +30,7 @@
 
 #include <utils/manager.h>
 #include <appli/root_model.h>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/geostat_grid.h>
 #include <qtplugins/common.h>
 
 

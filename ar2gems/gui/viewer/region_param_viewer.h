@@ -37,8 +37,8 @@
 #include <Qt>
 #include <QWidget>
 #include <appli/project.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_region.h>
 #include <gui/common.h>
 #include <gui/vtk_prop/vtk_prop_gstl.h>
 #include <gui/viewer/visualization_parameters.h>

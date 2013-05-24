@@ -29,8 +29,8 @@
 
 #include <actions/common.h>
 #include <actions/action.h>
-#include <grid/grid_model/geostat_grid.h>
-#include <grid/grid_model/geovalue.h>
+#include <grid/geostat_grid.h>
+#include <grid/geovalue.h>
 
 class ACTIONS_DECL Unary_action: public PropertyNoParameterAction {
 protected:

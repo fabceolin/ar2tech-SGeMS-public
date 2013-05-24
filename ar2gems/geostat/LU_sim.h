@@ -59,8 +59,8 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 
-#include <grid/grid_model/geostat_grid.h> 
-#include <grid/grid_model/property_copier.h> 
+#include <grid/geostat_grid.h> 
+#include <grid/property_copier.h> 
  
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/cdf/non_param_cdf.h> 

@@ -54,12 +54,12 @@
 #include <utils/error_messages_handler.h>
 #include <math/gstlpoint.h>
 
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/neighborhood.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_categorical_property.h>
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/point_set.h>
+#include <grid/rgrid.h>
+#include <grid/neighborhood.h>
+#include <grid/grid_property.h>
+#include <grid/grid_categorical_property.h>
+#include <grid/grid_region_temp_selector.h> 
 
 #include <geostat/geostat_algo.h>
 #include <geostat/parameters_handler.h>

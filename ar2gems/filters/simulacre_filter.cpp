@@ -53,11 +53,11 @@
 **********************************************************************/
 
 #include <filters/simulacre_filter.h>
-#include <grid/grid_model/cartesian_grid.h>
-#include <grid/grid_model/point_set.h>
-#include <grid/grid_model/reduced_grid.h>
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_region.h>
+#include <grid/cartesian_grid.h>
+#include <grid/point_set.h>
+#include <grid/reduced_grid.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
 #include <appli/manager_repository.h>
 
 #include <qfile.h>

@@ -57,7 +57,7 @@
 #include <utils/gstl_messages.h>
 //#include <qtplugins/widgetfactory.h>
 #include <QKeySequence>
-#include <grid/grid_model/geostat_grid.h>
+#include <grid/geostat_grid.h>
 #include <utils/string_manipulation.h>
 #include <qtplugins/grid_proxy_model.h>
 

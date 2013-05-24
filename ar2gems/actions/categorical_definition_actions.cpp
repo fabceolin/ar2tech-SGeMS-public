@@ -30,9 +30,9 @@
 #include <utils/error_messages_handler.h>
 #include <appli/manager_repository.h>
 #include <appli/project.h>
-#include <grid/grid_model/geostat_grid.h> 
-#include <grid/grid_model/grid_property.h>
-#include <grid/grid_model/grid_categorical_property.h> 
+#include <grid/geostat_grid.h> 
+#include <grid/grid_property.h>
+#include <grid/grid_categorical_property.h> 
 
 Named_interface* New_categorical_definition::create_new_interface( std::string& ) {
   return new New_categorical_definition;

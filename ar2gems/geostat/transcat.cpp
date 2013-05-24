@@ -60,10 +60,9 @@
 #include <utils/gstl_plugins.h>
 #include <geostat/utilities.h>
 #include <appli/utilities.h>
-#include <grid/grid_model/grid_initializer.h>
-#include <grid/grid_model/sgrid_cursor.h>
-#include <grid/grid_model/rgrid.h>
-#include <grid/grid_model/gval_iterator.h>
+#include <grid/sgrid_cursor.h>
+#include <grid/rgrid.h>
+#include <grid/gval_iterator.h>
 #include <GsTL/math/math_functions.h>
 
 #include <cmath>

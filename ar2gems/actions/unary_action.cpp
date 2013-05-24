@@ -26,7 +26,7 @@
 
 #include <actions/unary_action.h>
 #include <utils/error_messages_handler.h>
-#include <grid/grid_model/gval_iterator.h>
+#include <grid/gval_iterator.h>
 #include <utils/string_manipulation.h>
 #include <actions/defines.h>
 #include <geostat/utilities.h>

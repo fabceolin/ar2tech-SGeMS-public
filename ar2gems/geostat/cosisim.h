@@ -58,15 +58,15 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 
-#include <grid/grid_model/geostat_grid.h> 
-#include <grid/grid_model/neighborhood.h> 
-#include <grid/grid_model/property_copier.h> 
+#include <grid/geostat_grid.h> 
+#include <grid/neighborhood.h> 
+#include <grid/property_copier.h> 
  
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/kriging/markov_bayes_covariance.h> 
 #include <GsTL/math/indicator_coding.h>
 #include <GsTL/utils/smartptr.h> 
-#include <grid/grid_model/grid_region_temp_selector.h> 
+#include <grid/grid_region_temp_selector.h> 
 #include <string> 
 #include <vector> 
  
