@@ -20,7 +20,6 @@ HEADERS += log_data_grid.h \
     cross_variog_computer.h \
     geostat_grid.h \
     geovalue.h \
-    grid_initializer.h \
     grid_property.h \
     grid_categorical_property.h \
     grid_weight_property.h \    
@@ -61,7 +60,6 @@ SOURCES += log_data_grid.cpp \
     cross_variog_computer.cpp \
     geostat_grid.cpp \
     geovalue.cpp \
-    grid_initializer.cpp \
     grid_property.cpp \
     grid_categorical_property.cpp \
     grid_property_set.cpp \
