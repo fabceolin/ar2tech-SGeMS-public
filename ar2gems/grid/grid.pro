@@ -10,78 +10,78 @@ INCLUDEPATH += . \
 
 
 # Input
-HEADERS += grid_model/log_data_grid.h \
+HEADERS += log_data_grid.h \
     common.h \
     maskedgridcursor.h \
     library_grid_init.h \
     mgrid_neighborhood.h \
-    grid_model/cartesian_grid.h \
-    grid_model/combined_neighborhood.h \
-    grid_model/cross_variog_computer.h \
-    grid_model/geostat_grid.h \
-    grid_model/geovalue.h \
-    grid_model/grid_initializer.h \
-    grid_model/grid_property.h \
-    grid_model/grid_categorical_property.h \
-    grid_model/grid_weight_property.h \    
-    grid_model/grid_property_set.h \
-    grid_model/grid_property_manager.h \
-    grid_model/grid_region.h \
-    grid_model/grid_region_manager.h \
-    grid_model/grid_region_temp_selector.h \
-    grid_model/grid_topology.h \
-    grid_model/gval_iterator.h \
-    grid_model/gstl_kdtree2.h \
-    grid_model/neighborhood.h \
-    grid_model/point_set.h \
-    grid_model/point_set_neighborhood.h \
-    grid_model/property_copier.h \
-    grid_model/reduced_grid.h \
-    grid_model/rgrid.h \
-    grid_model/rgrid_geometry.h \
-    grid_model/rgrid_gval_accessor.h \
-    grid_model/rgrid_iterator.h \
-    grid_model/rgrid_neighborhood.h \
-    grid_model/search_filters.h \
-    grid_model/sgrid_cursor.h \
-    grid_model/strati_grid.h \
-    grid_model/superblock.h \
+    cartesian_grid.h \
+    combined_neighborhood.h \
+    cross_variog_computer.h \
+    geostat_grid.h \
+    geovalue.h \
+    grid_initializer.h \
+    grid_property.h \
+    grid_categorical_property.h \
+    grid_weight_property.h \    
+    grid_property_set.h \
+    grid_property_manager.h \
+    grid_region.h \
+    grid_region_manager.h \
+    grid_region_temp_selector.h \
+    grid_topology.h \
+    gval_iterator.h \
+    gstl_kdtree2.h \
+    neighborhood.h \
+    point_set.h \
+    point_set_neighborhood.h \
+    property_copier.h \
+    reduced_grid.h \
+    rgrid.h \
+    rgrid_geometry.h \
+    rgrid_gval_accessor.h \
+    rgrid_iterator.h \
+    rgrid_neighborhood.h \
+    search_filters.h \
+    sgrid_cursor.h \
+    strati_grid.h \
+    superblock.h \
     distribution_utilities.h \     
-    grid_model/grid_downscaler.h \
-    grid_model/structured_grid.h \
+    grid_downscaler.h \
+    structured_grid.h \
     coordinate_mapper.h \
     property_transformer.h \
     grid_filter.h \
     utilities.h
-SOURCES += grid_model/log_data_grid.cpp \
+SOURCES += log_data_grid.cpp \
     library_grid_init.cpp \
     mgrid_neighborhood.cpp \
-    grid_model/cartesian_grid.cpp \
-    grid_model/combined_neighborhood.cpp \
-    grid_model/cross_variog_computer.cpp \
-    grid_model/geostat_grid.cpp \
-    grid_model/geovalue.cpp \
-    grid_model/grid_initializer.cpp \
-    grid_model/grid_property.cpp \
-    grid_model/grid_categorical_property.cpp \
-    grid_model/grid_property_set.cpp \
-    grid_model/grid_property_manager.cpp \
-    grid_model/grid_region_manager.cpp \
-    grid_model/gstl_kdtree2.cpp \
-    grid_model/neighborhood.cpp \
-    grid_model/point_set.cpp \
-    grid_model/point_set_neighborhood.cpp \
-    grid_model/property_copier.cpp \
-    grid_model/reduced_grid.cpp \
-    grid_model/rgrid.cpp \
-    grid_model/rgrid_geometry.cpp \
-    grid_model/rgrid_gval_accessor.cpp \
-    grid_model/rgrid_neighborhood.cpp \
-    grid_model/superblock.cpp \
+    cartesian_grid.cpp \
+    combined_neighborhood.cpp \
+    cross_variog_computer.cpp \
+    geostat_grid.cpp \
+    geovalue.cpp \
+    grid_initializer.cpp \
+    grid_property.cpp \
+    grid_categorical_property.cpp \
+    grid_property_set.cpp \
+    grid_property_manager.cpp \
+    grid_region_manager.cpp \
+    gstl_kdtree2.cpp \
+    neighborhood.cpp \
+    point_set.cpp \
+    point_set_neighborhood.cpp \
+    property_copier.cpp \
+    reduced_grid.cpp \
+    rgrid.cpp \
+    rgrid_geometry.cpp \
+    rgrid_gval_accessor.cpp \
+    rgrid_neighborhood.cpp \
+    superblock.cpp \
     distribution_utilities.cpp \    
-    grid_model/grid_weigth_property.cpp \
-    grid_model/grid_downscaler.cpp \
-    grid_model/structured_grid.cpp \
+    grid_weigth_property.cpp \
+    grid_downscaler.cpp \
+    structured_grid.cpp \
     coordinate_mapper.cpp \
     property_transformer.cpp \
     grid_filter.cpp \
@@ -90,7 +90,7 @@ TARGET = ar2tech_grid
 QT += xml
 CONFIG += plugin
 
-#LIBS += -L/usr/local/lib/vtk-5.9/ -lvtkCommon
+
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces
 contains( TEMPLATE, lib ) { 
     DESTDIR = $$GSTLAPPLI_HOME/lib/$$CUR_PLATFORM
