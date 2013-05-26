@@ -1031,7 +1031,7 @@ Sgems_folder_output_filter::write_properties(QDir dir, QDomDocument& doc, const 
 
 	//Write each property
 	for(; it!=plist.end(); ++it) {
-		QDomElement elemProp = doc.createElement("Grid_continuous_property");
+		QDomElement elemProp = doc.createElement("GsTLGridProperty");
 		const Grid_continuous_property* prop = grid->property(*it);
 		elemProp.setAttribute("name",prop->name().c_str());
 		const Grid_categorical_property* cprop = dynamic_cast<const Grid_categorical_property*>(prop);
