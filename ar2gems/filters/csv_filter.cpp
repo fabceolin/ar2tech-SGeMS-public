@@ -593,6 +593,7 @@ Geostat_grid* Csv_logdata_infilter::read( std::ifstream& infile, std::string nam
       if(j==0) i=0;
       if(j != xstart_id && j != ystart_id && j != zstart_id  &&
     	 j != xend_id && j != yend_id && j != zend_id 	&& j != dh_id  ) {
+    
         property_values[i].push_back(fields[j]);
         i++;
       }
@@ -647,7 +648,7 @@ Geostat_grid* Csv_logdata_infilter::read( std::ifstream& infile, std::string nam
     if(!is_categ) {
       Grid_continuous_property* prop = log_grid->add_property( property_names[k].toStdString() );
       for( int l=0; l < grid_size; l++ ) {
-    	  if( property_values[k][l] != nan_str ) {
+        if( !property_values[k][l].isEmpty() || property_values[k][l] != nan_str ) {
     		  prop->set_value( property_values[k][l].toFloat(), l );
     	  }
       }
@@ -662,6 +663,7 @@ Geostat_grid* Csv_logdata_infilter::read( std::ifstream& infile, std::string nam
 
       std::set<QString> cat_names;
       for( int i=0; i < grid_size; i++ ) {
+        if(property_values[k][i].isEmpty()) continue;
         cat_names.insert(property_values[k][i]);
         //cat_def->add_category(property_values[k][i].toStdString());
       }
@@ -673,7 +675,7 @@ Geostat_grid* Csv_logdata_infilter::read( std::ifstream& infile, std::string nam
       Grid_categorical_property* prop = log_grid->add_categorical_property( property_names[k].toStdString(),cat_def->name() );
 //      prop->set_category_definition(cat_def->name());
       for( int i=0; i < grid_size; i++ ) {
-    	  if( property_values[k][i] != nan_str ) {
+    	  if( property_values[k][i] != nan_str || !property_values[k][i].isEmpty() ) {
     		  prop->set_value( property_values[k][i].toStdString(), i );
     	  }
       }
