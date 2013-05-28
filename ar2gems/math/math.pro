@@ -43,9 +43,9 @@ SOURCES += box.cpp \
            non_parametric_distribution.cpp \
            categorical_distribution.cpp
            
-TARGET=ar2tech_math
+TARGET=ar2gems_math
 
-LIBS += -lar2tech_utils
+LIBS += -lar2gems_utils
 
 CONFIG      += plugin
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces

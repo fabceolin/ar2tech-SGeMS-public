@@ -1,7 +1,7 @@
-TARGET = ar2tech_extragui
-LIBS += -lar2tech_utils -lar2tech_appli
-LIBS += -lar2tech_gui
-LIBS += -L$$GSTLAPPLI_HOME/plugins/designer -lar2tech_widgets
+TARGET = ar2gems_extragui
+LIBS += -lar2gems_utils -lar2gems_appli
+LIBS += -lar2gems_gui
+LIBS += -L$$GSTLAPPLI_HOME/plugins/designer -lar2gems_widgets
 
 win32 {
   DEFINES += EXTRAGUI_EXPORTS

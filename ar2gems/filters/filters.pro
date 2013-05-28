@@ -39,7 +39,7 @@ SOURCES += library_filters_init.cpp \
            distribution_filter.cpp \          
     save_project_objects.cpp
 
-TARGET=ar2tech_io
+TARGET=ar2gems_io
 QT += xml
 
 

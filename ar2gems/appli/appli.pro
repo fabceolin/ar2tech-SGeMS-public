@@ -18,7 +18,7 @@ SOURCES += root_model.cpp \
     manager_repository.cpp \
     project.cpp \
     utilities.cpp
-TARGET = ar2tech_appli
+TARGET = ar2gems_appli
 #CONFIG += plugin
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces
 contains( TEMPLATE, lib ) { 

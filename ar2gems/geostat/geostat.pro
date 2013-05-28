@@ -122,7 +122,7 @@ SOURCES += difference_with_base.cpp \
     kriging_cross_validation.cpp \
     cokriging_cross_validation.cpp
 
-TARGET = ar2tech_geostat
+TARGET = ar2gems_geostat
 QT += xml
 CONFIG += plugin
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces

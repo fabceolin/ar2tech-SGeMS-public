@@ -28,7 +28,7 @@ SOURCES += error_messages_handler.cpp \
     manager.cpp \
     progress_notifier.cpp \
     string_manipulation.cpp
-TARGET = ar2tech_utils
+TARGET = ar2gems_utils
 CONFIG += plugin
 
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces

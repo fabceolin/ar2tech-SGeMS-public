@@ -84,7 +84,7 @@ SOURCES += log_data_grid.cpp \
     property_transformer.cpp \
     grid_filter.cpp \
     utilities.cpp
-TARGET = ar2tech_grid
+TARGET = ar2gems_grid
 QT += xml
 CONFIG += plugin
 

@@ -76,14 +76,14 @@ SOURCES += region_proxy_model.cpp \
     library_qtplugins_init.cpp \
 	rename_dialog.cpp
 RESOURCES += icons.qrc
-TARGET = ar2tech_qtplugins
+TARGET = ar2gems_widgets
 QT += xml
 CONFIG += uitools
 CONFIG += plugin \
     designer \
     debug_and_release
 
-LIBS += -lar2tech_math
+LIBS += -lar2gems_math
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces
 contains( TEMPLATE, lib ) { 
     DESTDIR = $$GSTLAPPLI_HOME/lib/$$CUR_PLATFORM

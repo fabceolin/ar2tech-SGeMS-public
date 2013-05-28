@@ -68,7 +68,7 @@ scatter_plot_proxy_model.cpp
 
 QT += xml
 QT += opengl
-TARGET = ar2tech_charts
+TARGET = ar2gems_charts
 CONFIG += plugin
 INCLUDEPATH += $(QTDIR)/tools/designer/interfaces
 INCLUDEPATH += /usr/local/include/
