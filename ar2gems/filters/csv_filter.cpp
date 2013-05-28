@@ -41,6 +41,7 @@
 #include <qfile.h>
 #include <qstringlist.h>
 #include <qcursor.h>
+#include <QRegExp>
 
 #include <string>
 #include <cctype>
@@ -141,6 +142,28 @@ bool Csv_infilter::is_log_file( std::ifstream& infile){
 	QString qstr(str.c_str());
 	QStringList column_names = qstr.split(",");
 
+
+ 	int dh_id = column_names.indexOf(QRegExp("\\b(dhid|HOLE-ID)\\b",Qt::CaseInsensitive));
+	if(dh_id == -1 ) return false;
+	int xstart_id = column_names.indexOf(QRegExp("\\b(topx|TPLOCATIONX)\\b",Qt::CaseInsensitive));
+	if(xstart_id == -1 ) return false;
+  int ystart_id = column_names.indexOf(QRegExp("\\b(topy|TPLOCATIONY)\\b",Qt::CaseInsensitive));
+	if(ystart_id == -1 ) return false;
+	int zstart_id = column_names.indexOf(QRegExp("\\b(topz|TPLOCATIONZ)\\b",Qt::CaseInsensitive));
+	if(zstart_id == -1 ) return false;
+	int xend_id = column_names.indexOf(QRegExp("\\b(botx|BTLOCATIONX)\\b",Qt::CaseInsensitive));
+	if(xend_id == -1 ) return false;
+	int yend_id = column_names.indexOf(QRegExp("\\b(boty|BTLOCATIONY)\\b",Qt::CaseInsensitive));
+	if(yend_id == -1 ) return false;
+  int zend_id = column_names.indexOf(QRegExp("\\b(botz|BTLOCATIONZ)\\b",Qt::CaseInsensitive));
+	if(zend_id == -1 ) return false;
+
+  //Check for if from-to is present
+  int from_id = column_names.indexOf(QRegExp("\\b(from)\\b",Qt::CaseInsensitive));
+	if(from_id == -1 ) return false;
+	int to_id = column_names.indexOf(QRegExp("\\b(to)\\b",Qt::CaseInsensitive));
+	if(to_id == -1 ) return false;
+/*
 	int dh_id = column_names.indexOf("dhid");
 	if(dh_id == -1 ) return false;
 	int xstart_id = column_names.indexOf("topx");
@@ -155,7 +178,7 @@ bool Csv_infilter::is_log_file( std::ifstream& infile){
 	if(yend_id == -1 ) return false;
 	int zend_id = column_names.indexOf("botz");
 	if(zend_id == -1 ) return false;
-
+  */
 
 	return true;
 }
@@ -245,6 +268,11 @@ Geostat_grid* Csv_poinset_infilter::read( std::ifstream& infile ) {
   std::getline(infile, str);
   QString qstr(str.c_str());
   QStringList property_names = qstr.split(",");
+  bool is_trailing_comma = false;
+  if( property_names.back().isEmpty()  ) {
+    property_names.pop_back();
+    is_trailing_comma = true;
+  }
 
   bool is_x_provided = dialog_->X_column_name() != "None";
   bool is_y_provided = dialog_->Y_column_name() != "None";
@@ -261,6 +289,9 @@ Geostat_grid* Csv_poinset_infilter::read( std::ifstream& infile ) {
   while( std::getline(infile, str) ) {
     qstr = str.c_str();
     QStringList fields = qstr.split(",");
+    if(is_trailing_comma) {
+      fields.pop_back();
+    }
 
     Point_set::location_type loc;
     if(is_x_provided) loc[0] = fields[X_col_id].toDouble();
@@ -308,10 +339,11 @@ Geostat_grid* Csv_poinset_infilter::read( std::ifstream& infile ) {
 
   for( unsigned int k= 0; k < property_names.size(); k++ ) {
   // Need to find out if property is categorical
-    unsigned int check_size = std::min(30,static_cast<int>(property_values[k].size()));
+    unsigned int check_size = std::min(50,static_cast<int>(property_values[k].size()));
     bool is_categ = false;
     for(unsigned int i=0; i<check_size ; i++ ) {
       bool ok;
+      if(property_values[k][i].isEmpty()) continue;
       property_values[k][i].toFloat(&ok);
       if(!ok)  {
         is_categ = true;
@@ -338,6 +370,7 @@ Geostat_grid* Csv_poinset_infilter::read( std::ifstream& infile ) {
 
       std::set<QString> cat_names;
       for( int i=0; i < point_set_size; i++ ) {
+        if( property_values[k][i].isEmpty() ) continue;
         cat_names.insert(property_values[k][i]);
         //cat_def->add_category(property_values[k][i].toStdString());
       }
@@ -350,7 +383,7 @@ Geostat_grid* Csv_poinset_infilter::read( std::ifstream& infile ) {
       QString no_data_value_str = QString().arg( no_data_value);
       for( int i=0; i < point_set_size; i++ ) {
         QString val =  property_values[k][i];
-        if(use_no_data_value && val == no_data_value_str)  {
+        if( property_values[k][i].isEmpty()  || (use_no_data_value && val == no_data_value_str) )  {
           prop->set_value( Grid_continuous_property::no_data_value, i );
         }
         else 
@@ -402,6 +435,28 @@ Geostat_grid* Csv_logdata_infilter::read_no_gui(ifstream& infile, std::string na
 	QString qstr(str.c_str());
 	QStringList column_names = qstr.split(",");
 
+ 	int dh_id = column_names.indexOf(QRegExp("\\b(dhid|HOLE-ID)\\b",Qt::CaseInsensitive));
+	if(dh_id == -1 ) return 0;
+	int xstart_id = column_names.indexOf(QRegExp("\\b(topx|TPLOCATIONX)\\b",Qt::CaseInsensitive));
+	if(xstart_id == -1 ) return 0;
+  int ystart_id = column_names.indexOf(QRegExp("\\b(topy|TPLOCATIONY)\\b",Qt::CaseInsensitive));
+	if(ystart_id == -1 ) return 0;
+	int zstart_id = column_names.indexOf(QRegExp("\\b(topz|TPLOCATIONZ)\\b",Qt::CaseInsensitive));
+	if(zstart_id == -1 ) return 0;
+	int xend_id = column_names.indexOf(QRegExp("\\b(botx|BTLOCATIONX)\\b",Qt::CaseInsensitive));
+	if(xend_id == -1 ) return 0;
+	int yend_id = column_names.indexOf(QRegExp("\\b(boty|BTLOCATIONY)\\b",Qt::CaseInsensitive));
+	if(yend_id == -1 ) return 0;
+  int zend_id = column_names.indexOf(QRegExp("\\b(botz|BTLOCATIONZ)\\b",Qt::CaseInsensitive));
+	if(zend_id == -1 ) return 0;
+
+  //Check for if from-to is present
+  int from_id = column_names.indexOf(QRegExp("\\b(from)\\b",Qt::CaseInsensitive));
+	if(from_id == -1 ) return 0;
+	int to_id = column_names.indexOf(QRegExp("\\b(to)\\b",Qt::CaseInsensitive));
+	if(to_id == -1 ) return 0;
+
+  /*
 	int dh_id = column_names.indexOf("dhid");
 	if(dh_id == -1 ) return 0;
 	int xstart_id = column_names.indexOf("topx");
@@ -422,7 +477,7 @@ Geostat_grid* Csv_logdata_infilter::read_no_gui(ifstream& infile, std::string na
 	if(from_id == -1 ) return 0;
 	int to_id = column_names.indexOf("to");
 	if(to_id == -1 ) return 0;
-
+  */
 	infile.seekg(0);
 
   if(name.empty()) name = "test-dh";
@@ -444,6 +499,11 @@ Geostat_grid* Csv_logdata_infilter::read( std::ifstream& infile, std::string nam
   std::getline(infile, str);
   QString qstr(str.c_str());
   QStringList property_names = qstr.split(",");
+  bool trailing_comma = false;
+  if(property_names.back().isEmpty()) {
+    property_names.pop_back();
+    trailing_comma = true;
+  }
 
   QString nan_str = QString("%1").arg(nan);
 
@@ -483,6 +543,9 @@ Geostat_grid* Csv_logdata_infilter::read( std::ifstream& infile, std::string nam
   while( std::getline(infile, str) ) {
     qstr = str.c_str();
     QStringList fields = qstr.split(",");
+    if(trailing_comma) {
+      fields.pop_back();
+    }
 
     GsTLPoint start_loc, end_loc;
 
