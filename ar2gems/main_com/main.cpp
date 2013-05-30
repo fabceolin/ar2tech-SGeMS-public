@@ -90,14 +90,7 @@
 #include <fstream>
 #include <cstdio>
 
-/*
-#ifdef _DEBUG
-#include <main/modeltest.h>
-#include <gui/models/project_proxy_model.h>
-#include <appli/root_model.h>
-#include <utils/manager.h>
-#endif
-*/
+
 using namespace String_Op;
 
 // Std_scribe is a scribe that writes to standard output or standard error
@@ -176,7 +169,7 @@ void print_help() {
 			<< "file. Otherwise, the file contains a list of SGeMS commands\n" << "that will be executed sequentially." << std::endl;
 }
 
-int nogui_main(int argc, char** argv) {
+int main(int argc, char** argv) {
 
 	if (argc < 2) {
 		print_help();
@@ -283,47 +276,7 @@ int nogui_main(int argc, char** argv) {
 	return 0;
 }
 
-QString path_to_splash_image() {
-	QFileInfo finfo;
-	QString image_file("ar2gems-splash.png");
 
-	char* env = getenv("GSTLAPPLIHOME");
-	if (env) {
-		QString envpath(env);
-		QDir homedir(envpath);
-		homedir.cd("bin");
-		finfo.setFile(homedir, image_file);
-	} else {
-		QDir current_dir;
-		finfo.setFile(current_dir, image_file);
-	}
-	return finfo.absoluteFilePath();
-}
-
-QString read_style_sheet() {
-	QFileInfo finfo;
-	QString qss_file("sgems.qss");
-
-	char* env = getenv("GSTLAPPLIHOME");
-	if (env) {
-		QString envpath(env);
-		QDir homedir(envpath);
-//		homedir.cd("bin");
-		finfo.setFile(homedir, qss_file);
-	} else {
-		QDir current_dir;
-		finfo.setFile(current_dir, qss_file);
-	}
-    QFile file(finfo.absoluteFilePath());
-
-    file.open(QFile::ReadOnly);
-    QString style_sheet;
-    if(file.isReadable())
-    	style_sheet = QLatin1String(file.readAll());
-
-    return style_sheet;
-
-}
 
 QString path_to_plugins() {
 	QDir pluginsdir; //points to current directory
@@ -338,147 +291,5 @@ QString path_to_plugins() {
 	return pluginsdir.absolutePath();
 }
 
-int gui_main(int argc, char **argv) {
 
-	File_logger* initialization_log = new File_logger("sgems_status.log");
-	initialization_log->subscribe(GsTLlog);
-
-	QTscribe* qt_error_scribe = new QTscribe;
-	qt_error_scribe->subscribe(GsTLcerr);
-
-	GsTLlog << gstlIO::no_wait_end;
-	//-----
-
-	//---------------------
-	// Initialize the libraries, manage the splash-screen, and set-up the
-	// main application window
-
-	QApplication app(argc, argv);
-	app.setStyleSheet(read_style_sheet());
-
-  // Set the icon theme
-  /*
-static const char * GENERIC_ICON_TO_CHECK = "document-open";
-static const char * FALLBACK_ICON_THEME = "silk";
-if (!QIcon::hasThemeIcon(GENERIC_ICON_TO_CHECK)) {
-    //If there is no default working icon theme then we should
-    //use an icon theme that we provide via a .qrc file
-    //This case happens under Windows and Mac OS X
-    //This does not happen under GNOME or KDE
-    QIcon::setThemeName(FALLBACK_ICON_THEME);
-}
-*/
-
-	QApplication::addLibraryPath(path_to_plugins());
-
-  QPixmap pixmap(path_to_splash_image());
-  //QPixmap pixmap ( QPixmap(path_to_splash_image()).scaledToHeight(300) );
-
-	QSplashScreen* splash = new QSplashScreen(pixmap,Qt::WindowStaysOnTopHint);
-  splash->show();
-
-	splash->setFont(QFont("Times", 8, QFont::Bold));
-	splash->showMessage("Initializing...");
-	app.processEvents();
-	Lib_initializer::init();
-
-	splash->showMessage("Loading colormaps...");
-	app.processEvents();
-	Lib_initializer::load_colormaps();
-
-	splash->showMessage("Loading geostat plugins...");
-	app.processEvents();
-	Lib_initializer::load_geostat_algos();
-	Lib_initializer::load_filters_plugins();
-
-	splash->showMessage("Loading action plugins...");
-	app.processEvents();
-	Lib_initializer::load_action_plugins();
-	Lib_initializer::load_python_scripts();
-  std::cout<<"load group script"<<std::endl;
-	Lib_initializer::load_python_group_scripts();
-
-  QSP_application* appli = new QSP_application(0);
-
-
-	Status_bar_scribe* statusbar_scribe = new Status_bar_scribe(appli->statusBar());
-	statusbar_scribe->subscribe(GsTLcerr);
-	statusbar_scribe->subscribe(GsTLcout);
-
-	appli->init();
-	appli->setWindowTitle("SGeMS by ar2tech");
-
-
-	// restore preferences
-	QSettings settings;
-	settings.setPath(QSettings::NativeFormat, QSettings::UserScope, "www.ar2tech.com");
-	int height = settings.value("/geometry/height", 480).toInt();
-	int width = settings.value("/geometry/width", 640).toInt();
-	appli->resize(QSize(width, height));
-
-	bool show_algo_panel = settings.value("/panels/algo", true).toBool();
-	bool show_cli_panel = settings.value("/panels/cli", false).toBool();
-
-	appli->setWindowIcon(QPixmap(":/icons/appli/Pixmaps/ar2gems-icon-256x256.png"));
-	appli->show();
-	appli->show_algo_panel(show_algo_panel);
-	appli->show_commands_panel(show_cli_panel);
-
-	//------------------
-	SmartPtr<Named_interface> ni = Root::instance()->interface(projects_manager + "/" + "project");
-	GsTL_project* project = dynamic_cast<GsTL_project*> (ni.raw_ptr());
-	appli_assert( project );
-	Python_project_wrapper::set_project(project);
-
-	//------------------
-
-
-	splash->finish(appli);
-	delete splash;
-
-	//------------------------
-	// Everything is now ready. We set up one more logging device, and it's done
-
-	GsTLlog << gstlIO::wait_end;
-
-	initialization_log->unsubscribe(GsTLlog);
-
-	File_logger* main_log = new File_logger("sgems_history.log");
-	main_log->subscribe(GsTLlog);
-	main_log->append_newline(true);
-
-  /*
-#ifdef _DEBUG
-
-  // test the models:
-  //project->execute("LoadObjectFromFile","C:/data/Shortcourse/Petroleum/Fluvial.prj/well-log data indicators::All");
-  //project->execute("LoadObjectFromFile","C:/data/Shortcourse/Petroleum/Fluvial.prj/well-log data::All");
-  project->execute("LoadObjectFromFile","C:/data/Shortcourse/Petroleum/Fluvial.prj/Simulation Grid::All");
-
-  ModelTest t1(dynamic_cast<Root_model*>(Root::instance()->model()));
-  Filter_root_proxy_model* mm =new  Filter_root_proxy_model(); 
-  ModelTest t2(mm);
-  delete mm;
-#endif
-*/
-	app.exec();
-
-	//delete appli;
-	Lib_initializer::release();
-
-	Root::instance()->list_all(std::cout);
-
-	return 0;
-}
-
-int main(int argc, char **argv) {
-
-
-	if (argc == 1) {
-		return gui_main(argc, argv);
-	} else {
-		// use no gui version
-		return nogui_main(argc, argv);
-	}
-}
 
