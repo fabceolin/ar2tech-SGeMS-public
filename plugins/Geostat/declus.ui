@@ -221,4 +221,12 @@
  <buttongroups>
   <buttongroup name="buttonGroup"/>
  </buttongroups>
+<connections>
+    <connection>
+      <sender>grid_name</sender>
+      <signal>activated(QString)</signal>
+      <receiver>property_name</receiver>
+      <slot>show_properties(QString)</slot>
+    </connection>
+</connections>
 </ui>

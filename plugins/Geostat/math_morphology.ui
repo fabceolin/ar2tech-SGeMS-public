@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>Moving_Average</class>
- <widget class="QWidget" name="Moving_Average" >
+ <class>Mathematical_Morphology</class>
+ <widget class="QWidget" name="Mathematical_Morphology" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -9,9 +9,15 @@
     <height>526</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Mathematical Morphology</string>
   </property>
+  <property name="AlgorithmCategory" stdset="0">
+   <string>Utilities</string>
+  </property>
+  <property name="AlgorithmDescription" stdset="0">
+   <string>Dilation and erosion</string>
+  </property>  
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QLabel" name="TextLabel1" >
