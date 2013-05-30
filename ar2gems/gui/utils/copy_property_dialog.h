@@ -29,11 +29,13 @@
 
 #include <gui/common.h>
 #include <appli/project.h>
+#include <grid/geostat_grid.h>
 
 #include <qtplugins/selectors.h>
 
 #include <QDialog>
 #include <QCheckBox>
+#include <QComboBox>
 
 
 class GUI_DECL Copy_property_dialog : public QDialog {
@@ -53,13 +55,15 @@ public:
 
 public slots:
   void copy_property();
+  void show_properties_destination( );
+
 
 protected:
   GridSelectorBasic* source_;
   SinglePropertySelector* source_property_;
   GridSelectorBasic* destination_;
-  SinglePropertySelector* destination_property_;
-//  QComboBox* destination_property_;
+//  SinglePropertySelector* destination_property_;
+  QComboBox* destination_property_;
   QCheckBox* overwrite_;
   QCheckBox* mark_as_hard_;
 

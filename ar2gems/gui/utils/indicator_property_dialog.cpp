@@ -226,13 +226,18 @@ void New_indicator_from_property_dialog::create_indicator(){
 	   QString	type = selected_threhsold_type();
 	   if(type == "User Defined") type == "UserDefined";
 	   list.append(type);
-	   if(type == "User Defined") {
+	   if(type == "UserDefined") {
 	  	 list.append(get_user_thresholds());
 	   }
 	  }
 
 	  std::string parameters = list.join( sep ).toStdString();
-	  if( parameters.empty() ) return;
+	  if( parameters.empty() ) {
+	    GsTLcerr << "Command IndicatorCoding could not be performed.  No parameters were provided\n";
+	    GsTLcerr << gstlIO::end;
+      QApplication::restoreOverrideCursor();
+      return;
+    }
 
 	  // call the DeleteObjectProperties action
 	  Error_messages_handler error_messages;

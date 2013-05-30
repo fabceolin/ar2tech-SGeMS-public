@@ -557,47 +557,14 @@ namespace distribution_utils {
 
 GEOSTAT_DECL void cdf_transform( Grid_continuous_property* prop, 
           Continuous_distribution* cdf_source, 
-          Continuous_distribution* cdf_target );
-/*
-{
-	for( int node_id=0; node_id< prop->size(); node_id++ )
-	{
-		if( prop->is_informed( node_id ) ) {
-			double p = cdf_source->prob(prop->get_value( node_id));
-			prop->set_value(cdf_target->inverse(p), node_id );
-		}
-	}
-}
-*/
+          Continuous_distribution* cdf_target,
+          Grid_region* region = 0);
+
 
 GEOSTAT_DECL Grid_continuous_property* gaussian_transform_property( Grid_continuous_property* original_prop,
                                                  Continuous_distribution* cdf_source,
-                                                 Geostat_grid* grid );
-/*{
-    std::string transformed_prop_name = 
-      "__" + original_prop->name() + "transformed__";
+                                                 Geostat_grid* grid, Grid_region* region =0 );
 
-    Grid_continuous_property* transf_prop = 
-      geostat_utils::add_property_to_grid( grid, transformed_prop_name );
-    appli_assert( transf_prop );
-
-    for( GsTLInt i = 0; i < original_prop->size() ; i++ ) {
-      if( original_prop->is_informed( i ) ) {
-        transf_prop->set_value( original_prop->get_value( i ), i );
-      }
-    }
-
-    // transform the values
-    //Gaussian_cdf normal(0,1);
-   // Continuous_distribution *normal = new Gaussian_distribution(0,1);
-    SmartPtr<Continuous_distribution> normal(new Gaussian_distribution(0,1));
-    cdf_transform(transf_prop, cdf_source, normal.raw_ptr());
-//    cdf_transform( transf_prop->begin(), transf_prop->end(), 
-//                   original_cdf, normal );
-
-    return transf_prop;
-  }
-  */
 
 
 

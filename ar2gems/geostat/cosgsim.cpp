@@ -321,27 +321,33 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
 
 
  // Set up the regions
+  Grid_region* prim_region = 0;
+  Grid_region* sec_region = 0;
   std::string region_name = parameters->value( "Grid_Name.region" );
   if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
     errors->report("Grid_Name","Region "+region_name+" does not exist");
   }
   else grid_region_.set_temporary_region( region_name, simul_grid_);
 
+  std::string prim_region_name = parameters->value( "Primary_Harddata_Grid.region" );
+  if( prim_harddata_grid_ )  prim_region = prim_harddata_grid_->region( prim_region_name );
   if(prim_harddata_grid_ && !assign_harddata && prim_harddata_grid_ != simul_grid_) {
-    region_name = parameters->value( "Primary_Harddata_Grid.region" );
-    if (!region_name.empty() && prim_harddata_grid_->region( region_name ) == NULL ) {
-      errors->report("Primary_Harddata_Grid","Region "+region_name+" does not exist");
+    
+    if (!prim_region_name.empty() && prim_harddata_grid_->region( prim_region_name ) == NULL ) {
+      errors->report("Primary_Harddata_Grid","Region "+prim_region_name+" does not exist");
     }
-    else  prim_hd_grid_region_.set_temporary_region( region_name,prim_harddata_grid_ );
+    else  prim_hd_grid_region_.set_temporary_region( prim_region_name,prim_harddata_grid_ );
   }
 
+  std::string sec_region_name = parameters->value( "Secondary_Harddata_Grid.region" );
+  if( sec_harddata_grid_ )  sec_region = sec_harddata_grid_->region( sec_region_name );
   if(sec_harddata_grid_ && sec_harddata_grid_ != simul_grid_ 
      && sec_harddata_grid_ != prim_harddata_grid_) {
-    region_name = parameters->value( "Secondary_Harddata_Grid.region" );
-    if (!region_name.empty() && sec_harddata_grid_->region( region_name ) == NULL ) {
-      errors->report("Secondary_Harddata_Grid","Region "+region_name+" does not exist");
+    
+    if (!sec_region_name.empty() && sec_harddata_grid_->region( sec_region_name ) == NULL ) {
+      errors->report("Secondary_Harddata_Grid","Region "+sec_region_name+" does not exist");
     }
-    else  sec_hd_grid_region_.set_temporary_region( region_name,sec_harddata_grid_ );
+    else  sec_hd_grid_region_.set_temporary_region( sec_region_name,sec_harddata_grid_ );
   }
 
   //--------------
@@ -357,7 +363,7 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
     }
 	  if( primary_variable_ ) {
 		  primary_variable_ = 
-        distribution_utils::gaussian_transform_property( primary_variable_ , original_cdf_.raw_ptr(), prim_harddata_grid_ );
+        distribution_utils::gaussian_transform_property( primary_variable_ , original_cdf_.raw_ptr(), prim_harddata_grid_, prim_region );
 		  if( !primary_variable_ ) return false;
 
       clean_primary_var_ = true;
@@ -384,7 +390,7 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
     }
     if( secondary_variable_group_ == 0 ) {
       secondary_variable_ = 
-        distribution_utils::gaussian_transform_property( secondary_variable_, sec_distribution_.raw_ptr(), sec_harddata_grid_ );
+        distribution_utils::gaussian_transform_property( secondary_variable_, sec_distribution_.raw_ptr(), sec_harddata_grid_, sec_region );
       if( !secondary_variable_ ) return false;
       clean_secondary_var_ = true;
     }

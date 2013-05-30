@@ -74,9 +74,9 @@ Copy_property_dialog( GsTL_project* proj,
   destination_ = new GridSelectorBasic( dest_box, "dest", proj );
   vd->addWidget(destination_);
   vd->addWidget(new QLabel( "Select or type-in a destination\nproperty name", dest_box ));
-  destination_property_ = new SinglePropertySelector( dest_box, "dest_prop" );
+//  destination_property_ = new SinglePropertySelector( dest_box, "dest_prop" );
+  destination_property_ = new QComboBox( dest_box );
   vd->addWidget(destination_property_);
-//  destination_property_ = new QComboBox( dest_box, "dest_prop" );
   destination_property_->setEditable( true );
 
   overwrite_ = new QCheckBox( "Overwrite", options_box );
@@ -104,7 +104,7 @@ Copy_property_dialog( GsTL_project* proj,
   QObject::connect( source_, SIGNAL( activated( const QString& ) ),
                     source_property_, SLOT( show_properties( const QString& ) ) );
   QObject::connect( destination_, SIGNAL( activated( const QString& ) ),
-                    destination_property_, SLOT( show_properties( const QString& ) ) );
+                    this, SLOT( show_properties_destination(  ) ) );
 /*
   QObject::connect( ok, SIGNAL( clicked() ),
                     this, SLOT( accept() ) );
@@ -197,4 +197,24 @@ bool Copy_property_dialog::overwrite() const {
 }
 bool Copy_property_dialog::mark_as_hard() const { 
   return mark_as_hard_->isChecked(); 
+}
+
+
+void Copy_property_dialog::show_properties_destination(  ){
+
+  destination_property_->clear();
+  Geostat_grid* grid = destination_->selected_grid_object();
+  if(grid == 0) return;
+
+  std::list<std::string > prop_names =  grid->property_list();
+
+  
+  destination_property_->addItem("");
+  
+  while(!prop_names.empty()) {
+    destination_property_->addItem(  QString::fromStdString( prop_names.front() ) );
+    prop_names.pop_front();
+  }
+
+
 }

@@ -1362,12 +1362,14 @@ namespace distribution_utils {
 
 
 
-void cdf_transform( Grid_continuous_property* prop, Continuous_distribution* cdf_source, Continuous_distribution* cdf_target )
+void cdf_transform( Grid_continuous_property* prop, Continuous_distribution* cdf_source, Continuous_distribution* cdf_target, Grid_region* region )
 {
 	for( int node_id=0; node_id< prop->size(); node_id++ )
 	{
+    if(region && !region->is_inside_region(node_id)) continue;
 		if( prop->is_informed( node_id ) ) {
-			double p = cdf_source->prob(prop->get_value( node_id));
+      float v = prop->get_value( node_id);
+			double p = cdf_source->prob(v);
 			prop->set_value(cdf_target->inverse(p), node_id );
 		}
 	}
@@ -1376,7 +1378,7 @@ void cdf_transform( Grid_continuous_property* prop, Continuous_distribution* cdf
 
 Grid_continuous_property* gaussian_transform_property( Grid_continuous_property* original_prop,
                                                  Continuous_distribution* cdf_source,
-                                                 Geostat_grid* grid ) {
+                                                 Geostat_grid* grid, Grid_region* region ) {
     std::string transformed_prop_name = 
       "__" + original_prop->name() + "transformed__";
 
@@ -1385,6 +1387,7 @@ Grid_continuous_property* gaussian_transform_property( Grid_continuous_property*
     appli_assert( transf_prop );
 
     for( GsTLInt i = 0; i < original_prop->size() ; i++ ) {
+      if( region && !region->is_inside_region(i) ) continue;
       if( original_prop->is_informed( i ) ) {
         transf_prop->set_value( original_prop->get_value( i ), i );
       }

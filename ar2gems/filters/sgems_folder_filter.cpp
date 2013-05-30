@@ -1121,7 +1121,7 @@ Sgems_folder_output_filter::write_regions(QDir dir, QDomDocument& doc,const Geos
 
 	//Write each region
 	for(; it!=rlist.end(); ++it) {
-		QDomElement elemRegion = doc.createElement("Grid_region");
+		QDomElement elemRegion = doc.createElement("GsTLGridRegion");
 		const Grid_region* region = grid->region(*it);
 		elemRegion.setAttribute("name",region->name().c_str());
 

@@ -281,7 +281,7 @@ bool New_region_from_property_dialog::create_region(){
 	  if( region_name.isEmpty() ) {
 	    GsTLcerr << "Must provide a name for the region.";
 	    GsTLcerr << gstlIO::end;
-		return false;
+		  return false;
 	  }
 
 
@@ -308,7 +308,8 @@ bool New_region_from_property_dialog::create_region(){
 	  if( parameters.empty() ) {
 	    GsTLcerr << "Errors with the parameters selected";
 	    GsTLcerr << gstlIO::end;
-		return false;
+      QApplication::restoreOverrideCursor();
+		  return false;
 	  }
 
 	  // call the DeleteObjectProperties action
@@ -324,7 +325,8 @@ bool New_region_from_property_dialog::create_region(){
 	      GsTLcerr << error_messages.errors();
 	    }
 	    GsTLcerr << gstlIO::end;
-		return false;
+      QApplication::restoreOverrideCursor();
+		  return false;
 	  }
 
 	  QApplication::restoreOverrideCursor();

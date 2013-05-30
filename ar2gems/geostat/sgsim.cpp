@@ -276,6 +276,12 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
     harddata_grid_->set_coordinate_mapper(simul_grid_->coordinate_mapper());
   }
 
+  std::string hd_region_name = parameters->value( "Hard_Data.region" );
+  Grid_region* hd_region = 0;
+  if( harddata_grid_ != NULL ) {
+    hd_region = harddata_grid_->region( hd_region_name );
+  }
+
 
   // hard data assignement and transform is only needed if we have a valid
   // hard data grid and property.  We always assigne the data if it belongs
@@ -313,7 +319,7 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
 
 	  if( harddata_property_ ) {
 		  harddata_property_ = 
-		    distribution_utils::gaussian_transform_property( harddata_property_, target_cdf_.raw_ptr(), harddata_grid_ );
+		    distribution_utils::gaussian_transform_property( harddata_property_, target_cdf_.raw_ptr(), harddata_grid_, hd_region );
 		  if( !harddata_property_ ) return false;
       
       clear_temp_properties_ = true;
@@ -445,11 +451,11 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
   else grid_region_.set_temporary_region( region_name, simul_grid_);
 
   if(harddata_grid_ && !assign_harddata && harddata_grid_ != simul_grid_) {
-    region_name = parameters->value( "Hard_Data.region" );
-    if (!region_name.empty() && harddata_grid_->region( region_name ) == NULL ) {
-      errors->report("Hard_Data","Region "+region_name+" does not exist");
+    std::string hd_region_name = parameters->value( "Hard_Data.region" );
+    if (!hd_region_name.empty() && harddata_grid_->region( hd_region_name ) == NULL ) {
+      errors->report("Hard_Data","Region "+hd_region_name+" does not exist");
     }
-    else  hd_grid_region_.set_temporary_region( region_name,harddata_grid_ );
+    else  hd_grid_region_.set_temporary_region( hd_region_name,harddata_grid_ );
   }
 
 
