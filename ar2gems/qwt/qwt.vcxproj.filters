@@ -162,19 +162,10 @@
     <ClCompile Include="qwt_text_label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_qwt_dyngrid_layout.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="debug\moc_qwt_dyngrid_layout.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_qwt_legend.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="debug\moc_qwt_legend.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_legend_item.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_qwt_legend_item.cpp">
@@ -183,16 +174,7 @@
     <ClCompile Include="debug\moc_qwt_panner.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_qwt_panner.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_picker.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="debug\moc_qwt_picker.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_plot.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_qwt_plot.cpp">
@@ -201,22 +183,10 @@
     <ClCompile Include="debug\moc_qwt_plot_canvas.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_qwt_plot_canvas.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_plot_magnifier.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="debug\moc_qwt_plot_magnifier.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_qwt_plot_panner.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="debug\moc_qwt_plot_panner.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_plot_picker.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_qwt_plot_picker.cpp">
@@ -225,16 +195,7 @@
     <ClCompile Include="debug\moc_qwt_plot_zoomer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_qwt_plot_zoomer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_scale_widget.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="debug\moc_qwt_scale_widget.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="release\moc_qwt_text_label.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_qwt_text_label.cpp">

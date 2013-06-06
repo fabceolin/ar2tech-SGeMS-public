@@ -94,6 +94,7 @@ class QTPLUGINS_DECL  GridSelectorBasic : public QComboBox {
 
  public:
   static const QString no_selection;
+  Filter_root_proxy_model* region_model_;
 
 
 };

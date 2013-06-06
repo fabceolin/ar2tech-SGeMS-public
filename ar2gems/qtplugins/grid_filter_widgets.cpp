@@ -54,7 +54,6 @@ void Grid_filter_selector::assign_delegate()
   int nrow = model_->rowCount();
 
   for( int i=0; i< nrow; ++i) {
-
     QString grid_filter_name = model_->get_grid_filter_item( i )->filter_name();
     SmartPtr<Named_interface> ni = Root::instance()->new_interface(grid_filter_name.toStdString()+"://", qitem_grid_filter_model_manager+"/");
     Grid_filter_named_interface* grid_filter_ni = dynamic_cast<Grid_filter_named_interface*>(ni.raw_ptr());

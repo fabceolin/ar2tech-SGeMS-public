@@ -62,7 +62,7 @@ GsTL_vtkProp::GsTL_vtkProp()
   cbar_widget_->GetScalarBarActor()->GetLabelTextProperty()->BoldOff();
   cbar_widget_->GetScalarBarActor()->GetLabelTextProperty()->ShadowOff();
   cbar_widget_->GetScalarBarActor()->GetLabelTextProperty()->SetFontSize(8);
-  cbar_widget_->GetScalarBarActor()->GetPositionCoordinate()->SetCoordinateSystemToNormalizedViewport();
+  //cbar_widget_->GetScalarBarActor()->GetPositionCoordinate()->SetCoordinateSystemToNormalizedViewport();
   cbar_widget_->EnabledOff();
     
 
