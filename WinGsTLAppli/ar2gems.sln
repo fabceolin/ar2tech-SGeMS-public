@@ -81,7 +81,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qwt", "..\ar2gems\qwt\qwt.v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ar2gems_utils", "..\ar2gems\utils\utils.vcxproj", "{C52740F0-2A21-4416-997A-AC11D019B75F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ar2gems_extragui", "..\ar2gems\widget_accessor\extragui.vcxproj", "{754D97C4-E031-46F1-93EE-BABF60934D8F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ar2gems_grid", "..\ar2gems\grid\grid.vcxproj", "{754D97C4-E031-46F1-93EE-BABF60934D8F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{89578F97-F7D2-3944-A1DC-8DBC7B3C6064} = {89578F97-F7D2-3944-A1DC-8DBC7B3C6064}
 	EndProjectSection

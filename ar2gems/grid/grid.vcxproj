@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>ar2gems_grid</ProjectName>
-    <ProjectGuid>{88A6E076-083B-4E1A-B46B-6FCD8A6D5D34}</ProjectGuid>
+    <ProjectGuid>{754D97C4-E031-46F1-93EE-BABF60934D8F}</ProjectGuid>
     <RootNamespace>GsTLAppli_grid</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
