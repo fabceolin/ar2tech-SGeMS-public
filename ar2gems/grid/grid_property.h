@@ -120,7 +120,11 @@ class GRID_DECL Grid_continuous_property: public GsTL_object_item {
   /** Return the name of the class
   */
   virtual std::string classname() const {return "Grid_continuous_property";}
-     
+
+  /** static function to chkec is a value is NaN
+  */
+  static bool is_informed_value( property_type val);
+
   /** Tells whether the ith element of the property array is informed,
   * ie contains a value.
   */
@@ -516,6 +520,11 @@ GsTLInt Grid_continuous_property::size() const {
   return accessor_->size();  
 } 
  
+inline
+bool Grid_continuous_property::is_informed_value( property_type val){
+  return !(boost::math::isnan)(val);
+}
+
 inline  
 bool Grid_continuous_property::is_informed( GsTLInt id ) const { 
   if( id < 0 || id >= size() ) return false; 
