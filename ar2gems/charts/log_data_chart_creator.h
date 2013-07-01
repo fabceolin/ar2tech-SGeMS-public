@@ -57,7 +57,7 @@ private:
 private :
 
   GridSelector* grid_selector_;  // should only displayed the grid of type log_data_grid
-//  Log_data_selector log_data_selector_;  // selector to select one hole out of the grid
+  SingleLogDataSelector* log_data_selector_;  // selector to select one hole out of the grid
   SinglePropertySelector* value_prop_selector_; // select property
 
 };

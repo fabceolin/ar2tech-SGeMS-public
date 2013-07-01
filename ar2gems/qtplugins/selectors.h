@@ -606,5 +606,25 @@ class QTPLUGINS_DECL  PropertySelector : public QWidget {
 };
 
 
+class QTPLUGINS_DECL  SingleLogDataSelector : public QComboBox {
+
+  Q_OBJECT
+
+ public:
+  SingleLogDataSelector( QWidget* parent = 0 );
+  virtual ~SingleLogDataSelector() {}
+
+  QString grid_name() const;
+  
+  public slots:
+    virtual void show_log_data( const QString& grid_name );
+    virtual void set_selected_log_data( const QString& log_data_name );
+
+  protected:
+    QString current_grid_;
+    //Property_proxy_model* model_;
+    Filter_root_proxy_model* model_;
+};
+
 
 #endif

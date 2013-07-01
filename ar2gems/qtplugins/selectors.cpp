@@ -1751,3 +1751,72 @@ void PropertySelector::setSelectedProperty( const QString& name ) {
   } 
 }
   
+
+
+
+//===============================================
+
+
+SingleLogDataSelector::SingleLogDataSelector( QWidget* parent )
+  : QComboBox( parent ), model_(0) {
+
+  current_grid_ = "";
+ 
+}
+
+
+
+void SingleLogDataSelector::show_log_data( const QString& grid_name ) {
+  if(model_ == 0) {
+    model_ = new Filter_root_proxy_model(this);
+  }
+	if(grid_name == current_grid_) {
+
+	}
+	else {
+		this->clear();
+		delete model_;
+		model_ = 0;
+		if( grid_name.isEmpty() || grid_name == GridSelectorBasic::no_selection ) {
+			current_grid_ = "";
+			return;
+		}
+		else {
+      model_ =  new Filter_root_proxy_model(this);
+      QModelIndex log_root_index = model_->log_data_root_index(grid_name);
+      if( !log_root_index.isValid() ) {
+        current_grid_ = "";
+        return;
+      }
+      this->setModel(model_);
+      this->setRootModelIndex(log_root_index);
+      this->setCurrentIndex(0);
+      current_grid_ = grid_name;
+      /*
+			  SmartPtr< Named_interface > ni =
+			    Root::instance()->interface( gridModels_manager + "/" + grid_name.toStdString() );
+			  Geostat_grid* grid = (Geostat_grid*) ni.raw_ptr() ;
+			  if( !grid) return;
+			  current_grid_ = grid_name;
+			  model_ = new Property_proxy_model(grid,this);
+			  this->setModel(model_);
+        */
+		}
+	}
+
+	emit activated( this->currentText() );
+
+}
+
+void SingleLogDataSelector::set_selected_log_data( const QString& log_data_name ){
+
+	int id = this->findText(log_data_name);
+	if(id>=0) {
+		this->setCurrentIndex(id);
+	}
+
+}
+
+QString SingleLogDataSelector::grid_name() const{
+  return current_grid_;
+}

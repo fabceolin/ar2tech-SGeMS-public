@@ -33,12 +33,15 @@ Log_data_chart_creator::Log_data_chart_creator(Chart_mdi_area* mdi_area,QWidget 
   grid_selector_ = new GridSelector(param_container);
   grid_selector_->setToolTip("Select grid with holes");
 
-  // add the lod_data selector
+  // add the log_data selector
+  log_data_selector_ = new SingleLogDataSelector(param_container);
+
 
   value_prop_selector_ = new SinglePropertySelector(param_container);
   value_prop_selector_->setToolTip("Select property with values");
 
   param_layout->addWidget(grid_selector_);
+  param_layout->addWidget(log_data_selector_);
   param_layout->addWidget(new QLabel("Property",param_container));
   param_layout->addWidget(value_prop_selector_);
   param_layout->addStretch();
@@ -56,6 +59,7 @@ Log_data_chart_creator::Log_data_chart_creator(Chart_mdi_area* mdi_area,QWidget 
   this->setLayout(main_layout);
 
   connect( grid_selector_, SIGNAL(activated( const QString&)),value_prop_selector_, SLOT(show_properties( const QString&))   );
+  connect( grid_selector_, SIGNAL(activated( const QString&)),log_data_selector_, SLOT(show_log_data( const QString&))   );
   connect( show_button, SIGNAL(clicked()),this, SLOT(show_log_data_display ())   );
 
 }
@@ -75,8 +79,11 @@ void Log_data_chart_creator::show_log_data_display(){
 
 
   //TODO built the log data selector
-  //QString log_data_name = log_data_selector_->currentText();
-  QString log_data_name = QString::fromStdString(log_grid->get_log_name(0));
+  QString log_data_name = log_data_selector_->currentText();
+  //QString log_data_name = QString::fromStdString(log_grid->get_log_name(0));
+
+  int log_id = log_grid->get_log_id( log_data_name.toStdString() );
+  if( log_id < 0 ) return;
 
   Log_data hole = log_grid->get_log_data( log_data_name.toStdString());
 
@@ -95,6 +102,7 @@ void Log_data_chart_creator::show_log_data_display(){
   Log_data_chart* chart = new Log_data_chart(&hole, value_prop, region_filter, this );
 
   QMdiSubWindow* sub_window = mdi_area_->addSubWindow(chart);
+  sub_window->setGeometry(0,0,700,700);
   sub_window->setAttribute( Qt::WA_DeleteOnClose );
   sub_window->show();
 }

@@ -185,6 +185,21 @@ QModelIndex Filter_root_proxy_model::region_root_index(QString grid_name){
     return QModelIndex();
 }
 
+
+QModelIndex Filter_root_proxy_model::log_data_root_index(QString grid_name){
+
+    QModelIndex grid_index = this->grid_root_index(grid_name);
+    if( !grid_index.isValid() ) return QModelIndex();
+
+    int nrow = this->rowCount(grid_index);
+    for(int i=0; i<nrow; ++i) {
+        QModelIndex index = this->index(i,0,grid_index);
+        if(index.data() == "Logs") return index;
+    }
+    return QModelIndex();
+
+}
+
 //QModelIndex Filter_root_proxy_model::response_root_index()
 //{
 //    Manager* root =

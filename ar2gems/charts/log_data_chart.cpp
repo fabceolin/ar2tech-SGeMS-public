@@ -197,7 +197,7 @@ vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, 
 
   vtkSmartPointer<vtkTable> table = vtkSmartPointer<vtkTable>::New();
   vtkSmartPointer<vtkFloatArray> distance_array = vtkSmartPointer<vtkFloatArray>::New();
-  distance_array->SetName(  "Length" );
+  distance_array->SetName(  "Distance" );
   distance_array->SetNumberOfValues(log_data->number_of_segments()*2);
   
 

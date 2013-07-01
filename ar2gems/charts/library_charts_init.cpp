@@ -65,8 +65,8 @@ int library_charts_init::init_lib() {
   dir->factory( Scatter_plot_creator_factory().name(), 
                 Scatter_plot_creator_factory::create_new_interface);
 
-//  dir->factory( Log_data_chart_creator_factory().name(), 
-//                Log_data_chart_creator_factory::create_new_interface);
+  dir->factory( Log_data_chart_creator_factory().name(), 
+                Log_data_chart_creator_factory::create_new_interface);
 
   //----------------------
   GsTLlog << "Registration done" << "\n\n";

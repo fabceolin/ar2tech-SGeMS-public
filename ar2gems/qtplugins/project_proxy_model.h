@@ -56,6 +56,7 @@ public :
   QModelIndex grid_root_index(QString grid_name);
   QModelIndex property_root_index(QString grid_name);
   QModelIndex region_root_index(QString grid_name);
+  QModelIndex log_data_root_index(QString grid_name);
   QModelIndex manager_index(QString manager_path);
   /*
   QModelIndex mds_root_index();
