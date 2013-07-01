@@ -56,7 +56,7 @@
 #include <vtkQtTableView.h>
 
 
-vtkSmartPointer<vtkTable> CHARTS_DECL build_log_data_chart_table(const Log_data* log_data, Grid_continuous_property* value_prop,  Grid_filter* filter);
+vtkSmartPointer<vtkTable> CHARTS_DECL build_log_data_chart_table(const Log_data* log_data, const Grid_continuous_property* value_prop,  const Grid_filter* filter);
 
 
 class CHARTS_DECL Log_data_chart : public Chart_base_display_controls 

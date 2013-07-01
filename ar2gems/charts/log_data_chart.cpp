@@ -193,7 +193,7 @@ void Log_data_chart::intialize_plots(){
 
 
 
-vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, Grid_continuous_property* value_prop,  Grid_filter* filter){
+vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, const Grid_continuous_property* value_prop,  const Grid_filter* filter){
 
   vtkSmartPointer<vtkTable> table = vtkSmartPointer<vtkTable>::New();
   vtkSmartPointer<vtkFloatArray> distance_array = vtkSmartPointer<vtkFloatArray>::New();
