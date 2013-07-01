@@ -257,6 +257,24 @@
     <ClCompile Include="multiple_charts_viewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="log_data_chart_creator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="log_data_chart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_log_data_chart_creator.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_log_data_chart_creator.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_log_data_chart.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_log_data_chart.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_chart_display_control.h">
@@ -358,6 +376,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="chart_base_display_controls.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="log_data_chart_creator.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="log_data_chart.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -26,6 +26,7 @@
 #include <charts/library_charts_init.h>
 #include <charts/continuous_histogram_creator.h>
 #include <charts/categorical_histogram_creator.h>
+#include <charts/log_data_chart_creator.h>
 #include <charts/scatter_plot_creator.h>
 #include <appli/manager_repository.h>
 #include <utils/manager.h>
@@ -63,6 +64,9 @@ int library_charts_init::init_lib() {
 
   dir->factory( Scatter_plot_creator_factory().name(), 
                 Scatter_plot_creator_factory::create_new_interface);
+
+//  dir->factory( Log_data_chart_creator_factory().name(), 
+//                Log_data_chart_creator_factory::create_new_interface);
 
   //----------------------
   GsTLlog << "Registration done" << "\n\n";
