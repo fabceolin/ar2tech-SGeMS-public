@@ -65,7 +65,7 @@ public:
   vtkSmartPointer<vtkVariantArray> get_descriptive_statistics() { return desc_stats_array_;}
   vtkSmartPointer<vtkVariantArray> get_quantile_statistics() { return quantile_stats_array_;}
   vtkSmartPointer<vtkTable> get_histogram_table() {return histo_table_;}
-  vtkSmartPointer<vtkTable> get_histogram__width_table() {return histo_line_table_;}
+  vtkSmartPointer<vtkTable> get_histogram_width_table() {return histo_line_table_;}
 
 
 private:

@@ -342,6 +342,7 @@
     <ClCompile Include="histogram_statistics.cpp" />
     <ClCompile Include="histogram_style_delegate.cpp" />
     <ClCompile Include="library_charts_init.cpp" />
+    <ClCompile Include="multiple_charts_viewport.cpp" />
     <ClCompile Include="region_weight_delegate.cpp" />
     <ClCompile Include="scatter_plot_creator.cpp" />
     <ClCompile Include="scatter_plot_item_tree_view.cpp" />
@@ -350,6 +351,7 @@
     <ClCompile Include="scatter_plot_proxy_model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="multiple_charts_viewport.h" />
     <CustomBuild Include="scatter_plot_model_item.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

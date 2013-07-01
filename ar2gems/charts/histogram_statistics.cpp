@@ -37,7 +37,7 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   // output nan if nay data is a nan
   std::vector<bool> mask(prop->size(), false );
 
-  bool filter_min_max = min==max;
+  bool filter_min_max = min<max;
 
   for(int i=0; i<prop->size(); ++i ) {
     if( !prop->is_informed(i) ) continue;
@@ -141,9 +141,16 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   histo_p->SetNumberOfValues(number_bins);
   histo_vmid->SetNumberOfValues(number_bins);
   histo_vmean->SetNumberOfValues(number_bins);
+  /*
+  for(int i=0; i<number_bins; ++i) {
+    histo_p->SetValue(i,0);
+    histo_vmid->SetValue(i,  min+i*bin_width + bin_width/2  );
+    histo_vmean->SetNumberOfValues( min+i*bin_width + bin_width/2 );
+  }
+  */
 
   //Find the max for each range
-  if(min == max) {
+  if(min >= max) {  // do not use the user input min/max. get from data
     min =desc_stats_array->GetValue(charts::MIN).ToFloat();
     max = desc_stats_array->GetValue(charts::MAX).ToFloat();
   }
@@ -226,7 +233,7 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   std::vector< std::pair<float, float> > data_weights;
   data_weights.reserve(prop->size());
 
-  bool filter_min_max = min==max;
+  bool filter_min_max = min<max;
 
   double sum_weights = 0;
   for(int i=0; i<prop->size(); ++i ) {
@@ -263,7 +270,7 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   if(need_memory_swap) {
     prop->swap_to_memory();
   }
-  bool filter_min_max = min==max;
+  bool filter_min_max = min<max;
   std::vector< std::pair<float, float> > data_weights;
   data_weights.reserve(prop->size());
   double sum_weights = 0;
