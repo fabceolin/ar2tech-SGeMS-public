@@ -85,9 +85,6 @@ public:
   vtkSmartPointer<vtkTable> get_histogram_table() {return histo_table_;}
   vtkSmartPointer<vtkTable> get_histogram_width_table() {return histo_line_table_;}
 
-
-private:
-
   vtkSmartPointer<vtkStringArray> desc_stats_names_array_;
   vtkSmartPointer<vtkVariantArray> desc_stats_array_;
   vtkSmartPointer<vtkVariantArray> quantile_stats_array_;

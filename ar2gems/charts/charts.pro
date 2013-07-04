@@ -36,7 +36,11 @@ scatter_plot_model_item.h \
 chart_option_controls.h \
 scatter_plot_point_style_delegate.h \
 chart_scatter_plot.h \
-scatter_plot_proxy_model.h
+scatter_plot_proxy_model.h \
+histogram_statistics.h \
+multiple_charts_viewport.h \
+log_data_chart.h \
+log_data_chart_creator.h
 
 FORMS += chart_display_control.ui
 
@@ -64,7 +68,11 @@ scatter_plot_model_item.cpp \
 chart_option_controls.cpp \
 scatter_plot_point_style_delegate.cpp \
 chart_scatter_plot.cpp \
-scatter_plot_proxy_model.cpp
+scatter_plot_proxy_model.cpp \
+histogram_statistics.cpp \
+multiple_charts_viewport.cpp \
+log_data_chart.cpp \
+log_data_chart_creator.cpp
 
 QT += xml
 QT += opengl
