@@ -59,10 +59,28 @@ public:
         desc_stats_array_(desc_stats_array),
         quantile_stats_array_(quantile_stats_array),
         histo_table_(histo_table),
-        histo_line_table_(histo_line_table){}
+        histo_line_table_(histo_line_table)
+        {
+          desc_stats_names_array_ = vtkSmartPointer<vtkStringArray>::New();
+          desc_stats_names_array_->SetName("Stats");
+          desc_stats_names_array_->SetNumberOfValues(10);
+          desc_stats_names_array_->SetValue(charts::DATA, "");
+          desc_stats_names_array_->SetValue(charts::GRID, "");
+          desc_stats_names_array_->SetValue(charts::N, "N");
+          desc_stats_names_array_->SetValue(charts::MEAN, "Mean");
+          desc_stats_names_array_->SetValue(charts::VARIANCE, "Var");
+          desc_stats_names_array_->SetValue(charts::MIN, "Min");
+          desc_stats_names_array_->SetValue(charts::MAX, "Max");
+          desc_stats_names_array_->SetValue(charts::SUM, "Sum");
+          desc_stats_names_array_->SetValue(charts::SKEWNESS, "Skewness");
+          desc_stats_names_array_->SetValue(charts::KURTOSIS, "Kurtosis");
+        
+        
+        }
 
 
   vtkSmartPointer<vtkVariantArray> get_descriptive_statistics() { return desc_stats_array_;}
+  vtkSmartPointer<vtkStringArray> get_descriptive_statistics_name() { return desc_stats_names_array_;}
   vtkSmartPointer<vtkVariantArray> get_quantile_statistics() { return quantile_stats_array_;}
   vtkSmartPointer<vtkTable> get_histogram_table() {return histo_table_;}
   vtkSmartPointer<vtkTable> get_histogram_width_table() {return histo_line_table_;}
@@ -70,12 +88,14 @@ public:
 
 private:
 
+  vtkSmartPointer<vtkStringArray> desc_stats_names_array_;
   vtkSmartPointer<vtkVariantArray> desc_stats_array_;
   vtkSmartPointer<vtkVariantArray> quantile_stats_array_;
   vtkSmartPointer<vtkTable> histo_table_;
   vtkSmartPointer<vtkTable> histo_line_table_;
 
 };
+
 
 
 Continuous_statistics CHARTS_DECL build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_region* region, const Grid_filter* filter, float min, float max );
