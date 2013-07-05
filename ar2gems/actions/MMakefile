@@ -1,6 +1,5 @@
-
 INCLUDEPATH += $$PYTHON_INCLUDE
-LIBS += -L$$PYTHON_LIB -l$$PYTHON_SO
+LIBS += -l$$PYTHON_SO
 LIBS += -lar2gems_utils -lar2gems_appli
 LIBS += -lar2gems_grid
 
