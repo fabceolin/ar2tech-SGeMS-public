@@ -73,7 +73,7 @@ SOURCES += \
     qwt_scale_engine.cpp \
     qwt_symbol.cpp
 
- 
+
 contains(CONFIG, QwtPlot) {
 
     HEADERS += \
@@ -99,7 +99,7 @@ contains(CONFIG, QwtPlot) {
         qwt_plot_zoomer.h \
         qwt_plot_magnifier.h \
         qwt_raster_data.h \
-        qwt_scale_widget.h 
+        qwt_scale_widget.h
 
     SOURCES += \
         qwt_curve_fitter.cpp \
@@ -126,7 +126,7 @@ contains(CONFIG, QwtPlot) {
         qwt_plot_zoomer.cpp \
         qwt_plot_magnifier.cpp \
         qwt_raster_data.cpp \
-        qwt_scale_widget.cpp 
+        qwt_scale_widget.cpp
 }
 
 
@@ -142,5 +142,5 @@ contains( TEMPLATE, app ) {
 include( $$GSTLAPPLI_HOME/config.qmake )
 
 exists( MMakefile ) {
-	include( MMakefile )
+    include( MMakefile )
 }
