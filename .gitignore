@@ -39,5 +39,11 @@ Release/
 * - Copy.h
 * - Copy.cpp
 
+# build directories and files
+Makefile.Debug
+Makefile.Release
+bin/
+lib/linux
+
 #doxygen
 html/
