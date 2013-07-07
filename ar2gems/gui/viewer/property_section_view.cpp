@@ -2,23 +2,23 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -32,8 +32,8 @@
  */
 
 
-#include <GsTLAppli/gui/viewer/property_section_view.h>
-#include <GsTLAppli/appli/manager_repository.h>
+#include <gui/viewer/property_section_view.h>
+#include <appli/manager_repository.h>
 
 
 #include <QVBoxLayout>
@@ -102,14 +102,14 @@ bool Single_section_widget::is_enabled(void){
 
 void Single_section_widget::set_enabled(bool on){
 	enabled_->setChecked(on);
-  
+
 }
 
 void Single_section_widget::enable_section(bool on){
 	if(on) vtk_prop_->enable_section(id_);
   else vtk_prop_->disable_section(id_);
   emit this->rendering_modified();
-  
+
 }
 
 
@@ -196,7 +196,7 @@ Property_section_view(const GsTLGridProperty* prop,GsTL_vtkProp* vtk_prop,QWidge
 //  layout->addLayout(section_layout_);
   this->setLayout(layout);
 
-	
+
 
 
 	QObject::connect(add, SIGNAL(clicked()), this, SLOT(add_section()));

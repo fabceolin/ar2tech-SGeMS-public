@@ -2,23 +2,23 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "gui" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -52,10 +52,10 @@
 **
 **********************************************************************/
 
-#include <GsTLAppli/gui/vtk_prop/vtk_slice.h>
-#include <GsTLAppli/gui/utils/colormap.h>
-#include <GsTLAppli/grid/grid_model/sgrid_cursor.h>
-#include <GsTLAppli/utils/gstl_messages.h>
+#include <gui/vtk_prop/vtk_slice.h>
+#include <gui/utils/colormap.h>
+#include <grid/sgrid_cursor.h>
+#include <utils/gstl_messages.h>
 
 
 
@@ -119,7 +119,7 @@ Vtk_slice::Vtk_slice(  )
   root_->addChild( slice_root_ );
   */
 }
-    
+
 
 
 Vtk_slice::~Vtk_slice() {
