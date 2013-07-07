@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -42,9 +42,9 @@
 
 **
 
-** This file may be distributed and/or modified under the terms of the 
+** This file may be distributed and/or modified under the terms of the
 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** license defined by the Stanford Center for Reservoir Forecasting and
 
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 
@@ -94,7 +94,7 @@
 
 #include <qtplugins/ellipsoid_input.h>
 
-
+#include <gui/variogram2/variogram_controls.h>
 
 #include <qwidget.h>
 
@@ -208,7 +208,7 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
 
   Variogram_structure_input( QWidget* parent = 0, const char* name = 0 );
 
-  
+
 
   float contribution() const;
 
@@ -216,9 +216,9 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
 
 
 
-  
 
-  void ranges( float& max, float& medium, float& min ) const ; 
+
+  void ranges( float& max, float& medium, float& min ) const ;
 
   float max_range() const;
 
@@ -226,9 +226,9 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
 
   float min_range() const;
 
-  
 
-  void angles( float& x, float& y, float& z ) const ; 
+
+  void angles( float& x, float& y, float& z ) const ;
 
   float x_angle() const;
 
@@ -236,7 +236,7 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
 
   float z_angle() const;
 
-  
+
 
  signals:
 
@@ -254,7 +254,7 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
 
   void set_contribution( float c );
 
-  void set_variogram_type( const QString& type ); 
+  void set_variogram_type( const QString& type );
 
   void set_ranges( float max, float medium, float min );
 
@@ -272,7 +272,7 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
 
   void z_angle( float a );
 
- 
+
 
 
 
@@ -287,38 +287,6 @@ class QTPLUGINS_DECL  Variogram_structure_input : public QWidget, public Ui::Var
    EllipsoidInput* anisotropy_table_;
 
 };
-
-
-
-
-
-
-
-//=============================================
-
-
-
-class QTPLUGINS_DECL  Line_separator : public QWidget {
-
-
-
-  Q_OBJECT
-
-
-
- public:
-
-  Line_separator( const QString& label, 
-
-		  QWidget* parent = 0, const char* name = 0 );
-
-  
-
-};
-
-
-
-
 
 #endif
 
