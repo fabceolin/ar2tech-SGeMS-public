@@ -19,10 +19,10 @@
 #if QT_VERSION < 0x040000
 #include <qpaintdevicemetrics.h>
 #endif
-#include <qwt_scale_map.h>
-#include <qwt_legend.h>
-#include <qwt_legend_item.h>
-#include "qwt_plot_svgitem.h"
+#include <qwt/qwt_scale_map.h>
+#include <qwt/qwt_legend.h>
+#include <qwt/qwt_legend_item.h>
+#include <qwt/qwt_plot_svgitem.h>
 
 class QwtPlotSvgItem::PrivateData
 {
@@ -41,7 +41,7 @@ public:
 
 /*!
    \brief Constructor
- 
+
    Sets the following item attributes:
    - QwtPlotItem::AutoScale: true
    - QwtPlotItem::Legend:    false
@@ -56,7 +56,7 @@ QwtPlotSvgItem::QwtPlotSvgItem(const QString& title):
 
 /*!
    \brief Constructor
- 
+
    Sets the following item attributes:
    - QwtPlotItem::AutoScale: true
    - QwtPlotItem::Legend:    false
@@ -99,7 +99,7 @@ int QwtPlotSvgItem::rtti() const
 
    \return true, if the SVG file could be loaded
 */
-bool QwtPlotSvgItem::loadFile(const QwtDoubleRect &rect, 
+bool QwtPlotSvgItem::loadFile(const QwtDoubleRect &rect,
     const QString &fileName)
 {
     d_data->boundingRect = rect;
@@ -113,14 +113,14 @@ bool QwtPlotSvgItem::loadFile(const QwtDoubleRect &rect,
 }
 
 /*!
-   Load SVG data 
+   Load SVG data
 
    \param rect Bounding rectangle
    \param data in SVG format
 
    \return true, if the SVG data could be loaded
 */
-bool QwtPlotSvgItem::loadData(const QwtDoubleRect &rect, 
+bool QwtPlotSvgItem::loadData(const QwtDoubleRect &rect,
     const QByteArray &data)
 {
     d_data->boundingRect = rect;
@@ -237,7 +237,7 @@ void QwtPlotSvgItem::render(QPainter *painter,
 
     painter->translate(dx, dy);
     painter->scale(mx, my);
-    
+
     d_data->picture.play(painter);
 
     painter->restore();
@@ -257,7 +257,7 @@ QwtDoubleRect QwtPlotSvgItem::viewBox(const QwtDoubleRect &rect) const
     const QSize sz = d_data->renderer.defaultSize();
 #else
 #if QT_VERSION > 0x040000
-    const QSize sz(d_data->picture.width(), 
+    const QSize sz(d_data->picture.width(),
         d_data->picture.height());
 #else
     QPaintDeviceMetrics metrics(&d_data->picture);
