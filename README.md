@@ -15,7 +15,7 @@ the explicit authorization of AR2Tech.
 If you would like to contribute code to this project you can either:
 
 1. License the new code with a [BSD license][2]
-2. Transfer copyright to AR2Tech
+2. Transfer the copyright to AR2Tech
 
 If you are interested into another option please contact AR2Tech.
 
@@ -66,8 +66,8 @@ Compiling Python 64 bits
 
 Installing Python 2.x from the installer only provide the release dll.  To get the
 debug version, download the source code, open the project and build the debug version.
-You can ignore all the errors.  Copy the debug .dll and .lib to the main Python
-directory along the release version.
+You can ignore all the errors.  Copy the debug .dll to the main Python
+directory along the release version and the .lib into a "libs" folder under the main Python directory.
 
 Building AR2GEMS
 ----------------
