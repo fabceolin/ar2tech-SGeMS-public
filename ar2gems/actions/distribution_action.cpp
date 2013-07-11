@@ -26,13 +26,13 @@
 
 
 #include <actions/distribution_action.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 #include <utils/string_manipulation.h>
 #include <math/continuous_distribution.h>
 #include <utils/manager.h>
 #include <utils/named_interface.h>
-#include <appli/manager_repository.h>
-#include <filters/distribution_filter.h>
+#include <utils/manager_repository.h>
+
 
 Named_interface* New_distribution_action::create_new_interface( std::string& ){
   return new New_distribution_action;
@@ -113,111 +113,6 @@ bool New_distribution_action::exec() {
   }
     
   return false;
-}
-
-/*
-  ---------------------
-  parameters: filename
-*/
-
-Named_interface* Load_distribution_action::create_new_interface( std::string& ){
-  return new Load_distribution_action;
-}
-
-Load_distribution_action::Load_distribution_action(void){
-
-}
-Load_distribution_action::~Load_distribution_action(void){
-
-}
-
-bool Load_distribution_action::init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ) 
-{
-  SmartPtr<Named_interface> ni = Root::instance()->new_interface("Distribution", topLevelInputFilters_manager+"/" );
-  
-  Distribution_input_filter* input_filter = dynamic_cast<Distribution_input_filter*>(ni.raw_ptr());
-
-  std::string error_str;
-  input_filter->read(parameters,&error_str);
-
-  if(!error_str.empty())
-    errors->report(error_str);
-
-  return error_str.empty();
-
-}
-
-bool Load_distribution_action::exec(){
-  return true;
-}
-
-
-
-/*
-  ---------------------
-  parameters: filename[::dist1::dist2]
-  default all the distributions are saved
-  
-*/
-
-Named_interface* Save_distribution_action::create_new_interface( std::string& ){
-  return new Save_distribution_action;
-}
-
-Save_distribution_action::Save_distribution_action(void){
-
-}
-Save_distribution_action::~Save_distribution_action(void){
-
-}
-
-bool Save_distribution_action::init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ) 
-{
-  
-  std::vector< std::string > params = 
-      String_Op::decompose_string( parameters, Actions::separator,
-				   Actions::unique );
-
-  if(params.size() <  1) {
-    errors->report("Need at least one parameter (filename)");
-    return false;
-  }
-
-
-  SmartPtr<Named_interface> ni = Root::instance()->new_interface("Distribution", outfilters_manager+"/" );
-  Distribution_output_filter* out_filter = dynamic_cast<Distribution_output_filter*>(ni.raw_ptr());
-  if(out_filter == 0) {
-    errors->report("Could not find the filter to write continuous distribution to disk");
-    return false;
-  }
-  
-
-  std::string error_str;
-  if(params.size() == 1) {
-    return out_filter->write(params[0],&error_str);
-  }
-  else if(params.size() == 2) {
-    Named_interface* ni_dist = Root::instance()->interface( continuous_distributions_manager+"/"+params[1] ).raw_ptr();
-    if(ni_dist==0) return false;
-    return out_filter->write(params[0],ni_dist,&error_str);
-  }
-  else {
-    std::vector<const Named_interface*> dists_ni;
-    for(int i=1; i<params.size(); ++i) {
-      Named_interface* ni_dist = Root::instance()->interface( continuous_distributions_manager+"/"+params[i] ).raw_ptr();
-      dists_ni.push_back(ni_dist);
-    }  
-    return out_filter->write(params[0],dists_ni, &error_str);
-  }
-
-  return false;
-
-}
-
-bool Save_distribution_action::exec(){
-  return true;
 }
 
 /*

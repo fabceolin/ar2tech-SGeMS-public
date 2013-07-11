@@ -56,7 +56,7 @@
 #include <gui/utils/qwidget_value_collector.h>
 #include <gui/QWidget_value_accessors/default_accessor.h>
 #include <utils/named_interface.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/gstl_messages.h>
 #include <utils/string_manipulation.h>
 #include <QTextStream>

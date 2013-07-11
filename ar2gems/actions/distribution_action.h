@@ -27,7 +27,7 @@
 #ifndef __GSTLAPPLI_DISTRIBUTION_ACTION_H__ 
 #define __GSTLAPPLI_DISTRIBUTION_ACTION_H__
 
-#include <actions/action.h>
+#include <appli/action.h>
 #include <utils/error_messages_handler.h>
 #include <appli/project.h>
 #include<vector>
@@ -51,41 +51,6 @@ private:
   std::string dist_name_;
   std::vector<float> params_;
   bool is_continuous_;
-};
-
-
-class Load_distribution_action :  public Action
-{
-public:
-
-  static Named_interface* create_new_interface( std::string& );
-
-  Load_distribution_action(void);
-  virtual ~Load_distribution_action(void);
-
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ); 
-  virtual bool exec();
-
-private:
-
-};
-
-class Save_distribution_action :  public Action
-{
-public:
-
-  static Named_interface* create_new_interface( std::string& );
-
-  Save_distribution_action(void);
-  virtual ~Save_distribution_action(void);
-
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ); 
-  virtual bool exec();
-
-private:
-
 };
 
 

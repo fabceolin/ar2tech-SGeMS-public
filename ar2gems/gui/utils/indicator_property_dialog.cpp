@@ -58,9 +58,9 @@
 #include <utils/gstl_messages.h>
 #include <utils/error_messages_handler.h>
 #include <actions/common.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 #include <grid/geostat_grid.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 
 #include <QtGui/QGroupBox>

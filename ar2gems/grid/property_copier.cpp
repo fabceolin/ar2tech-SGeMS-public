@@ -56,7 +56,7 @@
 #include <grid/point_set.h>
 #include <grid/cartesian_grid.h>
 #include <grid/sgrid_cursor.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/reduced_grid.h>
 #include <grid/structured_grid.h>
 #include <grid/grid_categorical_property.h>

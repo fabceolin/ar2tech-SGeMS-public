@@ -29,9 +29,6 @@
     <ClCompile Include="library_appli_init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="manager_repository.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,13 +52,13 @@
     <ClInclude Include="library_appli_init.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="manager_repository.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="project.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

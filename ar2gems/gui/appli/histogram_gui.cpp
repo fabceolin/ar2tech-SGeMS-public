@@ -57,7 +57,7 @@
 #include <gui/appli/histogram_control_panel.h>
 #include <gui/utils/data_analysis_save_dialog.h>
 #include <appli/project.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <qtplugins/selectors.h>
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>

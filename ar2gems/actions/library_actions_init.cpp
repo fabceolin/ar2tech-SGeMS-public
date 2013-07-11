@@ -63,7 +63,7 @@
 #include <Python.h>
 #include <actions/library_actions_init.h>
 #include <actions/python_commands.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <actions/obj_manag_actions.h>
 #include <actions/algorithms_actions.h>
 #include <actions/misc_actions.h>
@@ -97,13 +97,12 @@ int library_actions_init::init_lib()
 
 	GsTLlog << "\n\n registering actions library \n";
 
-	SmartPtr<Named_interface> ni = Root::instance()->new_interface("directory://actions", actions_manager);
-
+	SmartPtr<Named_interface> ni =  Root::instance()->interface( actions_manager);
 	Manager* dir = dynamic_cast<Manager*> (ni.raw_ptr());
 
 	if (!dir)
 	{
-		GsTLlog << "could not create directory " << actions_manager << "\n";
+		GsTLlog << "could not retrieve directory " << actions_manager << "\n";
 		return 1;
 	}
 
@@ -164,11 +163,9 @@ bool library_actions_init::bind_action_factories(Manager* dir)
 	 */
 	dir->factory("RunScript", RunScript::create_new_interface);
 
-	dir->factory("LoadObjectFromFile", Load_object_from_file::create_new_interface);
-	dir->factory("SaveGeostatGrid", Save_geostat_grid::create_new_interface);
-  dir->factory("SaveProject", Save_project::create_new_interface);
+
 	dir->factory("NewCartesianGrid", New_cartesian_grid_action::create_new_interface);
-	dir->factory("LoadProject", Load_project::create_new_interface);
+
 	dir->factory("CopyProperty", Copy_property::create_new_interface);
 	dir->factory("SwapPropertyToDisk", Swap_property_to_disk::create_new_interface);
 	dir->factory("SwapPropertyToRAM", Swap_property_to_ram::create_new_interface);
@@ -206,8 +203,6 @@ bool library_actions_init::bind_action_factories(Manager* dir)
 	dir->factory("RemoveGroup", Remove_group::create_new_interface);
 
   dir->factory("NewParametricDistribution", New_distribution_action::create_new_interface);
-  dir->factory("LoadContinuousDistribution", Load_distribution_action::create_new_interface);
-  dir->factory("SaveContinuousDistribution", Save_distribution_action::create_new_interface);
   dir->factory("DeleteContinuousDistribution", Delete_distribution_action::create_new_interface);
 
   dir->factory("DownscaleGrid", Downscale_grid::create_new_interface);

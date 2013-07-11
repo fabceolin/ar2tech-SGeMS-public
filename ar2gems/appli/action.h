@@ -52,17 +52,35 @@
 **
 **********************************************************************/
 
-#ifndef __GSTLAPPLI_ACTIONS_DEFINES_H__ 
-#define __GSTLAPPLI_ACTIONS_DEFINES_H__ 
+#ifndef __APPLI_ACTION_H__ 
+#define __APPLI_ACTION_H__ 
  
-/* Some constants used by actions 
- */ 
-#include <actions/common.h>
+#include <appli/common.h>
+#include <utils/named_interface.h> 
+#include <appli/project.h>
+#include <utils/error_messages_handler.h> 
+
 #include <string> 
  
+ 
+/** The base class for all actions. 
+ */ 
+
 namespace Actions { 
   static const std::string separator = "::"; 
   static const bool unique = false; 
 } 
+
+
+class APPLI_DECL Action : public Named_interface { 
  
+ public: 
+  virtual ~Action() {} 
+  virtual bool init( std::string& parameters, GsTL_project* proj,
+                     Error_messages_handler* errors ) = 0; 
+  virtual bool exec() = 0; 
+
+ 
+}; // end of class Action 
+
 #endif 

@@ -26,7 +26,7 @@
 
 
 #include <qtplugins/categorical_definition_proxy_model.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 Categorical_definition_proxy_model::Categorical_definition_proxy_model(QObject *parent)
  : QAbstractProxyModel(parent) {

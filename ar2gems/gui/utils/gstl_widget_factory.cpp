@@ -53,7 +53,7 @@
 **********************************************************************/
 
 #include <gui/utils/gstl_widget_factory.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 #include <utils/gstl_messages.h>
 #include <qtplugins/selectors.h>

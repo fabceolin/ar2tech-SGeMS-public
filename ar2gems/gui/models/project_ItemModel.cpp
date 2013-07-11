@@ -32,7 +32,7 @@
  */
 
 #include <appli/project.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <gui/models/project_ItemModel.h>
 
 #include <QStringList>

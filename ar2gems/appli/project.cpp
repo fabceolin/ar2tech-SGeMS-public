@@ -56,8 +56,8 @@
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
 #include <appli/project.h>
-#include <appli/manager_repository.h>
-#include <actions/action.h>
+#include <utils/manager_repository.h>
+#include <appli/action.h>
 
 #include <algorithm>
 #include <QTime>

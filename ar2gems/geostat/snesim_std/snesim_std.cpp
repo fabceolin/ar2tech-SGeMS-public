@@ -58,7 +58,7 @@
 #include <grid/rgrid.h>
 #include <grid/gval_iterator.h>
 #include <grid/rgrid_neighborhood.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <geostat/parameters_handler.h>
 #include <geostat/utilities.h>

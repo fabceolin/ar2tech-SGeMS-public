@@ -26,8 +26,8 @@
 
 #include <gui/utils/copy_property_dialog.h>
 
-#include <actions/action.h>
-#include <actions/defines.h>
+#include <appli/action.h>
+#include <appli/action.h>
 #include <utils/error_messages_handler.h>
 
 #include <QVBoxLayout>

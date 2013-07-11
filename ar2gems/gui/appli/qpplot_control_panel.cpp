@@ -55,7 +55,7 @@
 #include <gui/appli/qpplot_control_panel.h>
 #include <appli/project.h>
 #include <utils/string_manipulation.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <qtplugins/selectors.h>
 #include <grid/grid_property.h>
 #include <grid/grid_region.h>

@@ -28,7 +28,7 @@
 #include <gui/utils/new_distribution_dialog.h>
 #include <appli/root_model.h>
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <QAbstractProxyModel>
 

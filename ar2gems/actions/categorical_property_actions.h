@@ -27,7 +27,7 @@
 #define __CATEGORICAL_PROPERTY_ACTIONS_H__ 
 
 #include <actions/common.h>
-#include <actions/action.h> 
+#include <appli/action.h> 
 
 
 #include <qstring.h>

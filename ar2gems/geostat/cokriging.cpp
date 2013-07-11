@@ -60,7 +60,7 @@
 #include <grid/geostat_grid.h>
 #include <grid/combined_neighborhood.h>
 #include <grid/gval_iterator.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
 #include <grid/property_copier.h>

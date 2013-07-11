@@ -54,7 +54,7 @@
   
 #include <gui/library_gui_init.h>
 #include <gui/viewer/vtk_project_view_gui.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <gui/vtk_prop/vtk_prop_cgrid.h>
 #include <gui/vtk_prop/vtk_prop_mgrid.h>
 #include <gui/vtk_prop/vtk_prop_pointset.h>

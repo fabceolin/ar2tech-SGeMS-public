@@ -27,7 +27,7 @@
 #include <gui/utils/save_grid_dialog.h>
 
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <filters/filter.h>
 #include <grid/geostat_grid.h>
 #include <grid/reduced_grid.h>

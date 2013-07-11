@@ -54,7 +54,7 @@
 
 #include <filters/gslib/gslib_filter.h>
 #include <utils/gstl_messages.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <filters/gslib/filter_qt_dialogs.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>

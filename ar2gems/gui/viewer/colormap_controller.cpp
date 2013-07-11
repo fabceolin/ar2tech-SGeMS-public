@@ -32,7 +32,7 @@
  */
 
 #include <GsTL/utils/smartptr.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <gui/viewer/colormap_controller.h>
 #include <gui/viewer/colormap_widget.h>

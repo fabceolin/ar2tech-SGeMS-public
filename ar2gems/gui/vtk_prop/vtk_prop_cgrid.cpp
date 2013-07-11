@@ -31,7 +31,7 @@
 
 #include <gui/utils/colorscale.h>
 #include <gui/utils/colormap.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <GsTL/math/math_functions.h>
 
