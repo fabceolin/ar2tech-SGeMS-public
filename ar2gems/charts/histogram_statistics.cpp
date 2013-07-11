@@ -26,7 +26,8 @@
 
 #include <vtkMultiBlockDataSet.h>
 
-Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_region* region, const Grid_filter* filter, float min, float max ){
+Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
+                                            const Grid_region* region, const Grid_filter* filter, float min, float max ){
   
   bool need_memory_swap = !prop->is_in_memory();
   if(need_memory_swap) {
@@ -225,8 +226,9 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   if(need_memory_swap) {
     prop->swap_to_disk();
   }
-
-  return Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+  Continuous_statistics stats(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+  return stats;
+  //return Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
 }
 Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights, 
                                             const Grid_region* region, const Grid_filter* filter, bool normalized_weights , float min, float max ){

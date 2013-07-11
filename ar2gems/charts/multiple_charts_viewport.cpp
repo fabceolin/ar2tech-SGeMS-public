@@ -25,9 +25,7 @@
 #include <charts/multiple_charts_viewport.h>
 
 
-std::vector<charts::viewport> get_charts_viewport(int number_of_charts) {
-
-  std::vector<charts::viewport> viewports;
+std::pair<int,int> get_viewport_matrix(int number_of_charts) {
 
   int n_chart_x;
   int n_chart_y;
@@ -85,13 +83,25 @@ std::vector<charts::viewport> get_charts_viewport(int number_of_charts) {
     n_chart_y  = std::ceil((float)number_of_charts/7);
   }
 
-  double x_inc = 1.0/n_chart_x;
-  double y_inc = 1.0/n_chart_y;
+  return std::make_pair(n_chart_x,n_chart_y);
 
-  for(int j=n_chart_y-1; j>=0; --j) {
+}
+
+std::vector<charts::viewport> get_charts_viewport(int number_of_charts) {
+
+  std::pair<int,int> chart_matrix = get_viewport_matrix( number_of_charts);
+
+  std::vector<charts::viewport> viewports;
+
+
+
+  double x_inc = 1.0/chart_matrix.first;
+  double y_inc = 1.0/chart_matrix.second;
+
+  for(int j=chart_matrix.second-1; j>=0; --j) {
     double ymin = j*y_inc; 
     double ymax = (j+1)*y_inc;
-    for(int i=0; i<n_chart_x; ++i) {
+    for(int i=0; i<chart_matrix.first; ++i) {
       viewports.push_back(  charts::viewport( x_inc*i, ymin, x_inc*(i+1), ymax ) );
     }
   }

@@ -46,6 +46,8 @@ namespace charts {
 
 }
 
+std::pair<int,int> CHARTS_DECL get_viewport_matrix(int number_of_charts);
+
 std::vector<charts::viewport> CHARTS_DECL get_charts_viewport(int number_of_charts);
 
 
