@@ -49,6 +49,9 @@ include_directories(${CMAKE_SOURCE_DIR}/ar2GsTL)
 # referring to headers.
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+### UI files in binary directory #####################################
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 ### Project tree #####################################################
 set(PROJ_DIRS
   actions appli charts filters geostat grid gui

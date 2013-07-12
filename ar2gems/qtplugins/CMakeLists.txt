@@ -70,7 +70,6 @@ add_library(ar2gems_qtplugins
   weight_property_selector.cpp
   ${qtplugins_MOC}
   ${qtplugins_FORMS}
-  ${qtplugins_RESOURCES}
 )
 
 target_link_libraries(ar2gems_qtplugins

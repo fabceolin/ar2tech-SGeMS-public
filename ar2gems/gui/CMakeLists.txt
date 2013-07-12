@@ -188,13 +188,7 @@ add_library(ar2gems_gui
   vtk_prop/vtk_prop_structured_grid.cpp
   ${gui_MOC}
   ${gui_FORMS}
-  ${gui_RESOURCES}
 )
-#models/histogram_chart_model.cpp
-#models/region_weight_delegate.cpp
-#viewer/colorbar_controller.cpp
-#viewer/property_section_view.cpp
-#vtk_prop/vtk_slice.cpp
 
 target_link_libraries(ar2gems_gui
   ar2gems_actions
