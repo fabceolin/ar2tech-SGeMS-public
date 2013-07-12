@@ -87,25 +87,15 @@ Building AR2GEMS
 
 ### Linux
 
-1. Add something like the following to your .bashrc:
+On Linux the build is straightforward:
 
    ```
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/vtk/lib
-   export GSTLAPPLIHOME=/home/julio/Projects/ar2tech-sgems
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GSTLAPPLIHOME/lib/linux
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GSTLAPPLIHOME/plugins/designer
-   ```
-
-  (don't forget to start a new Bash session)
-
-2. Edit .qmake.cache to point where on your system VTK, Python and Boost are found.
-
-3. Build it:
-
-   ```
-   qmake
+   mkdir build
+   cmake ..
    make -j 8
    ```
+
+Read CMakeLists.txt for more info.
 
 [1]: http://sgems.sourceforge.net/
 [2]: http://en.wikipedia.org/wiki/BSD_licenses/
