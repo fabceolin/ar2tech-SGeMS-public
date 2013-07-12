@@ -74,6 +74,8 @@ Building AR2GEMS
 
 ### Windows
 
+(outdated instructions)
+
 1. Set the following environmental variables:
    * QTDIR and QTDIRx64: path to Qt
    * VTKDIR: path to VTK
@@ -91,6 +93,7 @@ On Linux the build is straightforward:
 
    ```
    mkdir build
+   cd build
    cmake ..
    make -j 8
    ```
