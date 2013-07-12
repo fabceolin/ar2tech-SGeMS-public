@@ -1,7 +1,0 @@
-CONFIG += qt
-INCLUDEPATH += $$VTK_INCLUDE
-LIBS += -lar2gems_utils -lar2gems_math -lar2gems_appli
-
-win32 {
-  DEFINES += GRID_EXPORTS
-}
