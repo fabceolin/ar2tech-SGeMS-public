@@ -1,33 +1,33 @@
 # Process all headers with Q_OBJECT
 QT4_WRAP_CPP(qtplugins_MOC
-  distribution_selectors.h
-  distribution_proxy_model.h
-  ellipsoid_input.h
-  color_delegate.h
-  neighborhood_filter_input.h
-  group_selectors.h
-  region_proxy_model.h
-  grid_filter_model.h
-  region_weight_proxy_model.h
-  grid_filter_delegate.h
-  variogram_input.h
-  selectors.h
-  kriging_type_selector_base.h
-  categorical_selectors.h
-  weight_property_selector.h
-  distribution_parameter_widget.h
-  gstl_widgets_plugin.h
-  project_proxy_model.h
-  grid_proxy_model.h
-  filechooser.h
-  weight_property_proxy_model.h
-  property_proxy_model.h
-  grid_filter_widgets.h
-  gstl_table.h
   categorical_definition_proxy_model.h
-  rename_dialog.h
+  categorical_selectors.h
+  color_delegate.h
+  distribution_parameter_widget.h
+  distribution_proxy_model.h
+  distribution_selectors.h
+  ellipsoid_input.h
+  filechooser.h
+  grid_filter_delegate.h
+  grid_filter_model.h
+  grid_filter_widgets.h
+  grid_proxy_model.h
+  group_selectors.h
+  gstl_table.h
+  gstl_widgets_plugin.h
   kriging_type_selector.h
+  kriging_type_selector_base.h
+  neighborhood_filter_input.h
   non_param_cdf_input.h
+  project_proxy_model.h
+  property_proxy_model.h
+  region_proxy_model.h
+  region_weight_proxy_model.h
+  rename_dialog.h
+  selectors.h
+  variogram_input.h
+  weight_property_proxy_model.h
+  weight_property_selector.h
 )
 
 QT4_WRAP_UI(qtplugins_FORMS

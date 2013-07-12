@@ -6,7 +6,6 @@ QT4_WRAP_CPP(appli_MOC
 
 add_library(ar2gems_appli
   library_appli_init.cpp
-  manager_repository.cpp
   project.cpp
   root_model.cpp
   utilities.cpp
@@ -14,6 +13,5 @@ add_library(ar2gems_appli
 )
 
 target_link_libraries(ar2gems_appli
-  ar2gems_actions
   ar2gems_utils
 )

@@ -1,30 +1,30 @@
 # Process all headers with Q_OBJECT
 QT4_WRAP_CPP(charts_MOC
+  categorical_histogram_creator.h
+  categorical_histogram_proxy_model.h
+  chart_base_display_controls.h
+  chart_base.h
+  chart_categorical_histogram.h
+  chart_continuous_histogram.h
   chart_creator.h
+  chart_dialog.h
+  chart_display_control.h
+  chart_distribution.h
+  chart_mdi_area.h
+  chart_option_controls.h
+  chart_scatter_plot.h
+  continuous_histogram_creator.h
+  histogram_chart_model.h
   histogram_item_tree_view.h
-  scatter_plot_item_tree_view.h
+  histogram_proxy_model.h
+  histogram_style_delegate.h
+  log_data_chart_creator.h
+  log_data_chart.h
   region_weight_delegate.h
   scatter_plot_creator.h
-  chart_base.h
-  scatter_plot_proxy_model.h
-  chart_categorical_histogram.h
-  histogram_chart_model.h
-  chart_mdi_area.h
-  categorical_histogram_proxy_model.h
-  chart_dialog.h
-  log_data_chart_creator.h
-  chart_distribution.h
-  chart_scatter_plot.h
-  chart_continuous_histogram.h
-  chart_display_control.h
-  continuous_histogram_creator.h
-  categorical_histogram_creator.h
+  scatter_plot_item_tree_view.h
   scatter_plot_point_style_delegate.h
-  chart_option_controls.h
-  chart_base_display_controls.h
-  histogram_proxy_model.h
-  log_data_chart.h
-  histogram_style_delegate.h
+  scatter_plot_proxy_model.h
 )
 
 QT4_WRAP_UI(charts_FORMS
@@ -50,10 +50,12 @@ add_library(ar2gems_charts
   histogram_item_tree_view.cpp
   histogram_model_item.cpp
   histogram_proxy_model.cpp
+  histogram_statistics.cpp
   histogram_style_delegate.cpp
   library_charts_init.cpp
   log_data_chart.cpp
   log_data_chart_creator.cpp
+  multiple_charts_viewport.cpp
   region_weight_delegate.cpp
   scatter_plot_creator.cpp
   scatter_plot_item_tree_view.cpp
@@ -63,15 +65,13 @@ add_library(ar2gems_charts
   ${charts_MOC}
   ${charts_FORMS}
 )
-#eda_charts.cpp
-#histogram_statistics.cpp
-#multiple_charts_viewport.cpp
 
 target_link_libraries(ar2gems_charts
   ${QT_LIBRARIES}
   ${VTK_LIBRARIES}
   ar2gems_appli
   ar2gems_grid
+  ar2gems_math
   ar2gems_qtplugins
   ar2gems_utils
 )

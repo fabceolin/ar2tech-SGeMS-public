@@ -1,53 +1,52 @@
 add_library(ar2gems_geostat
-  clustering_from_centroids.cpp
-  cokriging.cpp
-  cokriging_cross_validation.cpp
-  cosgsim.cpp
-  cosisim.cpp
-  declus.cpp
-  difference_with_base.cpp
-  dssim.cpp
-  grid_variog_computer.cpp
-  ImageProcess.cpp
-  indicator_kriging.cpp
-  kmeans_clustering.cpp
-  kriging.cpp
   kriging_cross_validation.cpp
   kriging_mean.cpp
-  library_geostat_init.cpp
-  LU_sim.cpp
-  moving_window.cpp
-  nuTauModel.cpp
-  parameters_handler_impl.cpp
-  PostKriging.cpp
-  Postsim_categorical.cpp
-  Postsim.cpp
-  pset_variog_computer.cpp
-  sgsim.cpp
-  sisim.cpp
-  transcat.cpp
+  cosisim.cpp
   trans.cpp
+  moving_window.cpp
   utilities.cpp
-  filtersim_std/dev_finder.cpp
-  filtersim_std/filters.cpp
-  filtersim_std/filtersim_cate.cpp
-  filtersim_std/filtersim_cont.cpp
-  filtersim_std/filtersim.cpp
-  filtersim_std/mapping_pattern_id.cpp
-  filtersim_std/partition.cpp
-  filtersim_std/patch_helper.cpp
-  filtersim_std/pattern_paster.cpp
-  filtersim_std/TI_manipulation.cpp
-  snesim_std/NodeDropped.cpp
+  cosgsim.cpp
+  kriging.cpp
+  library_geostat_init.cpp
+  dssim.cpp
+  pset_variog_computer.cpp
   snesim_std/snesim_std.cpp
+  snesim_std/NodeDropped.cpp
+  parameters_handler_impl.cpp
+  cokriging_cross_validation.cpp
+  filtersim_std/TI_manipulation.cpp
+  filtersim_std/mapping_pattern_id.cpp
+  filtersim_std/filtersim_cont.cpp
+  filtersim_std/pattern_paster.cpp
+  filtersim_std/filters.cpp
+  filtersim_std/partition.cpp
+  filtersim_std/filtersim.cpp
+  filtersim_std/filtersim_cate.cpp
+  filtersim_std/patch_helper.cpp
+  filtersim_std/dev_finder.cpp
+  LU_sim.cpp
+  nuTauModel.cpp
+  kmeans_clustering.cpp
+  inverse_distance_estimator.cpp
+  difference_with_base.cpp
+  transcat.cpp
+  Postsim.cpp
+  cokriging.cpp
+  indicator_kriging.cpp
+  Postsim_categorical.cpp
+  sgsim.cpp
+  ImageProcess.cpp
+  declus.cpp
+  hmatch.cpp
+  clustering_from_centroids.cpp
+  sisim.cpp
+  PostKriging.cpp
+  nearest_neighbor_estimator.cpp
+  grid_variog_computer.cpp
 )
-#hmatch.cpp
-#inverse_distance_estimator.cpp
-#nearest_neighbor_estimator.cpp
 
 target_link_libraries(ar2gems_geostat
   ${QT_LIBRARIES}
-  ar2gems_actions
   ar2gems_appli
   ar2gems_grid
   ar2gems_math

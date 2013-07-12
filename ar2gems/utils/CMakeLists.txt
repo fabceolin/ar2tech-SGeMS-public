@@ -7,6 +7,7 @@ add_library(ar2gems_utils
   error_messages_handler.cpp
   gstl_messages_private.cpp
   manager.cpp
+  manager_repository.cpp
   progress_notifier.cpp
   string_manipulation.cpp
   ${utils_MOC}

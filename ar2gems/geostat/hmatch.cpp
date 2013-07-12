@@ -2,23 +2,23 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "geostat" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -85,16 +85,16 @@
 // History match plugin
 //
 
-#include <GsTLAppli/geostat/hmatch.h>
-#include <GsTLAppli/geostat/parameters_handler_impl.h> 
-#include <GsTLAppli/utils/gstl_messages_private.h>
-#include <GsTLAppli/utils/string_manipulation.h>
-#include <GsTLAppli/utils/gstl_plugins.h>
-#include <GsTLAppli/actions/defines.h>
-#include <GsTLAppli/appli/manager_repository.h>
-#include <GsTLAppli/utils/error_messages_handler.h>
-#include <GsTLAppli/grid/grid_model/reduced_grid.h>
- 
+#include <geostat/hmatch.h>
+#include <geostat/parameters_handler_impl.h>
+#include <utils/gstl_messages_private.h>
+#include <utils/string_manipulation.h>
+#include <utils/gstl_plugins.h>
+//#include <actions/defines.h>
+#include <utils/manager_repository.h>
+#include <utils/error_messages_handler.h>
+#include <grid/reduced_grid.h>
+
 #include <string>
 #include <math.h>   // for pow function
 #include <stdio.h>  // for sprintf
@@ -137,7 +137,7 @@ map<std::string, double> M;
 //-------------------------------------------
 
 bool HMatch::initialize( const Parameters_handler* parameters,
-			  Error_messages_handler* errors ) 
+			  Error_messages_handler* errors )
 {
 	Py_Initialize();
 	PyRun_SimpleString(""
@@ -168,7 +168,7 @@ bool HMatch::initialize( const Parameters_handler* parameters,
 	if (!readMemberVars(parameters)) {
 		return false;
 	}
-	
+
 	_useBrent = String_Op::to_number<bool>(parameters->value("_useBrent.value"));
 
 	if (!_useBrent) {
@@ -180,8 +180,8 @@ bool HMatch::initialize( const Parameters_handler* parameters,
 	return true;
 }
 
-int HMatch::execute(GsTL_project * proj) 
-{	
+int HMatch::execute(GsTL_project * proj)
+{
 	int  i;
 	std::string bestReal;
 	double bestObjFunc;
@@ -193,7 +193,7 @@ int HMatch::execute(GsTL_project * proj)
 	for ( i = 0; i < _numRegions; ++i)
 		Rds[i] = _initRd;
 
-	bestReal = mainFunc(true, "", Rds, randomNumGenerator(&_initRandom), objs, true); 
+	bestReal = mainFunc(true, "", Rds, randomNumGenerator(&_initRandom), objs, true);
 	bestObjFunc = overallObjFunc(objs);
 
 	if (bestObjFunc < _tolerance) {
@@ -207,15 +207,15 @@ int HMatch::execute(GsTL_project * proj)
 	// PPM outer loop
 	for (i = 0; i < _maxOuterLoop; ++i) {
 
-		
-		bestObjFunc = innerLoop(bestReal, bestObjFunc, 
+
+		bestObjFunc = innerLoop(bestReal, bestObjFunc,
 								randomNumGenerator(&_initRandom));
 		if (bestObjFunc < _tolerance)
 			break;
 	}
 
 	/*
-	GsTLcout << "best real is " << bestReal << ": " << bestObjFunc << gstlIO::end;	
+	GsTLcout << "best real is " << bestReal << ": " << bestObjFunc << gstlIO::end;
 	for (map<std::string,double>::iterator itr = M.begin(); itr != M.end(); ++itr)
 		GsTLcout << itr->first << "," << itr->second << gstlIO::end;
 	*/
@@ -276,8 +276,8 @@ double HMatch::innerLoop(std::string &R, double best, std::string seed)
 
 	if (_useBrent)
 		return brent(0.0, _initRd, 1.0, _brentTol, R, best, seed);
-	
-	presult = PyObject_CallObject(_pOpFunc, 
+
+	presult = PyObject_CallObject(_pOpFunc,
 		Py_BuildValue("(ffffs)", 0.0, _initRd, 1.0, _brentTol, R.c_str()));
 	appli_assert(presult != NULL);
 
@@ -354,7 +354,7 @@ double HMatch::overallObjFunc(vector<double> & v)
 	return ret;
 }
 
-double HMatch::brent(float ax, float bx, float cx, float tol, std::string & bestReal, 
+double HMatch::brent(float ax, float bx, float cx, float tol, std::string & bestReal,
 					 double best, std::string seed)
 
 {
@@ -385,24 +385,24 @@ double HMatch::brent(float ax, float bx, float cx, float tol, std::string & best
 	fv = fx = fw;
 	overallObj = overallObjFunc(fw);
 
-	for (int iter=1;iter<=_innerLoop;iter++) { 
+	for (int iter=1;iter<=_innerLoop;iter++) {
 		int done = 0;
 		for (int i = 0; i < _numRegions; ++i) {
 			xm[i] = 0.5*(a[i]+b[i]);
 			tol2[i]=2.0*(tol1[i]=tol*fabs(x[i])+ZEPS);
-			if (fabs(x[i]-xm[i]) <= (tol2[i]-0.5*(b[i]-a[i])))  
+			if (fabs(x[i]-xm[i]) <= (tol2[i]-0.5*(b[i]-a[i])))
 				done++;
 		}
 
 		if (done == _numRegions) {
-			if (best <= overallObj) 
+			if (best <= overallObj)
 				return best;
-			
+
 			bestReal = bestSoFar;
 			return overallObj;
 		}
 		for (int i = 0; i < _numRegions; ++i) {
-			if (fabs(e[i]) > tol1[i]) { 
+			if (fabs(e[i]) > tol1[i]) {
 				r=(x[i]-w[i])*(fx[i]-fv[i]);
 				q=(x[i]-v[i])*(fx[i]-fw[i]);
 				p=(x[i]-v[i])*q-(x[i]-w[i])*r;
@@ -415,7 +415,7 @@ double HMatch::brent(float ax, float bx, float cx, float tol, std::string & best
 					d=CGOLD*(e[i]=(x[i] >= xm[i] ? a[i]-x[i] : b[i]-x[i]));
 
 				else {
-					d=p/q; 
+					d=p/q;
 					u[i]=x[i]+d;
 					if (u[i]-a[i] < tol2[i] || b[i]-u[i] < tol2[i])
 						d=SIGN(tol1[i],xm[i]-x[i]);
@@ -429,9 +429,9 @@ double HMatch::brent(float ax, float bx, float cx, float tol, std::string & best
 		temp = mainFunc(false, bestReal, u, seed, fu, false);
 
 		for (int i = 0; i < _numRegions; ++i ) {
-			if (fu[i] <= fx[i]) { 
-				if (u[i] >= x[i]) a[i]=x[i]; else b[i]=x[i]; 
-				SHFT(v[i],w[i],x[i],u[i]) 
+			if (fu[i] <= fx[i]) {
+				if (u[i] >= x[i]) a[i]=x[i]; else b[i]=x[i];
+				SHFT(v[i],w[i],x[i],u[i])
 				SHFT(fv[i],fw[i],fx[i],fu[i])
 			} else {
 				if (u[i] < x[i]) a[i]=u[i]; else b[i]=u[i];
@@ -444,17 +444,17 @@ double HMatch::brent(float ax, float bx, float cx, float tol, std::string & best
 					v[i]=u[i];
 					fv[i]=fu[i];
 				}
-			} 
+			}
 		}
 
 		if (overallObjFunc(fu) < overallObj) {
 			overallObj = overallObjFunc(fu);
 			bestSoFar = temp;
 		}
-	} 
-	if (best <= overallObj) 
+	}
+	if (best <= overallObj)
 		return best;
-	
+
 	bestReal = bestSoFar;
 	return overallObj;
 }
@@ -470,10 +470,10 @@ std::string HMatch::randomNumGenerator(long *idum)
 	static long iy=0;
 	static long iv[NTAB];
 	float temp, ret;
-	if (*idum <= 0 || !iy) { 
-		if (-(*idum) < 1) *idum=1; 
+	if (*idum <= 0 || !iy) {
+		if (-(*idum) < 1) *idum=1;
 		else *idum = -(*idum);
-		for (j=NTAB+7;j>=0;j--) { 
+		for (j=NTAB+7;j>=0;j--) {
 			k=(*idum)/IQ;
 			*idum=IA*(*idum-k*IQ)-IR*k;
 			if (*idum < 0) *idum += IM;
@@ -481,13 +481,13 @@ std::string HMatch::randomNumGenerator(long *idum)
 		}
 		iy=iv[0];
 	}
-	k=(*idum)/IQ; 
-	*idum=IA*(*idum-k*IQ)-IR*k; 
-	if (*idum < 0) *idum += IM; 
-	j=iy/NDIV; 
-	iy=iv[j]; 
-	iv[j] = *idum; 
-	if ((temp=AM*iy) > RNMX) ret = RNMX; 
+	k=(*idum)/IQ;
+	*idum=IA*(*idum-k*IQ)-IR*k;
+	if (*idum < 0) *idum += IM;
+	j=iy/NDIV;
+	iy=iv[j];
+	iv[j] = *idum;
+	if ((temp=AM*iy) > RNMX) ret = RNMX;
 	else ret = temp;
 
 	*idum = -1*(*idum);

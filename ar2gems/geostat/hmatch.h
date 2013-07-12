@@ -2,23 +2,23 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "geostat" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -99,11 +99,11 @@
 #include <Python.h>
 //#endif
 
-#include <GsTLAppli/geostat/geostat_algo.h> 
-#include <GsTLAppli/utils/error_messages_handler.h>
-#include <GsTLAppli/grid/grid_model/geostat_grid.h>
-#include <GsTLAppli/appli/project.h>
-#include <GsTLAppli/grid/grid_model/rgrid.h>
+#include <geostat/geostat_algo.h>
+#include <utils/error_messages_handler.h>
+#include <grid/geostat_grid.h>
+#include <appli/project.h>
+#include <grid/rgrid.h>
 #include <string>
 #include <set>
 
@@ -133,26 +133,26 @@ struct ltstr
 	}
 };
 
-class HMatch : public Geostat_algo 
+class HMatch : public Geostat_algo
 {
 public:
 
-	HMatch() 
+	HMatch()
 	{
 		_initRandom = -43;
 	}
 
 	~HMatch() {}
-	
-			
-	virtual bool initialize( const Parameters_handler* parameters, 
-		Error_messages_handler* errors ); 
+
+
+	virtual bool initialize( const Parameters_handler* parameters,
+		Error_messages_handler* errors );
 
 	virtual int execute(GsTL_project * p = 0);
-	virtual std::string name() const { return "PPM"; } 
+	virtual std::string name() const { return "PPM"; }
 
-public: 
-	static Named_interface* create_new_interface( std::string& ); 
+public:
+	static Named_interface* create_new_interface( std::string& );
 
 private:
 
@@ -192,14 +192,14 @@ private:
 	double _initRd;
 
 	// initializes the random number generator
-	long _initRandom;  
+	long _initRandom;
 
-	//GsTL_project* _proj; 
+	//GsTL_project* _proj;
 
-	std::string mainFunc(bool isFirstRun, std::string bestReal, 
+	std::string mainFunc(bool isFirstRun, std::string bestReal,
 		vector<double> & Rds, std::string seed, vector<double> & objs, bool);
 
-	/* this code is borrowed with minor changes from class 
+	/* this code is borrowed with minor changes from class
 	   parameters_handler_impl.
 	   The empty string "", when used for the 3rd argument, is a special code.
 	   It means the attribute specified in the 2nd argument is to be retrieved.

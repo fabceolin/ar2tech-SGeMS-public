@@ -1,67 +1,66 @@
 # Process all headers with Q_OBJECT
 QT4_WRAP_CPP(gui_MOC
-  variogram2/plot_settings_dialog.h
-  variogram2/variogram_controls.h
-  variogram2/variogram_modeling_screen.h
-  variogram2/variog_plot.h
-  variogram2/first_scr.h
-  variogram2/print_plots_dialog.h
-  variogram2/rgrid_params.h
-  variogram2/variogram_modeler_gui.h
-  variogram2/pset_params.h
-  variogram2/variogram_controls_base.h
-  variogram2/variog_multiplot.h
   QWidget_value_accessors/qcombobox_accessor.h
-  viewer/grid_param_viewer.h
-  viewer/colormap_widget.h
-  viewer/vtk_project_view_gui.h
-  viewer/qvtkGsTLViewer.h
-  viewer/property_filter_view.h
-  viewer/grid_section_view.h
-  viewer/colormap_controller.h
-  viewer/colorbar_controller.h
-  viewer/property_param_viewer.h
-  viewer/object_property_viewer.h
-  appli/qt_algo_control_panel.h
-  appli/histogram_gui.h
-  appli/qt_sp_application.h
   appli/cli_commands_panel.h
   appli/data_analysis_gui.h
-  appli/snapshot_dialog.h
-  appli/qpplot_gui.h
   appli/histogram_control_panel.h
+  appli/histogram_gui.h
+  appli/qpplot_control_panel.h
+  appli/qpplot_gui.h
+  appli/qt_algo_control_panel.h
+  appli/qt_sp_application.h
   appli/scatterplot_control_panel.h
   appli/scatterplot_gui.h
-  appli/qpplot_control_panel.h
-  utils/new_mgrid_from_cgrid_dialog.h
-  utils/delete_regions_dialog.h
-  utils/categorical_definition_dialog.h
-  utils/downscale_grid_dialog.h
-  utils/new_distribution_dialog.h
-  utils/copy_property_dialog.h
-  utils/gstl_slider.h
-  utils/new_region_from_grid_filter_dialog.h
-  utils/merge_regions_dialog.h
-  utils/save_grid_dialog.h
-  utils/qdirdialog.h
-  utils/set_not_informed_dialog.h
-  utils/new_region_from_property_dialog.h
-  utils/indicator_property_dialog.h
-  utils/multichoice_dialog.h
-  utils/manager_dialog.h
-  utils/delete_properties_dialog.h
-  utils/group_property_dialog.h
-  utils/upscale_property_dialog.h
-  utils/categorical_property_dialog.h
-  utils/script_editor.h
+  appli/snapshot_dialog.h
+  models/categorical_table_model.h
+  models/gstl_item_action.h
+  models/histogram_chart_model.h
   models/project_ItemModel.h
   models/region_weight_delegate.h
-  models/histogram_chart_model.h
-  models/gstl_item_action.h
   models/visualization_tree_view.h
-  models/categorical_table_model.h
+  utils/categorical_definition_dialog.h
+  utils/categorical_property_dialog.h
+  utils/copy_property_dialog.h
+  utils/delete_properties_dialog.h
+  utils/delete_regions_dialog.h
+  utils/downscale_grid_dialog.h
+  utils/group_property_dialog.h
+  utils/gstl_slider.h
+  utils/indicator_property_dialog.h
+  utils/manager_dialog.h
+  utils/merge_regions_dialog.h
+  utils/multichoice_dialog.h
+  utils/new_distribution_dialog.h
+  utils/new_mgrid_from_cgrid_dialog.h
+  utils/new_region_from_grid_filter_dialog.h
+  utils/new_region_from_property_dialog.h
+  utils/qdirdialog.h
+  utils/save_grid_dialog.h
+  utils/script_editor.h
+  utils/set_not_informed_dialog.h
+  utils/upscale_property_dialog.h
+  variogram2/first_scr.h
+  variogram2/plot_settings_dialog.h
+  variogram2/print_plots_dialog.h
+  variogram2/pset_params.h
+  variogram2/rgrid_params.h
+  variogram2/variog_multiplot.h
+  variogram2/variog_plot.h
+  variogram2/variogram_controls.h
+  variogram2/variogram_controls_base.h
+  variogram2/variogram_modeler_gui.h
+  variogram2/variogram_modeling_screen.h
+  viewer/colorbar_controller.h
+  viewer/colormap_controller.h
+  viewer/colormap_widget.h
+  viewer/grid_param_viewer.h
+  viewer/grid_section_view.h
+  viewer/object_property_viewer.h
+  viewer/property_filter_view.h
+  viewer/property_param_viewer.h
+  viewer/qvtkGsTLViewer.h
+  viewer/vtk_project_view_gui.h
 )
-#viewer/property_section_view.h
 
 QT4_WRAP_UI(gui_FORMS
   variogram2/variogram_structure_controls_base.ui

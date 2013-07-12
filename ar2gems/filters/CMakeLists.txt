@@ -16,24 +16,25 @@ QT4_WRAP_UI(filters_FORMS
 )
 
 add_library(ar2gems_filters
-  simulacre_filter.cpp
-  sgems_folder_filter.cpp
-  csv_filter_qt_dialogs.cpp
-  save_project_objects.cpp
   csv_filter.cpp
-  library_filters_init.cpp
-  sgems_folder_grid_geometry.cpp
+  csv_filter_qt_dialogs.cpp
+  distribution_filter.cpp
   gslib/filter_qt_dialogs.cpp
   gslib/gslib_filter.cpp
-  distribution_filter.cpp
+  io_actions.cpp
+  library_filters_init.cpp
+  save_project_objects.cpp
+  sgems_folder_filter.cpp
+  sgems_folder_grid_geometry.cpp
+  simulacre_filter.cpp
   ${filters_MOC}
   ${filters_FORMS}
 )
 
 target_link_libraries(ar2gems_filters
   ${QT_LIBRARIES}
-  ar2gems_actions
   ar2gems_appli
   ar2gems_grid
+  ar2gems_math
   ar2gems_utils
 )

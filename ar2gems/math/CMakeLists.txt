@@ -1,15 +1,15 @@
 add_library(ar2gems_math
+  Linear_interpolator_1d.cpp
   box.cpp
   categorical_distribution.cpp
   continuous_distribution.cpp
-  correlation_measure_computer.cpp
   correlation_measure.cpp
+  correlation_measure_computer.cpp
   direction_3d.cpp
   discrete_function.cpp
   gstlappli_math_init.cpp
   histogram.cpp
   library_math_init.cpp
-  Linear_interpolator_1d.cpp
   non_parametric_distribution.cpp
   qpplot.cpp
   random_numbers.cpp
