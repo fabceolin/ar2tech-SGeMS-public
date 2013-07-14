@@ -27,6 +27,7 @@
 #include <charts/log_data_chart.h>
 #include <grid/utilities.h> 
 #include <qtplugins/rename_dialog.h>
+#include <charts/histogram_statistics.h>
 
 //#include "report_window.h"
 #include <vtkDescriptiveStatistics.h> 

@@ -58,10 +58,10 @@ public:
                           vtkSmartPointer<vtkTable> histo_line_table) 
   {
 
-    desc_stats_array_ = vtkSmartPointer<vtkVariantArray>::New();
-    quantile_stats_array_ = vtkSmartPointer<vtkVariantArray>::New();
-    histo_table_ = vtkSmartPointer<vtkTable>::New();
-    histo_line_table_ = vtkSmartPointer<vtkTable>::New();
+    //desc_stats_array_ = vtkSmartPointer<vtkVariantArray>::New();
+    //quantile_stats_array_ = vtkSmartPointer<vtkVariantArray>::New();
+    //histo_table_ = vtkSmartPointer<vtkTable>::New();
+    //histo_line_table_ = vtkSmartPointer<vtkTable>::New();
 
     desc_stats_array_ =  desc_stats_array;
     quantile_stats_array_ = quantile_stats_array;
@@ -108,17 +108,17 @@ public:
 
 
 
-Continuous_statistics CHARTS_DECL build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_region* region, const Grid_filter* filter, float min, float max );
+CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_region* region, const Grid_filter* filter, float min, float max );
 
-Continuous_statistics CHARTS_DECL build_histogram_table(int number_bins, const Grid_continuous_property* prop, const std::vector<bool>& mask, float min, float max );
+CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const std::vector<bool>& mask, float min, float max );
 
-Continuous_statistics CHARTS_DECL build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights, 
+CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights, 
                                             const Grid_region* region, const Grid_filter* filter,bool normalized_weights , float min, float max );
 
-Continuous_statistics CHARTS_DECL build_histogram_table(int number_bins, const Grid_continuous_property* prop, const std::vector<float>& weights, 
+CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const std::vector<float>& weights, 
                                             const Grid_region* region, const Grid_filter* filter,bool normalized_weights , float min, float max );
 
-Continuous_statistics CHARTS_DECL build_histogram_table(int number_bins, std::vector< std::pair<float, float> >& data_weights , std::string prop_name, std::string grid_name, float min, float max );
+CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::pair<float, float> >& data_weights , std::string prop_name, std::string grid_name, float min, float max );
 
 
 class CHARTS_DECL accumulate_pairs {
