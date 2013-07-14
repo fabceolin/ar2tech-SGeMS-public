@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
-** version of the open source software sgems.  It is a derivative work by
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
-** version of the software (see notice below) and now sublicensed such that it
-** cannot be distributed or modified without the explicit and written permission
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
+** version of the open source software sgems.  It is a derivative work by 
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
+** version of the software (see notice below) and now sublicensed such that it 
+** cannot be distributed or modified without the explicit and written permission 
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this
+** Only AR2TECH can modify, alter or revoke the licensing terms for this 
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written
+** This file cannot be modified or distributed without the explicit and written 
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at
+** The open-source version of sgems can be downloaded at 
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -42,9 +42,9 @@
 
 **
 
-** This file may be distributed and/or modified under the terms of the
+** This file may be distributed and/or modified under the terms of the 
 
-** license defined by the Stanford Center for Reservoir Forecasting and
+** license defined by the Stanford Center for Reservoir Forecasting and 
 
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 
@@ -141,7 +141,7 @@ VariogramInput::VariogramInput( QWidget* parent, const char* name )
 
   setupUi(this);
 
-
+  
 
   structures_frame_ = new QFrame( structures_main_box_);
   structures_main_box_->layout()->addWidget(structures_frame_);
@@ -161,11 +161,11 @@ VariogramInput::VariogramInput( QWidget* parent, const char* name )
 
   // Make one structure by default
 
-  Line_separator* separator1 =
+  Line_separator* separator1 = 
 
     new Line_separator( "Structure 1", structures_frame_);
 
-  Variogram_structure_input* struct1 =
+  Variogram_structure_input* struct1 = 
 
     new Variogram_structure_input(structures_frame_ );
 
@@ -175,9 +175,9 @@ VariogramInput::VariogramInput( QWidget* parent, const char* name )
 
   layout->addWidget(struct1);
 
+  
 
-
-
+  
 
   structures_.push_back( std::make_pair( separator1, struct1 ) );
 
@@ -213,7 +213,7 @@ void VariogramInput::update_structures_count(int val ) {
 
     for( int i=0; i < val - current_count; i ++ ) {
 
-
+      
 
       QString count_str;
 
@@ -225,17 +225,17 @@ void VariogramInput::update_structures_count(int val ) {
 
       	new Line_separator( "Structure " + count_str);
 
-      Variogram_structure_input* structure =
+      Variogram_structure_input* structure = 
 
 	      new Variogram_structure_input();
 
-
+      
 
       structures_frame_->layout()->addWidget(separator);
 
       structures_frame_->layout()->addWidget(structure);
 
-
+      
 
       structure->show();
 
@@ -257,9 +257,9 @@ void VariogramInput::update_structures_count(int val ) {
 
       delete structures_[ j ].second;
 
-      structures_.pop_back();
+      structures_.pop_back(); 
 
-
+      
 
     }
 
@@ -333,11 +333,11 @@ Variogram_structure_input* VariogramInput::structure( int id ) {
 
 void VariogramInput::load_model() {
 
-  QString filename =
+  QString filename = 
 
     QFileDialog::getOpenFileName( this, "Load Variogram Model" );
 
-
+  
 
   if( filename == QString::null ) return;
 
@@ -365,11 +365,11 @@ void VariogramInput::load_model() {
 
   if( qstr ==QString::null ) return;
 
-
+  
 
   // to avoid circular dependencies, we're not using the accessor anymore
 
-  /*
+  /* 
 
   VariogramInput_accessor accessor( this );
 
@@ -397,7 +397,7 @@ void VariogramInput::load_model() {
 
 bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
-
+  
 
   // qstr is just an element of an xml file, hence can not be parsed
 
@@ -417,7 +417,7 @@ bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
   QDomElement elem = root_element.firstChild().toElement();
 
-
+  
 
   // Get the nugget value and the number of structures
 
@@ -439,7 +439,7 @@ bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
     appli_assert( structure );
 
-
+    
 
     // Get the node describing the structure and initialize the contribution
 
@@ -503,7 +503,7 @@ bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
     QDomElement ranges_elem = ranges_node.toElement();
 
-
+    
 
     val = ranges_elem.attribute( "max" );
 
@@ -519,7 +519,7 @@ bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
 
 
-
+    
 
     // Get the angles
 
@@ -541,7 +541,7 @@ bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
     QDomElement angles_elem = angles_node.toElement();
 
-
+    
 
     val = angles_elem.attribute( "x" );
 
@@ -575,7 +575,7 @@ bool VariogramInput::init_values_from_xml_string( QString& qstr ) {
 
 Variogram_structure_input::
 
-Variogram_structure_input( QWidget* parent, const char* name )
+Variogram_structure_input( QWidget* parent, const char* name ) 
 
   : QWidget( parent ) {
 
@@ -590,7 +590,7 @@ Variogram_structure_input( QWidget* parent, const char* name )
 
   anisotropy_table_box_->setLayout(vbox);
 
-
+  
 
 
 
@@ -600,13 +600,13 @@ Variogram_structure_input( QWidget* parent, const char* name )
 
   vbox->addWidget(anisotropy_table_);
 
-
+  
 
   //anisotropy_table_->set_max_width( 250 );
 
 
 
-  QObject::connect( type_selector_,
+  QObject::connect( type_selector_, 
 
 		   SIGNAL( activated( const QString& ) ),
 
@@ -618,13 +618,13 @@ Variogram_structure_input( QWidget* parent, const char* name )
 
 
 
-
+ 
 
 }
 
+ 
 
-
-
+ 
 
 void Variogram_structure_input::set_ranges( float max, float medium, float min ) {
 
@@ -808,7 +808,7 @@ float Variogram_structure_input::z_angle() const {
 
 }
 
-
+  
 
 
 
@@ -850,7 +850,7 @@ float Variogram_structure_input::contribution() const {
 
 QString Variogram_structure_input::variogram_type() const {
 
-  return type_selector_->currentText();
+  return type_selector_->currentText(); 
 
 }
 
@@ -862,4 +862,61 @@ void Variogram_structure_input::set_variogram_type( const QString& type ) {
 
   type_selector_->setItemText( type_selector_->currentIndex(), type );
 
+} 
+
+
+
+
+
+//==============================================================
+
+
+
+Line_separator::Line_separator( const QString& label, 
+
+				QWidget* parent, const char* name ) 
+
+  : QWidget( parent ) {
+
+  
+  if (name)
+	  setObjectName(name);
+
+  QHBoxLayout* layout = new QHBoxLayout( this );
+
+
+
+  QLabel* separator_label = new QLabel( label, this );
+
+  QFont font;
+
+  font.setBold( true );
+
+  //  separator_label->setFont( font );
+
+  QSizePolicy label_policy( QSizePolicy::Fixed, QSizePolicy::Fixed );
+
+  separator_label->setSizePolicy( label_policy );
+
+  
+
+  QFrame* line = new QFrame( this);
+
+  line->setFrameShape( QFrame::Box );
+
+  line->setFrameShadow( QFrame::Raised );
+
+  QSizePolicy line_policy( QSizePolicy::Expanding, QSizePolicy::Fixed );
+
+  line->setSizePolicy( line_policy );
+
+  
+
+  layout->addWidget( separator_label );
+
+  layout->addWidget( line );
+
+  
+
 }
+

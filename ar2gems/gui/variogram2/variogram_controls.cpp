@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "gui" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -82,7 +82,7 @@
 using namespace String_Op;
 
 Variogram_controls::
-Variogram_controls( Covariance<GsTLPoint>* model, 
+Variogram_controls( Covariance<GsTLPoint>* model,
                     QWidget* parent, const char* name,
                     double default_max_range )
   : QWidget( parent ), default_max_range_(default_max_range) {
@@ -91,12 +91,12 @@ Variogram_controls( Covariance<GsTLPoint>* model,
 
   if (name)
     setObjectName(name);
-  
+
   QVBoxLayout* main_layout = new QVBoxLayout( this);
   main_layout->setMargin(12);
   main_layout->setSpacing(9);
   setLayout(main_layout);
-  
+
 
   QLabel* title = new QLabel( "<b>Variogram Model</b>", this);
   title->setAlignment( Qt::AlignHCenter | Qt::AlignVCenter);
@@ -107,10 +107,10 @@ Variogram_controls( Covariance<GsTLPoint>* model,
   main_layout->addWidget( title );
   main_layout->addSpacing( 12 );
 
-  QHBoxLayout* nugget_layout = 
+  QHBoxLayout* nugget_layout =
     new QHBoxLayout( );
   main_layout->addLayout(nugget_layout);
-  
+
   QLabel* nugget_label = new QLabel( "Nugget Effect", this);
   nugget_effect_edit_ = new QLineEdit( this);
   nugget_effect_edit_->setText("0");
@@ -119,10 +119,10 @@ Variogram_controls( Covariance<GsTLPoint>* model,
   nugget_layout->addWidget( nugget_effect_edit_ );
   nugget_layout->addStretch();
 
-  QHBoxLayout* struct_count_layout = 
+  QHBoxLayout* struct_count_layout =
     new QHBoxLayout( );
   main_layout->addLayout(struct_count_layout);
-  QLabel* count_label = 
+  QLabel* count_label =
     new QLabel( "Nb. of Structures", this);
   structures_count_ = new QSpinBox( this);
   structures_count_->setValue( 1 );
@@ -130,11 +130,11 @@ Variogram_controls( Covariance<GsTLPoint>* model,
   struct_count_layout->addWidget( count_label );
   struct_count_layout->addWidget( structures_count_ );
   struct_count_layout->addStretch();
-    
+
   //structures_frame_ = new QFrame( this);
   _structures_layout = new QVBoxLayout();
   //structures_frame_->setLayout(vbox);
-  
+
   //structures_frame_->setFrameShape( QFrame::NoFrame );
   _structures_layout->setSpacing( 8 );
   _structures_layout->setMargin( 1 );
@@ -143,15 +143,15 @@ Variogram_controls( Covariance<GsTLPoint>* model,
 
 
   // Make one structure by default
-  Line_separator* separator1 = 
+  Line_separator* separator1 =
     new Line_separator( "Structure 1",this, "struct_sep1" );
-  Variogram_structure_controls* struct1 = 
-    new Variogram_structure_controls( model,this, "struct1", 
+  Variogram_structure_controls* struct1 =
+    new Variogram_structure_controls( model,this, "struct1",
                                       default_max_range_ );
 
   _structures_layout->addWidget(separator1);
   _structures_layout->addWidget(struct1);
-  
+
 
   QObject::connect( struct1, SIGNAL( variogram_structure_changed() ),
 	              		this, SIGNAL( variogram_changed() ) );
@@ -166,7 +166,7 @@ Variogram_controls( Covariance<GsTLPoint>* model,
   struct1->set_id(id);
 
   structures_.push_back( std::make_pair( separator1, struct1 ) );
-      
+
 
   QObject::connect( structures_count_, SIGNAL( valueChanged( int ) ),
             		    this, SLOT( update_structures_count( int ) ) );
@@ -184,40 +184,40 @@ Variogram_controls( Covariance<GsTLPoint>* model,
 void Variogram_controls::update_structures_count(int val ) {
   int current_count = structures_.size();
   QString tmp;
-  
+
   if( current_count < val ) {
-    
+
     // add one (or more) new structure(s)
     for( int i=0; i < val - current_count; i ++ ) {
       QString count_str;
       count_str.setNum( current_count + i + 1 );
       tmp = "struct_sep" + count_str;
-      
+
       Line_separator* separator =
       	new Line_separator( "Structure " + count_str,
 			    this, qstring2string(tmp).c_str() );
-      Variogram_structure_controls* structure = 
-	      new Variogram_structure_controls( model_,this, 
-						qstring2string(tmp).c_str(), 
+      Variogram_structure_controls* structure =
+	      new Variogram_structure_controls( model_,this,
+						qstring2string(tmp).c_str(),
 						default_max_range_ );
 
       _structures_layout->addWidget(separator);
       _structures_layout->addWidget(structure);
-      
+
       QObject::connect( structure, SIGNAL( variogram_structure_changed() ),
 			this, SIGNAL( variogram_changed() ) );
 
-      std::vector<std::string> types=model_->available_types(); 
+      std::vector<std::string> types=model_->available_types();
       int id=model_->add_structure(types[0]);
       structure->set_id(id);
       double azh=0.0, dip=0.0, rake=0.0;
       convert_to_math_standard_angles_rad( azh, dip, rake );
       model_->set_angles( id, azh, dip, rake );
 
-      
+
       // Tell variogram function to add new structure
       //....
-      
+
       structure->show();
       separator->show();
       structures_.push_back( std::make_pair( separator, structure ) );
@@ -230,7 +230,7 @@ void Variogram_controls::update_structures_count(int val ) {
       delete structures_[ j ].second;
       structures_.pop_back();
       model_->remove_structure(j);
-      
+
     }
   }
   emit variogram_changed();
@@ -239,11 +239,11 @@ void Variogram_controls::update_structures_count(int val ) {
 
 void Variogram_controls:: nugget_changed(const QString &s)
 {
-    
+
     model_->nugget(s.toFloat());
     emit variogram_changed();
 }
-	  
+
 
 float Variogram_controls::nugget() const {
   QString val = nugget_effect_edit_->text();
@@ -269,10 +269,10 @@ Variogram_structure_controls* Variogram_controls::structure( int id ) {
 
 
 void Variogram_controls::load_model() {
-  QString filename = 
+  QString filename =
     QFileDialog::getOpenFileName( this,"Load Variogram Model");
 
-  
+
   if( filename == QString::null ) return;
 
   // Open the file and put the content into a string (using a stringstream)
@@ -284,13 +284,13 @@ void Variogram_controls::load_model() {
 
   QTextStream stream( &file );
   QString qstr = stream.readAll();
-  
+
   QDomDocument doc;
   bool parsed = doc.setContent( qstr );
   appli_assert( parsed );
 
   QDomElement root_element = doc.documentElement();
-  
+
   // Get the nugget value and the number of structures
   QString val = root_element.attribute( "nugget" );
   nugget_effect_edit_->setText( val );
@@ -337,7 +337,7 @@ void Variogram_controls::load_model() {
     QDomNode ranges_node = ranges_node_list.item(0);
     appli_assert( ranges_node.isElement() );
     QDomElement ranges_elem = ranges_node.toElement();
-    
+
     val = ranges_elem.attribute( "max" );
     r1 = val.toFloat();
     val = ranges_elem.attribute( "medium" );
@@ -345,7 +345,7 @@ void Variogram_controls::load_model() {
     val = ranges_elem.attribute( "min" );
     r3 = val.toFloat();
 
-    
+
     // Get the angles
     QDomNodeList angles_node_list = structure_elem.elementsByTagName( "angles" );
     if( angles_node_list.count() == 0 ) {
@@ -356,7 +356,7 @@ void Variogram_controls::load_model() {
     QDomNode angles_node = angles_node_list.item(0);
     appli_assert( angles_node.isElement() );
     QDomElement angles_elem = angles_node.toElement();
-    
+
     val = angles_elem.attribute( "x" );
     a1 = val.toFloat();
     val = angles_elem.attribute( "y" );
@@ -372,10 +372,10 @@ void Variogram_controls::load_model() {
 
 
 void Variogram_controls::save_model() {
-  QString filename = 
+  QString filename =
     QFileDialog::getSaveFileName( this, "Save Variogram Model");
 
-  
+
   if( filename == QString::null ) return;
 
   // Open the file and put the content into a string (using a stringstream)
@@ -384,13 +384,13 @@ void Variogram_controls::save_model() {
     GsTLcerr << "Can't open file " << qstring2string(filename) << "\n" << gstlIO::end;
     return;
   }
- 
+
   // Write the nugget effect and the number of structures
   out << "<variogram_model  "
       << "nugget=\"" <<  qstring2string(nugget_effect_edit_->text()) << "\" "
       << "structures_count=\"" << structures_count_->value() << "\"  >"
 	 << std::endl;
-  
+
   // Write the info about each structure
   for( unsigned int i=0; i < structures_.size() ; i++ ) {
     Variogram_structure_controls* structure = structures_[i].second;
@@ -401,8 +401,8 @@ void Variogram_controls::save_model() {
     structure->angles( a1, a2, a3 );
 
     out << "  <structure_" << i+1 << "  "
-	   << "contribution=\"" << structure->sill() << "\"  " 
-	<< "type=\"" << qstring2string(structure->type()) << "\"   >" 
+	   << "contribution=\"" << structure->sill() << "\"  "
+	<< "type=\"" << qstring2string(structure->type()) << "\"   >"
 	   << std::endl
 	   << "    <ranges max=\"" << r1 << "\"  "
 	   << "medium=\"" << r2 << "\"  "
@@ -413,9 +413,9 @@ void Variogram_controls::save_model() {
 	   << "z=\"" << a3 << "\"   />"
 	   << std::endl
 	   << "  </structure_" << i+1 << ">"
-	   << std::endl; 
+	   << std::endl;
   }
-  
+
   out << "</variogram_model>" << std::endl;
 }
 
@@ -429,13 +429,13 @@ void Variogram_controls::save_model() {
 
 Variogram_structure_controls::
 Variogram_structure_controls( Covariance<GsTLPoint>* model,QWidget* parent, const char* name,
-                              double default_max_range ) 
+                              double default_max_range )
   : QWidget( parent ) {
 
   setupUi(this);
   if (name)
     setObjectName(name);
-  
+
   model_=model;
 
   sill_value_->setText("1");
@@ -451,12 +451,12 @@ Variogram_structure_controls( Covariance<GsTLPoint>* model,QWidget* parent, cons
   g->addWidget(new QLabel( "Max", ranges_box_ ), 0, 0);
   g->addWidget(new QLabel( "Med", ranges_box_ ), 1, 0);
   g->addWidget(new QLabel( "Min", ranges_box_ ), 2, 0);
- 
-  range_slider_1_ = new GsTL_slider( 0.0, default_max_range, 0.0, default_max_range, 
+
+  range_slider_1_ = new GsTL_slider( 0.0, default_max_range, 0.0, default_max_range,
                                      "", ranges_box_, "slider1" );
-  range_slider_2_ = new GsTL_slider( 0.0, default_max_range, 0.0, default_max_range, 
+  range_slider_2_ = new GsTL_slider( 0.0, default_max_range, 0.0, default_max_range,
                                      "", ranges_box_, "slider2" );
-  range_slider_3_ = new GsTL_slider( 0, default_max_range, 0, default_max_range, 
+  range_slider_3_ = new GsTL_slider( 0, default_max_range, 0, default_max_range,
                                      "", ranges_box_, "slider3" );
 
   g->addWidget(range_slider_1_, 0,1);
@@ -471,7 +471,7 @@ Variogram_structure_controls( Covariance<GsTLPoint>* model,QWidget* parent, cons
   QObject::connect( range_slider_3_, SIGNAL( maxValueChanged( double ) ),
                     range_slider_1_, SLOT( setMaxValue( double ) ) );
 
-  
+
 /*
   QObject::connect( range_slider_1_,SIGNAL( valueChanged(int) ),
 	   this,SLOT(range_changed(int ) ) );
@@ -487,7 +487,7 @@ Variogram_structure_controls( Covariance<GsTLPoint>* model,QWidget* parent, cons
   QObject::connect( range_slider_3_,SIGNAL( valueChanged(double) ),
 		   this,SLOT(range3_changed(double ) ) );
 
-   
+
   QObject::connect( ang1_,SIGNAL( textChanged(const QString& ) ),
 	   this,SLOT(angle_changed(const QString&  ) ) );
   QObject::connect( ang2_,SIGNAL( textChanged(const QString& ) ),
@@ -504,7 +504,7 @@ Variogram_structure_controls( Covariance<GsTLPoint>* model,QWidget* parent, cons
 	   this,SLOT(type_changed( const QString& ) ) );
 
 }
- 
+
 
 
 
@@ -517,13 +517,13 @@ void Variogram_structure_controls::set_id(int id)
 
 void Variogram_structure_controls::range_changed(double d)
 {
-    
+
   if( range_slider_3_->value() > range_slider_2_->value() )
   	range_slider_3_->setValue( range_slider_2_->value() );
-    
+
   if( range_slider_2_->value() > range_slider_1_->value() )
   	range_slider_2_->setValue( range_slider_1_->value() );
-    
+
   model_->set_ranges(id_, range_slider_1_->value(),
 	          	       range_slider_2_->value(),
 	                   range_slider_3_->value() );
@@ -537,14 +537,14 @@ void Variogram_structure_controls::range_changed(double d)
 // trying...
 
 void Variogram_structure_controls::range1_changed( double )
-{   
+{
   if( range_slider_2_->value() > range_slider_1_->value() )
   	range_slider_2_->setValue( range_slider_1_->value() );
 
   if( range_slider_3_->value() > range_slider_2_->value() )
   	range_slider_3_->setValue( range_slider_2_->value() );
-    
-    
+
+
   model_->set_ranges(id_, range_slider_1_->value(),
 	          	       range_slider_2_->value(),
 	                   range_slider_3_->value() );
@@ -556,13 +556,13 @@ void Variogram_structure_controls::range1_changed( double )
 }
 
 void Variogram_structure_controls::range2_changed( double )
-{    
+{
   if( range_slider_3_->value() > range_slider_2_->value() )
   	range_slider_3_->setValue( range_slider_2_->value() );
-    
+
   if( range_slider_2_->value() > range_slider_1_->value() )
   	range_slider_1_->setValue( range_slider_2_->value() );
-    
+
   model_->set_ranges(id_, range_slider_1_->value(),
 	          	       range_slider_2_->value(),
 	                   range_slider_3_->value() );
@@ -575,13 +575,13 @@ void Variogram_structure_controls::range2_changed( double )
 
 void Variogram_structure_controls::range3_changed( double )
 {
-    
+
   if( range_slider_3_->value() > range_slider_2_->value() )
   	range_slider_2_->setValue( range_slider_3_->value() );
-    
+
   if( range_slider_2_->value() > range_slider_1_->value() )
   	range_slider_1_->setValue( range_slider_2_->value() );
-    
+
   model_->set_ranges(id_, range_slider_1_->value(),
 	          	       range_slider_2_->value(),
 	                   range_slider_3_->value() );
@@ -602,8 +602,8 @@ void Variogram_structure_controls::sill_changed(const QString &s)
 //    cout<<"SILL CHANGED "<< s.toDouble()<<endl;
     model_->sill(id_,s.toDouble());
     emit variogram_structure_changed();
-    
-   
+
+
 }
 
 
@@ -616,15 +616,15 @@ void Variogram_structure_controls::angle_changed(const QString &s)
   convert_to_math_standard_angles_rad( a1, a2, a3 );
 
   model_->set_angles(id_, a1, a2, a3 );
-    
+
   emit variogram_structure_changed();
 }
 
 
 void Variogram_structure_controls::type_changed(const QString &s)
-{    
+{
     std::string str(qstring2string(s));
-    model_->set_type(id_,str);  
+    model_->set_type(id_,str);
     emit variogram_structure_changed();
 }
 
@@ -643,7 +643,7 @@ set_structure( double sill, const QString& type,
     if( model_type_->itemText( i ) == type ) break;
   }
   model_type_->setCurrentIndex( i );
-  
+
   str.setNum( angle1 );
   ang1_->setText( str );
   str.setNum( angle2 );
@@ -660,7 +660,7 @@ set_structure( double sill, const QString& type,
   model_->set_ranges( id_, range1, range2, range3 );
 
   convert_to_math_standard_angles_degree( angle1, angle2, angle3 );
-  model_->set_angles( id_, degree_to_radian( angle1 ), 
+  model_->set_angles( id_, degree_to_radian( angle1 ),
                            degree_to_radian( angle2 ),
                            degree_to_radian( angle3 ) );
 
@@ -716,14 +716,14 @@ void Variogram_structure_controls::set_ranges( float max, float medium, float mi
   emit anisotropy_value_changed();
 }
 
-void Variogram_structure_controls::ranges( float& max, 
+void Variogram_structure_controls::ranges( float& max,
 					float& medium, float& min ) const {
   QString val = anisotropy_table_->text( 0,0 );
   max = val.toFloat();
-  
+
   val = anisotropy_table_->text( 0,1 );
   medium = val.toFloat();
-  
+
   val = anisotropy_table_->text( 0,2 );
   min = val.toFloat();
 }
@@ -792,10 +792,10 @@ void Variogram_structure_controls::angles( float& max,
 					float& medium, float& min ) const {
   QString val = anisotropy_table_->text( 1,0 );
   max = val.toFloat();
-  
+
   val = anisotropy_table_->text( 1,1 );
   medium = val.toFloat();
-  
+
   val = anisotropy_table_->text( 1,2 );
   min = val.toFloat();
 }
@@ -840,7 +840,7 @@ float Variogram_structure_controls::z_angle() const {
   QString val = anisotropy_table_->text( 1,2 );
   return val.toFloat();
 }
-  
+
 
 void Variogram_structure_controls::contribution_change_slot( const QString& val ) {
   float c = val.toFloat();
@@ -861,42 +861,11 @@ float Variogram_structure_controls::contribution() const {
 
 
 QString Variogram_structure_controls::variogram_type() const {
-  return type_selector_->currentText().latin1(); 
+  return type_selector_->currentText().latin1();
 }
 
 
 void Variogram_structure_controls::set_variogram_type( const QString& type ) {
   type_selector_->setCurrentText( type );
-} 
-*/
-
-//==============================================================
-
-Line_separator::Line_separator( const QString& label, 
-				QWidget* parent, const char* name ) 
-  : QWidget( parent ) {
-
-  if (name)
-    setObjectName(name);
-  
-  QHBoxLayout* layout = new QHBoxLayout( this );
-  setLayout(layout);
-  
-  QLabel* separator_label = new QLabel( label, this );
-  QFont font;
-  font.setBold( true );
-  separator_label->setFont( font );
-
-  QSizePolicy label_policy( QSizePolicy::Fixed, QSizePolicy::Fixed );
-  separator_label->setSizePolicy( label_policy );
-  
-  QFrame* line = new QFrame( this);
-  line->setFrameShape( QFrame::Box );
-  line->setFrameShadow( QFrame::Raised );
-  QSizePolicy line_policy( QSizePolicy::Expanding, QSizePolicy::Fixed );
-  line->setSizePolicy( line_policy );
-  
-  layout->addWidget( separator_label );
-  layout->addWidget( line );
-  
 }
+*/
