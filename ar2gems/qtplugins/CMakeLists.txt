@@ -74,8 +74,8 @@ add_library(ar2gems_qtplugins
 
 target_link_libraries(ar2gems_qtplugins
   ar2gems_appli
-  ar2gems_extragui
   ar2gems_grid
+  ar2gems_gui
   ar2gems_math
   ar2gems_utils
 )
