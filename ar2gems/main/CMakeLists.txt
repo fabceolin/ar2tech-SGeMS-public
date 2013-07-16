@@ -1,6 +1,6 @@
 QT4_ADD_RESOURCES(main_RESOURCES
-  ../gui/icons.qrc
-  ../qtplugins/icons.qrc
+  ../gui/resources.qrc
+  ../qtplugins/resources.qrc
 )
 
 add_executable(ar2gems
