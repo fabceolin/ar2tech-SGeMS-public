@@ -1,4 +1,4 @@
-<RCC>
+<!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/icons">
         <file>appli/Pixmaps/eye4.png</file>
         <file>appli/Pixmaps/eye.png</file>
@@ -44,7 +44,9 @@
         <file>appli/Pixmaps/histo-lines.svg</file>
         <file>appli/Pixmaps/weight_property.svg</file>
         <file>appli/Pixmaps/ar2tech-sgems.png</file>
-        <file>appli/Pixmaps/ar2gems-splash.png</file>
         <file>appli/Pixmaps/ar2gems-icon-256x256.png</file>
+    </qresource>
+    <qresource>
+        <file alias="ar2gems-splash.png">appli/Pixmaps/ar2gems-splash.png</file>
     </qresource>
 </RCC>
