@@ -198,9 +198,12 @@ vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, 
 
   vtkSmartPointer<vtkTable> table = vtkSmartPointer<vtkTable>::New();
   vtkSmartPointer<vtkFloatArray> distance_array = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkIntArray> nodeid_array = vtkSmartPointer<vtkIntArray>::New();
   distance_array->SetName(  "Distance" );
   distance_array->SetNumberOfValues(log_data->number_of_segments()*2);
   
+  nodeid_array->SetName(  "Node id" );
+  nodeid_array->SetNumberOfValues(log_data->number_of_segments()*2);
 
   vtkSmartPointer<vtkFloatArray> value_array = vtkSmartPointer<vtkFloatArray>::New();
   value_array->SetName( value_prop->name().c_str() );
@@ -210,6 +213,9 @@ vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, 
   for(int i=0 ; it != log_data->segment_end(); ++it, ++i) {
      distance_array->SetValue( 2*i, it->second.from );
      distance_array->SetValue( 2*i+1, it->second.to );
+     nodeid_array->SetValue(2*i,it->second.nodeid);
+     nodeid_array->SetValue(2*i+1,it->second.nodeid);
+
      float val = Grid_continuous_property::no_data_value;
      
      if(   value_prop->is_informed(it->second.nodeid) && (!filter ||  filter->is_valid_nodeid(it->second.nodeid) ) )   {
@@ -222,6 +228,7 @@ vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, 
 
   table->AddColumn(distance_array);
   table->AddColumn(value_array);
+  table->AddColumn(nodeid_array);
 
   return table;
 

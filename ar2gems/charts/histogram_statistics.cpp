@@ -164,41 +164,6 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
     histo_p->SetValue( bin_id, histo_p->GetValue(bin_id) + prob );
   }
 
-/*
-
-  int histo_bin_id=0;
-  float bin_value=0;
-  float bin_p=0;
-  int count=0;
-  for(int i=0; i<d->GetNumberOfTuples(); ++i) {
-    float val = d->GetValue(i);
-    if( val <= min+bin_width  ) {
-      bin_value += val;
-      bin_p += p->GetValue(i);
-      count++;
-    } else {  //Reached the next bin
-      histo_p->SetValue( histo_bin_id, bin_p );
-      histo_vmid->SetValue( histo_bin_id, min+bin_width/2 );
-      histo_vmean->SetValue( histo_bin_id, bin_value/count );
-  
-
-      //Initialize the variables for the next bin
-      bin_value = val;
-      bin_p = p->GetValue(i);
-      count=1;
-      //Find the next bin
-      while( val > min+bin_width ) {
-        histo_bin_id++;
-        min+=bin_width;
-        histo_p->SetValue(histo_bin_id,0);
-        histo_vmid->SetValue( histo_bin_id, min+bin_width/2 );
-        histo_vmean->SetValue( histo_bin_id, min+static_cast<float>(bin_width)/2 );
-      }
-
-    }
-  
-  }
-  */
   vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
   histo_table->AddColumn(histo_vmid);
   histo_table->AddColumn(histo_p);
