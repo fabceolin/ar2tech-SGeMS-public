@@ -710,5 +710,37 @@ description=sequential gaussian simulation</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Hard_Data</sender>
+   <signal>object_changed(QString)</signal>
+   <receiver>Trend</receiver>
+   <slot>set_hd_grid_name(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>391</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Grid_Name</sender>
+   <signal>activated(QString)</signal>
+   <receiver>Trend</receiver>
+   <slot>set_grid_name(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>391</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
