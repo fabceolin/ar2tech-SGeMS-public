@@ -98,8 +98,8 @@ void Lib_initializer::minimal_init()
 
 	// initialize all non-gui libraries
   libGsTLAppli_math_init();
-	libGsTLAppli_actions_init();
 	libGsTLAppli_appli_init();
+	libGsTLAppli_actions_init();
 	libGsTLAppli_filters_init();
 	libGsTLAppli_geostat_init();
 	libGsTLAppli_grid_init();
