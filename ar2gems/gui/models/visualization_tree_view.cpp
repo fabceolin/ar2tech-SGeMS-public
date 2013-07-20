@@ -34,7 +34,7 @@
 #include <gui/models/visualization_tree_view.h>
 
 #include <appli/project.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/grid_property_set.h>
 #include <actions/obj_manag_actions.h>
 //#include <gui/models/project_ItemModel.h>

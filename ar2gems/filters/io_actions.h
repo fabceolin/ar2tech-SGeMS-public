@@ -25,7 +25,7 @@
 
 
 /**********************************************************************
-** Author: Alexandre Boucher
+** Author: Nicolas Remy
 ** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
 **   University
 ** All rights reserved.
@@ -52,105 +52,150 @@
 **
 **********************************************************************/
 
-#ifndef __GSTLAPPLI_PROPERTY_GROUP_ACTIONS_H__ 
-#define __GSTLAPPLI_PROPERTY_GROUP_ACTIONS_H__ 
-
-#include <actions/common.h>
+#ifndef __IO_ACTIONS_H__ 
+#define __IO_ACTIONS_H__ 
+ 
+#include <filters/common.h>
 #include <appli/action.h> 
-#include <actions/action_no_parameter.h> 
-
+#include <filters/filter.h> 
+#include <grid/geostat_grid.h> 
+#include <grid/property_copier.h>
 
 #include <qstring.h>
  
 #include <string> 
 #include <set>
+ 
 
 class GsTL_project; 
 class Error_messages_handler;
+ 
 
-class ACTIONS_DECL New_property_group : public Action { 
+ 
+class FILTERS_DECL Load_object_from_file : public Action { 
  public: 
   static Named_interface* create_new_interface( std::string& ); 
  
  public: 
-  New_property_group() {} 
-  virtual ~New_property_group() {} 
-   
+  Load_object_from_file() {} 
+  virtual ~Load_object_from_file(); 
+ 
   virtual bool init( std::string& parameters, GsTL_project* proj,
                      Error_messages_handler* errors ); 
   virtual bool exec(); 
  
- private: 
-  GsTL_project* project_;
-  std::string grid_name_;
+ protected:
+   bool find_filter( const std::string& filename );
+
+ protected: 
+  std::string file_name_; 
+  SmartPtr<Input_filter> filter_; 
+  GsTL_project* proj_; 
+  Error_messages_handler* errors_;
 }; 
-
-class ACTIONS_DECL Add_properties_to_group : public Action { 
+ 
+ 
+class FILTERS_DECL Save_geostat_grid : public Action { 
  public: 
   static Named_interface* create_new_interface( std::string& ); 
  
  public: 
-  Add_properties_to_group() {} 
-  virtual ~Add_properties_to_group() {} 
-   
+  Save_geostat_grid() {}  // TL modified
+  virtual ~Save_geostat_grid() {}; 
+ 
   virtual bool init( std::string& parameters, GsTL_project* proj,
                      Error_messages_handler* errors ); 
   virtual bool exec(); 
  
- private: 
-
+ protected: 
+  std::string file_name_; 
+  SmartPtr<Geostat_grid> grid_; 
+  SmartPtr<Output_filter> filter_; 
+  GsTL_project* proj_; 
+  Error_messages_handler* errors_;
 }; 
+ 
 
-class ACTIONS_DECL Remove_properties_from_group : public Action { 
+
+
+
+
+class FILTERS_DECL Load_project : public Action { 
  public: 
   static Named_interface* create_new_interface( std::string& ); 
  
  public: 
-  Remove_properties_from_group() {} 
-  virtual ~Remove_properties_from_group() {} 
-   
+  Load_project() {} 
+  virtual ~Load_project(); 
+ 
   virtual bool init( std::string& parameters, GsTL_project* proj,
                      Error_messages_handler* errors ); 
   virtual bool exec(); 
  
- private: 
+ protected: 
+  QString dirname_; 
+  GsTL_project* proj_; 
+  Error_messages_handler* errors_;
+};  
 
-};
-
-
-class ACTIONS_DECL Delete_property_in_group : public GroupNoParameterAction {
+ 
+/*
+loop over all the objects to be saved and call their respective outfilter
+*/
+class FILTERS_DECL Save_project : public Action {
  public:
   static Named_interface* create_new_interface( std::string& );
 
  public:
-  Delete_property_in_group():GroupNoParameterAction("RemoveAllPropertiesFromGroup") {}
-  virtual ~Delete_property_in_group() {}
+  Save_project(){}
+  virtual ~Save_project() {}
 
   virtual bool init( std::string& parameters, GsTL_project* proj,
                      Error_messages_handler* errors );
-  virtual bool exec();
 
- private:
+  virtual bool exec(){return true;}
+
+private :
 
 };
 
 
-class ACTIONS_DECL Remove_group : public GroupNoParameterAction {
- public:
+
+
+class FILTERS_DECL Load_distribution_action :  public Action
+{
+public:
+
   static Named_interface* create_new_interface( std::string& );
 
- public:
-  Remove_group():GroupNoParameterAction("RemoveGroup") { }
-  virtual ~Remove_group() {}
+  Load_distribution_action(void);
+  virtual ~Load_distribution_action(void);
 
   virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors );
+                     Error_messages_handler* errors ); 
   virtual bool exec();
 
- private:
+private:
+
+};
+
+class FILTERS_DECL Save_distribution_action :  public Action
+{
+public:
+
+  static Named_interface* create_new_interface( std::string& );
+
+  Save_distribution_action(void);
+  virtual ~Save_distribution_action(void);
+
+  virtual bool init( std::string& parameters, GsTL_project* proj,
+                     Error_messages_handler* errors ); 
+  virtual bool exec();
+
+private:
 
 };
 
 
 
-#endif
+#endif 

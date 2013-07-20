@@ -31,7 +31,7 @@
  *      Author: aboucher
  */
 
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <gui/viewer/grid_param_viewer.h>
 #include <gui/viewer/grid_section_view.h>
 

@@ -57,8 +57,13 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gstl_item_model.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="GeneratedFiles\UnitTest\moc_gstl_item_model.cpp">
       <Filter>Generated Files\UnitTest</Filter>
+=======
+    <ClCompile Include="manager_repository.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> origin/cyclic_dependencies
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +113,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="manager_repository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

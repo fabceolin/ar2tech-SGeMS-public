@@ -32,7 +32,7 @@
  */
 
 #include <grid/grid_categorical_property.h>
-#include <appli/manager_repository.h> 
+#include <utils/manager_repository.h> 
 #include <sstream>
 
 

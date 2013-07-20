@@ -32,7 +32,7 @@
  */
 
 #include <qtplugins/region_weight_proxy_model.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/grid_region.h>
 #include <grid/grid_weight_property.h>
 #include <qtplugins/grid_proxy_model.h>

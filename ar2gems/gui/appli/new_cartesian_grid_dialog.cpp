@@ -53,7 +53,7 @@
 **********************************************************************/
 
 #include <gui/appli/new_cartesian_grid_dialog.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 #include <utils/string_manipulation.h>
 
 #include <qobject.h>

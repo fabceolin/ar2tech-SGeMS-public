@@ -69,7 +69,7 @@
 #include <utils/error_messages_handler.h>
 #include <utils/string_manipulation.h>
 #include <utils/progress_notifier.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 #include <actions/python_wrapper.h>
 #include <actions/library_actions_init.h>

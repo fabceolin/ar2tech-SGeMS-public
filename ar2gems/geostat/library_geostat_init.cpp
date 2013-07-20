@@ -71,7 +71,7 @@
 #include <geostat/LU_sim.h>
 #include <geostat/filtersim_std/filtersim_cate.h>
 #include <geostat/filtersim_std/filtersim_cont.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/gstl_messages.h>
 #include <geostat/transcat.h>
 #include <geostat/ImageProcess.h>

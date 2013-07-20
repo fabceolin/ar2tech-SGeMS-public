@@ -55,7 +55,7 @@
 #include <gui/appli/qt_algo_control_panel.h>
 #include <gui/utils/gstl_widget_factory.h>
 #include <gui/utils/qwidget_value_accessor.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 #include <geostat/geostat_algo.h>
 #include <geostat/parameters_handler.h>
@@ -63,7 +63,7 @@
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
 #include <gui/utils/qwidget_value_collector.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 
 #include <qtplugins/selectors.h>
 

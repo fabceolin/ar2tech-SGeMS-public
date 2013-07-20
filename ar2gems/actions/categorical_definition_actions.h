@@ -56,7 +56,7 @@
 #define __GSTLAPPLI_CATEGORICAL_DEFINITION_ACTIONS_H__ 
 
 #include <actions/common.h>
-#include <actions/action.h> 
+#include <appli/action.h> 
 
 
 #include <qstring.h>

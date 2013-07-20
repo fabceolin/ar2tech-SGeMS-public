@@ -271,12 +271,11 @@
     <ClCompile Include="unary_action.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="action.h" />
+    <ClInclude Include="action_no_parameter.h" />
     <ClInclude Include="algorithms_actions.h" />
     <ClInclude Include="categorical_definition_actions.h" />
     <ClInclude Include="categorical_property_actions.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="defines.h" />
     <ClInclude Include="distribution_action.h" />
     <ClInclude Include="library_actions_init.h" />
     <ClInclude Include="maskedgrid_actions.h" />

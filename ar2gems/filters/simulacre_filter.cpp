@@ -58,7 +58,7 @@
 #include <grid/reduced_grid.h>
 #include <grid/grid_property.h>
 #include <grid/grid_region.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <qfile.h>
 #include <qdatastream.h>

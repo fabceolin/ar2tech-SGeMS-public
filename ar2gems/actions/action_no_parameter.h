@@ -57,6 +57,8 @@
  
 #include <actions/common.h>
 #include <utils/named_interface.h> 
+#include <actions/common.h>
+#include <appli/action.h> 
  
 #include <string> 
  
@@ -64,18 +66,6 @@
 class GsTL_project; 
 class Error_messages_handler; 
  
-/** The base class for all actions. 
- */ 
-class ACTIONS_DECL Action : public Named_interface { 
- 
- public: 
-  virtual ~Action() {} 
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ) = 0; 
-  virtual bool exec() = 0; 
-
- 
-}; // end of class Action 
  
 /** The base class for all actions on property that may not need parameters.
  * Parameters may be optional

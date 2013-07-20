@@ -53,7 +53,7 @@
 **********************************************************************/
 
 #include <widget_accessor/library_extragui_init.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/gstl_messages.h>
 #include <widget_accessor/qt_accessors.h>
 #include <gui/QWidget_value_accessors/qtable_accessor.h>

@@ -32,7 +32,7 @@
  */
 
 
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
 #include <qtplugins/project_proxy_model.h>
 #include <grid/grid_property.h>

@@ -289,6 +289,7 @@
     </ClCompile>
     <ClCompile Include="gstl_messages_private.cpp" />
     <ClCompile Include="manager.cpp" />
+    <ClCompile Include="manager_repository.cpp" />
     <ClCompile Include="progress_notifier.cpp" />
     <ClCompile Include="string_manipulation.cpp" />
   </ItemGroup>
@@ -329,6 +330,7 @@
     <ClInclude Include="gstl_types.h" />
     <ClInclude Include="lineeditkey.h" />
     <ClInclude Include="manager.h" />
+    <ClInclude Include="manager_repository.h" />
     <ClInclude Include="named_interface.h" />
     <ClInclude Include="progress_notifier.h" />
     <ClInclude Include="resource.h" />

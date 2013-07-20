@@ -63,7 +63,7 @@
 #include <grid/gval_iterator.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
 

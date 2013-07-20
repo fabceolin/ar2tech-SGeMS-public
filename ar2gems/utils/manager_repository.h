@@ -59,7 +59,7 @@
 #ifndef __GSTLAPPLI_TREE_FACTORY_H__ 
 #define __GSTLAPPLI_TREE_FACTORY_H__ 
 
-#include <appli/common.h>
+#include <utils/common.h>
 #include <utils/manager.h> 
 #include <utils/singleton_holder.h> 
 

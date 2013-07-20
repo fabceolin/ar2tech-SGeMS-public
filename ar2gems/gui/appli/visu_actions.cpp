@@ -59,9 +59,9 @@
 #include <gui/viewer/qvtkGsTLViewer.h>
 #include <gui/appli/snapshot_dialog.h>
 #include <utils/string_manipulation.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 #include <utils/error_messages_handler.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <gui/appli/histogram_gui.h>
 #include <gui/appli/scatterplot_gui.h>
 #include <gui/appli/qpplot_gui.h>
