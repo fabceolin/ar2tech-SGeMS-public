@@ -53,7 +53,7 @@
 **********************************************************************/
 
 #include <appli/library_appli_init.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 #include <appli/root_model.h>
 #include <utils/gstl_messages.h>
@@ -106,8 +106,17 @@ int library_appli_init::init_lib() {
   dir->factory("directory", create_directory);
  // bind_model_factories(dir);
 
+  //creating an empty action directory
+	GsTLlog << "\n\n creating actions directory \n";
 
+	ni = Root::instance()->new_interface("directory://actions", actions_manager);
+  dir = dynamic_cast<Manager*>( ni_model.raw_ptr() );
 
+  if( !dir ) {
+    GsTLlog << "could not create directory "
+	      << actions_manager << "\n";
+    return 1;
+  }
 
   Root::instance()->list_all( GsTLlog );
   return 0;

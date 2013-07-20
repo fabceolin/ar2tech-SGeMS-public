@@ -54,7 +54,7 @@
 
 #include <grid/grid_property_manager.h>
 #include <utils/string_manipulation.h> 
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <stdlib.h>
 #include <grid/grid_property_manager.h>

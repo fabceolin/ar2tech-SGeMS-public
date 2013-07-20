@@ -55,7 +55,7 @@
 #include <filters/csv_filter_qt_dialogs.h>
 #include <filters/csv_filter.h>
 #include <utils/gstl_messages.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <qpushbutton.h>
 #include <qspinbox.h>

@@ -36,9 +36,9 @@
 #include <utils/manager.h>
 #include <utils/gstl_messages.h>
 #include <utils/error_messages_handler.h>
-#include <appli/manager_repository.h>
-#include <actions/action.h>
-#include <actions/defines.h>
+#include <utils/manager_repository.h>
+#include <appli/action.h>
+#include <appli/action.h>
 
 #include <gui/vtk_prop/vtk_prop_cgrid.h>
 #include <gui/appli/snapshot_dialog.h>

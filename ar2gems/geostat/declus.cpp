@@ -36,7 +36,7 @@
 #include <grid/point_set.h>
 #include <grid/gval_iterator.h>
 #include <grid/point_set_neighborhood.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/point_set.h>
 #include <appli/utilities.h>
 #include <grid/grid_region_temp_selector.h> 

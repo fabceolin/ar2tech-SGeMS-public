@@ -24,7 +24,7 @@
 
 #include <grid/utilities.h>
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 Geostat_grid* get_grid_from_manager( std::string grid_name ){
 

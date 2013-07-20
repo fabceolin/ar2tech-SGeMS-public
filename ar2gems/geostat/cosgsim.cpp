@@ -65,7 +65,7 @@
 #include <grid/combined_neighborhood.h>
 #include <grid/gval_iterator.h>
 #include <grid/property_copier.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
 

@@ -27,7 +27,7 @@
 #include "distribution_proxy_model.h"
 
 #include <appli/root_model.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/manager.h>
 
 Distribution_proxy_model::Distribution_proxy_model(QObject *parent)

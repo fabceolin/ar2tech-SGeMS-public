@@ -56,7 +56,7 @@
 #define __GSTLAPPLI_LIBRARY_FILTERS_INIT_H__ 
  
 #include <filters/common.h>
-#include <appli/manager_repository.h> 
+#include <utils/manager_repository.h> 
  
  
 #include <iostream> 
@@ -80,6 +80,8 @@ class FILTERS_DECL library_filters_init {
 
   static bool bind_geometry_xml_managers(Manager* dir);
   static bool bind_project_output(Manager* dir);
+
+  static bool bind_io_actions(Manager* dir);
  
 }; 
  

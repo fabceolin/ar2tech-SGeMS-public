@@ -38,7 +38,7 @@
 #include <utils/manager.h>
 #include <appli/root_model.h>
 #include <appli/project.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <qtplugins/project_proxy_model.h>
 

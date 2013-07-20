@@ -27,7 +27,7 @@
 
 #include <qtplugins/grid_filter_model.h>
 #include <qtplugins/grid_filter_named_interface.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 Grid_filter_model::Grid_filter_model(QObject *parent)
  : QAbstractItemModel(parent) {

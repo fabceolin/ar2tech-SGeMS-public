@@ -53,7 +53,7 @@
 **********************************************************************/
 
 #include <appli/utilities.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 #include <algorithm>
 

@@ -52,7 +52,7 @@
 **
 **********************************************************************/
 
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 /* Implementation note:
  * This class is different from Singleton_holder in that it uses

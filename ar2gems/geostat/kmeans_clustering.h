@@ -36,7 +36,7 @@
 #include <geostat/utilities.h> 
 #include <geostat/parameters_handler.h>
 #include <utils/error_messages_handler.h>
-#include <actions/action.h>
+#include <appli/action.h>
 
 class GEOSTAT_DECL Kmeans_clustering : public Geostat_algo { 
 

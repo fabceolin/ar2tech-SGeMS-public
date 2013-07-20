@@ -29,7 +29,7 @@
 
 #include <GsTL/utils/smartptr.h>
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/grid_categorical_property.h>
 
 #include <QStringList>

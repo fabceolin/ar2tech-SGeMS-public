@@ -28,7 +28,8 @@
 #define UNARY_ACTION_H_
 
 #include <actions/common.h>
-#include <actions/action.h>
+#include <appli/action.h>
+#include <actions/action_no_parameter.h>
 #include <grid/geostat_grid.h>
 #include <grid/geovalue.h>
 

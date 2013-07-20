@@ -93,12 +93,12 @@
 #include <gui/variogram2/variogram_modeler_gui.h>
 #include <charts/chart_dialog.h>
 #include <gui/utils/new_distribution_dialog.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
 #include <utils/gstl_messages.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 #include <grid/gval_iterator.h>
 #include <grid/reduced_grid.h>
 #include <actions/distribution_action.h>

@@ -56,7 +56,7 @@
 #define __GSTLAPPLI_ACTIONS_ALGORITHM_ACTIONS_H__ 
  
 #include <actions/common.h>
-#include <actions/action.h> 
+#include <appli/action.h> 
 #include <geostat/geostat_algo.h> 
 #include <geostat/parameters_handler.h> 
  

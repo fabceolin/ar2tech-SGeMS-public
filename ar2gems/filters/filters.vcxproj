@@ -257,6 +257,7 @@
     <ClCompile Include="distribution_filter.cpp" />
     <ClCompile Include="gslib\filter_qt_dialogs.cpp" />
     <ClCompile Include="gslib\gslib_filter.cpp" />
+    <ClCompile Include="io_actions.cpp" />
     <ClCompile Include="library_filters_init.cpp" />
     <ClCompile Include="save_project_objects.cpp" />
     <ClCompile Include="sgems_folder_filter.cpp" />
@@ -315,6 +316,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.moc\moc_filter_qt_dialogs.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="gslib\gslib_filter.h" />
+    <ClInclude Include="io_actions.h" />
     <ClInclude Include="library_filters_init.h" />
     <ClInclude Include="save_project_objects.h" />
     <ClInclude Include="sgems_folder_filter.h" />

@@ -2,7 +2,7 @@
 #include <charts/log_data_chart_creator.h>
 #include <charts/log_data_chart.h>
 
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/log_data_grid.h>
 #include <grid/grid_filter.h>
 

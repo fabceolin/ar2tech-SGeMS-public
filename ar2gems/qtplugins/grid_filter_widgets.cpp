@@ -26,7 +26,7 @@
 #include <qtplugins/grid_filter_widgets.h>
 #include <qtplugins/grid_filter_model.h>
 #include <qtplugins/grid_filter_delegate.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <qtplugins/grid_filter_named_interface.h>
 
 #include <QColorDialog>
