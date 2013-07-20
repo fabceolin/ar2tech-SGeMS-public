@@ -29,6 +29,11 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Generated Files\UnitTest">
+      <UniqueIdentifier>{1ffe60e6-bf19-4e41-a4ff-7737b44348ce}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="error_messages_handler.cpp">
@@ -51,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_gstl_item_model.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\UnitTest\moc_gstl_item_model.cpp">
+      <Filter>Generated Files\UnitTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

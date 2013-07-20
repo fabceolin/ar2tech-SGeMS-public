@@ -58,59 +58,17 @@
     <ClCompile Include="variogram_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_categorical_selectors.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_ellipsoid_input.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_filechooser.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_gstl_table.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_gstl_widgets_plugin.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_kriging_type_selector.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_kriging_type_selector_base.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_neighborhood_filter_input.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_non_param_cdf_input.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_selectors.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variogram_input.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="group_selectors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="grid_proxy_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_grid_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="property_proxy_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_property_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="region_proxy_model.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_region_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="project_proxy_model.cpp">
       <Filter>Source Files</Filter>
@@ -118,56 +76,26 @@
     <ClCompile Include="categorical_definition_proxy_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_categorical_definition_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="color_delegate.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_color_delegate.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="region_weight_proxy_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_region_weight_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_group_selectors.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="distribution_proxy_model.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_distribution_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="distribution_selectors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_distribution_selectors.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="distribution_parameter_widget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_distribution_parameter_widget.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="weight_property_proxy_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_weight_property_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="weight_property_selector.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_weight_property_selector.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_project_proxy_model.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="grid_filter_delegate.cpp">
       <Filter>Source Files</Filter>
@@ -178,20 +106,11 @@
     <ClCompile Include="grid_filter_model_item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_grid_filter_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_grid_filter_delegate.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="grid_filter_named_interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="library_qtplugins_init.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_grid_filter_widgets.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="grid_filter_widgets.cpp">
       <Filter>Source Files</Filter>
@@ -199,7 +118,88 @@
     <ClCompile Include="rename_dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include=".moc\moc_variogram_input.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_selectors.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_non_param_cdf_input.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_neighborhood_filter_input.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_kriging_type_selector_base.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_kriging_type_selector.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_gstl_widgets_plugin.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_gstl_table.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_filechooser.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_ellipsoid_input.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_categorical_selectors.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_weight_property_selector.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_weight_property_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include=".moc\moc_rename_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_region_weight_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_region_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_property_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_project_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_group_selectors.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_grid_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_grid_filter_widgets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_grid_filter_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_grid_filter_delegate.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_distribution_selectors.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_distribution_proxy_model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_distribution_parameter_widget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_color_delegate.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_categorical_definition_proxy_model.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>

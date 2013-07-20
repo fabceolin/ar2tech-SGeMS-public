@@ -158,6 +158,92 @@ void MgridNeighborhood::find_neighbors( const Geovalue& center )
    if(!neigh_filter_->is_neighborhood_valid()) neighbors_.clear();
 }
 
+void 
+MgridNeighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  MaskedGridCursor * mcursor = dynamic_cast<MaskedGridCursor*>(grid_->cursor());
+  appli_assert(mcursor);
+
+  neighbors.clear();
+  neigh_filter_->clear();
+  if( !property_ ) return;
+
+
+  // "already_found" is the number of neighbors already found
+  int already_found=0;
+
+  // loc will store the i,j,k coordinates of the center, node_id is the 
+  // center's node-id. They will be computed differently, whether "center"
+  // and *this both refer to the same grid or not.
+  GsTLGridNode loc;
+  GsTLInt node_id = -1;
+
+  if( center.grid() != grid_ ) {
+    // "center" and "*this" do not refer to the same grid
+    bool ok = grid_->geometry()->grid_coordinates( loc, center.location() );
+    if( !ok ) return;
+
+	if( includes_center_ ) {
+      GsTLInt id = mcursor->node_id( loc[0], loc[1], loc[2] );
+	  if (id == -1) return;
+	}
+  }
+  else {
+    // "center" and "*this" both refer to the same grid
+    mcursor->coords( center.node_id(), loc[0], loc[1], loc[2] ); 
+    node_id = center.node_id();  
+
+		
+//	appli_message("center node id : " << center.node_id() << ", loc: " << loc[0] <<
+//		"," << loc[1] << "," << loc[2] << ". Id: " << _mcursor->node_id(loc[0],loc[1],loc[2]) 
+//		<<  "\n");
+	
+  }
+
+  if( includes_center_ && property_->is_informed( node_id ) ) {
+    Geovalue gval( grid_, property_, node_id );
+    if(neigh_filter_->is_admissible(gval, center)) {
+      neighbors.push_back( gval );
+      already_found++;
+    }
+  }
+  
+  
+  // Visit each node defined by the window ("geom_")
+  // For each node, check if the node is inside the grid.
+  // If it is and it contains a data value, add it to the list of
+  // neighbors
+  Grid_template::const_iterator it = geom_.begin();
+  Grid_template::const_iterator end = geom_.end();
+
+  while( it != end && already_found < max_neighbors_ ) {
+    GsTLGridNode node = loc + (*it);
+    GsTLInt node_id = mcursor->node_id( node[0], node[1], node[2] );
+    
+	
+    if( node_id < 0 ) {
+      // The node does not belong to the grid: skip it
+      it++;
+      continue;
+    }
+	
+    if( property_->is_informed( node_id ) ) {
+      if(region_ &&  !region_->is_inside_region(node_id) ) continue;
+      // The node is informed: get the corresponding geovalue and add it
+      // to the list of neighbors
+      Geovalue gval( grid_, property_, node_id );
+      if(neigh_filter_->is_admissible(gval, center)) {
+        neighbors.push_back( gval );
+        already_found++;
+      }
+    }
+
+    it++;
+  }
+   if(!neigh_filter_->is_neighborhood_valid()) neighbors.clear();
+}
+
+
 MgridNeighborhood_hd::MgridNeighborhood_hd( RGrid* grid, 
 		Grid_continuous_property* property, 
 		GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius, 
@@ -168,6 +254,7 @@ MgridNeighborhood_hd::MgridNeighborhood_hd( RGrid* grid,
 	Rgrid_ellips_neighborhood_hd(  grid,  property,  max_radius,  mid_radius,  min_radius, 
 		 x_angle, y_angle,  z_angle, 	 max_neighbors , cov, region  )
 {}
+
 void MgridNeighborhood_hd::find_neighbors( const Geovalue& center ) {
   appli_assert( center.grid() == grid_ );
 
@@ -216,6 +303,56 @@ void MgridNeighborhood_hd::find_neighbors( const Geovalue& center ) {
     it++;
   }
 }
+
+void 
+MgridNeighborhood_hd::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  appli_assert( center.grid() == grid_ );
+
+  MaskedGridCursor * mcursor = dynamic_cast<MaskedGridCursor*>(grid_->cursor());
+  appli_assert(mcursor);
+
+  // This is exactly the same function as 
+  // Rgrid_ellips_neighborhood::find_neighbors, except that the condition
+  // for a node to be a neighbor is that it contains a hard-data
+
+  
+  neighbors.clear();
+  if( !property_ ) return;
+
+  
+  Grid_template::const_iterator it = geom_.begin();
+  Grid_template::const_iterator end = geom_.end();
+  
+  GsTLGridNode loc;
+  mcursor->coords( center.node_id(), loc[0], loc[1], loc[2] );
+
+  // "already_found" is the number of neighbors already found
+  int already_found=0;
+
+  if( includes_center_ && center_.is_harddata() ) {
+    neighbors.push_back( center_ );
+    already_found++;
+  }
+
+  while( it != end && already_found < max_neighbors_ ) {
+    GsTLGridNode node = loc + (*it);
+    GsTLInt node_id = mcursor->node_id( node[0], node[1], node[2] );
+
+    if( node_id < 0 ) {
+      it++;
+      continue;
+    }
+
+    if( property_->is_harddata( node_id ) ) {
+      neighbors.push_back( Geovalue( grid_, property_, node_id ) );
+      already_found++;
+    }
+
+    it++;
+  }
+}
+
 
 MgridWindowNeighborhood::MgridWindowNeighborhood( const Grid_template& geom, RGrid* grid, 
 												 Grid_continuous_property* prop  ) :
@@ -275,6 +412,47 @@ void MgridWindowNeighborhood::find_neighbors( const Geovalue& center ) {
   }
 }
 
+void MgridWindowNeighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  MaskedGridCursor * mcursor = dynamic_cast<MaskedGridCursor*>(grid_->cursor());
+  neighbors.clear();
+  if( !property_ ) return;
+
+  //SGrid_cursor cursor( *grid_->cursor() );
+  GsTLInt i,j,k;
+  mcursor->coords( center.node_id(), i,j,k ); 
+  GsTLGridNode center_location( i,j,k );
+
+  if( geom_.size() == 0 ) return;
+
+  Grid_template::const_iterator begin = geom_.begin();
+  Grid_template::const_iterator bound = geom_.end()-1;
+
+  while (bound != begin) {
+    GsTLGridNode p = center_location + (*bound);
+    GsTLInt node_id = mcursor->node_id( p[0], p[1], p[2] );
+    if( node_id < 0 ) {
+      bound--;
+      continue;
+    }
+    if( property_->is_informed( node_id ) )
+      break;
+    else
+      bound--;
+  }
+
+  bound++;
+  for( ; begin != bound ; ++begin ) {
+    GsTLGridNode node = center_location + (*begin);
+	  if (mcursor->node_id( node[0], node[1], node[2] ) < 0)
+		  continue;
+    neighbors.push_back( Geovalue( grid_, property_, 
+				    mcursor->node_id( node[0], node[1],
+						     node[2] ) )
+			  );
+  }
+}
+
 void MgridWindowNeighborhood::find_all_neighbors( const Geovalue& center ) {
   size_ = -1;
   center_ = center;
@@ -301,6 +479,34 @@ void MgridWindowNeighborhood::find_all_neighbors( const Geovalue& center ) {
 		  continue;
     neighbors_.push_back( Geovalue( grid_, property_, 
 				    _mcursor->node_id( node[0], node[1],
+						     node[2] ) )
+			  );
+  }
+}
+
+void MgridWindowNeighborhood::find_all_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  MaskedGridCursor * mcursor = dynamic_cast<MaskedGridCursor*>(grid_->cursor());
+
+  neighbors.clear();
+  if( !property_ ) return;
+
+  //SGrid_cursor cursor( *grid_->cursor() );
+  GsTLInt i,j,k;
+  mcursor->coords( center.node_id(), i,j,k ); 
+  GsTLGridNode center_location( i,j,k );
+
+  if( geom_.size() == 0 ) return;
+
+  Grid_template::const_iterator begin = geom_.begin();
+//  Grid_template::iterator bound = geom_.end()-1;
+
+  for( ; begin != geom_.end() ; ++begin ) {
+    GsTLGridNode node = center_location + (*begin);
+	  if (mcursor->node_id( node[0], node[1], node[2] ) < 0)
+		  continue;
+    neighbors.push_back( Geovalue( grid_, property_, 
+				    mcursor->node_id( node[0], node[1],
 						     node[2] ) )
 			  );
   }

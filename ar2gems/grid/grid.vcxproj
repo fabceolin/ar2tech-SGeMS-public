@@ -17,6 +17,14 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTest|Win32">
+      <Configuration>UnitTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTest|x64">
+      <Configuration>UnitTest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>ar2gems_grid</ProjectName>
@@ -87,7 +95,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VTKDIRwin32);$(VTKDIRwin32)\Common;$(VTKDIRwin32)\Common\Core;$(VTKDIRwin32)\Common\DataModel;$(VTKDIRwin32)\Common\ExecutionModel;$(VTKDIRwin32)\Common\Math;$(VTKDIRwin32)\Utilities;$(VTKDIRwin32)\Rendering;$(VTKDIRwin32)\VolumeRendering;$(VTKDIRwin32)\Charts;$(VTKDIRwin32)\Geovis;$(VTKDIRwin32)\Infovis;$(VTKDIRwin32)\Views;$(VTKDIRwin32)\Hybrid;$(VTKDIRwin32)\Widgets;$(VTKDIRwin32)\IO;$(VTKDIRwin32)\Imaging;$(VTKDIRwin32)\Graphics;$(VTKDIRwin32)\GenericFiltering;$(VTKDIRwin32)\Filters\General;$(VTKDIRwin32)\GUISupport;$(VTKDIRwin32)\GUISupport\Qt;$(VTKDIRwin32)\build\Rendering;.;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(BOOSTDIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtGui;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VTKDIRwin32);$(VTKDIRwin32)\Common;$(VTKDIRwin32)\Common\Core;$(VTKDIRwin32)\Common\DataModel;$(VTKDIRwin32)\Common\ExecutionModel;$(VTKDIRwin32)\Common\Math;$(VTKDIRwin32)\Utilities;$(VTKDIRwin32)\Rendering;$(VTKDIRwin32)\VolumeRendering;$(VTKDIRwin32)\Charts;$(VTKDIRwin32)\Geovis;$(VTKDIRwin32)\Infovis;$(VTKDIRwin32)\Views;$(VTKDIRwin32)\Hybrid;$(VTKDIRwin32)\Widgets;$(VTKDIRwin32)\IO;$(VTKDIRwin32)\Imaging;$(VTKDIRwin32)\Graphics;$(VTKDIRwin32)\GenericFiltering;$(VTKDIRwin32)\Filters\General;$(VTKDIRwin32)\GUISupport;$(VTKDIRwin32)\GUISupport\Qt;$(VTKDIRwin32)\build\Rendering;.;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(BOOSTDIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtGui;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;.\debug;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;GRID_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -128,7 +136,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VTKDIR);$(VTKDIR)\Common;$(VTKDIR)\Common\Core;$(VTKDIR)\Common\DataModel;$(VTKDIR)\Common\ExecutionModel;$(VTKDIR)\Common\Math;$(VTKDIR)\Utilities;$(VTKDIR)\Rendering;$(VTKDIR)\VolumeRendering;$(VTKDIR)\Charts;$(VTKDIR)\Geovis;$(VTKDIR)\Infovis;$(VTKDIR)\Views;$(VTKDIR)\Hybrid;$(VTKDIR)\Widgets;$(VTKDIR)\IO;$(VTKDIR)\Imaging;$(VTKDIR)\Graphics;$(VTKDIR)\GenericFiltering;$(VTKDIR)\Filters\General;$(VTKDIR)\GUISupport;$(VTKDIR)\GUISupport\Qt;$(VTKDIR)\build\Rendering;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(BOOSTDIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtGui;$(QTDIR)\include;.;$(QTDIR)\include\ActiveQt;debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VTKDIR);$(VTKDIR)\Common;$(VTKDIR)\Common\Core;$(VTKDIR)\Common\DataModel;$(VTKDIR)\Common\ExecutionModel;$(VTKDIR)\Common\Math;$(VTKDIR)\Utilities;$(VTKDIR)\Rendering;$(VTKDIR)\VolumeRendering;$(VTKDIR)\Charts;$(VTKDIR)\Geovis;$(VTKDIR)\Infovis;$(VTKDIR)\Views;$(VTKDIR)\Hybrid;$(VTKDIR)\Widgets;$(VTKDIR)\IO;$(VTKDIR)\Imaging;$(VTKDIR)\Graphics;$(VTKDIR)\GenericFiltering;$(VTKDIR)\Filters\General;$(VTKDIR)\GUISupport;$(VTKDIR)\GUISupport\Qt;$(VTKDIR)\build\Rendering;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(BOOSTDIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtGui;$(QTDIR)\include;.;$(QTDIR)\include\ActiveQt;.\debug;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;GRID_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;vtkRenderingCore_INCLUDE="$(AR2TECH_SGEMS_DIR)\ar2gems\utils\vtk_definition.h";vtkRenderingVolume_AUTOINIT=1(vtkRenderingVolumeOpenGL);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -170,7 +178,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(VTKDIRwin32);$(VTKDIRwin32)\Common;$(VTKDIRwin32)\Common\Core;$(VTKDIRwin32)\Common\DataModel;$(VTKDIRwin32)\Common\ExecutionModel;$(VTKDIRwin32)\Common\Math;$(VTKDIRwin32)\Utilities;$(VTKDIRwin32)\Rendering;$(VTKDIRwin32)\VolumeRendering;$(VTKDIRwin32)\Charts;$(VTKDIRwin32)\Geovis;$(VTKDIRwin32)\Infovis;$(VTKDIRwin32)\Views;$(VTKDIRwin32)\Hybrid;$(VTKDIRwin32)\Widgets;$(VTKDIRwin32)\IO;$(VTKDIRwin32)\Imaging;$(VTKDIRwin32)\Graphics;$(VTKDIRwin32)\GenericFiltering;$(VTKDIRwin32)\Filters\General;$(VTKDIRwin32)\GUISupport;$(VTKDIRwin32)\GUISupport\Qt;$(VTKDIRwin32)\build\Rendering;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include\QtOpenGL;$(QTDIRwin32)\include\QtXml;$(QTDIRwin32)\include;.;$(QTDIRwin32)\tools\designer\interfaces;$(QTDIRwin32)\include\ActiveQt;$(PYTHONDIRwin32)\include;$(BOOSTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VTKDIRwin32);$(VTKDIRwin32)\Common;$(VTKDIRwin32)\Common\Core;$(VTKDIRwin32)\Common\DataModel;$(VTKDIRwin32)\Common\ExecutionModel;$(VTKDIRwin32)\Common\Math;$(VTKDIRwin32)\Utilities;$(VTKDIRwin32)\Rendering;$(VTKDIRwin32)\VolumeRendering;$(VTKDIRwin32)\Charts;$(VTKDIRwin32)\Geovis;$(VTKDIRwin32)\Infovis;$(VTKDIRwin32)\Views;$(VTKDIRwin32)\Hybrid;$(VTKDIRwin32)\Widgets;$(VTKDIRwin32)\IO;$(VTKDIRwin32)\Imaging;$(VTKDIRwin32)\Graphics;$(VTKDIRwin32)\GenericFiltering;$(VTKDIRwin32)\Filters\General;$(VTKDIRwin32)\GUISupport;$(VTKDIRwin32)\GUISupport\Qt;$(VTKDIRwin32)\build\Rendering;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include\QtOpenGL;$(QTDIRwin32)\include\QtXml;$(QTDIRwin32)\include;.;$(QTDIRwin32)\tools\designer\interfaces;$(QTDIRwin32)\include\ActiveQt;$(PYTHONDIRwin32)\include;$(BOOSTDIR);.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_NO_DEBUG;GSTLAPPLI_NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;GRID_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;vtkRenderingCore_INCLUDE="$(AR2TECH_SGEMS_DIR)\ar2gems\utils\vtk_definition.h";vtkRenderingVolume_AUTOINIT=1(vtkRenderingVolumeOpenGL);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -212,7 +220,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(VTKDIR);$(VTKDIR)\Common;$(VTKDIR)\Common\Core;$(VTKDIR)\Common\DataModel;$(VTKDIR)\Common\ExecutionModel;$(VTKDIR)\Common\Math;$(VTKDIR)\Utilities;$(VTKDIR)\Rendering;$(VTKDIR)\VolumeRendering;$(VTKDIR)\Charts;$(VTKDIR)\Geovis;$(VTKDIR)\Infovis;$(VTKDIR)\Views;$(VTKDIR)\Hybrid;$(VTKDIR)\Widgets;$(VTKDIR)\IO;$(VTKDIR)\Imaging;$(VTKDIR)\Graphics;$(VTKDIR)\GenericFiltering;$(VTKDIR)\Filters\General;$(VTKDIR)\GUISupport;$(VTKDIR)\GUISupport\Qt;$(VTKDIR)\build\Rendering;.;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(BOOSTDIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtGui;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VTKDIR);$(VTKDIR)\Common;$(VTKDIR)\Common\Core;$(VTKDIR)\Common\DataModel;$(VTKDIR)\Common\ExecutionModel;$(VTKDIR)\Common\Math;$(VTKDIR)\Utilities;$(VTKDIR)\Rendering;$(VTKDIR)\VolumeRendering;$(VTKDIR)\Charts;$(VTKDIR)\Geovis;$(VTKDIR)\Infovis;$(VTKDIR)\Views;$(VTKDIR)\Hybrid;$(VTKDIR)\Widgets;$(VTKDIR)\IO;$(VTKDIR)\Imaging;$(VTKDIR)\Graphics;$(VTKDIR)\GenericFiltering;$(VTKDIR)\Filters\General;$(VTKDIR)\GUISupport;$(VTKDIR)\GUISupport\Qt;$(VTKDIR)\build\Rendering;.;$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(BOOSTDIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtGui;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;.\release;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_NO_DEBUG;GSTLAPPLI_NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;GRID_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;vtkRenderingCore_INCLUDE="$(AR2TECH_SGEMS_DIR)\ar2gems\utils\vtk_definition.h";vtkRenderingVolume_AUTOINIT=1(vtkRenderingVolumeOpenGL);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -266,11 +274,15 @@
     <ClCompile Include="library_grid_init.cpp" />
     <ClCompile Include="log_data_grid.cpp" />
     <ClCompile Include="mgrid_neighborhood.cpp" />
+    <ClCompile Include="multi_grid_path.cpp" />
     <ClCompile Include="neighborhood.cpp" />
+    <ClCompile Include="neighbors.cpp" />
     <ClCompile Include="point_set.cpp" />
     <ClCompile Include="point_set_neighborhood.cpp" />
     <ClCompile Include="property_copier.cpp" />
     <ClCompile Include="property_transformer.cpp" />
+    <ClCompile Include="grid_ordered_path.cpp" />
+    <ClCompile Include="grid_random_path.cpp" />
     <ClCompile Include="reduced_grid.cpp" />
     <ClCompile Include="rgrid.cpp" />
     <ClCompile Include="rgrid_geometry.cpp" />
@@ -292,6 +304,7 @@
     <ClInclude Include="grid_categorical_property.h" />
     <ClInclude Include="grid_downscaler.h" />
     <ClInclude Include="grid_filter.h" />
+    <ClInclude Include="grid_path.h" />
     <ClInclude Include="grid_property.h" />
     <ClInclude Include="grid_property_manager.h" />
     <ClInclude Include="grid_property_set.h" />
@@ -306,11 +319,15 @@
     <ClInclude Include="log_data_grid.h" />
     <ClInclude Include="maskedgridcursor.h" />
     <ClInclude Include="mgrid_neighborhood.h" />
+    <ClInclude Include="multi_grid_path.h" />
     <ClInclude Include="neighborhood.h" />
+    <ClInclude Include="neighbors.h" />
     <ClInclude Include="point_set.h" />
     <ClInclude Include="point_set_neighborhood.h" />
     <ClInclude Include="property_copier.h" />
     <ClInclude Include="property_transformer.h" />
+    <ClInclude Include="grid_ordered_path.h" />
+    <ClInclude Include="grid_random_path.h" />
     <ClInclude Include="reduced_grid.h" />
     <ClInclude Include="rgrid.h" />
     <ClInclude Include="rgrid_geometry.h" />

@@ -107,6 +107,18 @@
     <ClCompile Include="utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="neighbors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="multi_grid_path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="grid_random_path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="grid_ordered_path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="library_grid_init.h">
@@ -233,6 +245,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="neighbors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="grid_path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="multi_grid_path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="grid_random_path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="grid_ordered_path.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

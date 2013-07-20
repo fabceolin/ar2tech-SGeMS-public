@@ -199,7 +199,8 @@ void Combined_neighborhood::find_neighbors( const Geovalue& center ) {
   // ask both neighborhoods to search neighbors
   first_->find_neighbors( center );
   second_->find_neighbors( center );
-  std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+  if( cov_ )
+    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
   
 
   std::vector<Geovalue> neighbors_temp;
@@ -232,6 +233,61 @@ void Combined_neighborhood::find_neighbors( const Geovalue& center ) {
     neighbors_.erase( neighbors_.begin() + max_size_, neighbors_.end() );
 }
 
+
+void Combined_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  neighbors.clear();
+  neigh_filter_->clear();
+
+  /* this version was not good
+  first_->find_neighbors( center );
+  if( first_->size() < max_size_ ) {
+    second_->max_size( max_size_ - first_->size() );
+    second_->find_neighbors( center );
+  }
+  
+  neighbors_.resize( first_->size() + second_->size() );
+  iterator end = std::copy( first_->begin(), first_->end(), neighbors_.begin() );
+  std::copy( second_->begin(), second_->end(), end );
+  */
+
+  // ask both neighborhoods to search neighbors
+  Neighbors first_neighbors, second_neighbors;
+  first_->find_neighbors( center , first_neighbors );
+  second_->find_neighbors( center , second_neighbors );
+  if ( cov_ )
+    std::sort(second_neighbors.begin(), second_neighbors.end(),Geovalue_covariance_comparator(center.location(), *cov_));
+  
+
+  std::vector<Geovalue> neighbors_temp;
+  neighbors_temp.resize( first_neighbors.size() + second_neighbors.size() );
+  neighbors.reserve( first_neighbors.size() + second_neighbors.size() );
+  // select those that are closest to "center" from both neighborhoods
+  if( cov_ )
+    std::merge( first_neighbors.begin(), first_neighbors.end(), 
+                second_neighbors.begin(), second_neighbors.end(), 
+                neighbors_temp.begin(), 
+                Geovalue_covariance_comparator(center.location(), *cov_)  );
+  else
+    std::merge( first_neighbors.begin(), first_neighbors.end(), 
+                second_neighbors.begin(), second_neighbors.end(), 
+                neighbors_temp.begin(), Geovalue_comparator(center.location() )  );
+
+  Neighborhood::iterator it_unique = 
+    std::unique(neighbors_temp.begin(), neighbors_temp.end(),Geovalue_location_comparator() );
+ // neighbors_temp.erase( it_unique, neighbors_temp.end() );
+
+  Neighborhood::iterator it_neigh = neighbors_temp.begin();
+  for( ; it_neigh != it_unique; ++it_neigh ) {
+    if(neigh_filter_->is_admissible(*it_neigh, center)) {
+      neighbors.push_back( *it_neigh );
+    }
+  }
+
+
+  if( neighbors.size() > max_size_ )
+    neighbors.erase( neighbors.begin() + max_size_, neighbors.end() );
+}
 
 
 void Combined_neighborhood::max_size( int s ) {
@@ -319,6 +375,53 @@ void Combined_neighborhood_dedup::find_neighbors( const Geovalue& center ){
 
   if( neighbors_.size() > max_size_ )
     neighbors_.erase( neighbors_.begin() + max_size_, neighbors_.end() );
+}
+
+void Combined_neighborhood_dedup::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
+{
+  neighbors.clear();
+  
+  // ask both neighborhoods to search neighbors
+  Neighbors first_neighbors, second_neighbors;
+  first_->find_neighbors( center , first_neighbors );
+  second_->find_neighbors( center , second_neighbors );
+ 
+  // remove the colocated neighbors
+  iterator end_1st = first_neighbors.end();
+  iterator end_2nd = second_neighbors.end();
+  if(!second_neighbors.empty() && !second_neighbors.empty()) {
+    if(override_first_ ) {
+      for(iterator it = second_neighbors.begin(); it != second_neighbors.end(); ++it ) {
+        iterator new_last = std::remove_if(first_neighbors.begin(), end_1st,
+                                  Location_comparator(it->location()) );
+        end_1st = new_last;
+      }
+      
+    } else {
+      for(iterator it = first_neighbors.begin(); it != first_neighbors.end(); ++it ) {
+        iterator new_last = std::remove_if(second_neighbors.begin(), end_2nd,
+                                  Location_comparator(it->location()) );
+        end_2nd = new_last;
+      }
+    }
+  }
+
+  neighbors.resize( std::distance(first_neighbors.begin(), end_1st) 
+                      + std::distance(second_neighbors.begin(), end_2nd) );
+  // select those that are closest to "center" from both neighborhoods
+  if( cov_ )
+    std::merge( first_neighbors.begin(), end_1st, 
+                second_neighbors.begin(), end_2nd, 
+                neighbors.begin(), 
+                Geovalue_covariance_comparator(center.location(), *cov_)  );
+  else
+    std::merge( first_neighbors.begin(), end_1st, 
+                second_neighbors.begin(), end_2nd, 
+                neighbors.begin(), Geovalue_comparator(center.location() )  );
+
+
+  if( neighbors.size() > max_size_ )
+    neighbors.erase( neighbors.begin() + max_size_, neighbors.end() );
 }
 
 

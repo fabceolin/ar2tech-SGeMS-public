@@ -94,6 +94,8 @@ class GRID_DECL Combined_neighborhood : public Neighborhood {
   virtual void includes_center( bool on );
 
   virtual void find_neighbors( const Geovalue& center ); 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const ; // thread-safe version of find_neighbors()
+
   virtual void max_size( int s ); 
   virtual int max_size() const { return max_size_; } 
 
@@ -140,6 +142,7 @@ class GRID_DECL Combined_neighborhood_dedup : public Combined_neighborhood {
   ~Combined_neighborhood_dedup(){}
 
   virtual void find_neighbors( const Geovalue& center );
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const ; // thread-safe version of find_neighbors()
 
 
  protected: 

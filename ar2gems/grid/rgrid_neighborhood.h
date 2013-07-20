@@ -106,7 +106,9 @@ public:
   virtual const Grid_continuous_property* selected_property() const { return property_; }
 
   virtual void find_neighbors( const Geovalue& center ) ; 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors()
   virtual void find_all_neighbors( const Geovalue& center );
+  virtual void find_all_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_all_neighbors()
 
   virtual int size() const;
   virtual void max_size( int s ); 
@@ -157,6 +159,8 @@ public:
   virtual const Grid_continuous_property* selected_property() const { return property_; }
 
   virtual void find_neighbors( const Geovalue& center ); 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors()
+
   virtual void max_size( int s ); 
   virtual int max_size() const { return max_neighbors_; } 
   virtual Geovalue center() const { return center_; } 
@@ -196,6 +200,7 @@ public:
   ~Rgrid_ellips_neighborhood_hd() {}; 
  
   virtual void find_neighbors( const Geovalue& center ); 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors()
 }; 
  
  

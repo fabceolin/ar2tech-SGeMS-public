@@ -13,6 +13,7 @@
 *.exp
 *.lib
 
+
 # Qt-es
 
 *.pro.user
@@ -38,6 +39,12 @@ debug/
 Release/
 * - Copy.h
 * - Copy.cpp
+*.manifest.res
+*.idb
+*.lastbuildstate
+*.unsuccessfulbuild
+*.rc
+*.exe
 
 #doxygen
 html/

@@ -17,6 +17,14 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTest|Win32">
+      <Configuration>UnitTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTest|x64">
+      <Configuration>UnitTest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>ar2gems_utils</ProjectName>
@@ -86,7 +94,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(AR2TECH_GSTL_DIR);$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;.;$(AR2TECH_SGEMS_DIR);release;$(SGEMS_BUILD)\GsTL-ar2tech;$(AR2TECH_SGEMS_DIR);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include;.;$(QTDIR)\include\ActiveQt;debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(AR2TECH_GSTL_DIR);$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;.;.\release;$(SGEMS_BUILD)\GsTL-ar2tech;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;.\debug;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;UTILS_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -128,7 +136,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include;.;$(QTDIR)\include\ActiveQt;debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include;.;$(QTDIR)\include\ActiveQt;.\debug;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;UTILS_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -168,7 +176,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(AR2TECH_GSTL_DIR);$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;.;$(AR2TECH_SGEMS_DIR);release;$(AR2TECH_GSTL_DIR);$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;.;$(AR2TECH_SGEMS_DIR);release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(AR2TECH_GSTL_DIR);$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;.;.\release;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_NO_DEBUG;GSTLAPPLI_NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;UTILS_EXPORTS;QT_DLL;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -211,7 +219,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(QTDIRx64)\include\QtCore;$(QTDIRx64)\include\QtGui;$(QTDIRx64)\\include;.;release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(AR2TECH_GSTL_DIR);$(AR2TECH_SGEMS_DIR);$(AR2TECH_SGEMS_DIR)\ar2gems;$(QTDIRx64)\include\QtCore;$(QTDIRx64)\include\QtGui;$(QTDIRx64)\include;.;.\release;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_NO_DEBUG;GSTLAPPLI_NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;UTILS_EXPORTS;QT_DLL;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -243,15 +251,41 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PreprocessorDefinitions>QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PreprocessorDefinitions>QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="error_messages_handler.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_gstl_item_model.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_gstl_item_model.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\UnitTest\moc_gstl_item_model.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="gstl_messages_private.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -263,22 +297,30 @@
     <ClInclude Include="directory.h" />
     <ClInclude Include="error_messages_handler.h" />
     <CustomBuild Include="gstl_item_model.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing gstl_item_model.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I." "-I$(SGEMS_BUILD)\GsTL-ar2tech" "-I$(AR2TECH_SGEMS_DIR)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I." "-I." "-I."</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I$(AR2TECH_SGEMS_DIR)\." "-I$(AR2TECH_SGEMS_DIR)\ar2gems" "-I$(AR2TECH_GSTL_DIR)\." "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I." "-I.\release" "-I$(SGEMS_BUILD)\GsTL-ar2tech" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I.\GeneratedFiles\$(ConfigurationName)\."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing gstl_item_model.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I." "-I$(SGEMS_BUILD)\GsTL-ar2tech" "-I$(AR2TECH_SGEMS_DIR)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include" "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I." "-I." "-I." "-I."</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I$(AR2TECH_GSTL_DIR)\." "-I$(AR2TECH_SGEMS_DIR)\." "-I$(AR2TECH_SGEMS_DIR)\ar2gems" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include" "-I." "-I$(QTDIR)\include\ActiveQt" "-I.\debug" "-I.\GeneratedFiles\$(ConfigurationName)\."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing gstl_item_model.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DGSTLAPPLI_NDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I." "-I$(AR2TECH_GSTL_DIR)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include" "-I$(AR2TECH_SGEMS_DIR)\." "-I.\release" "-I." "-I." "-I." "-I."</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DGSTLAPPLI_NDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I$(AR2TECH_SGEMS_DIR)\." "-I$(AR2TECH_SGEMS_DIR)\ar2gems" "-I$(AR2TECH_GSTL_DIR)\." "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I." "-I.\release" "-I.\GeneratedFiles\$(ConfigurationName)\."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing gstl_item_model.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DGSTLAPPLI_NDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I." "-I$(AR2TECH_GSTL_DIR)\." "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(AR2TECH_SGEMS_DIR)\." "-I.\release" "-I." "-I." "-I." "-I."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DGSTLAPPLI_NDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DUTILS_EXPORTS -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG -D_VC80_UPGRADE=0x0710 -D_WINDLL "-I$(AR2TECH_GSTL_DIR)\." "-I$(AR2TECH_SGEMS_DIR)\." "-I$(AR2TECH_SGEMS_DIR)\ar2gems" "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I." "-I.\release" "-I.\GeneratedFiles\$(ConfigurationName)\."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing gstl_item_model.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing gstl_item_model.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" </Command>
     </CustomBuild>
     <ClInclude Include="gstl_messages.h" />
     <ClInclude Include="gstl_messages_private.h" />

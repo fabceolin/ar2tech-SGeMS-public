@@ -17,6 +17,14 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTest|Win32">
+      <Configuration>UnitTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTest|x64">
+      <Configuration>UnitTest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{83E1D314-C34C-3BB7-8225-20646D87A194}</ProjectGuid>
@@ -85,7 +93,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;$(QTDIRwin32)\include\ActiveQt;release;.;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;$(QTDIRwin32)\include\ActiveQt;.\release;.;$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QWT_DLL;QWT_MAKEDLL;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;QT_SVG_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -129,7 +137,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(QTDIRx64)\include\QtCore;$(QTDIRx64)\include\QtGui;$(QTDIRx64)\include;$(QTDIRx64)\include\ActiveQt;release;.;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIRx64)\include\QtCore;$(QTDIRx64)\include\QtGui;$(QTDIRx64)\include;$(QTDIRx64)\include\ActiveQt;.\release;.;$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QWT_DLL;QWT_MAKEDLL;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;QT_SVG_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -171,7 +179,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;$(QTDIRwin32)\include\ActiveQt;debug;.;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIRwin32)\include\QtCore;$(QTDIRwin32)\include\QtGui;$(QTDIRwin32)\include;$(QTDIRwin32)\include\ActiveQt;.\debug;.;$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QWT_DLL;QWT_MAKEDLL;QT_THREAD_SUPPORT;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_SVG_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -214,7 +222,7 @@
     <ClCompile>
       <AdditionalOptions>-Zm300 -w34100 -w34189 -Zm300 -w34100 -w34189 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(QTDIRx64)\include\QtCore;$(QTDIRx64)\include\QtGui;$(QTDIRx64)\include;$(QTDIRx64)\include\ActiveQt;debug;.;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIRx64)\include\QtCore;$(QTDIRx64)\include\QtGui;$(QTDIRx64)\include;$(QTDIRx64)\include\ActiveQt;.\debug;.;$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QWT_DLL;QWT_MAKEDLL;QT_THREAD_SUPPORT;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_SVG_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -246,184 +254,103 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>QT_CORE_LIB;QT_GUI_LIB;QT_SVG_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtSvg4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>QT_CORE_LIB;QT_GUI_LIB;QT_SVG_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSvg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtSvg4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_abstract_slider.cpp">
+    <ClCompile Include="Debug\moc_qwt_dyngrid_layout.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_analog_clock.cpp">
+    <ClCompile Include="Debug\moc_qwt_legend.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_compass.cpp">
+    <ClCompile Include="Debug\moc_qwt_legend_item.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_counter.cpp">
+    <ClCompile Include="Debug\moc_qwt_panner.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_dial.cpp">
+    <ClCompile Include="Debug\moc_qwt_picker.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_dyngrid_layout.cpp">
+    <ClCompile Include="Debug\moc_qwt_plot.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_knob.cpp">
+    <ClCompile Include="Debug\moc_qwt_plot_canvas.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_legend.cpp">
+    <ClCompile Include="Debug\moc_qwt_plot_magnifier.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_legend_item.cpp">
+    <ClCompile Include="Debug\moc_qwt_plot_panner.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_panner.cpp">
+    <ClCompile Include="Debug\moc_qwt_plot_picker.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_picker.cpp">
+    <ClCompile Include="Debug\moc_qwt_plot_zoomer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_plot.cpp">
+    <ClCompile Include="Debug\moc_qwt_scale_widget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_plot_canvas.cpp">
+    <ClCompile Include="Debug\moc_qwt_text_label.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_plot_magnifier.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_plot_panner.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_plot_picker.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_plot_zoomer.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_scale_widget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_slider.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_text_label.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_thermo.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qwt_wheel.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_abstract_slider.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_analog_clock.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_compass.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_counter.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_dial.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_dyngrid_layout.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_knob.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_legend.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_legend_item.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_panner.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_picker.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_plot.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_plot_canvas.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_plot_magnifier.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_plot_panner.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_plot_picker.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_plot_zoomer.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_scale_widget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_slider.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_text_label.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_thermo.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qwt_wheel.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="qwt_abstract_scale.cpp" />
     <ClCompile Include="qwt_abstract_scale_draw.cpp" />
     <ClCompile Include="qwt_abstract_slider.cpp" />
     <ClCompile Include="qwt_analog_clock.cpp" />
@@ -485,8 +412,162 @@
     <ClCompile Include="qwt_text.cpp" />
     <ClCompile Include="qwt_text_engine.cpp" />
     <ClCompile Include="qwt_text_label.cpp" />
-    <ClCompile Include="qwt_thermo.cpp" />
-    <ClCompile Include="qwt_wheel.cpp" />
+    <ClCompile Include="Release\moc_qwt_dyngrid_layout.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_legend.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_legend_item.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_panner.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_picker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_plot.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_plot_canvas.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_plot_magnifier.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_plot_panner.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_plot_picker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_plot_zoomer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_scale_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qwt_text_label.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_dyngrid_layout.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_legend.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_legend_item.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_panner.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_picker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_plot.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_plot_canvas.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_plot_magnifier.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_plot_panner.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_plot_picker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_plot_zoomer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_scale_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnitTest\moc_qwt_text_label.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="qwt.h" />
@@ -502,24 +583,308 @@
     <ClInclude Include="qwt_double_interval.h" />
     <ClInclude Include="qwt_double_range.h" />
     <ClInclude Include="qwt_double_rect.h" />
+    <CustomBuild Include="qwt_dyngrid_layout.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_dyngrid_layout.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_dyngrid_layout.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_dyngrid_layout.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_dyngrid_layout.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_dyngrid_layout.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_dyngrid_layout.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_event_pattern.h" />
     <ClInclude Include="qwt_global.h" />
     <ClInclude Include="qwt_interval_data.h" />
     <ClInclude Include="qwt_layout_metrics.h" />
+    <CustomBuild Include="qwt_legend.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_legend.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_legend.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_legend.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_legend.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_legend.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_legend.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qwt_legend_item.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_legend_item.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_legend_item.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_legend_item.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_legend_item.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_legend_item.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_legend_item.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_math.h" />
     <ClInclude Include="qwt_painter.h" />
-    <ClInclude Include="qwt_paint_buffer.h" />
+    <CustomBuild Include="qwt_panner.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_panner.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_panner.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qwt_picker.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_picker.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_picker.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_picker_machine.h" />
+    <CustomBuild Include="qwt_plot.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_plot.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_plot.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qwt_plot_canvas.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_canvas.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_canvas.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_canvas.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_canvas.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_plot_canvas.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_plot_canvas.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_plot_curve.h" />
     <ClInclude Include="qwt_plot_dict.h" />
     <ClInclude Include="qwt_plot_grid.h" />
     <ClInclude Include="qwt_plot_item.h" />
     <ClInclude Include="qwt_plot_layout.h" />
+    <CustomBuild Include="qwt_plot_magnifier.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_magnifier.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_magnifier.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_magnifier.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_magnifier.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_plot_magnifier.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_plot_magnifier.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_plot_marker.h" />
+    <CustomBuild Include="qwt_plot_panner.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_panner.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_plot_panner.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_plot_panner.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qwt_plot_picker.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_picker.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_plot_picker.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_plot_picker.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_plot_printfilter.h" />
     <ClInclude Include="qwt_plot_rasteritem.h" />
     <ClInclude Include="qwt_plot_spectrogram.h" />
-    <ClInclude Include="qwt_plot_svgitem.h" />
+    <CustomBuild Include="qwt_plot_zoomer.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_zoomer.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_zoomer.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_zoomer.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_zoomer.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_plot_zoomer.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_plot_zoomer.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_polygon.h" />
     <ClInclude Include="qwt_raster_data.h" />
     <ClInclude Include="qwt_rect.h" />
@@ -528,6 +893,32 @@
     <ClInclude Include="qwt_scale_draw.h" />
     <ClInclude Include="qwt_scale_engine.h" />
     <ClInclude Include="qwt_scale_map.h" />
+    <CustomBuild Include="qwt_scale_widget.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_scale_widget.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_scale_widget.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_scale_widget.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_scale_widget.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_scale_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_scale_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+    </CustomBuild>
     <ClInclude Include="qwt_spline.h" />
     <ClInclude Include="qwt_symbol.h" />
     <ClInclude Include="qwt_text.h" />
@@ -570,364 +961,30 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
     </CustomBuild>
     <CustomBuild Include="qwt_text_label.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_text_label.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_text_label.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_text_label.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_text_label.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_slider.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_scale_widget.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_scale_widget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_scale_widget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_scale_widget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_scale_widget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_plot_zoomer.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_zoomer.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_zoomer.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_zoomer.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_zoomer.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_plot_picker.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_plot_panner.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_plot_magnifier.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_magnifier.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_magnifier.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_magnifier.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_magnifier.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_plot_canvas.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot_canvas.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot_canvas.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot_canvas.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot_canvas.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_plot.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_plot.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_plot.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_plot.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_plot.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_picker.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_picker.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_panner.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_panner.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_legend_item.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_legend_item.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_legend_item.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_legend_item.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_legend_item.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_legend.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_legend.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_legend.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_legend.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_legend.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_knob.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_knob.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_knob.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_knob.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_knob.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_dyngrid_layout.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_dyngrid_layout.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_dyngrid_layout.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_dyngrid_layout.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_dyngrid_layout.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_dial.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_dial.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_dial.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_dial.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_dial.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_counter.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_counter.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_counter.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_counter.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_counter.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_compass.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_compass.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_compass.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_compass.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_compass.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_analog_clock.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_analog_clock.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_analog_clock.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_analog_clock.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_analog_clock.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-    </CustomBuild>
-    <CustomBuild Include="qwt_abstract_slider.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwt_abstract_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qwt_abstract_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\debug" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwt_abstract_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRwin32)\include\QtCore" "-I$(QTDIRwin32)\include\QtGui" "-I$(QTDIRwin32)\include" "-I$(QTDIRwin32)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qwt_abstract_slider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQWT_DLL -DQWT_MAKEDLL -DQT_THREAD_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SVG_LIB -D_VC80_UPGRADE=0x0710 -D_WINDLL  "-I$(QTDIRx64)\include\QtCore" "-I$(QTDIRx64)\include\QtGui" "-I$(QTDIRx64)\include" "-I$(QTDIRx64)\include\ActiveQt" "-I.\release" "-I." "-I$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">Moc%27ing qwt_text_label.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">Moc%27ing qwt_text_label.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB  "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSvg"</Command>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -283,158 +283,14 @@
     <ClCompile Include="vtk_prop\vtk_prop_pointset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_categorical_definition_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_cli_commands_panel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_colormap_controller.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_colormap_widget.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_data_analysis_gui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_delete_properties_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_delete_regions_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_first_scr.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_grid_param_viewer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_group_property_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_gstl_item_action.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_gstl_slider.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_histogram_control_panel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_histogram_gui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_indicator_property_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_manager_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_merge_regions_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_multichoice_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_new_mgrid_from_cgrid_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_new_region_from_property_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_object_property_viewer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_plot_settings_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_print_plots_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_project_ItemModel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_property_filter_view.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_property_param_viewer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_pset_params.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qcombobox_accessor.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qdirdialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qpplot_control_panel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qpplot_gui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qt_algo_control_panel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qt_sp_application.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_qvtkGsTLViewer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_rgrid_params.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_scatterplot_control_panel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_scatterplot_gui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_script_editor.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_snapshot_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variog_multiplot.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variogram_controls.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variogram_controls_base.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variogram_modeler_gui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variogram_modeling_screen.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_visualization_tree_view.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_vtk_project_view_gui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_icons.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="models\categorical_table_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_categorical_table_model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils\new_distribution_dialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_new_distribution_dialog.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="appli\about_sgems.cpp">
       <Filter>Source Files</Filter>
@@ -442,32 +298,17 @@
     <ClCompile Include="viewer\grid_section_view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_grid_section_view.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils\save_grid_dialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_save_grid_dialog.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="utils\copy_property_dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_copy_property_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils\downscale_grid_dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".moc\moc_downscale_grid_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils\upscale_property_dialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_upscale_property_dialog.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="vtk_prop\vtk_prop_structured_grid.cpp">
       <Filter>Source Files</Filter>
@@ -478,22 +319,181 @@
     <ClCompile Include="utils\new_region_from_grid_filter_dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utils\categorical_property_dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\set_not_informed_dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_vtk_project_view_gui.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_visualization_tree_view.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_variog_plot.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_variog_multiplot.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_variogram_modeling_screen.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_variogram_modeler_gui.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_variogram_controls_base.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_variogram_controls.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_upscale_property_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_snapshot_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_set_not_informed_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_script_editor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_scatterplot_gui.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_scatterplot_control_panel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_save_grid_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_rgrid_params.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qvtkGsTLViewer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qt_sp_application.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qt_algo_control_panel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qpplot_gui.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qpplot_control_panel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qdirdialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_qcombobox_accessor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_pset_params.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_property_param_viewer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_property_filter_view.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_project_ItemModel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_print_plots_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_plot_settings_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_object_property_viewer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_new_region_from_property_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include=".moc\moc_new_region_from_grid_filter_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_new_mgrid_from_cgrid_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_new_distribution_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_multichoice_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_merge_regions_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_manager_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_indicator_property_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_histogram_gui.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_histogram_control_panel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_gstl_slider.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_gstl_item_action.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_group_property_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_grid_section_view.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_grid_param_viewer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_first_scr.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_downscale_grid_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_delete_regions_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_delete_properties_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_data_analysis_gui.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_copy_property_dialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_colormap_widget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_colormap_controller.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_cli_commands_panel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".moc\moc_categorical_table_model.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include=".moc\moc_categorical_property_dialog.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils\categorical_property_dialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_set_not_informed_dialog.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\set_not_informed_dialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include=".moc\moc_variog_plot.cpp">
+    <ClCompile Include=".moc\moc_categorical_definition_dialog.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>

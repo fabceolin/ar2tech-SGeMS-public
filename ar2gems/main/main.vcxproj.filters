@@ -14,16 +14,6 @@
       <Extensions>moc;h;cpp</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{810f1691-e4bf-44f2-bb60-e4a991dcc61e}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{965a21c2-42d3-4e99-81db-0b6fb65e178b}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib_initializer.cpp">
