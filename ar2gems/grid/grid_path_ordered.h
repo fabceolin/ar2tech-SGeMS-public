@@ -23,37 +23,8 @@
 ** ----------------------------------------------------------------------------*/
 
 
-
-/**********************************************************************
-** Author: Nicolas Remy
-** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
-**   University
-** All rights reserved.
-**
-** This file is part of the "grid" module of the Geostatistical Earth
-** Modeling Software (GEMS)
-**
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
-** appearing in the file LICENSE.XFREE included in the packaging of this file.
-**
-** This file may be distributed and/or modified under the terms of the
-** GNU General Public License version 2 as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL included in the
-** packaging of this file.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-** See http://www.gnu.org/copyleft/gpl.html for GPL licensing information.
-**
-** Contact the Stanford Center for Reservoir Forecasting, Stanford University
-** if any conditions of this licensing are not clear to you.
-**
-**********************************************************************/
-
-#ifndef __GSTLAPPLI_GRID_MODEL_GRID_RANDOM_PATH_H__  
-#define __GSTLAPPLI_GRID_MODEL_GRID_RANDOM_PATH_H__ 
+#ifndef __GSTLAPPLI_GRID_MODEL_GRID_ORDERED_PATH_H__  
+#define __GSTLAPPLI_GRID_MODEL_GRID_ORDERED_PATH_H__ 
  
 #include <grid/common.h>
 #include <math/gstlvector.h> 
@@ -65,14 +36,15 @@
  
  
 
-/**
- * Grid_random_path class represents a traversal random path on a Geostat_grid. 
+/** 
+ * Grid_ordered_path class represents a traversal path on a Geostat_grid 
+ * in the order from the beginning of the grid to the end of the grid.
  * The path covers all nodes of the grid.
  */
-class GRID_DECL Grid_random_path : public Grid_path< Gval_iterator<TabularMapIndex> >
+class GRID_DECL Grid_ordered_path : public Grid_path< Gval_iterator<LinearMapIndex> >
 {
 public:
-  typedef Gval_iterator<TabularMapIndex> iterator;
+  typedef Gval_iterator<LinearMapIndex> iterator;
 
 
 public:
@@ -96,11 +68,11 @@ protected:
   std::vector<GsTLInt> grid_path_;
   Geostat_grid * grid_;
   Grid_continuous_property * prop_;
-  
+ 
 
 public:
-  Grid_random_path(Geostat_grid * _grid, Grid_continuous_property * _prop);
-  virtual ~Grid_random_path(void);
+  Grid_ordered_path(Geostat_grid * _grid, Grid_continuous_property * _prop);
+  virtual ~Grid_ordered_path(void);
 };
 
 

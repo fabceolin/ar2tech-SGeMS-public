@@ -15,10 +15,10 @@
 #include <grid/reduced_grid.h>
 #include <grid/combined_neighborhood.h>
 #include <grid/point_set_neighborhood.h>
-#include <grid/grid_random_path.h>
+#include <grid/grid_path_random.h>
 #include <grid/grid_path.h>
-#include <grid/grid_ordered_path.h>
-#include <grid/multi_grid_path.h>
+#include <grid/grid_path_ordered.h>
+#include <grid/grid_path_multigrid.h>
 
 #include <boost/test/unit_test.hpp>
 

@@ -34,6 +34,7 @@ Makefile
 *.*sdf
 *.ipch
 *.dll.manifest
+*.manifest
 Debug/
 debug/
 Release/
