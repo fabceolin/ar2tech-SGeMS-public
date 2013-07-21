@@ -1,1 +1,54 @@
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+*.obj
+*.exp
+*.lib
+
+
+# Qt-es
+
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+qrc_*.cpp
+ui_*.cpp
+ui_*.h
+Makefile
+*-build-*
+
+# visual studio
+*.tlog
+*.log
+*.user
+*.pdb
+*.suo
+*.*sdf
+*.ipch
+*.dll.manifest
+*.manifest
+Debug/
+debug/
+Release/
+* - Copy.h
+* - Copy.cpp
+*.manifest.res
+*.idb
+*.lastbuildstate
+*.unsuccessfulbuild
+*.rc
+*.exe
+
+#doxygen
+html/
+
 # We'll be doing CMake out-of-source builds
+

@@ -19,10 +19,10 @@
 #if QT_VERSION < 0x040000
 #include <qpaintdevicemetrics.h>
 #endif
-#include <qwt/qwt_scale_map.h>
-#include <qwt/qwt_legend.h>
-#include <qwt/qwt_legend_item.h>
-#include <qwt/qwt_plot_svgitem.h>
+#include "qwt_scale_map.h"
+#include "qwt_legend.h"
+#include "qwt_legend_item.h"
+#include "qwt_plot_svgitem.h"
 
 class QwtPlotSvgItem::PrivateData
 {
