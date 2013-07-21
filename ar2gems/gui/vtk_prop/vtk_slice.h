@@ -2,23 +2,23 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "gui" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -62,47 +62,47 @@
 #ifndef SIMVOLEON_DLL
   #define SIMVOLEON_DLL
 #endif
-*/ 
-#include <GsTLAppli/gui/common.h>
-#include <GsTLAppli/gui/vtk_prop/vtk_common.h>
-#include <GsTLAppli/math/gstlvector.h> 
- 
- 
-#include <vector> 
-#include <utility> 
- 
-class SGrid_cursor; 
+*/
+#include <gui/common.h>
+#include <gui/vtk_prop/vtk_common.h>
+#include <math/gstlvector.h>
+
+
+#include <vector>
+#include <utility>
+
+class SGrid_cursor;
 class GsTL_vtkProp;
 class Colormap;
- 
- 
+
+
  /*
-void slice_translation_callback( void* data, SoDragger* ); 
+void slice_translation_callback( void* data, SoDragger* );
  */
- 
+
 class GUI_DECL Vtk_slice {
-   
+
  // friend void slice_translation_callback( void* data, SoDragger* );
- 
- public: 
- 
+
+ public:
+
   Vtk_slice(  );
   virtual ~Vtk_slice() ;
- 
+
   void property_display_mode( VTK::Property_display_mode mode );
   virtual GsTL_vtkProp* vtk_prop() { return vtk_prop_; }
-  virtual void update() = 0; 
+  virtual void update() = 0;
   virtual void translate( int step ) {};
   virtual void position( int new_pos ) {};
- 
-  int position() const { return pos_; } 
-  int max_position() const { return max_pos_; } 
- 
- protected: 
+
+  int position() const { return pos_; }
+  int max_position() const { return max_pos_; }
+
+ protected:
   GsTLVector<int> grid_dimensions_;
   const VTK::Axis axis_;
-  int pos_, initial_pos_; 
-  int max_pos_; 
+  int pos_, initial_pos_;
+  int max_pos_;
 
   GsTLVector<int> slice_normal_;
   SGrid_cursor* cursor_;
@@ -113,8 +113,8 @@ class GUI_DECL Vtk_slice {
 
   GsTL_vtkProp* vtk_prop_;
 
- 
-}; 
- 
- 
-#endif 
+
+};
+
+
+#endif

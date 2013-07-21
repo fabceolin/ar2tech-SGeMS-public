@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "actions" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -71,6 +71,8 @@
 #include <utils/error_messages_handler.h>
 #include <utils/manager_repository.h>
 #include <appli/project.h>
+#include <filters/filter.h>
+#include <filters/save_project_objects.h>
 #include <grid/geostat_grid.h>
 #include <grid/cartesian_grid.h>
 #include <grid/rgrid.h>
@@ -146,9 +148,9 @@ New_rgrid::init( std::string& parameters, GsTL_project* proj,
   proj_ = proj ;
   errors_ = errors;
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
       String_Op::decompose_string( parameters, Actions::separator,
-				   Actions::unique );
+                                   Actions::unique );
 
   if( params.size() < 4 )
     return false;
@@ -157,7 +159,7 @@ New_rgrid::init( std::string& parameters, GsTL_project* proj,
   nx_ = String_Op::to_number<int>( params[1] );
   ny_ = String_Op::to_number<int>( params[2] );
   nz_ = String_Op::to_number<int>( params[3] );
-  
+
   return true;
 }
 
@@ -167,15 +169,15 @@ New_rgrid::exec() {
   appli_warning( "New_rgrid::exec() NOT FULLY IMPLEMENTED" );
 
   std::string full_name( "/GridObject/Model/" + name_ );
-  SmartPtr<Named_interface> ni = 
+  SmartPtr<Named_interface> ni =
       Root::instance()->new_interface("RGrid://"+name_, full_name);
-  
+
   if( ni.raw_ptr() == 0 ) {
     errors_->report( "object " + full_name + " already exists. Use a different name." );
 //    appli_warning( "object " << full_name << "already exists" );
     return false;
   }
-  
+
   proj_->new_object( name_ );
   return true;
 }
@@ -185,11 +187,11 @@ New_rgrid::exec() {
 
 New_cartesian_grid_action::New_cartesian_grid_action() {
   xsize_ = 1;
-  ysize_ = 1; 
+  ysize_ = 1;
   zsize_ = 1;
   Ox_ = 0;
   Oy_ = 0;
-  Oz_ = 0; 
+  Oz_ = 0;
   z_rotation_ = 0.;
 }
 
@@ -199,9 +201,9 @@ New_cartesian_grid_action::init( std::string& parameters, GsTL_project* proj,
   proj_ = proj ;
   errors_ = errors;
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
       String_Op::decompose_string( parameters, Actions::separator,
-				   Actions::unique );
+                                   Actions::unique );
 
   if( params.size() < 4 )
     return false;
@@ -210,7 +212,7 @@ New_cartesian_grid_action::init( std::string& parameters, GsTL_project* proj,
   nx_ = String_Op::to_number<int>( params[1] );
   ny_ = String_Op::to_number<int>( params[2] );
   nz_ = String_Op::to_number<int>( params[3] );
-  
+
   if( params.size() >= 7 ) {
     xsize_ = String_Op::to_number<float>( params[4] );
     ysize_ = String_Op::to_number<float>( params[5] );
@@ -236,18 +238,18 @@ bool
 New_cartesian_grid_action::exec() {
 
   std::string full_name( "/GridObject/Model/" + name_ );
-  SmartPtr<Named_interface> ni = 
+  SmartPtr<Named_interface> ni =
       Root::instance()->new_interface("cgrid://"+name_, full_name);
-  
+
   if( ni.raw_ptr() == 0 ) {
     errors_->report( "Object " + full_name + " already exists. Use a different name." );
 //    appli_warning( "object " << full_name << "already exists" );
     return false;
   }
-  
+
   Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
   grid->set_dimensions( nx_, ny_, nz_,
-			xsize_, ysize_, zsize_ );
+                        xsize_, ysize_, zsize_ );
   grid->origin( GsTLPoint( Ox_, Oy_, Oz_ ) );
   grid->set_rotation_z(z_rotation_);
 
@@ -259,16 +261,16 @@ New_cartesian_grid_action::exec() {
 
 
 // TL modified
-bool RunScript::init(std::string& parameters, 
-				  GsTL_project* proj, Error_messages_handler* errors ) 
+bool RunScript::init(std::string& parameters,
+                                  GsTL_project* proj, Error_messages_handler* errors )
 {
-	_proj = proj;
-	_errors = errors;
-	_scriptfile = parameters;
+        _proj = proj;
+        _errors = errors;
+        _scriptfile = parameters;
 
-	if (_scriptfile == "")
-		return false;
-	return true;
+        if (_scriptfile == "")
+                return false;
+        return true;
 }
 
 bool RunScript::exec()
@@ -277,7 +279,7 @@ bool RunScript::exec()
   char ch;
 
   // redirect stdout and stderr to sgems output zones
-  
+
   PyRun_SimpleString(""
    "import redirect\n"
    "class CoutLogger:\n"
@@ -302,7 +304,7 @@ bool RunScript::exec()
    "sys.stdout = CoutLogger()\n"
    "sys.stderr = CerrLogger()\n"
    "");
-  
+
   FILE* fp = fopen( _scriptfile.c_str(), "r" );
   if( !fp ) {
     GsTLcerr << "can't open file " << _scriptfile.c_str() << gstlIO::end;
@@ -310,12 +312,12 @@ bool RunScript::exec()
   }
 
   while ((ch = fgetc(fp)) != EOF)
-	  buf += ch;
+          buf += ch;
   buf += "\n";
 
   PyRun_SimpleString( (char*) buf.c_str() );
 
-  fclose( fp );	
+  fclose( fp );
   if( Python_project_wrapper::is_project_modified() ) {
     Python_project_wrapper::project()->update();
   }
@@ -334,8 +336,8 @@ Load_sim::Load_sim() {
 Load_sim::~Load_sim() {
 }
 
-bool Load_sim::init(std::string& parameters, 
-				  GsTL_project* proj, Error_messages_handler* errors ) {
+bool Load_sim::init(std::string& parameters,
+                                  GsTL_project* proj, Error_messages_handler* errors ) {
   proj_ = proj;
   errors_ = errors;
 
@@ -346,111 +348,111 @@ bool Load_sim::init(std::string& parameters,
     errors->report("wrong extension");
     return false;
   }
-  
+
   return true;
 }
 
 bool Load_sim::exec() {
-	Prt * p = NULL;
-	int i,j,index = 0, totalsize = 0;
-	PyObject * mod, *func;
+        Prt * p = NULL;
+        int i,j,index = 0, totalsize = 0;
+        PyObject * mod, *func;
 
-	Py_Initialize();
-	PyRun_SimpleString(""
-		"import redirect\n"
-		"class CoutLogger:\n"
-		"    def __init__(self):\n"
-		"        self.buf = []\n"
-		"    def write(self, data):\n"
-		"        self.buf.append(data)\n"
-		"        if data.endswith('\\n'):\n"
-		"            redirect.sgems_cout(''.join(self.buf))\n"
-		"            self.buf = []\n"
-		"\n"
-		"class CerrLogger:\n"
-		"    def __init__(self):\n"
-		"        self.buf = []\n"
-		"    def write(self, data):\n"
-		"        self.buf.append(data)\n"
-		"        if data.endswith('\\n'):\n"
-		"            redirect.sgems_cerr(''.join(self.buf))\n"
-		"            self.buf = []\n"
-		"\n"
-		"import sys\n"
-		"sys.stdout = CoutLogger()\n"
-		"sys.stderr = CerrLogger()\n"
-		"");
+        Py_Initialize();
+        PyRun_SimpleString(""
+                "import redirect\n"
+                "class CoutLogger:\n"
+                "    def __init__(self):\n"
+                "        self.buf = []\n"
+                "    def write(self, data):\n"
+                "        self.buf.append(data)\n"
+                "        if data.endswith('\\n'):\n"
+                "            redirect.sgems_cout(''.join(self.buf))\n"
+                "            self.buf = []\n"
+                "\n"
+                "class CerrLogger:\n"
+                "    def __init__(self):\n"
+                "        self.buf = []\n"
+                "    def write(self, data):\n"
+                "        self.buf.append(data)\n"
+                "        if data.endswith('\\n'):\n"
+                "            redirect.sgems_cerr(''.join(self.buf))\n"
+                "            self.buf = []\n"
+                "\n"
+                "import sys\n"
+                "sys.stdout = CoutLogger()\n"
+                "sys.stderr = CerrLogger()\n"
+                "");
 
-	// !!! Main program will wait for this to finish !!!
+        // !!! Main program will wait for this to finish !!!
 
-	PyObject * fromList = Py_BuildValue("[s]", "readprt");
+        PyObject * fromList = Py_BuildValue("[s]", "readprt");
 
-	if (!(mod = PyImport_ImportModuleEx((char *)parser.c_str(), NULL, NULL, fromList))){
-		PyRun_SimpleString("print 'unable to get module'");
-		PyErr_Print();
-		return false;
-	}
+        if (!(mod = PyImport_ImportModuleEx((char *)parser.c_str(), NULL, NULL, fromList))){
+                PyRun_SimpleString("print 'unable to get module'");
+                PyErr_Print();
+                return false;
+        }
 
-	if (!(func = PyDict_GetItemString(PyModule_GetDict(mod), parser.c_str()))) {
-		PyRun_SimpleString("print 'unable to get function'");
-		PyErr_Print();
-		return false;
-	}
+        if (!(func = PyDict_GetItemString(PyModule_GetDict(mod), parser.c_str()))) {
+                PyRun_SimpleString("print 'unable to get function'");
+                PyErr_Print();
+                return false;
+        }
 
-	if (!PyObject_CallObject(func, Py_BuildValue("(s)",dirname_.ascii()))) {
-		appli_warning("Unable to run script " << parser);
-		PyErr_Print();
-		return false;
-	}
+        if (!PyObject_CallObject(func, Py_BuildValue("(s)",dirname_.ascii()))) {
+                appli_warning("Unable to run script " << parser);
+                PyErr_Print();
+                return false;
+        }
 
 
-	
-	pprt PRT;
-	if (!(p = PRT.fill()))
-		return false;
 
-	totalsize = (p->X) * (p->Y) * (p->Z);
+        pprt PRT;
+        if (!(p = PRT.fill()))
+                return false;
 
-    appli_message( "creating new grid '" << dirname_.latin1() << "'" 
-	  	           << " of dimensions: " << p->X << "x" << p->Y << "x" << p->Z); 
-	
-	// create a new grid
-	SmartPtr<Named_interface> ni = Root::instance()->new_interface( "cgrid", 
-		gridModels_manager + "/" + "eclipse" );
-	Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
-	appli_assert( grid != 0 );
-	grid->set_dimensions( p->X, p->Y, p->Z);
+        totalsize = (p->X) * (p->Y) * (p->Z);
 
-	
-	for (i = 0; i < p->num_dates; ++i) {
-		for (j = 0; j < p->num_properties; ++j, ++index) {
-			string temp = p->dates[i];
-			temp+="_";
-			temp+=p->properties[j];
-			Grid_continuous_property* prop = grid->add_property( temp );
-			transform((p->data)+index*totalsize, p->X, p->Y, p->Z, prop);
-		}
-	}
+    appli_message( "creating new grid '" << dirname_.latin1() << "'"
+                           << " of dimensions: " << p->X << "x" << p->Y << "x" << p->Z);
 
-	proj_->new_object("eclipse");
+        // create a new grid
+        SmartPtr<Named_interface> ni = Root::instance()->new_interface( "cgrid",
+                gridModels_manager + "/" + "eclipse" );
+        Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
+        appli_assert( grid != 0 );
+        grid->set_dimensions( p->X, p->Y, p->Z);
 
-	return true;
+
+        for (i = 0; i < p->num_dates; ++i) {
+                for (j = 0; j < p->num_properties; ++j, ++index) {
+                        string temp = p->dates[i];
+                        temp+="_";
+                        temp+=p->properties[j];
+                        Grid_continuous_property* prop = grid->add_property( temp );
+                        transform((p->data)+index*totalsize, p->X, p->Y, p->Z, prop);
+                }
+        }
+
+        proj_->new_object("eclipse");
+
+        return true;
 }
 
 // performs axis conversion between sgems and eclipse format
 void Load_sim::transform(const Type * src, int x, int y,
-			      int z, Grid_continuous_property * dest)
+                              int z, Grid_continuous_property * dest)
 {
   int i,j,k, cur, index = 0;
 
- 
+
   for (i = z-1; i >= 0; --i) {
-	  for (j = y-1; j >= 0; --j) { 
-		cur = j*x+i*x*y;
-		for (k = 0; k < x; ++k,++index){
-			dest->set_value(*(src+cur+k), index);
-		}
-	  }
+          for (j = y-1; j >= 0; --j) {
+                cur = j*x+i*x*y;
+                for (k = 0; k < x; ++k,++index){
+                        dest->set_value(*(src+cur+k), index);
+                }
+          }
   }
 }
 */
@@ -465,9 +467,9 @@ bool Copy_property::init( std::string& parameters, GsTL_project* proj,
   bool overwrite = false;
   bool mark_as_hard = false;
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
       String_Op::decompose_string( parameters, Actions::separator,
-				   Actions::unique );
+                                   Actions::unique );
 
   if( params.size() < 4 )
     return false;
@@ -533,9 +535,9 @@ Named_interface* Copy_property::create_new_interface( std::string& ) {
 
 bool Swap_property_to_disk::init( std::string& parameters, GsTL_project* proj,
                                  Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return false;
 
@@ -546,7 +548,7 @@ bool Swap_property_to_disk::init( std::string& parameters, GsTL_project* proj,
 
   if( !grid ) {
     std::ostringstream message;
-    message << "grid \"" << params[0] << "\" does not exist"; 
+    message << "grid \"" << params[0] << "\" does not exist";
     errors->report_if( true, message.str() );
     return false;
   }
@@ -569,7 +571,7 @@ bool Swap_property_to_disk::exec() {
 
 
 Named_interface* Swap_property_to_disk::create_new_interface( std::string& ) {
-  return new Swap_property_to_disk; 
+  return new Swap_property_to_disk;
 }
 
 
@@ -578,9 +580,9 @@ Named_interface* Swap_property_to_disk::create_new_interface( std::string& ) {
 
 bool Swap_property_to_ram::init( std::string& parameters, GsTL_project* proj,
                                  Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return false;
 
@@ -591,7 +593,7 @@ bool Swap_property_to_ram::init( std::string& parameters, GsTL_project* proj,
 
   if( !grid ) {
     std::ostringstream message;
-    message << "grid \"" << params[0] << "\" does not exist"; 
+    message << "grid \"" << params[0] << "\" does not exist";
     errors->report( false, message.str() );
     return false;
   }
@@ -614,7 +616,7 @@ bool Swap_property_to_ram::exec() {
 
 
 Named_interface* Swap_property_to_ram::create_new_interface( std::string& ) {
-  return new Swap_property_to_ram; 
+  return new Swap_property_to_ram;
 }
 
 
@@ -625,9 +627,9 @@ Named_interface* Swap_property_to_ram::create_new_interface( std::string& ) {
 
 bool Delete_objects::init( std::string& parameters, GsTL_project* project,
                            Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.empty() ) return true;
 
@@ -636,7 +638,7 @@ bool Delete_objects::init( std::string& parameters, GsTL_project* project,
   Manager* grid_manager = dynamic_cast<Manager*>( ni_dir.raw_ptr() );
   appli_assert( grid_manager );
   if( !grid_manager ) return false;
-  
+
   for( std::vector<std::string>::const_iterator it = params.begin() ;
         it != params.end(); ++it ) {
     bool ok = grid_manager->delete_interface( "/" + (*it) );
@@ -655,7 +657,7 @@ bool Delete_objects::exec() {
 
 
 Named_interface* Delete_objects::create_new_interface( std::string& ) {
-  return new Delete_objects; 
+  return new Delete_objects;
 }
 
 
@@ -666,9 +668,9 @@ Named_interface* Delete_objects::create_new_interface( std::string& ) {
 */
 bool Delete_properties::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return true;
 
@@ -678,10 +680,10 @@ bool Delete_properties::init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   for( unsigned int i = 1 ; i < params.size() ; i++ ) {
     grid->remove_property( params[i] );
   }
@@ -697,7 +699,7 @@ bool Delete_properties::exec() {
 
 
 Named_interface* Delete_properties::create_new_interface( std::string& ) {
-  return new Delete_properties; 
+  return new Delete_properties;
 }
 
 
@@ -712,12 +714,12 @@ bool Clear_property_value_if::
 init( std::string& parameters, GsTL_project* proj,
       Error_messages_handler* errors ) {
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() != 4 ) {
-    errors->report( "some parameters are missing" );  
+    errors->report( "some parameters are missing" );
     return false;
   }
 
@@ -727,15 +729,15 @@ init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   Grid_continuous_property* prop = grid->property( params[1] );
   if( !prop ) {
     std::ostringstream message;
     message << "Grid \"" << params[0] << "\" has no property called \"" << params[1] << "\"";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -757,9 +759,9 @@ bool Clear_property_value_if::exec() {
 }
 
 
-Named_interface* 
+Named_interface*
 Clear_property_value_if::create_new_interface( std::string& ) {
-  return new Clear_property_value_if; 
+  return new Clear_property_value_if;
 }
 
 
@@ -774,12 +776,12 @@ bool Set_active_region::
 init( std::string& parameters, GsTL_project* proj,
       Error_messages_handler* errors ) {
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.empty() ) {
-    errors->report( "some parameters are missing" );  
+    errors->report( "some parameters are missing" );
     return false;
   }
 
@@ -789,7 +791,7 @@ init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
   if( params.size() == 1 ) grid->unselect_region();
@@ -799,7 +801,7 @@ init( std::string& parameters, GsTL_project* proj,
     if( !ok ) {
       std::ostringstream message;
       message << "Grid \"" << params[0] << "\" has no region called \"" << params[1] << "\"";
-      errors->report( message.str() ); 
+      errors->report( message.str() );
       return false;
     }
   }
@@ -822,12 +824,12 @@ bool Set_hard_data::
 init( std::string& parameters, GsTL_project* proj,
       Error_messages_handler* errors ) {
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size()<2 ) {
-    errors->report( "some parameters are missing" );  
+    errors->report( "some parameters are missing" );
     return false;
   }
 
@@ -837,7 +839,7 @@ init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -846,13 +848,13 @@ init( std::string& parameters, GsTL_project* proj,
     if( !prop ) {
       std::ostringstream message;
       message << "Grid \"" << params[0] << "\" has no property called \"" << params[1] << "\"";
-      errors->report( message.str() ); 
+      errors->report( message.str() );
       return false;
     }
-    for(unsigned int j=0; prop->size(); j++) 
+    for(unsigned int j=0; prop->size(); j++)
       if(prop->is_informed(j)) prop->set_harddata(true,j);
   }
- 
+
 
   proj->update( params[0] );
   return true;
@@ -870,9 +872,9 @@ bool Set_hard_data::exec() {
 */
 bool Delete_regions::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return true;
 
@@ -882,10 +884,10 @@ bool Delete_regions::init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   for( unsigned int i = 1 ; i < params.size() ; i++ ) {
     grid->remove_region( params[i] );
   }
@@ -901,7 +903,7 @@ bool Delete_regions::exec() {
 
 
 Named_interface* Delete_regions::create_new_interface( std::string& ) {
-  return new Delete_regions; 
+  return new Delete_regions;
 }
 
 
@@ -915,12 +917,12 @@ bool Set_region_from_property::
 init( std::string& parameters, GsTL_project* proj,
       Error_messages_handler* errors ) {
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() != 5 ) {
-    errors->report( "some parameters are missing" );  
+    errors->report( "some parameters are missing" );
     return false;
   }
 
@@ -930,7 +932,7 @@ init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -947,7 +949,7 @@ init( std::string& parameters, GsTL_project* proj,
   if( !prop ) {
     std::ostringstream message;
     message << "Grid \"" << params[0] << "\" has no property called \"" << params[2] << "\"";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -957,7 +959,7 @@ init( std::string& parameters, GsTL_project* proj,
   for( int i = 0 ; i < prop->size() ; i++ ) {
     if(prop->is_informed( i ) && prop->get_value( i ) >= min && prop->get_value(i) <= max )
       region->set_region_value(true,i);
-    else 
+    else
       region->set_region_value(false,i);
   }
 
@@ -971,9 +973,9 @@ bool Set_region_from_property::exec() {
 }
 
 
-Named_interface* 
+Named_interface*
 Set_region_from_property::create_new_interface( std::string& ) {
-  return new Set_region_from_property; 
+  return new Set_region_from_property;
 }
 
 
@@ -989,7 +991,7 @@ init( std::string& parameters, GsTL_project* proj,
 
   std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() <4 ) {
     errors->report( "some parameters are missing" );
@@ -1021,14 +1023,14 @@ init( std::string& parameters, GsTL_project* proj,
   std::vector<int> in_region_code;
   const CategoricalPropertyDefinition *cat_def = prop->get_category_definition();
   for(int i=3; i< params.size(); i++) {
-	  if( !cat_def->is_category_exist(params[i]) ) {
-		    std::ostringstream message;
-		    message << "Property \"" << params[2] << "\" has no category called \"" << params[i] << "\"";
-		    errors->report( message.str() );
-		    return false;
+          if( !cat_def->is_category_exist(params[i]) ) {
+                    std::ostringstream message;
+                    message << "Property \"" << params[2] << "\" has no category called \"" << params[i] << "\"";
+                    errors->report( message.str() );
+                    return false;
 
-	  }
-	  in_region_code.push_back( cat_def->category_id(params[i]) );
+          }
+          in_region_code.push_back( cat_def->category_id(params[i]) );
   }
   std::sort(in_region_code.begin(), in_region_code.end());
 
@@ -1042,17 +1044,17 @@ init( std::string& parameters, GsTL_project* proj,
 
   for( int i = 0 ; i < prop->size() ; i++ ) {
     if( !prop->is_informed( i ) ) {
-    	region->set_region_value(false,i);
+        region->set_region_value(false,i);
     }
     else {
-    	std::vector<int>::const_iterator it =
-    			std::find(in_region_code.begin(), in_region_code.end(), prop->get_value(i));
-    	if(it != in_region_code.end()) {
-    		region->set_region_value(true,i);
-    	}
-    	else {
-    		region->set_region_value(false,i);
-    	}
+        std::vector<int>::const_iterator it =
+                        std::find(in_region_code.begin(), in_region_code.end(), prop->get_value(i));
+        if(it != in_region_code.end()) {
+                region->set_region_value(true,i);
+        }
+        else {
+                region->set_region_value(false,i);
+        }
     }
   }
 
@@ -1078,9 +1080,9 @@ Set_region_from_categorical_property::create_new_interface( std::string& ) {
 */
 bool Merge_regions::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 4 ) return true;
 
@@ -1092,7 +1094,7 @@ bool Merge_regions::init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << grid_name_ << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1101,13 +1103,13 @@ bool Merge_regions::init( std::string& parameters, GsTL_project* proj,
     if(region == NULL ) {
       std::ostringstream message;
       message << "No region called \"" << params[i] << "\" was found";
-      errors->report( message.str() ); 
+      errors->report( message.str() );
       return false;
     }
     regions_.push_back( grid->region( params[i]) );
   }
-  
-  
+
+
   new_region_ = grid->add_region(params[1]);
   proj_ = proj;
 
@@ -1121,7 +1123,7 @@ bool Merge_regions::exec() {
 
 
 Named_interface* Merge_regions::create_new_interface( std::string& ) {
-  return new Merge_regions; 
+  return new Merge_regions;
 }
 */
 //================================================
@@ -1139,14 +1141,14 @@ bool Merge_regions_union::exec() {
         continue;
       }
     }
-    
+
   }
 
   proj_->update( grid_name_ );
   return true;
 }
 Named_interface* Merge_regions_union::create_new_interface( std::string& ) {
-  return new Merge_regions_union; 
+  return new Merge_regions_union;
 }
 
 //================================================
@@ -1164,14 +1166,14 @@ bool Merge_regions_intersection::exec() {
         continue;
       }
     }
-    
+
   }
 
   proj_->update( grid_name_ );
   return true;
 }
 Named_interface* Merge_regions_intersection::create_new_interface( std::string& ) {
-  return new Merge_regions_intersection; 
+  return new Merge_regions_intersection;
 }
 
 
@@ -1181,9 +1183,9 @@ Named_interface* Merge_regions_intersection::create_new_interface( std::string& 
 */
 bool Set_region_complement::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return true;
 
@@ -1193,7 +1195,7 @@ bool Set_region_complement::init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1201,7 +1203,7 @@ bool Set_region_complement::init( std::string& parameters, GsTL_project* proj,
   if(region == NULL ) {
     std::ostringstream message;
     message << "No region called \"" << params[1] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1224,7 +1226,7 @@ bool Set_region_complement::exec() {
 
 
 Named_interface* Set_region_complement::create_new_interface( std::string& ) {
-  return new Set_region_complement; 
+  return new Set_region_complement;
 }
 
 
@@ -1235,9 +1237,9 @@ Named_interface* Set_region_complement::create_new_interface( std::string& ) {
 */
 bool Clear_property_value_from_property::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return true;
 
@@ -1247,21 +1249,21 @@ bool Clear_property_value_from_property::init( std::string& parameters, GsTL_pro
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
   Grid_continuous_property* mask = grid->property(params[1]);
   if(!mask){
     std::ostringstream message;
     message << "No property called \"" << params[1] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   for( unsigned int i = 2 ; i < params.size() ; i++ ) {
     Grid_continuous_property* prop = grid->property(params[i]);
     if(!prop) continue;
-    for( unsigned int i = 0; i <grid->size(); ++i ) 
+    for( unsigned int i = 0; i <grid->size(); ++i )
       if(!mask->is_informed(i) ) prop->set_not_informed(i);
   }
 
@@ -1276,7 +1278,7 @@ bool Clear_property_value_from_property::exec() {
 
 
 Named_interface* Clear_property_value_from_property::create_new_interface( std::string& ) {
-  return new Clear_property_value_from_property(); 
+  return new Clear_property_value_from_property();
 }
 
 
@@ -1286,9 +1288,9 @@ Named_interface* Clear_property_value_from_property::create_new_interface( std::
 */
 bool Clear_property_inside_region::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 3 ) return false;
 
@@ -1298,21 +1300,21 @@ bool Clear_property_inside_region::init( std::string& parameters, GsTL_project* 
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
   Grid_region* mask = grid->region(params[1]);
   if(!mask){
     std::ostringstream message;
     message << "No region called \"" << params[1] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   for( unsigned int i = 2 ; i < params.size() ; i++ ) {
     Grid_continuous_property* prop = grid->property(params[i]);
     if(!prop) continue;
-    for( unsigned int i = 0; i <grid->size(); ++i ) 
+    for( unsigned int i = 0; i <grid->size(); ++i )
       if(mask->is_inside_region(i) ) prop->set_not_informed(i);
   }
 
@@ -1327,7 +1329,7 @@ bool Clear_property_inside_region::exec() {
 
 
 Named_interface* Clear_property_inside_region::create_new_interface( std::string& ) {
-  return new Clear_property_inside_region(); 
+  return new Clear_property_inside_region();
 }
 
 
@@ -1336,9 +1338,9 @@ Named_interface* Clear_property_inside_region::create_new_interface( std::string
 */
 bool Clear_property_outside_region::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 3 ) return false;
 
@@ -1348,21 +1350,21 @@ bool Clear_property_outside_region::init( std::string& parameters, GsTL_project*
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
   Grid_region* mask = grid->region(params[1]);
   if(!mask){
     std::ostringstream message;
     message << "No region called \"" << params[1] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   for( unsigned int i = 2 ; i < params.size() ; i++ ) {
     Grid_continuous_property* prop = grid->property(params[i]);
     if(!prop) continue;
-    for( unsigned int i = 0; i <grid->size(); ++i ) 
+    for( unsigned int i = 0; i <grid->size(); ++i )
       if(!mask->is_inside_region(i) ) prop->set_not_informed(i);
   }
 
@@ -1377,7 +1379,7 @@ bool Clear_property_outside_region::exec() {
 
 
 Named_interface* Clear_property_outside_region::create_new_interface( std::string& ) {
-  return new Clear_property_outside_region(); 
+  return new Clear_property_outside_region();
 }
 
 
@@ -1387,7 +1389,7 @@ Named_interface* Clear_property_outside_region::create_new_interface( std::strin
 /* Create_trend grid_name::Direction[::new_prop_name]
 *  where Direction = {X, Y, Z, -X, -Y, -Z}
 *  if no new_prop_name is provided then it is called trend_{X,Y,Z}
-*  depending of the deirection   
+*  depending of the deirection
 */
 
 Create_trend::Create_trend(){
@@ -1401,9 +1403,9 @@ Create_trend::Create_trend(){
 
 bool Create_trend::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) return true;
   if( !is_direction_valid(params[1], errors ) ) return false;
@@ -1412,7 +1414,7 @@ bool Create_trend::init( std::string& parameters, GsTL_project* proj,
   std::string prop_name;
   if(params.size() == 3) prop_name = params[2];
   else prop_name = "trend_"+params[1];
-  
+
   grid_name_ = params[0];
   SmartPtr<Named_interface> grid_ni =
     Root::instance()->interface( gridModels_manager + "/" + grid_name_ );
@@ -1420,18 +1422,18 @@ bool Create_trend::init( std::string& parameters, GsTL_project* proj,
   if( !grid_ ) {
     std::ostringstream message;
     message << "No grid called \"" << grid_name_ << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
 
   trend_ = grid_->add_property(prop_name);
   if(!trend_){
     std::ostringstream message;
     message << "Property already exist";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
-  }  
+  }
 
   return true;
 }
@@ -1477,7 +1479,7 @@ bool Create_trend::is_direction_valid(std::string direction,
   if(it == directions_.end()) {
     std::ostringstream message;
     message << "No direction \"" << direction << "\" is implemented \n The choices are:";
-    for(it =directions_.begin(); it != directions_.end() ; it++ ) 
+    for(it =directions_.begin(); it != directions_.end() ; it++ )
       message<<*it<<" ";
     errors->report( message.str() );
     return false;
@@ -1491,7 +1493,7 @@ std::vector<string> Create_trend::get_trend_functions(){
 }
 
 Named_interface* Create_trend::create_new_interface( std::string& ) {
-  return new Create_trend(); 
+  return new Create_trend();
 }
 
 
@@ -1508,19 +1510,19 @@ Create_indicator_properties::Create_indicator_properties(){
 
 Named_interface*
 Create_indicator_properties::create_new_interface( std::string& ){
-	return new Create_indicator_properties;
+        return new Create_indicator_properties;
 }
 
 bool Create_indicator_properties::init( std::string& parameters, GsTL_project* proj,
                      Error_messages_handler* errors ){
-	proj_ = proj;
+        proj_ = proj;
   std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 2 ) {
-  	errors->report( "Need at least 2 parameters for categorical property and 3 for continuous property" );
-  	return false;
+        errors->report( "Need at least 2 parameters for categorical property and 3 for continuous property" );
+        return false;
   }
 
   std::string grid_name = params[0];
@@ -1545,22 +1547,22 @@ bool Create_indicator_properties::init( std::string& parameters, GsTL_project* p
   }
 
   if(cprop == 0 ) {
-  	if(params[2] == "Decile" || params[2] == "Quartile" || params[2] == "Quintile") {
-  		get_thresholds_from_data(params[2]);
-  	}
-  	else if(params[2] == "UserDefined") {
-  		for(int i=3; i< params.size(); i++) {
-  			thresholds_.push_back(String_Op::to_number<float>(params[i]));
-  		}
-  	}
-  	else {
+        if(params[2] == "Decile" || params[2] == "Quartile" || params[2] == "Quintile") {
+                get_thresholds_from_data(params[2]);
+        }
+        else if(params[2] == "UserDefined") {
+                for(int i=3; i< params.size(); i++) {
+                        thresholds_.push_back(String_Op::to_number<float>(params[i]));
+                }
+        }
+        else {
       errors->report( "The thresholding option is not recognized");
       return false;
     }
-  	group_name_ = data_prop_->name()+" "+params[2]+" indicator";
+        group_name_ = data_prop_->name()+" "+params[2]+" indicator";
   }
   else {
-  	group_name_ = data_prop_->name()+" categorical indicator";
+        group_name_ = data_prop_->name()+" categorical indicator";
 
   }
 // Check if it already exists
@@ -1576,79 +1578,79 @@ bool Create_indicator_properties::init( std::string& parameters, GsTL_project* p
 }
 
 void Create_indicator_properties::get_thresholds_from_data(std::string option){
-	std::vector<float> data(data_prop_->begin(true),data_prop_->end());
-	std::sort(data.begin(),data.end());
-	int size = data.size();
-	float quant;
-	if(option == "Decile") {
-		quant = 0.1;
-	}
-	else if(option == "Quartile"){
-		quant = 0.25;
-	}
-	else if(option == "Quintile"){
-		quant = 0.2;
-	}
-	for(float i=quant; i < 1; i+=quant ) {
-		thresholds_.push_back( data[int(i*size)] );
-	}
+        std::vector<float> data(data_prop_->begin(true),data_prop_->end());
+        std::sort(data.begin(),data.end());
+        int size = data.size();
+        float quant;
+        if(option == "Decile") {
+                quant = 0.1;
+        }
+        else if(option == "Quartile"){
+                quant = 0.25;
+        }
+        else if(option == "Quintile"){
+                quant = 0.2;
+        }
+        for(float i=quant; i < 1; i+=quant ) {
+                thresholds_.push_back( data[int(i*size)] );
+        }
 }
 
 bool Create_indicator_properties::exec(){
-	Grid_categorical_property* cprop = dynamic_cast<Grid_categorical_property*>(data_prop_);
-	if(cprop == 0) {
-		IndicatorContinuousPropertyGroup* group =
-				dynamic_cast<IndicatorContinuousPropertyGroup*>(
-						grid_->add_group(group_name_,"ContinuousIndicator")
-						);
-		group->set_thresholds(thresholds_);
+        Grid_categorical_property* cprop = dynamic_cast<Grid_categorical_property*>(data_prop_);
+        if(cprop == 0) {
+                IndicatorContinuousPropertyGroup* group =
+                                dynamic_cast<IndicatorContinuousPropertyGroup*>(
+                                                grid_->add_group(group_name_,"ContinuousIndicator")
+                                                );
+                group->set_thresholds(thresholds_);
 
-		for(int t =0; t< thresholds_.size(); t++) {
-			std::string name = data_prop_->name()+" less than "+String_Op::to_string(thresholds_[t]);
-			Grid_continuous_property* prop =  grid_->add_property(name);
-			if(!prop) continue;
-			for(int i = 0; i < prop->size(); ++i) {
-				if( data_prop_->is_informed(i) ) {
-					int id = data_prop_->get_value(i) < thresholds_[t];
-					prop->set_value(id, i);
-				}
-			}
-			group->add_property(prop);
-		}
-	} else { // This is a categorical property
-		IndicatorCategoricalPropertyGroup* group =
-				dynamic_cast<IndicatorCategoricalPropertyGroup*>(
-						grid_->add_group(group_name_,"CategoricalIndicator"));
+                for(int t =0; t< thresholds_.size(); t++) {
+                        std::string name = data_prop_->name()+" less than "+String_Op::to_string(thresholds_[t]);
+                        Grid_continuous_property* prop =  grid_->add_property(name);
+                        if(!prop) continue;
+                        for(int i = 0; i < prop->size(); ++i) {
+                                if( data_prop_->is_informed(i) ) {
+                                        int id = data_prop_->get_value(i) < thresholds_[t];
+                                        prop->set_value(id, i);
+                                }
+                        }
+                        group->add_property(prop);
+                }
+        } else { // This is a categorical property
+                IndicatorCategoricalPropertyGroup* group =
+                                dynamic_cast<IndicatorCategoricalPropertyGroup*>(
+                                                grid_->add_group(group_name_,"CategoricalIndicator"));
 
-		const CategoricalPropertyDefinition* def = cprop->get_category_definition();
-		const CategoricalPropertyDefinitionName* defname =
-				dynamic_cast<const CategoricalPropertyDefinitionName*>(def);
+                const CategoricalPropertyDefinition* def = cprop->get_category_definition();
+                const CategoricalPropertyDefinitionName* defname =
+                                dynamic_cast<const CategoricalPropertyDefinitionName*>(def);
 
-		int ncat;
-		if(defname) ncat = defname->number_of_category();
-		else {
-			std::set<int> codes;
-			Grid_continuous_property::const_iterator it = cprop->begin(true);
-			for( ; it != cprop->end(); ++it) {
+                int ncat;
+                if(defname) ncat = defname->number_of_category();
+                else {
+                        std::set<int> codes;
+                        Grid_continuous_property::const_iterator it = cprop->begin(true);
+                        for( ; it != cprop->end(); ++it) {
         codes.insert(*it);
-				//if(*it > ncat ) ncat = *it;
-			}
+                                //if(*it > ncat ) ncat = *it;
+                        }
       ncat = codes.size();
-		}
-		
-		for(int c=0 ; c < ncat ; c++ ) {
+                }
+
+                for(int c=0 ; c < ncat ; c++ ) {
       int code = def->category_id_from_index(c);
-			std::string name = data_prop_->name()+" indicator "+def->get_category_name(code);
-			Grid_continuous_property* prop =  grid_->add_property(name);
-			if(!prop) continue;
-			for(int i = 0; i < prop->size(); ++i) {
-				if( data_prop_->is_informed(i) )
-					prop->set_value(static_cast<float>(data_prop_->get_value(i) == code), i);
-			}
-			group->add_property(prop);
-		}
-	}
-	return true;
+                        std::string name = data_prop_->name()+" indicator "+def->get_category_name(code);
+                        Grid_continuous_property* prop =  grid_->add_property(name);
+                        if(!prop) continue;
+                        for(int i = 0; i < prop->size(); ++i) {
+                                if( data_prop_->is_informed(i) )
+                                        prop->set_value(static_cast<float>(data_prop_->get_value(i) == code), i);
+                        }
+                        group->add_property(prop);
+                }
+        }
+        return true;
 
 }
 
@@ -1659,20 +1661,20 @@ bool Create_indicator_properties::exec(){
 
 
 Named_interface* Downscale_grid::create_new_interface( std::string& ) {
-  return new Downscale_grid; 
+  return new Downscale_grid;
 }
 
 
 bool Downscale_grid::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() !=5 )  {
     std::ostringstream message;
     message << "Need five paramters (UpscaledGrid::NewGridName::factorX::factorY::factorZ)";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1686,10 +1688,10 @@ bool Downscale_grid::init( std::string& parameters, GsTL_project* proj,
   if( !up_grid ) {
     std::ostringstream message;
     message << "No grid called \"" << up_grid_name << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   //Check if the grid already exist
   std::string down_grid_name = params[1];
   SmartPtr<Named_interface> down_grid_ni =
@@ -1697,7 +1699,7 @@ bool Downscale_grid::init( std::string& parameters, GsTL_project* proj,
   if(down_grid_ni.raw_ptr() != 0) {
     std::ostringstream message;
     message << "A grid called \"" << down_grid_name << "\" already exist";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1706,7 +1708,7 @@ bool Downscale_grid::init( std::string& parameters, GsTL_project* proj,
   int fz = String_Op::to_number<int>(params[4]);
 
   if(fx <= 0 || fy <= 0 || fz <= 0) {
-    errors->report( "All downscaling factor must be integer greater than zero" ); 
+    errors->report( "All downscaling factor must be integer greater than zero" );
     return false;
   }
 
@@ -1717,7 +1719,7 @@ bool Downscale_grid::init( std::string& parameters, GsTL_project* proj,
 
   Grid_downscaler*  dscaler = dynamic_cast<Grid_downscaler*>( dscale_ni.raw_ptr() );
   if(dscaler == 0) {
-    errors->report( "Could not find a factory for "+up_grid->classname() ); 
+    errors->report( "Could not find a factory for "+up_grid->classname() );
     return false;
   }
 
@@ -1736,20 +1738,20 @@ bool Downscale_grid::init( std::string& parameters, GsTL_project* proj,
 
 
 Named_interface* Upscale_properties::create_new_interface( std::string& ) {
-  return new Upscale_properties; 
+  return new Upscale_properties;
 }
 
 
 bool Upscale_properties::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() <3 )  {
     std::ostringstream message;
     message << "Need at least 3 paramters (TargetGrid::SourceGrid::Prop1[::prop2...])";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1762,7 +1764,7 @@ bool Upscale_properties::init( std::string& parameters, GsTL_project* proj,
   if( !target_grid_ ) {
     std::ostringstream message;
     message << "No regular grid called \"" << target_grid_name << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -1775,12 +1777,12 @@ bool Upscale_properties::init( std::string& parameters, GsTL_project* proj,
   if( !source_grid_ ) {
     std::ostringstream message;
     message << "No regular grid called \"" << source_grid_name << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
   if( source_grid_ ==  target_grid_) {
-    errors->report( "Target and source grid are the smame!" ); 
+    errors->report( "Target and source grid are the smame!" );
     return false;
   }
 
@@ -1796,15 +1798,15 @@ bool Upscale_properties::init( std::string& parameters, GsTL_project* proj,
   int nx = static_cast<int>( GsTL::round(nx_f));
   int ny = static_cast<int>( GsTL::round(ny_f) );
   int nz = static_cast<int>( GsTL::round(nz_f) );
-  
+
   if( !GsTL::equals((double)nx, nx_f) ) {
-    errors->report( "The x dimension of the source grid is not compatible with the target grid" ); 
+    errors->report( "The x dimension of the source grid is not compatible with the target grid" );
   }
   if( !GsTL::equals((double)ny, ny_f) ) {
-    errors->report( "The y dimension of the source grid is not compatible with the target grid" ); 
+    errors->report( "The y dimension of the source grid is not compatible with the target grid" );
   }
   if( !GsTL::equals((double)nz, nz_f) ) {
-    errors->report( "The z dimension of the source grid is not compatible with the target grid" ); 
+    errors->report( "The z dimension of the source grid is not compatible with the target grid" );
   }
   if(!errors->empty()) return false;
 
@@ -1827,10 +1829,10 @@ bool Upscale_properties::init( std::string& parameters, GsTL_project* proj,
   int oy_i = static_cast<int>( GsTL::round(oy_f) );
   int oz_i = static_cast<int>( GsTL::round(oz_f) );
 
-  if( !GsTL::equals_with_epsilon((double)ox_i, ox_f)   || 
-    !GsTL::equals_with_epsilon((double)oy_i, oy_f) || 
+  if( !GsTL::equals_with_epsilon((double)ox_i, ox_f)   ||
+    !GsTL::equals_with_epsilon((double)oy_i, oy_f) ||
     !GsTL::equals_with_epsilon((double)oz_i, oz_f) ) {
-    errors->report( "The source and target grid are not embedded"); 
+    errors->report( "The source and target grid are not embedded");
     return false;
   }
 
@@ -1839,13 +1841,13 @@ bool Upscale_properties::init( std::string& parameters, GsTL_project* proj,
   for(int i=3; i<params.size(); ++i) {
     const Grid_continuous_property* prop = source_grid_->property(params[i]);
     if(!prop) {
-      errors->report( "The property "+params[i]+" does not exist"); 
+      errors->report( "The property "+params[i]+" does not exist");
       return false;
     }
     props_.push_back(prop);
   }
 
-  
+
 
   return true;
 }
@@ -1854,7 +1856,7 @@ bool Upscale_properties::exec() {
 
 //  std::vector<int> counts(0,target_grid_->size());
   std::vector<int> index(source_grid_->size(),-1);
-  
+
   const SGrid_cursor* source_cursor = source_grid_->cursor();
   const SGrid_cursor* target_cursor = target_grid_->cursor();
   Geostat_grid::const_iterator it = source_grid_->begin();
@@ -1867,7 +1869,7 @@ bool Upscale_properties::exec() {
                                  target_grid_->origin().y() - target_geom->cell_dims().y()/2,
                                  target_grid_->origin().z() - target_geom->cell_dims().z()/2);
 
-  
+
   GsTLPoint target_extent_corner(target_origin_corner.x() + target_geom->cell_dims().x()*target_geom->dim(0),
                                  target_origin_corner.y() + target_geom->cell_dims().y()*target_geom->dim(1),
                                  target_origin_corner.z() + target_geom->cell_dims().z()*target_geom->dim(2) );
@@ -1876,12 +1878,12 @@ bool Upscale_properties::exec() {
   for( ; it != source_grid_->end(); ++it ) {
     int source_nodeid = it->node_id();
     Geostat_grid::location_type src_loc = source_grid_->location(source_nodeid);
-    if(src_loc.x() <= target_origin_corner.x() || 
-       src_loc.y() <= target_origin_corner.y() || 
+    if(src_loc.x() <= target_origin_corner.x() ||
+       src_loc.y() <= target_origin_corner.y() ||
        src_loc.z() <= target_origin_corner.z()) continue;
 
-    if(src_loc.x() > target_extent_corner.x() || 
-       src_loc.y() > target_extent_corner.y() || 
+    if(src_loc.x() > target_extent_corner.x() ||
+       src_loc.y() > target_extent_corner.y() ||
        src_loc.z() > target_extent_corner.z()) continue;
 
     GsTLCoordVector delta = src_loc - target_origin_corner;
@@ -1898,7 +1900,7 @@ bool Upscale_properties::exec() {
     index[source_nodeid] = tnodeid;
 
   }
-  
+
 
   for(int ip=0; ip<props_.size(); ++ip) {
 
@@ -2025,20 +2027,20 @@ std::vector<Grid_continuous_property*> Upscale_properties::get_upscaled_properti
 
 
 Named_interface* Upscale_group::create_new_interface( std::string& ) {
-  return new Upscale_group; 
+  return new Upscale_group;
 }
 
 
 bool Upscale_group::init( std::string& parameters, GsTL_project* proj,
                               Error_messages_handler* errors ) {
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() !=4 )  {
     std::ostringstream message;
     message << "Need 4 paramters (TargetGrid::SourceGrid::VarianceOption01::Group)";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -2050,7 +2052,7 @@ bool Upscale_group::init( std::string& parameters, GsTL_project* proj,
   if( !target_grid_ ) {
     std::ostringstream message;
     message << "No regular grid called \"" << target_grid_name << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -2063,7 +2065,7 @@ bool Upscale_group::init( std::string& parameters, GsTL_project* proj,
   if( !source_grid_ ) {
     std::ostringstream message;
     message << "No regular grid called \"" << source_grid_name << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -2118,12 +2120,12 @@ bool Capped_property::
 init( std::string& parameters, GsTL_project* proj,
       Error_messages_handler* errors ) {
 
-  std::vector< std::string > params = 
+  std::vector< std::string > params =
     String_Op::decompose_string( parameters, Actions::separator,
-                      				   Actions::unique );
+                                                   Actions::unique );
 
   if( params.size() < 3 ) {
-    errors->report( "some parameters are missing" );  
+    errors->report( "some parameters are missing" );
     return false;
   }
 
@@ -2133,15 +2135,15 @@ init( std::string& parameters, GsTL_project* proj,
   if( !grid ) {
     std::ostringstream message;
     message << "No grid called \"" << params[0] << "\" was found";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
-  
+
   Grid_continuous_property* prop = grid->property( params[1] );
   if( !prop ) {
     std::ostringstream message;
     message << "Grid \"" << params[0] << "\" has no property called \"" << params[1] << "\"";
-    errors->report( message.str() ); 
+    errors->report( message.str() );
     return false;
   }
 
@@ -2151,7 +2153,7 @@ init( std::string& parameters, GsTL_project* proj,
   if(params.size() == 4) {
     capped_prop = grid->add_property( params[3] );
     if(!capped_prop) {
-      errors->report( "Property "+ params[3] + " already exists.  Aborting execution"); 
+      errors->report( "Property "+ params[3] + " already exists.  Aborting execution");
       return false;
     }
   }
@@ -2174,9 +2176,9 @@ bool Capped_property::exec() {
 }
 
 
-Named_interface* 
+Named_interface*
 Capped_property::create_new_interface( std::string& ) {
-  return new Capped_property; 
+  return new Capped_property;
 }
 
 

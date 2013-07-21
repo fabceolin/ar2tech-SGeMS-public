@@ -1,5 +1,0 @@
-LIBS += -lar2gems_utils
-win32 {
-  DEFINES += APPLI_EXPORTS
-  LIBS += -lar2gems_utils
-}

@@ -13,7 +13,7 @@
 #include <qevent.h>
 #include <qdrawutil.h>
 #include <qpainter.h>
-#include <qwt_painter.h>
+#include <qwt/qwt_painter.h>
 #include "qwt_paint_buffer.h"
 #include "qwt_scale_draw.h"
 #include "qwt_scale_map.h"
@@ -48,7 +48,7 @@ public:
   \param parent parent widget
   \param orientation Orientation of the slider. Can be Qt::Horizontal
          or Qt::Vertical. Defaults to Qt::Horizontal.
-  \param scalePos Position of the scale.  
+  \param scalePos Position of the scale.
          Defaults to QwtSlider::NoScale.
   \param bgStyle Background style. QwtSlider::BgTrough draws the
          slider button in a trough, QwtSlider::BgSlot draws
@@ -56,13 +56,13 @@ public:
          may also be used. The default is QwtSlider::BgTrough.
 
   QwtSlider enforces valid combinations of its orientation and scale position.
-  If the combination is invalid, the scale position will be set to NoScale. 
+  If the combination is invalid, the scale position will be set to NoScale.
   Valid combinations are:
   - Qt::Horizonal with NoScale, TopScale, or BottomScale;
   - Qt::Vertical with NoScale, LeftScale, or RightScale.
 */
 QwtSlider::QwtSlider(QWidget *parent,
-        Qt::Orientation orientation, ScalePos scalePos, BGSTYLE bgStyle): 
+        Qt::Orientation orientation, ScalePos scalePos, BGSTYLE bgStyle):
     QwtAbstractSlider(orientation, parent)
 {
     initSlider(orientation, scalePos, bgStyle);
@@ -72,7 +72,7 @@ QwtSlider::QwtSlider(QWidget *parent,
 /*!
   \brief Constructor
 
-  Build a horizontal slider with no scale and BgTrough as 
+  Build a horizontal slider with no scale and BgTrough as
   background style
 
   \param parent parent widget
@@ -86,10 +86,10 @@ QwtSlider::QwtSlider(QWidget *parent, const char* name):
 }
 #endif
 
-void QwtSlider::initSlider(Qt::Orientation orientation, 
+void QwtSlider::initSlider(Qt::Orientation orientation,
     ScalePos scalePos, BGSTYLE bgStyle)
 {
-    if (orientation == Qt::Vertical) 
+    if (orientation == Qt::Vertical)
         setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     else
         setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -166,12 +166,12 @@ QwtSlider::~QwtSlider()
 /*!
   \brief Set the orientation.
   \param o Orientation. Allowed values are Qt::Horizontal and Qt::Vertical.
-  
+
   If the new orientation and the old scale position are an invalid combination,
   the scale position will be set to QwtSlider::NoScale.
   \sa QwtAbstractSlider::orientation()
 */
-void QwtSlider::setOrientation(Qt::Orientation o) 
+void QwtSlider::setOrientation(Qt::Orientation o)
 {
     if ( o == orientation() )
         return;
@@ -190,7 +190,7 @@ void QwtSlider::setOrientation(Qt::Orientation o)
 #if QT_VERSION >= 0x040000
     if ( !testAttribute(Qt::WA_WState_OwnSizePolicy) )
 #else
-    if ( !testWState( WState_OwnSizePolicy ) ) 
+    if ( !testWState( WState_OwnSizePolicy ) )
 #endif
     {
         QSizePolicy sp = sizePolicy();
@@ -218,7 +218,7 @@ void QwtSlider::setOrientation(Qt::Orientation o)
     become Qt::Vertical;
   - if the new scale position is Bottom or Top the scale orientation will
     become Qt::Horizontal;
-  - if the new scale position is QwtSlider::NoScale, the scale 
+  - if the new scale position is QwtSlider::NoScale, the scale
     orientation will not change.
 */
 void QwtSlider::setScalePosition(ScalePos s)
@@ -325,9 +325,9 @@ void QwtSlider::drawSlider(QPainter *p, const QRect &r)
         qDrawShadePanel(p, r.x(), r.y(),
             r.width(), r.height(),
 #if QT_VERSION < 0x040000
-            colorGroup(), 
+            colorGroup(),
 #else
-            palette(), 
+            palette(),
 #endif
             true, d_data->borderWidth,0);
 
@@ -336,7 +336,7 @@ void QwtSlider::drawSlider(QPainter *p, const QRect &r)
             r.width() - 2 * d_data->borderWidth,
             r.height() - 2 * d_data->borderWidth);
 
-        p->fillRect(cr.x(), cr.y(), cr.width(), cr.height(), 
+        p->fillRect(cr.x(), cr.y(), cr.width(), cr.height(),
 #if QT_VERSION < 0x040000
             colorGroup().brush(QColorGroup::Mid)
 #else
@@ -357,7 +357,7 @@ void QwtSlider::drawSlider(QPainter *p, const QRect &r)
         {
             if ( cr.height() & 1 )
                 ws++;
-            rSlot = QRect(cr.x() + ds, 
+            rSlot = QRect(cr.x() + ds,
                     cr.y() + (cr.height() - ws) / 2,
                     cr.width() - 2 * ds, ws);
         }
@@ -365,7 +365,7 @@ void QwtSlider::drawSlider(QPainter *p, const QRect &r)
         {
             if ( cr.width() & 1 )
                 ws++;
-            rSlot = QRect(cr.x() + (cr.width() - ws) / 2, 
+            rSlot = QRect(cr.x() + (cr.width() - ws) / 2,
                     cr.y() + ds,
                     ws, cr.height() - 2 * ds);
         }
@@ -377,11 +377,11 @@ void QwtSlider::drawSlider(QPainter *p, const QRect &r)
 #endif
         );
         qDrawShadePanel(p, rSlot.x(), rSlot.y(),
-            rSlot.width(), rSlot.height(), 
+            rSlot.width(), rSlot.height(),
 #if QT_VERSION < 0x040000
-            colorGroup(), 
+            colorGroup(),
 #else
-            palette(), 
+            palette(),
 #endif
             true, 1 ,0);
 
@@ -397,14 +397,14 @@ void QwtSlider::drawThumb(QPainter *p, const QRect &sliderRect, int pos)
     pos++; // shade line points one pixel below
     if (orientation() == Qt::Horizontal)
     {
-        qDrawShadePanel(p, pos - d_data->thumbLength / 2, 
+        qDrawShadePanel(p, pos - d_data->thumbLength / 2,
             sliderRect.y(), d_data->thumbLength, sliderRect.height(),
 #if QT_VERSION < 0x040000
-            colorGroup(), 
+            colorGroup(),
 #else
-            palette(), 
+            palette(),
 #endif
-            false, d_data->borderWidth, 
+            false, d_data->borderWidth,
 #if QT_VERSION < 0x040000
             &colorGroup().brush(QColorGroup::Button)
 #else
@@ -412,25 +412,25 @@ void QwtSlider::drawThumb(QPainter *p, const QRect &sliderRect, int pos)
 #endif
         );
 
-        qDrawShadeLine(p, pos, sliderRect.y(), 
-            pos, sliderRect.y() + sliderRect.height() - 2, 
+        qDrawShadeLine(p, pos, sliderRect.y(),
+            pos, sliderRect.y() + sliderRect.height() - 2,
 #if QT_VERSION < 0x040000
-            colorGroup(), 
+            colorGroup(),
 #else
-            palette(), 
+            palette(),
 #endif
             true, 1);
     }
     else // Vertical
     {
-        qDrawShadePanel(p,sliderRect.x(), pos - d_data->thumbLength / 2, 
+        qDrawShadePanel(p,sliderRect.x(), pos - d_data->thumbLength / 2,
             sliderRect.width(), d_data->thumbLength,
 #if QT_VERSION < 0x040000
             colorGroup(),
 #else
-            palette(), 
+            palette(),
 #endif
-            false, d_data->borderWidth, 
+            false, d_data->borderWidth,
 #if QT_VERSION < 0x040000
             &colorGroup().brush(QColorGroup::Button)
 #else
@@ -439,11 +439,11 @@ void QwtSlider::drawThumb(QPainter *p, const QRect &sliderRect, int pos)
         );
 
         qDrawShadeLine(p, sliderRect.x(), pos,
-            sliderRect.x() + sliderRect.width() - 2, pos, 
+            sliderRect.x() + sliderRect.width() - 2, pos,
 #if QT_VERSION < 0x040000
-            colorGroup(), 
+            colorGroup(),
 #else
-            palette(), 
+            palette(),
 #endif
             true, 1);
     }
@@ -469,7 +469,7 @@ double QwtSlider::getValue(const QPoint &p)
   \param scrollMode Scrolling mode
   \param direction Direction
 */
-void QwtSlider::getScrollMode(const QPoint &p, 
+void QwtSlider::getScrollMode(const QPoint &p,
     int &scrollMode, int &direction )
 {
     if (!d_data->sliderRect.contains(p))
@@ -596,9 +596,9 @@ void QwtSlider::layoutSlider( bool update_geometry )
                     r.y() + d_data->yMargin,
                     r.width() - 2 * d_data->xMargin - 2 * slo,
                     sliderWidth);
-    
+
                 x = d_data->sliderRect.x() + sld1;
-                y = d_data->sliderRect.y() + d_data->sliderRect.height() 
+                y = d_data->sliderRect.y() + d_data->sliderRect.height()
                     + d_data->scaleDist;
 
                 break;
@@ -632,7 +632,7 @@ void QwtSlider::layoutSlider( bool update_geometry )
                     sliderWidth,
                     r.height() - 2 * d_data->yMargin - 2 * slo);
 
-                x = d_data->sliderRect.x() + d_data->sliderRect.width() 
+                x = d_data->sliderRect.x() + d_data->sliderRect.width()
                     + d_data->scaleDist;
                 y = d_data->sliderRect.y() + sld1;
 
@@ -723,24 +723,24 @@ void QwtSlider::setMargins(int xMargin, int yMargin)
 /*!
   Set the background style.
 */
-void QwtSlider::setBgStyle(BGSTYLE st) 
+void QwtSlider::setBgStyle(BGSTYLE st)
 {
-    d_data->bgStyle = st; 
+    d_data->bgStyle = st;
     layoutSlider();
 }
 
 /*!
   \return the background style.
 */
-QwtSlider::BGSTYLE QwtSlider::bgStyle() const 
-{ 
-    return d_data->bgStyle; 
+QwtSlider::BGSTYLE QwtSlider::bgStyle() const
+{
+    return d_data->bgStyle;
 }
 
 /*!
   \return the thumb length.
 */
-int QwtSlider::thumbLength() const 
+int QwtSlider::thumbLength() const
 {
     return d_data->thumbLength;
 }
@@ -748,7 +748,7 @@ int QwtSlider::thumbLength() const
 /*!
   \return the thumb width.
 */
-int QwtSlider::thumbWidth() const 
+int QwtSlider::thumbWidth() const
 {
     return d_data->thumbWidth;
 }
@@ -756,7 +756,7 @@ int QwtSlider::thumbWidth() const
 /*!
   \return the border width.
 */
-int QwtSlider::borderWidth() const 
+int QwtSlider::borderWidth() const
 {
     return d_data->borderWidth;
 }
@@ -771,12 +771,12 @@ QSize QwtSlider::sizeHint() const
 
 /*!
   \brief Return a minimum size hint
-  \warning The return value of QwtSlider::minimumSizeHint() depends on 
+  \warning The return value of QwtSlider::minimumSizeHint() depends on
            the font and the scale.
 */
 QSize QwtSlider::minimumSizeHint() const
 {
-    if (!d_data->sizeHintCache.isEmpty()) 
+    if (!d_data->sizeHintCache.isEmpty())
         return d_data->sizeHintCache;
 
     int sliderWidth = d_data->thumbWidth;

@@ -1,0 +1,27 @@
+add_library(ar2gems_actions
+  algorithms_actions.cpp
+  categorical_definition_actions.cpp
+  categorical_property_actions.cpp
+  distribution_action.cpp
+  library_actions_init.cpp
+  maskedgrid_actions.cpp
+  misc_actions.cpp
+  obj_manag_actions.cpp
+  property_group_actions.cpp
+  property_transformer_actions.cpp
+  python_commands.cpp
+  python_group_script.cpp
+  python_script.cpp
+  python_wrapper.cpp
+  unary_action.cpp
+)
+
+target_link_libraries(ar2gems_actions
+  ${PYTHON_LIBRARIES}
+  ar2gems_appli
+  ar2gems_filters
+  ar2gems_geostat
+  ar2gems_grid
+  ar2gems_math
+  ar2gems_utils
+)

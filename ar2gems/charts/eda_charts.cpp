@@ -2,31 +2,31 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
 
 
-#include <GsTLAppli/charts/eda_charts.h>
-#include <GsTLAppli/charts/chart_continuous_histogram.h>
-#include <GsTLAppli/charts/chart_categorical_histogram.h>
+#include <charts/eda_charts.h>
+#include <charts/chart_continuous_histogram.h>
+#include <charts/chart_categorical_histogram.h>
 
 #include <QDialog>
 #include <QTreeView>
@@ -46,7 +46,7 @@
 EDA_continuous_histogram::EDA_continuous_histogram(Chart_mdi_area* mdi_area,QWidget *parent):EDA_chart(mdi_area,parent){
 
   //QGroupBox* histo_selector = new QGroupBox(parent);
-  
+
   QTreeView* histo_tree = new QTreeView(this);
   histo_tree->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
   histo_tree->setDragEnabled(true);
@@ -59,7 +59,7 @@ EDA_continuous_histogram::EDA_continuous_histogram(Chart_mdi_area* mdi_area,QWid
   QWidget* button_holder = new QWidget(this);
   button_holder->setLayout(button_layout);
 
-  
+
   QVBoxLayout* histo_layout = new QVBoxLayout(this);
   histo_layout->addWidget(histo_tree);
   histo_layout->addWidget(button_holder);
@@ -76,7 +76,7 @@ EDA_continuous_histogram::EDA_continuous_histogram(Chart_mdi_area* mdi_area,QWid
   histo_tree->setRootIndex(cont_histo_chart_model_->root_index());
   histo_tree->setSelectionModel(cont_histo_selection_);
   histo_tree->setSelectionMode(QAbstractItemView::MultiSelection);
-    
+
 
   connect( clear_button, SIGNAL(clicked()),cont_histo_selection_, SLOT(clearSelection ())   );
   connect( show_button, SIGNAL(clicked()),this, SLOT(show_continuous_histogram ())   );
@@ -104,7 +104,7 @@ void EDA_continuous_histogram::show_continuous_histogram(){
 EDA_categorical_histogram::EDA_categorical_histogram(Chart_mdi_area* mdi_area,QWidget *parent):EDA_chart(mdi_area,parent){
 
   //QGroupBox* histo_selector = new QGroupBox(parent);
-  
+
   QTreeView* histo_tree = new QTreeView(this);
   histo_tree->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
   histo_tree->setDragEnabled(true);
@@ -117,7 +117,7 @@ EDA_categorical_histogram::EDA_categorical_histogram(Chart_mdi_area* mdi_area,QW
   QWidget* button_holder = new QWidget(this);
   button_holder->setLayout(button_layout);
 
-  
+
   QVBoxLayout* histo_layout = new QVBoxLayout(this);
   histo_layout->addWidget(histo_tree);
   histo_layout->addWidget(button_holder);
@@ -134,7 +134,7 @@ EDA_categorical_histogram::EDA_categorical_histogram(Chart_mdi_area* mdi_area,QW
   histo_tree->setRootIndex(cat_histo_chart_model_->root_index());
   histo_tree->setSelectionModel(cat_histo_selection_);
   histo_tree->setSelectionMode(QAbstractItemView::MultiSelection);
-    
+
 
   connect( clear_button, SIGNAL(clicked()),cat_histo_selection_, SLOT(clearSelection ())   );
   connect( show_button, SIGNAL(clicked()),this, SLOT(show_categorical_histogram ())   );
