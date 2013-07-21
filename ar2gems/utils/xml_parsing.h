@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "utils" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -53,92 +53,75 @@
 **********************************************************************/
 
 #include <utils/common.h>
-#include <GsTL/geometry/covariance.h> 
- 
-#include <math/gstlpoint.h> 
- 
-#include <qdom.h> 
- 
-#include <strstream> 
-#include <string> 
- 
- 
- 
-namespace XML_UTIL { 
- 
-  //=========================================== 
-  //     generic version 
-  template<class T> 
-  bool get_value( T& value_holder,  
-		  const QDomDocument& xml_doc,  
-		  const QString& tag_name, 
-		  const QString& attr ) { 
- 
-    QDomNodeList nodes = xml_doc.elementsByTagName( tag_name ); 
-    QDomNode current_node = nodes.item(0); 
-     
-    if( !current_node.isElement() ) return false; 
-     
-    QDomElement elem = current_node.toElement(); 
-     
-    QString str_value = elem.attribute( attr ); 
-     
-    std::istrstream convert_str( str_value.latin1() ); 
-    convert_str >> value_holder; 
-    return true; 
-  } 
- 
-  //=========================================== 
-  //     specialized version for QString 
-  template<> 
-  bool get_value<QString>( QString& value_holder,  
-			   const QDomDocument& xml_doc,  
-			   const QString& tag_name, 
-			   const QString& attr ) { 
- 
-    QDomNodeList nodes = xml_doc.elementsByTagName( tag_name ); 
-    QDomNode current_node = nodes.item(0); 
-     
-    if( !current_node.isElement() ) return false; 
- 
-    QDomElement elem = current_node.toElement(); 
-     
-    value_holder = elem.attribute( attr ); 
-    return true; 
-  } 
- 
-  //=========================================== 
-  //     specialized version for std::string 
-  template<> 
-  bool get_value<std::string>( std::string& value_holder,  
-			       const QDomDocument& xml_doc,  
-			       const QString& tag_name, 
-			       const QString& attr ) { 
- 
-    QDomNodeList nodes = xml_doc.elementsByTagName( tag_name ); 
-    QDomNode current_node = nodes.item(0); 
-     
-    if( !current_node.isElement() ) return false; 
- 
-    QDomElement elem = current_node.toElement(); 
-     
-    value_holder = elem.attribute( attr ); 
-    return true; 
-  } 
- 
-  /* 
-  //=========================================== 
-  //     specialized version for Covariance 
-  template<> 
-  bool get_value<Covariance<GsTLPoint> >(  
-	       Covariance<GsTLPoint>& value_holder,  
-	       const QDomDocument& xml_doc,  
-	       const QString& tag_name, 
-	       const QString& attr 
-	    ) { 
-    return false; 
-  } 
-  */	     
- 
-   
-} // namespace XML_UTIL 
+#include <GsTL/geometry/covariance.h>
+
+#include <qdom.h>
+
+#include <strstream>
+#include <string>
+
+
+
+namespace XML_UTIL {
+
+  //===========================================
+  //     generic version
+  template<class T>
+  bool get_value( T& value_holder,
+                  const QDomDocument& xml_doc,
+                  const QString& tag_name,
+                  const QString& attr ) {
+
+    QDomNodeList nodes = xml_doc.elementsByTagName( tag_name );
+    QDomNode current_node = nodes.item(0);
+
+    if( !current_node.isElement() ) return false;
+
+    QDomElement elem = current_node.toElement();
+
+    QString str_value = elem.attribute( attr );
+
+    std::istrstream convert_str( str_value.latin1() );
+    convert_str >> value_holder;
+    return true;
+  }
+
+  //===========================================
+  //     specialized version for QString
+  template<>
+  bool get_value<QString>( QString& value_holder,
+                           const QDomDocument& xml_doc,
+                           const QString& tag_name,
+                           const QString& attr ) {
+
+    QDomNodeList nodes = xml_doc.elementsByTagName( tag_name );
+    QDomNode current_node = nodes.item(0);
+
+    if( !current_node.isElement() ) return false;
+
+    QDomElement elem = current_node.toElement();
+
+    value_holder = elem.attribute( attr );
+    return true;
+  }
+
+  //===========================================
+  //     specialized version for std::string
+  template<>
+  bool get_value<std::string>( std::string& value_holder,
+                               const QDomDocument& xml_doc,
+                               const QString& tag_name,
+                               const QString& attr ) {
+
+    QDomNodeList nodes = xml_doc.elementsByTagName( tag_name );
+    QDomNode current_node = nodes.item(0);
+
+    if( !current_node.isElement() ) return false;
+
+    QDomElement elem = current_node.toElement();
+
+    value_holder = elem.attribute( attr );
+    return true;
+  }
+
+} // namespace XML_UTIL

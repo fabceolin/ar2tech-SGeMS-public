@@ -27,7 +27,7 @@
 #include <qtplugins/selectors.h>
 #include <qtplugins/group_selectors.h>
 #include <appli/project.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/error_messages_handler.h>
 
 #include <QLineEdit>

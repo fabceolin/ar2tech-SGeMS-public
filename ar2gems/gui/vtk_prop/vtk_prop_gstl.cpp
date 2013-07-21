@@ -31,7 +31,7 @@
 #include <gui/vtk_prop/vtk_prop_gstl.h>
 #include <gui/utils/colorscale.h>
 #include <gui/utils/colormap.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
 #include <grid/grid_property.h>
 #include <utils/string_manipulation.h>

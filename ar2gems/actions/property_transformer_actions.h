@@ -28,7 +28,7 @@
 #define __GSTLAPPLI_PROPERTY_TRANSFORMER_ACTIONS_H__ 
 
 #include <actions/common.h>
-#include <actions/action.h> 
+#include <appli/action.h> 
 
 
 #include <qstring.h>

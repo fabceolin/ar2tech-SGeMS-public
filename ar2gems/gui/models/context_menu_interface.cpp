@@ -32,10 +32,11 @@
  */
 
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 
-#include <actions/action.h>
+#include <appli/action.h>
+#include <actions/action_no_parameter.h>
 #include <actions/unary_action.h>
 
 #include <gui/models/context_menu_interface.h>

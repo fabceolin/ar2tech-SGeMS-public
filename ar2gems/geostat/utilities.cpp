@@ -59,7 +59,7 @@
 #include <utils/gstl_messages.h>
 #include <utils/error_messages_handler.h>
 #include <utils/string_manipulation.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/utilities.h>
 #include <math/angle_convention.h>
 

@@ -56,8 +56,7 @@
 #define __GSTLAPPLI_OBJ_MANAG_ACTIONS_H__ 
  
 #include <actions/common.h>
-#include <actions/action.h> 
-#include <filters/filter.h> 
+#include <appli/action.h> 
 #include <grid/geostat_grid.h> 
 #include <grid/property_copier.h>
 
@@ -124,54 +123,6 @@ class ACTIONS_DECL New_cartesian_grid_action : public Action {
 }; 
  
  
-class ACTIONS_DECL Load_object_from_file : public Action { 
- public: 
-  static Named_interface* create_new_interface( std::string& ); 
- 
- public: 
-  Load_object_from_file() {} 
-  virtual ~Load_object_from_file(); 
- 
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ); 
-  virtual bool exec(); 
- 
- protected:
-   bool find_filter( const std::string& filename );
-
- protected: 
-  std::string file_name_; 
-  SmartPtr<Input_filter> filter_; 
-  GsTL_project* proj_; 
-  Error_messages_handler* errors_;
-}; 
- 
- 
-class ACTIONS_DECL Save_geostat_grid : public Action { 
- public: 
-  static Named_interface* create_new_interface( std::string& ); 
- 
- public: 
-  Save_geostat_grid() {}  // TL modified
-  virtual ~Save_geostat_grid() {}; 
- 
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ); 
-  virtual bool exec(); 
- 
- protected: 
-  std::string file_name_; 
-  SmartPtr<Geostat_grid> grid_; 
-  SmartPtr<Output_filter> filter_; 
-  GsTL_project* proj_; 
-  Error_messages_handler* errors_;
-}; 
- 
-
-
-
-
-
 class ACTIONS_DECL RunScript : public Action 
 {
 public:
@@ -224,23 +175,6 @@ protected:
 */
 
 
-class ACTIONS_DECL Load_project : public Action { 
- public: 
-  static Named_interface* create_new_interface( std::string& ); 
- 
- public: 
-  Load_project() {} 
-  virtual ~Load_project(); 
- 
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors ); 
-  virtual bool exec(); 
- 
- protected: 
-  QString dirname_; 
-  GsTL_project* proj_; 
-  Error_messages_handler* errors_;
-};  
 
  
 
@@ -708,26 +642,6 @@ private :
 
   Upscale_properties upscaler_;
   std::string group_name_;
-
-};
-
-/*
-loop over all the objects to be saved and call their respective outfilter
-*/
-class ACTIONS_DECL Save_project : public Action {
- public:
-  static Named_interface* create_new_interface( std::string& );
-
- public:
-  Save_project(){}
-  virtual ~Save_project() {}
-
-  virtual bool init( std::string& parameters, GsTL_project* proj,
-                     Error_messages_handler* errors );
-
-  virtual bool exec(){return true;}
-
-private :
 
 };
 

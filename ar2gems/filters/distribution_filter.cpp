@@ -30,7 +30,7 @@
 #include <QFile>
 
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 
 #include <QStringList>

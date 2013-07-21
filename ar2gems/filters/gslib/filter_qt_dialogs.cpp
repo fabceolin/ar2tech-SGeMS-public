@@ -55,7 +55,7 @@
 #include <filters/gslib/filter_qt_dialogs.h>
 #include <filters/gslib/gslib_filter.h>
 #include <utils/gstl_messages.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/grid_property.h>
 
 

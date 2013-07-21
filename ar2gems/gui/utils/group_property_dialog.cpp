@@ -57,11 +57,11 @@
 #include <qtplugins/group_selectors.h>
 #include <utils/error_messages_handler.h>
 #include <utils/gstl_messages.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
 #include <grid/grid_property.h>
 #include <grid/grid_categorical_property.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 
 #include <set>
 

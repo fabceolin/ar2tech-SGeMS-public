@@ -35,7 +35,7 @@
 #include <gui/models/gstl_item_action.h>
 #include <GsTL/utils/smartptr.h>
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 #include <utils/error_messages_handler.h>
 #include <utils/gstl_messages.h>

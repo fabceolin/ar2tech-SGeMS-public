@@ -60,6 +60,7 @@
 #include <filters/distribution_filter.h>
 #include <filters/save_project_objects.h>
 #include <filters/sgems_folder_grid_geometry.h>
+#include <filters/io_actions.h>
 #include <utils/gstl_messages.h>
 
 #include <grid/cartesian_grid.h>
@@ -172,6 +173,11 @@ int library_filters_init::init_lib() {
   appli_assert( dir );
 
   bind_project_output(dir);
+
+  ni=  Root::instance()->interface( actions_manager);
+  dir = dynamic_cast<Manager*>( project_filter_ni.raw_ptr() );
+  appli_assert( dir );
+  bind_io_actions( dir );
 
 
   GsTLlog << "Registration done" << "\n\n";
@@ -302,6 +308,19 @@ bool library_filters_init::bind_geometry_xml_managers(Manager* dir){
 
 }
 
+bool library_filters_init::bind_io_actions(Manager* dir) {
+  dir->factory("LoadContinuousDistribution", Load_distribution_action::create_new_interface);
+  dir->factory("SaveContinuousDistribution", Save_distribution_action::create_new_interface);
+	dir->factory("LoadObjectFromFile", Load_object_from_file::create_new_interface);
+	dir->factory("SaveGeostatGrid", Save_geostat_grid::create_new_interface);
+  dir->factory("SaveProject", Save_project::create_new_interface);
+	dir->factory("LoadProject", Load_project::create_new_interface);
+
+  return true;
+}
+
+
+ 
 
 
 extern "C" {

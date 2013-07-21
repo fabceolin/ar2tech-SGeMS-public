@@ -56,8 +56,8 @@
 #include <utils/string_manipulation.h>
 #include <utils/gstl_messages.h>
 #include <utils/error_messages_handler.h>
-#include <actions/defines.h>
-#include <appli/manager_repository.h>
+#include <appli/action.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
 
 

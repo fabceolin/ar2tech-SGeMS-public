@@ -63,7 +63,7 @@
 #include <geostat/parameters_handler.h>
 #include <geostat/utilities.h>
 #include <appli/utilities.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/gstl_plugins.h>
 #include <utils/gstl_messages.h>
 #include <utils/error_messages_handler.h>

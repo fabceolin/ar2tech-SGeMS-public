@@ -57,10 +57,10 @@
 #include <qtplugins/categorical_selectors.h>
 #include <utils/error_messages_handler.h>
 #include <utils/gstl_messages.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/grid_property.h>
 #include <grid/grid_categorical_property.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 
 #include <qtplugins/color_delegate.h>
 

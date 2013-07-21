@@ -1,1 +1,0 @@
-CONFIG += threadMOC_DIR = .mocLIBS += -lar2gems_utils -lar2gems_appli -lar2gems_gridcontains( CONFIG, plugin ) {  DESTDIR=$$GSTLAPPLI_HOME/plugins/designer  TARGET=ar2gems_widgets}win32 {  DEFINES += QTPLUGINS_EXPORTS}

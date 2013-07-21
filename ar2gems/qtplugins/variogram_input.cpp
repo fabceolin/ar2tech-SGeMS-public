@@ -84,7 +84,6 @@
 
 #include <qtplugins/gstl_table.h>
 
-//#include <widget_accessor/qt_accessors.h>
 
 #include <utils/gstl_messages.h>
 

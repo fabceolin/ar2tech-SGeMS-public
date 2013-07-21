@@ -28,9 +28,9 @@
 #include <utils/error_messages_handler.h>
 #include <grid/gval_iterator.h>
 #include <utils/string_manipulation.h>
-#include <actions/defines.h>
+#include <appli/action.h>
 #include <geostat/utilities.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 
 bool Unary_action::init(std::string& _parameters, GsTL_project* _proj, Error_messages_handler* _errors) {
 	this->proj_ = _proj;

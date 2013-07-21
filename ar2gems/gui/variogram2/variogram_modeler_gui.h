@@ -68,7 +68,7 @@
 #include <gui/variogram2/variogram_modeling_screen.h>
 #include <gui/ui_variogram_modeler_gui_base.h>
 
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <qtplugins/selectors.h>
 #include <appli/project.h>
 

@@ -27,7 +27,7 @@
 #include "distribution_parameter_widget.h"
 
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <grid/distribution_utilities.h>
 
 #include <QRadioButton>

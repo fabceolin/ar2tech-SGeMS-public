@@ -28,7 +28,7 @@
 #include <grid/grid_property_set.h>
 #include <grid/grid_property.h> 
 #include <grid/grid_categorical_property.h> 
-#include <appli/manager_repository.h> 
+#include <utils/manager_repository.h> 
 //#include <QtXml/QDomElement>
 
 GsTLGridPropertyGroup*

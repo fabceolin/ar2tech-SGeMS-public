@@ -89,7 +89,7 @@
 #define LINEEDITKEY_H
 
 #include <utils/manager.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <utils/gstl_messages_private.h>
 
 #include <qevent.h>

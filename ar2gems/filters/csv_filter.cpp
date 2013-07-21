@@ -25,7 +25,7 @@
 
 
 #include <utils/gstl_messages.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <filters/csv_filter.h>
 #include <filters/csv_filter_qt_dialogs.h>
 #include <grid/cartesian_grid.h>

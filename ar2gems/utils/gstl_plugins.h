@@ -56,7 +56,7 @@
 #define __GSTLAPPLI_UTILS_PLUGINS_H__ 
  
 #include <utils/gstl_messages.h> 
-#include <appli/manager_repository.h> 
+#include <utils/manager_repository.h> 
 
 
 

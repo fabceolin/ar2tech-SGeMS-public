@@ -15,7 +15,7 @@ the explicit authorization of AR2Tech.
 If you would like to contribute code to this project you can either:
 
 1. License the new code with a [BSD license][2]
-2. Transfer copyright to AR2Tech
+2. Transfer the copyright to AR2Tech
 
 If you are interested into another option please contact AR2Tech.
 
@@ -66,13 +66,15 @@ Compiling Python 64 bits
 
 Installing Python 2.x from the installer only provide the release dll.  To get the
 debug version, download the source code, open the project and build the debug version.
-You can ignore all the errors.  Copy the debug .dll and .lib to the main Python
-directory along the release version.
+You can ignore all the errors.  Copy the debug .dll to the main Python
+directory along the release version and the .lib into a "libs" folder under the main Python directory.
 
 Building AR2GEMS
 ----------------
 
 ### Windows
+
+(outdated instructions)
 
 1. Set the following environmental variables:
    * QTDIR and QTDIRx64: path to Qt
@@ -87,25 +89,16 @@ Building AR2GEMS
 
 ### Linux
 
-1. Add something like the following to your .bashrc:
+On Linux the build is straightforward:
 
    ```
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/vtk/lib
-   export GSTLAPPLIHOME=/home/julio/Projects/ar2tech-sgems
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GSTLAPPLIHOME/lib/linux
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GSTLAPPLIHOME/plugins/designer
-   ```
-
-  (don't forget to start a new Bash session)
-
-2. Edit .qmake.cache to point where on your system VTK, Python and Boost are found.
-
-3. Build it:
-
-   ```
-   qmake
+   mkdir build
+   cd build
+   cmake ..
    make -j 8
    ```
+
+Read CMakeLists.txt for more info.
 
 [1]: http://sgems.sourceforge.net/
 [2]: http://en.wikipedia.org/wiki/BSD_licenses/

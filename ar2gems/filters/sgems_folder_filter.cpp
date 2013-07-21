@@ -41,9 +41,8 @@
 #include <grid/structured_grid.h>
 #include <grid/grid_property.h>
 #include <grid/grid_region.h>
-#include <appli/manager_repository.h>
+#include <utils/manager_repository.h>
 #include <appli/project.h>
-#include <actions/defines.h>
 #include <utils/error_messages_handler.h>
 
 
@@ -664,7 +663,7 @@ bool Sgems_folder_input_filter::create_categorial_definition(
     // call the CopyProperty action
     std::string command( "NewCategoricalDefinition" );
     cat_names.prepend(name);
-    std::string parameters = cat_names.join( Actions::separator.c_str() ).toStdString();
+    std::string parameters = cat_names.join( "::" ).toStdString();
 
     SmartPtr<Named_interface> ni =
       Root::instance()->interface( projects_manager + "/" + "project" );
@@ -682,7 +681,7 @@ bool Sgems_folder_input_filter::create_categorial_definition(
 
     QStringList params;
     params<<name<<QString("%1").arg(cat_names.size())<<cat_names<<codes_str;
-    std::string parameters = params.join( Actions::separator.c_str() ).toStdString();
+    std::string parameters = params.join( "::" ).toStdString();
 
     SmartPtr<Named_interface> ni =
       Root::instance()->interface( projects_manager + "/" + "project" );

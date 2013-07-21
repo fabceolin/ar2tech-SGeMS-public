@@ -56,7 +56,7 @@
 #define __GSTLAPPLI_ACTIONS_MISC_ACTIONS_H__ 
  
 #include <actions/common.h>
-#include <actions/action.h> 
+#include <appli/action.h> 
  
 #include <string> 
 
