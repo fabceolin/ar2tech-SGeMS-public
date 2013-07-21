@@ -164,6 +164,7 @@ add_library(ar2gems_gui
   variogram2/variogram_controls_base.cpp
   variogram2/variogram_modeler_gui.cpp
   variogram2/variogram_modeling_screen.cpp
+  viewer/colorbar_controller.cpp
   viewer/colormap_controller.cpp
   viewer/colormap_widget.cpp
   viewer/grid_param_viewer.cpp

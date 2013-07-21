@@ -9,6 +9,8 @@ elseif(MSVC)
   # customize flags for Visual Studio
 endif()
 
+set(BUILD_SHARED_LIBS TRUE)
+
 ### Enabling Boost ###################################################
 find_package(Boost REQUIRED)
 if(Boost_FOUND)

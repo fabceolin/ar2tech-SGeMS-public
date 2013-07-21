@@ -9,12 +9,12 @@ add_library(ar2gems_utils
   manager.cpp
   manager_repository.cpp
   progress_notifier.cpp
+  simpleps.cpp
   string_manipulation.cpp
   ${utils_MOC}
 )
-#simpleps.cpp
 
 target_link_libraries(ar2gems_utils
   ${QT_LIBRARIES}
-  ar2gems_appli
+  ar2gems_qwt
 )
