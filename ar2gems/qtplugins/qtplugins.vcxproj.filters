@@ -202,6 +202,9 @@
     <ClCompile Include=".moc\moc_categorical_definition_proxy_model.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_resources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -286,9 +289,6 @@
     <CustomBuild Include="variogram_structure_base.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="icons.qrc">
-      <Filter>Resource Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="grid_proxy_model.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -339,6 +339,9 @@
     </CustomBuild>
     <CustomBuild Include="rename_dialog.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="resources.qrc">
+      <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
