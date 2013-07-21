@@ -19,6 +19,7 @@ add_library(ar2gems_grid
   log_data_grid.cpp
   mgrid_neighborhood.cpp
   neighborhood.cpp
+  neighbors.cpp
   point_set.cpp
   point_set_neighborhood.cpp
   property_copier.cpp
