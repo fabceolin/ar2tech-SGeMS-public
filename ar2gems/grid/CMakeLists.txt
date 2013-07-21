@@ -1,0 +1,41 @@
+add_library(ar2gems_grid
+  cartesian_grid.cpp
+  combined_neighborhood.cpp
+  coordinate_mapper.cpp
+  cross_variog_computer.cpp
+  distribution_utilities.cpp
+  geostat_grid.cpp
+  geovalue.cpp
+  grid_categorical_property.cpp
+  grid_downscaler.cpp
+  grid_filter.cpp
+  grid_property.cpp
+  grid_property_manager.cpp
+  grid_property_set.cpp
+  grid_region_manager.cpp
+  grid_weigth_property.cpp
+  gstl_kdtree2.cpp
+  library_grid_init.cpp
+  log_data_grid.cpp
+  mgrid_neighborhood.cpp
+  neighborhood.cpp
+  point_set.cpp
+  point_set_neighborhood.cpp
+  property_copier.cpp
+  property_transformer.cpp
+  reduced_grid.cpp
+  rgrid.cpp
+  rgrid_geometry.cpp
+  rgrid_gval_accessor.cpp
+  rgrid_neighborhood.cpp
+  structured_grid.cpp
+  superblock.cpp
+  utilities.cpp
+)
+
+target_link_libraries(ar2gems_grid
+  ${QT_LIBRARIES}
+  ar2gems_appli
+  ar2gems_math
+  ar2gems_utils
+)

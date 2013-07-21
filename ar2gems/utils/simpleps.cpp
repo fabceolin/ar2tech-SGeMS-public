@@ -2,23 +2,23 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "gui" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -58,7 +58,7 @@
  *  $Date: 2007/10/30 18:14:22 $
  *  $Source: /cvsroot/sgems/GsTLAppli-qt4/GsTLAppli/utils/simpleps.cpp,v $ */
 
-#include <GsTLAppli/utils/simpleps.h>
+#include <utils/simpleps.h>
 #include <stdio.h>  // for sprintf
 
 #define MAJOR 6
@@ -66,12 +66,12 @@
 #define DIGITS 2
 #define AXISLEN 250
 
-#include <GsTLAppli/extra/qwt/qwt_math.h>
-#include <GsTLAppli/extra/qwt/qwt_plot.h>
-#include <GsTLAppli/extra/qwt/qwt_data.h>
-#include <GsTLAppli/extra/qwt/qwt_plot_curve.h>
-#include <GsTLAppli/extra/qwt/qwt_scale_div.h>
-#include <GsTLAppli/extra/qwt/qwt_scale_map.h>
+#include <qwt/qwt_math.h>
+#include <qwt/qwt_plot.h>
+#include <qwt/qwt_data.h>
+#include <qwt/qwt_plot_curve.h>
+#include <qwt/qwt_scale_div.h>
+#include <qwt/qwt_scale_map.h>
 #include <assert.h>
 #include <math.h>   //for log
 #include <fstream>
@@ -79,16 +79,16 @@
 
 typedef std::vector< std::pair<std::string,std::string> >::iterator Itr;
 
-SimplePs::SimplePs(std::string fn, QwtPlot * p, Stat & s, bool d) : 
+SimplePs::SimplePs(std::string fn, QwtPlot * p, Stat & s, bool d) :
 	_o((const char *)fn.c_str()), _plot(p), _stats(s), _drawStats(d)
-{	
+{
 	if (_o.is_open())
 		init();
 }
 
-SimplePs::SimplePs(std::string fn, QwtPlot * p) : 
+SimplePs::SimplePs(std::string fn, QwtPlot * p) :
 	_o((const char *)fn.c_str()), _plot(p)
-{	
+{
 	if (_o.is_open())
 		init();
 	_drawStats = false;
@@ -190,7 +190,7 @@ void SimplePs::drawCurve(QwtData & data,int style, bool right)
 
 	QwtScaleMap mx = _plot->canvasMap(QwtPlot::xBottom);
 	QwtScaleMap my = _plot->canvasMap(QwtPlot::yLeft);
-	
+
 	if (mx.transformation()->type() == QwtScaleTransformation::Log10) {
 		for (i = 0; i < x.size(); ++i)
 			if (x[i] > 0)
@@ -227,7 +227,7 @@ void SimplePs::drawCurve(QwtData & data,int style, bool right)
 		for (i = 0; i < x.size(); ++i) {
 			x1 = (x[i]-xmin)*xscale;
 			y1 = (y[i]-ymin)*yscale;
-			
+
 			_o << "n\n" << x1 << " " << y1 << " bullet\n";
 		}
 	}
@@ -236,7 +236,7 @@ void SimplePs::drawCurve(QwtData & data,int style, bool right)
 		for ( i = 0;i < x.size(); ++i) {
 			x1 = (x[i]-xmin)*xscale;
 			y2 = (y[i]-ymin)*yscale;
-			
+
 			x2 += width;
 
 			_o << "n\n" << x1 << " 0 m\n";
@@ -266,7 +266,7 @@ void SimplePs::drawYRightAxis( std::string l)
 
 	ymin = _plot->axisScaleDiv(QwtPlot::yRight)->lBound();
 	ymax = _plot->axisScaleDiv(QwtPlot::yRight)->hBound();
-	
+
 	y_step = (ymax-ymin)/MAJOR;
 
 	for (i = 0; i <= MAJOR; ++i) {
@@ -274,7 +274,7 @@ void SimplePs::drawYRightAxis( std::string l)
 		drawText(AXISLEN+10,i*AXISLEN/MAJOR-3,"Times-Roman",8,0,buf);
 		drawTic(AXISLEN,i*AXISLEN/MAJOR,0,1,1);
 	}
-	for (j = 1; j < MAJOR*MINOR; ++j) 
+	for (j = 1; j < MAJOR*MINOR; ++j)
 		drawTic(AXISLEN,j*AXISLEN/(MAJOR*MINOR),0,0,1);
 
 	// !!!hard coded part needs to be replaced by computing bounding boxes
@@ -292,7 +292,7 @@ void SimplePs::drawAxis(std::string xl, std::string yl, std::string title, bool 
 	xmax = _plot->axisScaleDiv(QwtPlot::xBottom)->hBound();
 	ymin = _plot->axisScaleDiv(QwtPlot::yLeft)->lBound();
 	ymax = _plot->axisScaleDiv(QwtPlot::yLeft)->hBound();
-	
+
 	x_step = (xmax-xmin)/MAJOR;
 	y_step = (ymax-ymin)/MAJOR;
 

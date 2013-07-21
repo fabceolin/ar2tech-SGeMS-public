@@ -1,8 +1,0 @@
-TARGET = ar2gems_extragui
-LIBS += -lar2gems_utils -lar2gems_appli
-LIBS += -lar2gems_gui
-LIBS += -L$$GSTLAPPLI_HOME/plugins/designer -lar2gems_widgets
-
-win32 {
-  DEFINES += EXTRAGUI_EXPORTS
-}

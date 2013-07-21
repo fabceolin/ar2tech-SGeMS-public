@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -33,8 +33,8 @@
 ** This file is part of the "gui" module of the Geostatistical Earth
 ** Modeling Software (GEMS)
 **
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
+** This file may be distributed and/or modified under the terms of the
+** license defined by the Stanford Center for Reservoir Forecasting and
 ** appearing in the file LICENSE.XFREE included in the packaging of this file.
 **
 ** This file may be distributed and/or modified under the terms of the
@@ -60,6 +60,7 @@
 #include <gui/variogram2/variogram_controls_base.h>
 #include <gui/ui_variogram_structure_controls_base.h>
 
+#include <qtplugins/variogram_input.h>
 
 #include <math/gstlpoint.h>
 #include <math/gstlvector.h>
@@ -110,13 +111,13 @@ public:
   int structures_count() const;
   const Variogram_structure_controls* structure( int id ) const;
   Variogram_structure_controls* structure( int id );
-  
+
 //  virtual QSize sizeHint() const { return QSize( 300, 300 ); }
 
 signals:
   void variogram_changed();
-  
-     
+
+
 public slots:
   void nugget_changed(const QString &s)   ;
   void update_structures_count( int val );
@@ -148,28 +149,28 @@ class Variogram_structure_controls : public QWidget, public Ui::Variogram_struct
 
  public:
   Variogram_structure_controls(){}
-  Variogram_structure_controls( Covariance<GsTLPoint>* model, 
+  Variogram_structure_controls( Covariance<GsTLPoint>* model,
                                 QWidget* parent = 0, const char* name = 0,
                                 double default_max_range = 10.0 );
 
   virtual QSize sizeHint() const { return QSize( 300, 250 ); }
 
   void set_id(int id);
-  
+
   QString type() const;
   double sill() const;
   void ranges( double& range1, double& range2, double& range3 );
   void angles( double& angle1, double& angle2, double& angle3 );
 
  signals:
-  void variogram_structure_changed(); 
- 
+  void variogram_structure_changed();
+
  public slots:
 
-  void range_changed(double d);    
-  void range1_changed(double d);    
-  void range2_changed(double d);    
-  void range3_changed(double d);    
+  void range_changed(double d);
+  void range1_changed(double d);
+  void range2_changed(double d);
+  void range3_changed(double d);
   void sill_changed(const QString &str);
   void angle_changed(const QString &str);
   void type_changed(const QString &str);
@@ -189,29 +190,13 @@ class Variogram_structure_controls : public QWidget, public Ui::Variogram_struct
   GsTL_slider* range_slider_2_;
   GsTL_slider* range_slider_3_;
 
-  
-  
+
+
  private:
   Covariance<GsTLPoint>* model_;
   int id_;
 
 };
-
-
-
-//=============================================
-
-class Line_separator : public QWidget {
-
-  Q_OBJECT
-
- public:
-  Line_separator( const QString& label,
-                  QWidget* parent = 0, const char* name = 0 );
-
-};
-
-
 
 
 #endif

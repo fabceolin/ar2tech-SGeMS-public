@@ -2,23 +2,23 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
@@ -283,23 +283,6 @@ int nogui_main(int argc, char** argv) {
 	return 0;
 }
 
-QString path_to_splash_image() {
-	QFileInfo finfo;
-	QString image_file("ar2gems-splash.png");
-
-	char* env = getenv("GSTLAPPLIHOME");
-	if (env) {
-		QString envpath(env);
-		QDir homedir(envpath);
-		homedir.cd("bin");
-		finfo.setFile(homedir, image_file);
-	} else {
-		QDir current_dir;
-		finfo.setFile(current_dir, image_file);
-	}
-	return finfo.absoluteFilePath();
-}
-
 QString read_style_sheet() {
 	QFileInfo finfo;
 	QString qss_file("sgems.qss");
@@ -371,8 +354,7 @@ if (!QIcon::hasThemeIcon(GENERIC_ICON_TO_CHECK)) {
 
 	QApplication::addLibraryPath(path_to_plugins());
 
-  QPixmap pixmap(path_to_splash_image());
-  //QPixmap pixmap ( QPixmap(path_to_splash_image()).scaledToHeight(300) );
+  QPixmap pixmap(QString(":/ar2gems-splash.png"));
 
 	QSplashScreen* splash = new QSplashScreen(pixmap,Qt::WindowStaysOnTopHint);
   splash->show();
@@ -456,7 +438,7 @@ if (!QIcon::hasThemeIcon(GENERIC_ICON_TO_CHECK)) {
   project->execute("LoadObjectFromFile","C:/data/Shortcourse/Petroleum/Fluvial.prj/Simulation Grid::All");
 
   ModelTest t1(dynamic_cast<Root_model*>(Root::instance()->model()));
-  Filter_root_proxy_model* mm =new  Filter_root_proxy_model(); 
+  Filter_root_proxy_model* mm =new  Filter_root_proxy_model();
   ModelTest t2(mm);
   delete mm;
 #endif

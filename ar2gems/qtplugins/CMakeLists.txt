@@ -1,0 +1,80 @@
+# Process all headers with Q_OBJECT
+QT4_WRAP_CPP(qtplugins_MOC
+  categorical_definition_proxy_model.h
+  categorical_selectors.h
+  color_delegate.h
+  distribution_parameter_widget.h
+  distribution_proxy_model.h
+  distribution_selectors.h
+  ellipsoid_input.h
+  filechooser.h
+  grid_filter_delegate.h
+  grid_filter_model.h
+  grid_filter_widgets.h
+  grid_proxy_model.h
+  group_selectors.h
+  gstl_table.h
+  gstl_widgets_plugin.h
+  kriging_type_selector.h
+  kriging_type_selector_base.h
+  neighborhood_filter_input.h
+  non_param_cdf_input.h
+  project_proxy_model.h
+  property_proxy_model.h
+  region_proxy_model.h
+  region_weight_proxy_model.h
+  rename_dialog.h
+  selectors.h
+  variogram_input.h
+  weight_property_proxy_model.h
+  weight_property_selector.h
+)
+
+QT4_WRAP_UI(qtplugins_FORMS
+  order_properties_dialog.ui
+  variogram_structure_base.ui
+  variogram_input_base.ui
+)
+
+add_library(ar2gems_qtplugins
+  categorical_definition_proxy_model.cpp
+  categorical_selectors.cpp
+  color_delegate.cpp
+  distribution_parameter_widget.cpp
+  distribution_proxy_model.cpp
+  distribution_selectors.cpp
+  ellipsoid_input.cpp
+  filechooser.cpp
+  grid_filter_delegate.cpp
+  grid_filter_model.cpp
+  grid_filter_model_item.cpp
+  grid_filter_named_interface.cpp
+  grid_filter_widgets.cpp
+  grid_proxy_model.cpp
+  group_selectors.cpp
+  gstl_table.cpp
+  gstl_widgets_plugin.cpp
+  kriging_type_selector.cpp
+  kriging_type_selector_base.cpp
+  library_qtplugins_init.cpp
+  neighborhood_filter_input.cpp
+  non_param_cdf_input.cpp
+  project_proxy_model.cpp
+  property_proxy_model.cpp
+  region_proxy_model.cpp
+  region_weight_proxy_model.cpp
+  rename_dialog.cpp
+  selectors.cpp
+  variogram_input.cpp
+  weight_property_proxy_model.cpp
+  weight_property_selector.cpp
+  ${qtplugins_MOC}
+  ${qtplugins_FORMS}
+)
+
+target_link_libraries(ar2gems_qtplugins
+  ar2gems_appli
+  ar2gems_grid
+  ar2gems_math
+  ar2gems_utils
+)

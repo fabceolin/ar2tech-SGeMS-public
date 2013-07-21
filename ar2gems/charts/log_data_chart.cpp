@@ -2,35 +2,35 @@
 ** Copyright© 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
-** version of the open source software sgems.  It is a derivative work by 
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
-** version of the software (see notice below) and now sublicensed such that it 
-** cannot be distributed or modified without the explicit and written permission 
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
+** version of the open source software sgems.  It is a derivative work by
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
+** version of the software (see notice below) and now sublicensed such that it
+** cannot be distributed or modified without the explicit and written permission
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this 
+** Only AR2TECH can modify, alter or revoke the licensing terms for this
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written 
+** This file cannot be modified or distributed without the explicit and written
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at 
+** The open-source version of sgems can be downloaded at
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
 
 
 #include <charts/log_data_chart.h>
-#include <grid/utilities.h> 
+#include <grid/utilities.h>
 #include <qtplugins/rename_dialog.h>
 #include <charts/histogram_statistics.h>
 
 //#include "report_window.h"
-#include <vtkDescriptiveStatistics.h> 
+#include <vtkDescriptiveStatistics.h>
 #include <vtkOrderStatistics.h>
 #include <vtkDoubleArray.h>
 #include <vtkIntArray.h>
@@ -52,10 +52,10 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QTextBrowser>
-#include <QTextFormat >
+#include <QTextFormat>
 #include <QTextCharFormat>
-#include <QTextTableFormat >
-#include <QTextBlockFormat >
+#include <QTextTableFormat>
+#include <QTextBlockFormat>
 #include <QFileDialog>
 #include <QSize>
 
@@ -145,7 +145,7 @@ void Log_data_chart::initialize_data_tables(const Log_data* log_data, Grid_conti
   vtkSmartPointer<vtkFloatArray> distance_array = vtkSmartPointer<vtkFloatArray>::New();
   distance_array->SetName(  "Length" );
   distance_array->SetNumberOfValues(log_data->number_of_segments()*2);
-  
+
 
   vtkSmartPointer<vtkFloatArray> value_array = vtkSmartPointer<vtkFloatArray>::New();
   value_array->SetName( value_prop->name().c_str() );
@@ -156,7 +156,7 @@ void Log_data_chart::initialize_data_tables(const Log_data* log_data, Grid_conti
      distance_array->SetValue( 2*i, it->second.from );
      distance_array->SetValue( 2*i+1, it->second.to );
      float val = Grid_continuous_property::no_data_value;
-     
+
      if(   value_prop->is_informed(it->second.nodeid) && (!filter ||  filter->is_valid_nodeid(it->second.nodeid) ) )   {
        val = value_prop->get_value(it->second.nodeid);
      }
@@ -188,7 +188,7 @@ void Log_data_chart::intialize_plots(){
 
   vtkAxis* xaxis = chart_->GetAxis(vtkAxis::BOTTOM);
   double xmin = xaxis->GetMinimum();
-  double xmax = xaxis->GetMaximum();  
+  double xmax = xaxis->GetMaximum();
 
 }
 
@@ -217,7 +217,7 @@ vtkSmartPointer<vtkTable>  build_log_data_chart_table(const Log_data* log_data, 
      nodeid_array->SetValue(2*i+1,it->second.nodeid);
 
      float val = Grid_continuous_property::no_data_value;
-     
+
      if(   value_prop->is_informed(it->second.nodeid) && (!filter ||  filter->is_valid_nodeid(it->second.nodeid) ) )   {
        val = value_prop->get_value(it->second.nodeid);
      }

@@ -1,9 +1,0 @@
-MOC_DIR = .moc
-CONFIG += -std=c++11
-win32 {
-  DEFINES += FILTERS_EXPORTS
-}
-
-LIBS += -lar2gems_utils -lar2gems_math
-LIBS += -lar2gems_grid -lar2gems_appli
-LIBS += -L$$VTK_LIB

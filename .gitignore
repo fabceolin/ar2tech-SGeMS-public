@@ -49,3 +49,6 @@ Release/
 
 #doxygen
 html/
+
+# We'll be doing CMake out-of-source builds
+
