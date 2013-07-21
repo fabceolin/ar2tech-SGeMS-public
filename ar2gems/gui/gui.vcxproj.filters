@@ -282,7 +282,6 @@
     </ClCompile>
     <ClCompile Include="vtk_prop\vtk_prop_pointset.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="models\categorical_table_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

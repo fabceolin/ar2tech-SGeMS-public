@@ -1060,6 +1060,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"   "-I."</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"   "-I."</Command>
     </CustomBuild>
+    <ClInclude Include="GeneratedFiles\ui_chart_display_control.h" />
     <CustomBuild Include="histogram_chart_model.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing histogram_chart_model.h...</Message>

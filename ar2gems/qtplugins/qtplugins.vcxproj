@@ -339,6 +339,20 @@
     <ClCompile Include="distribution_selectors.cpp" />
     <ClCompile Include="ellipsoid_input.cpp" />
     <ClCompile Include="filechooser.cpp" />
+    <ClCompile Include="GeneratedFiles\qrc_resources.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="grid_filter_delegate.cpp" />
     <ClCompile Include="grid_filter_model.cpp" />
     <ClCompile Include="grid_filter_model_item.cpp" />
