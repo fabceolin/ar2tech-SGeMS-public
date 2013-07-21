@@ -292,7 +292,7 @@
     <ClInclude Include="multiple_charts_viewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_chart_display_control.h">
+    <ClInclude Include="ui_chart_display_control.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
