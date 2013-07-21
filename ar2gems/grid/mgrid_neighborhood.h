@@ -71,6 +71,8 @@ public:
     const Grid_region* region=0); 
 	~MgridNeighborhood() {}
 	 virtual void find_neighbors( const Geovalue& center ); 
+   virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors
+
 protected:
 	 MaskedGridCursor * _mcursor;
 
@@ -83,8 +85,10 @@ public:
 			     Grid_continuous_property* prop = 0 );
 	 ~MgridWindowNeighborhood(){}
 	 virtual void find_neighbors( const Geovalue& center ); 
+   virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors()
 	 virtual void set_grid(RGrid *);
      virtual void find_all_neighbors( const Geovalue& center );
+     virtual void find_all_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_all_neighbors
 
 protected:
 	 MaskedGridCursor * _mcursor;
@@ -102,6 +106,8 @@ public:
     const Grid_region* region=0); 
 	~MgridNeighborhood_hd() {}
 	virtual void find_neighbors( const Geovalue& center ); 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors
+
 protected:
 	MaskedGridCursor * _mcursor;
 };

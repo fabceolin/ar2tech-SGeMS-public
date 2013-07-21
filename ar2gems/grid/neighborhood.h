@@ -59,7 +59,8 @@
 #include <math/gstlvector.h> 
 #include <grid/geovalue.h> 
 #include <grid/search_filters.h> 
- 
+#include <grid/neighbors.h> 
+
 #include <GsTL/utils/smartptr_interface.h> 
  
 #include <vector> 
@@ -89,6 +90,8 @@ class GRID_DECL Neighborhood : public SmartPtr_interface<Neighborhood> {
   virtual ~Neighborhood() {delete neigh_filter_;} 
  
   virtual void find_neighbors( const Geovalue& center ) = 0 ; 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const = 0 ; // thread-safe version of find_neighbors()
+
   virtual Geovalue center() const = 0; 
  
   /** The neighborhood will work on the selected property, ie the  
@@ -181,6 +184,13 @@ class GsTL_neighborhood {
   void find_neighbors( const Geovalue& center ) { 
     neighborhood_->find_neighbors( center ); 
   } 
+  
+  // thread-safe version of find_neighbors()
+  void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
+  {
+    neighborhood_->find_neighbors( center , neighbors ); 
+  }
+
   Geovalue center() const { return neighborhood_->center(); } 
   bool select_property( const std::string& prop_name ) { 
     return neighborhood_->select_property( prop_name ); 
@@ -233,6 +243,8 @@ class GRID_DECL Colocated_neighborhood : public Neighborhood {
   virtual const Grid_continuous_property* selected_property() const { return property_; }
 
   virtual void find_neighbors( const Geovalue& center ); 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const; // thread-safe version of find_neighbors()
+
   virtual Geovalue center() const;// { return center_; } 
  
   virtual void max_size( int s ) {} 
@@ -264,6 +276,8 @@ class GRID_DECL DummyNeighborhood : public Neighborhood {
   virtual ~DummyNeighborhood() {} 
  
   virtual void find_neighbors( const Geovalue&  ) {} ; 
+  virtual void find_neighbors( const Geovalue& center , Neighbors & neighbors ) const {} ; // thread-safe version of find_neighbors()
+
   virtual Geovalue center() const { return Geovalue(); }
  
   virtual bool select_property( const std::string& ) { return true; }  
@@ -310,7 +324,7 @@ class GRID_DECL Grid_template {
 
   void clear() { templ_.clear(); }
 
-  GsTLInt size() { return templ_.size() ; }  
+  GsTLInt size() const { return templ_.size() ; }  
   void max_size( int s ) { max_size_ = s; } 
   int max_size() const { return max_size_; } 
  
@@ -372,6 +386,7 @@ class GRID_DECL Window_neighborhood : public Neighborhood {
   }
 
   virtual void find_all_neighbors( const Geovalue& center )=0;
+  virtual void find_all_neighbors( const Geovalue& center , Neighbors & neighbors ) const = 0; // thread-safe version of find_all_neighbors()
 
  protected:
   Grid_template geom_;

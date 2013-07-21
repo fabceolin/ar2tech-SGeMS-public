@@ -74,7 +74,8 @@ Rgrid_window_neighborhood::Rgrid_window_neighborhood()
   : Window_neighborhood(),
     grid_( 0 ),
     property_( 0 ),
-    cursor_( 0,0,0 ) {
+    cursor_( 0,0,0 ),
+    size_(-1) {
 }
 
 
@@ -84,7 +85,8 @@ Rgrid_window_neighborhood( const Grid_template& geom, RGrid* grid,
   : Window_neighborhood(),
     grid_( grid ),
     property_( prop ),
-    center_( grid, prop, -1 ) {
+    center_( grid, prop, -1 ),
+    size_(-1) {
 
   geom_ = geom;
 
@@ -200,6 +202,61 @@ void Rgrid_window_neighborhood::find_neighbors( const Geovalue& center ) {
   }
 }
 
+void Rgrid_window_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  neighbors.clear();
+  if( !property_ ) return;
+
+  SGrid_cursor cursor( *grid_->cursor() );
+  GsTLInt i,j,k;
+  cursor.coords( center.node_id(), i,j,k ); 
+  GsTLGridNode center_location( i,j,k );
+
+  if( geom_.size() == 0 ) return;
+
+  Grid_template::const_iterator begin = geom_.begin();
+  Grid_template::const_iterator bound = geom_.end()-1;
+  /* nico: old code, remove if new works properly
+  while (bound != begin-1) {
+    GsTLGridNode p = center_location + (*bound);
+    if( !grid_->contains( p ) ) {
+      bound--;
+      continue;
+    }
+    if( grid_->is_informed( p ) )
+      break;
+    else
+      bound--;
+  }
+  */
+
+  while (bound != begin) {
+    GsTLGridNode p = center_location + (*bound);
+    GsTLInt node_id = cursor.node_id( p[0], p[1], p[2] );
+    if( node_id < 0 ) {
+      bound--;
+      continue;
+    }
+    if( property_->is_informed( node_id ) )
+      break;
+    else
+      bound--;
+  }
+
+  // Need to place the bound at one pass the actual end point
+  bound++;
+
+  for( ; begin != bound; ++begin ) {
+    GsTLGridNode node = center_location + (*begin);
+    neighbors.push_back( Geovalue( grid_, property_, 
+				    cursor_.node_id( node[0], node[1],
+						     node[2] ) )
+			  );
+    //neighbors_.push_back( grid_->geovalue( center_location + (*begin) ) );
+  }
+}
+
+
 void Rgrid_window_neighborhood::find_all_neighbors( const Geovalue& center ) {
   size_ = -1;
   center_ = center;
@@ -221,6 +278,30 @@ void Rgrid_window_neighborhood::find_all_neighbors( const Geovalue& center ) {
   for( ; begin != bound+1 ; ++begin ) {
     GsTLGridNode node = center_location + (*begin);
     neighbors_.push_back( Geovalue( grid_, property_, 
+				    cursor_.node_id( node[0], node[1],
+						     node[2] ) )
+			  );
+  }
+}
+
+void Rgrid_window_neighborhood::find_all_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
+{
+  neighbors.clear();
+  if( !property_ ) return;
+
+  SGrid_cursor cursor( *grid_->cursor() );
+  GsTLInt i,j,k;
+  cursor.coords( center.node_id(), i,j,k ); 
+  GsTLGridNode center_location( i,j,k );
+
+  if( geom_.size() == 0 ) return;
+
+  Grid_template::const_iterator begin = geom_.begin();
+  Grid_template::const_iterator bound = geom_.end()-1;
+
+  for( ; begin != bound+1 ; ++begin ) {
+    GsTLGridNode node = center_location + (*begin);
+    neighbors.push_back( Geovalue( grid_, property_, 
 				    cursor_.node_id( node[0], node[1],
 						     node[2] ) )
 			  );
@@ -406,6 +487,81 @@ void Rgrid_ellips_neighborhood::find_neighbors( const Geovalue& center ) {
 
 }
 
+void Rgrid_ellips_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  neighbors.clear();
+  neigh_filter_->clear();
+  if( !property_ ) return;
+
+  // "already_found" is the number of neighbors already found
+  int already_found=0;
+
+  // loc will store the i,j,k coordinates of the center, node_id is the 
+  // center's node-id. They will be computed differently, whether "center"
+  // and *this both refer to the same grid or not.
+  GsTLGridNode loc;
+  GsTLInt node_id = -1;
+  SGrid_cursor cursor( *grid_->cursor() );
+
+  if( center.grid() != grid_ ) {
+    // "center" and "*this" do not refer to the same grid
+    bool ok = grid_->geometry()->grid_coordinates( loc, center.location() );
+    if( !ok ) return;
+
+    if( includes_center_ ) 
+      node_id = cursor.node_id( loc[0], loc[1], loc[2] );
+  }
+  else {
+    // "center" and "*this" both refer to the same grid
+    cursor.coords( center.node_id(), loc[0], loc[1], loc[2] ); 
+    node_id = center.node_id();      
+  }
+  
+  if( includes_center_ && property_->is_informed( node_id ) ) {
+    Geovalue gval( grid_, property_, node_id );
+    if(neigh_filter_->is_admissible(gval, center)) {
+      neighbors.push_back( gval );
+      already_found++;
+    }
+  }
+ 
+  
+  // Visit each node defined by the window ("geom_")
+  // For each node, check if the node is inside the grid.
+  // If it is and it contains a data value, add it to the list of
+  // neighbors
+  Grid_template::const_iterator it = geom_.begin();
+  Grid_template::const_iterator end = geom_.end();
+
+  while( it != end && already_found < max_neighbors_ ) {
+    GsTLGridNode node = loc + (*it);
+    GsTLInt node_id = cursor.node_id( node[0], node[1], node[2] );
+    
+    if( node_id < 0 ) {
+      // The node does not belong to the grid: skip it
+      it++;
+      continue;
+    }
+
+    if( property_->is_informed( node_id )  ) {
+      if(region_ &&  !region_->is_inside_region(node_id) ) continue;
+      // The node is informed: get the corresponding geovalue and add it
+      // to the list of neighbors
+      Geovalue gval( grid_, property_, node_id );
+      if(neigh_filter_->is_admissible(gval, center)) {
+        neighbors.push_back( gval );
+        already_found++;
+      }
+//      neighbors_.push_back( Geovalue( grid_, property_, node_id ) );
+//      already_found++;
+    }
+
+    it++;
+  }
+ // if(!neigh_filter_->is_neighborhood_valid()) neighbors_.clear();
+
+}
+
 
 
 /*
@@ -555,6 +711,76 @@ void Rgrid_ellips_neighborhood_hd::find_neighbors( const Geovalue& center ) {
       // The node is informed: get the corresponding geovalue and add it
       // to the list of neighbors
       neighbors_.push_back( Geovalue( grid_, property_, node_id ) );
+      already_found++;
+    }
+
+    it++;
+  }
+}
+
+void 
+Rgrid_ellips_neighborhood_hd::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
+{
+  // This is exactly the same function as 
+  // Rgrid_ellips_neighborhood::find_neighbors, except that the condition
+  // for a node to be a neighbor is that it contains a hard-data
+  neighbors.clear();
+  if( !property_ ) return;
+
+  SGrid_cursor cursor( *grid_->cursor() );
+  
+  // "already_found" is the number of neighbors already found
+  int already_found=0;
+
+  // loc will store the i,j,k coordinates of the center, node_id is the 
+  // center's node-id. They will be computed differently, whether "center"
+  // and *this both refer to the same grid or not.
+  GsTLGridNode loc;
+  GsTLInt node_id = -1;
+
+  if( center.grid() != grid_ ) {
+    // "center" and "*this" do not refer to the same grid
+    bool ok = grid_->geometry()->grid_coordinates( loc, center.location() );
+    if( !ok ) return;
+
+    if( includes_center_ ) 
+      //GsTLInt id = cursor_.node_id( loc[0], loc[1], loc[2] );
+      node_id = cursor.node_id( loc[0], loc[1], loc[2] );
+  }
+  else {
+    // "center" and "*this" both refer to the same grid
+    cursor.coords( center.node_id(), loc[0], loc[1], loc[2] ); 
+    node_id = center.node_id();      
+  }
+
+  
+  if( includes_center_ && property_->is_informed( node_id ) ) {
+    neighbors.push_back( Geovalue( grid_, property_, node_id ) );
+    already_found++;
+  }
+ 
+  
+  // Visit each node defined by the window ("geom_")
+  // For each node, check if the node is inside the grid.
+  // If it is and it contains a data value, add it to the list of
+  // neighbors
+  Grid_template::const_iterator it = geom_.begin();
+  Grid_template::const_iterator end = geom_.end();
+
+  while( it != end && already_found < max_neighbors_ ) {
+    GsTLGridNode node = loc + (*it);
+    GsTLInt node_id = cursor.node_id( node[0], node[1], node[2] );
+    
+    if( node_id < 0 ) {
+      // The node does not belong to the grid: skip it
+      it++;
+      continue;
+    }
+
+    if( property_->is_harddata( node_id ) ) {
+      // The node is informed: get the corresponding geovalue and add it
+      // to the list of neighbors
+      neighbors.push_back( Geovalue( grid_, property_, node_id ) );
       already_found++;
     }
 

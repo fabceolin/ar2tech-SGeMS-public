@@ -26,7 +26,7 @@
 
 #include <vtkMultiBlockDataSet.h>
 
-Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
                                             const Grid_region* region, const Grid_filter* filter, float min, float max ){
   
   bool need_memory_swap = !prop->is_in_memory();
@@ -52,7 +52,7 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   return build_histogram_table(number_bins, prop, mask, min,max );
 }
 
-Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, const std::vector<bool>& mask, float min, float max ){
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const std::vector<bool>& mask, float min, float max ){
 
   bool need_memory_swap = !prop->is_in_memory();
   if(need_memory_swap) {
@@ -135,22 +135,13 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   // Compute the histogram with n bins
   vtkSmartPointer<vtkFloatArray> histo_p = vtkSmartPointer<vtkFloatArray>::New();
   vtkSmartPointer<vtkFloatArray> histo_vmid = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmean = vtkSmartPointer<vtkFloatArray>::New();
   histo_p->SetName(prop->name().c_str());
   histo_vmid->SetName("Mid binning");
-  histo_vmean->SetName("Mean binning");
   histo_p->SetNumberOfValues(number_bins);
   histo_vmid->SetNumberOfValues(number_bins);
-  histo_vmean->SetNumberOfValues(number_bins);
-  /*
-  for(int i=0; i<number_bins; ++i) {
-    histo_p->SetValue(i,0);
-    histo_vmid->SetValue(i,  min+i*bin_width + bin_width/2  );
-    histo_vmean->SetNumberOfValues( min+i*bin_width + bin_width/2 );
-  }
-  */
 
-  //Find the max for each range
+
+   //Find the max for each range
   if(min >= max) {  // do not use the user input min/max. get from data
     min =desc_stats_array->GetValue(charts::MIN).ToFloat();
     max = desc_stats_array->GetValue(charts::MAX).ToFloat();
@@ -161,41 +152,20 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   vtkTable* full_histo = vtkTable::SafeDownCast( mblock_ordered->GetBlock( nbq - 2 ));
   vtkDoubleArray* d = vtkDoubleArray::SafeDownCast(full_histo->GetColumn(0));
   vtkDoubleArray* p = vtkDoubleArray::SafeDownCast( full_histo->GetColumn(2));
-  int histo_bin_id=0;
-  float bin_value=0;
-  float bin_p=0;
-  int count=0;
+  for(int i=0; i<number_bins; ++i) {
+    histo_p->SetValue(i,0.0);
+    histo_vmid->SetValue(i, min+i*bin_width + bin_width/2);
+  }
   for(int i=0; i<d->GetNumberOfTuples(); ++i) {
     float val = d->GetValue(i);
-    if( val <= min+bin_width  ) {
-      bin_value += val;
-      bin_p += p->GetValue(i);
-      count++;
-    } else {  //Reached the next bin
-      histo_p->SetValue( histo_bin_id, bin_p );
-      histo_vmid->SetValue( histo_bin_id, min+bin_width/2 );
-      histo_vmean->SetValue( histo_bin_id, bin_value/count );
-  
-
-      //Initialize the variables for the next bin
-      bin_value = val;
-      bin_p = p->GetValue(i);
-      count=1;
-      //Find the next bin
-      while( val > min+bin_width ) {
-        histo_bin_id++;
-        min+=bin_width;
-        histo_p->SetValue(histo_bin_id,0);
-        histo_vmid->SetValue( histo_bin_id, min+bin_width/2 );
-        histo_vmean->SetValue( histo_bin_id, min+static_cast<float>(bin_width)/2 );
-      }
-
-    }
-  
+    float prob = p->GetValue(i);
+    int bin_id = (val - min)/bin_width;
+    if(bin_id >= number_bins) bin_id  = number_bins-1;
+    histo_p->SetValue( bin_id, histo_p->GetValue(bin_id) + prob );
   }
+
   vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
   histo_table->AddColumn(histo_vmid);
-  histo_table->AddColumn(histo_vmean);
   histo_table->AddColumn(histo_p);
 
 
@@ -226,11 +196,10 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   if(need_memory_swap) {
     prop->swap_to_disk();
   }
-  Continuous_statistics stats(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
-  return stats;
-  //return Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+
 }
-Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights, 
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights, 
                                             const Grid_region* region, const Grid_filter* filter, bool normalized_weights , float min, float max ){
   std::vector< std::pair<float, float> > data_weights;
   data_weights.reserve(prop->size());
@@ -263,7 +232,7 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
   return build_histogram_table(number_bins, data_weights, prop->name(), prop->grid_name(), min,max );
 }
 
-Continuous_statistics build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
                                             const std::vector<float>& weights, const Grid_region* region, const Grid_filter* filter, 
                                             bool normalized_weights , float min, float max ){
 
@@ -304,7 +273,7 @@ Continuous_statistics build_histogram_table(int number_bins, const Grid_continuo
 
 }
 
-Continuous_statistics build_histogram_table(int number_bins, std::vector< std::pair<float, float> >& data_weights, std::string prop_name, std::string grid_name, float histo_min, float histo_max ){
+Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::pair<float, float> >& data_weights, std::string prop_name, std::string grid_name, float histo_min, float histo_max ){
 
 
   //Compute the first pass
@@ -466,5 +435,5 @@ Continuous_statistics build_histogram_table(int number_bins, std::vector< std::p
   histo_line_table->AddColumn(histo_line_bin);
   histo_line_table->AddColumn(histo_line_p);
 
-  return Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
 }

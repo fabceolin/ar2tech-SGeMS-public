@@ -175,7 +175,7 @@ int library_filters_init::init_lib() {
   bind_project_output(dir);
 
   ni=  Root::instance()->interface( actions_manager);
-  dir = dynamic_cast<Manager*>( project_filter_ni.raw_ptr() );
+  dir = dynamic_cast<Manager*>( ni.raw_ptr() );
   appli_assert( dir );
   bind_io_actions( dir );
 

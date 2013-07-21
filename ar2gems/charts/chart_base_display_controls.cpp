@@ -189,19 +189,25 @@ void Chart_base_display_controls::set_y_grid(bool on){
 }
 
 void Chart_base_display_controls::set_xaxis_min(double min){
+  /*
   if( chart_control_->is_x_axis_log_scale() ) {
     if(min <= 0) min = 0.0000001;
     min = std::log10( min );
   }
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min);
+  */
+  chart_->GetAxis(vtkAxis::BOTTOM)->SetUnscaledMinimum(min);
+  chart_->GetAxis(vtkAxis::BOTTOM)->SetUnscaledMinimumLimit(min);
   qvtkWidget_->update();
 }
 void Chart_base_display_controls::set_xaxis_max(double max){
+  /*
   if( chart_control_->is_x_axis_log_scale() ) {
     if(max <= 0) max = 0.0000001;
     max = std::log10( max );
   }
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max);
+  */
+  chart_->GetAxis(vtkAxis::BOTTOM)->SetUnscaledMaximum(max);
+  chart_->GetAxis(vtkAxis::BOTTOM)->SetUnscaledMaximumLimit(max);
   qvtkWidget_->update();
 }
 void Chart_base_display_controls::set_xaxis_precision(int digits){
@@ -226,19 +232,25 @@ void Chart_base_display_controls::set_xaxis_autoscale(){
 }
 
 void Chart_base_display_controls::set_yaxis_min(double min){
+  /*
   if( chart_control_->is_y_axis_log_scale() ) {
     if(min <= 0) min = 0.0000001;
     min = std::log10( min );
   }
-  chart_->GetAxis(vtkAxis::LEFT)->SetMinimum(min);
+  */
+  chart_->GetAxis(vtkAxis::LEFT)->SetUnscaledMinimum(min);
+  chart_->GetAxis(vtkAxis::LEFT)->SetUnscaledMinimumLimit(min);
   qvtkWidget_->update();
 }
 void Chart_base_display_controls::set_yaxis_max(double max){
+  /*
   if( chart_control_->is_y_axis_log_scale() ) {
     if(max <= 0) max = 0.0000001;
     max = std::log10( max );
   }
-  chart_->GetAxis(vtkAxis::LEFT)->SetMaximum(max);
+  */
+  chart_->GetAxis(vtkAxis::LEFT)->SetUnscaledMinimum(max);
+  chart_->GetAxis(vtkAxis::LEFT)->SetUnscaledMinimumLimit(max);
   qvtkWidget_->update();
 }
 void Chart_base_display_controls::set_yaxis_precision(int digits){

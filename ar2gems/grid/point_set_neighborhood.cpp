@@ -549,6 +549,174 @@ void Point_set_neighborhood::find_neighbors(const Geovalue& center) {
 }
 
 
+void 
+Point_set_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
+{
+  neighbors.clear();
+  std::vector<int> candidates;
+  candidates.clear();
+  neigh_filter_->clear();
+  if( !property_ ) return;
+
+
+
+#ifdef USE_SUPERBLOCKS
+  // use superblocks 
+  sblock_->get_candidates( candidates, center.location() );
+  
+  int candidates_count = candidates.size();
+
+  // keep only those candidates that are inside the search ellipsoid
+  for( int i = 0; i < candidates_count ; i++ ) {
+
+    if( !property_->is_informed( candidates[i] ) ) continue;
+    GsTLPoint p = pset_->location( candidates[i] );
+    double dist = norm_( pset_->location( candidates[i] ) - center.location() );
+    if( dist <= a_ ) {
+      neighbors.push_back( Geovalue( pset_, property_, candidates[i] ) );
+      //neighbors.push_back( pset_->geovalue( candidates[i] ) );
+    }
+  }
+
+  // If we found more than max_neighbors_ neighbors, only keep the 
+  // max_neighbors_ closest (using the covariance distance).
+  if( int( neighbors.size() ) >  max_neighbors_ && cov_ != 0 ) {
+    std::partial_sort( neighbors.begin(), neighbors.begin() + max_neighbors_,
+		       neighbors.end(), 
+		       Covariance_distance_( center.location(), *cov_ ) );
+    neighbors.erase(neighbors.begin() + max_neighbors_, neighbors.end() );
+  }
+#endif
+
+
+#ifdef USE_KDTREE
+  location_type loc = (*coord_transform_)(center.location());
+  bool keep_searching = true;
+  int i=1;
+  const int max_iteration = 2;
+  while( keep_searching ) { 
+    int n = kdtree_.in_sphere( loc, float( a_*i/max_iteration ), candidates );
+    for( int j=0; j < candidates.size() ; j++ ) {
+	    //First check if that node is informed
+	    if( property_->is_informed(candidates[j])  )
+            neighbors.push_back( Geovalue( pset_, property_, candidates[j] ) );
+    }
+    if(neighbors.size() >= max_neighbors_ || i ==max_iteration ) keep_searching=false;
+    else {
+      neighbors.clear();
+      candidates.clear();
+      i++;
+    }
+  }
+   
+  // If we found more than max_neighbors_ neighbors, only keep the 
+  // max_neighbors_ closest (using the covariance distance).
+  if( int( neighbors.size() ) >  max_neighbors_ && cov_ != 0 ) {
+    std::partial_sort( neighbors.begin(), neighbors.begin() + max_neighbors_,
+		       neighbors.end(), 
+		       Covariance_distance_( center.location(), *cov_ ) );
+    neighbors.erase(neighbors.begin() + max_neighbors_, neighbors.end() );
+  }
+#endif
+
+
+#ifdef USE_ANN_KDTREE
+
+  GsTLPoint loc = center.location();
+  int* neigh_ids = new int[max_neighbors_];
+  float* dists = new float[max_neighbors_];
+  kdtree_->annkSearch( loc.raw_access(), max_neighbors_,
+                       neigh_ids, dists );
+
+  for( int j=0; j < max_neighbors_ ; j++ ) {
+    unsigned int node_id = node_ids_[ neigh_ids[j] ];
+    if( property_->is_informed( node_id ) )
+      neighbors.push_back( Geovalue( pset_, property_, node_id ) );
+  }
+  delete [] neigh_ids;
+  delete [] dists;
+#endif
+
+
+#ifdef USE_KDTREE2
+  location_type loc = (*coord_transform_)(center.location());
+  double a2 = a_*a_;
+  std::vector<GsTLCoord> center_node;
+  center_node.push_back(loc[0]);
+  center_node.push_back(loc[1]);
+  center_node.push_back(loc[2]);
+
+  kdtree2_result_vector nearest;
+
+  if(use_n_closest_) {
+ 
+    if(includes_center_) {
+      kdtree_->n_nearest(center_node, max_neighbors_, nearest);
+
+      for (unsigned int i=0; i<nearest.size(); i++) {
+        if(nearest[i].dis < a2 ) 
+           neighbors.push_back( Geovalue( pset_, property_, idx_[nearest[i].idx] ) );
+          if(!geol_coords_.empty()) {
+            neighbors.back().set_cached_location(geol_coords_[nearest[i].idx]);
+          }
+      }
+    }
+    else {
+      kdtree_->n_nearest(center_node, max_neighbors_+1, nearest); // in case there is the center
+
+      for (unsigned int i=0; i<nearest.size(); i++) {
+        if(nearest[i].dis < a2 && nearest[i].dis > 0) 
+           neighbors.push_back( Geovalue( pset_, property_, idx_[nearest[i].idx] ) );
+
+          //If the coord_mapper was used must cache the geological coordinates
+          if(!geol_coords_.empty()) {
+            neighbors.back().set_cached_location(geol_coords_[nearest[i].idx]);
+          }
+      }
+    }
+
+  }
+  else {
+
+    kdtree_->r_nearest(center_node, a2, nearest);
+    int n_neigh = 0;
+    for (unsigned int i=0; i<nearest.size()&& n_neigh < max_neighbors_; i++) {
+      if( !includes_center_ && nearest[i].dis == 0) continue;
+      int node_id = idx_[nearest[i].idx];
+  //    if(property_->is_informed(id) ) {
+        Geovalue gval( pset_, property_, node_id );
+        if(neigh_filter_->is_admissible(gval, center)) {
+          //If the coord_mapper was used must cache the geological coordinates
+          if(!geol_coords_.empty()) {
+            gval.set_cached_location(geol_coords_[nearest[i].idx]);
+          }
+          neighbors.push_back( gval );
+          n_neigh++;
+        }
+   //     neighbors.push_back( Geovalue( pset_, property_, node_id ) );
+   //     n_neigh++;
+    //  }
+    }
+  }
+
+  std::sort(neighbors.begin(), neighbors.end(),
+          Covariance_distance_( center.location(), *cov_ ) );
+
+  if(!includes_center_ && neighbors.size() > max_neighbors_) {
+    neighbors.pop_back();
+  }
+  
+/*  
+  if( neigh_filter_->is_neighborhood_valid() ) 
+    std::sort(neighbors.begin(), neighbor_.end(),
+          Covariance_distance_( center.location(), *cov_ ) );
+  else
+    neighbors.clear();
+*/
+#endif
+
+}
+
 
 
 void Point_set_neighborhood::
@@ -605,4 +773,29 @@ void Point_set_rectangular_neighborhood::find_neighbors(const Geovalue& center){
   }
   neighbors_.clear();
   neighbors_.insert(neighbors_.begin(),rect_neighbors.begin(),rect_neighbors.begin() );
+}
+
+void
+Point_set_rectangular_neighborhood::find_neighbors(const Geovalue& center, Neighbors & neighbors) const
+{
+  Point_set_neighborhood::find_neighbors(center , neighbors);
+
+  std::vector<Geovalue> rect_neighbors;
+
+  std::vector<Geovalue>::iterator it = neighbors.begin();
+  GsTLCoord cx = center.location().x();
+  GsTLCoord cy = center.location().y();
+  GsTLCoord cz = center.location().z();
+  
+  for( ; it != neighbors.end(); ++it) {
+    Geostat_grid::location_type loc = it->location();
+    if( std::fabs(loc.x() - cx) < rx_  &&
+        std::fabs(loc.y() - cy) < rx_ &&
+        std::fabs(loc.z() - cz) < rz_ ) {
+        
+          rect_neighbors.push_back(*it);
+    }
+  }
+  neighbors.clear();
+  neighbors.insert(neighbors.begin(), rect_neighbors.begin(), rect_neighbors.begin() );
 }

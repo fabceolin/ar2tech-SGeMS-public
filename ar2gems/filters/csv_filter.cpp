@@ -910,9 +910,9 @@ bool Csv_mgrid_infilter::get_mgrid_xyz_dimensions(
 		Geostat_grid::location_type loc;
     Geostat_grid::location_type loc_rotated;
 
-		loc[0] = String_Op::to_number<float>(buf[X_col_id]);
-		loc[1] = String_Op::to_number<float>(buf[Y_col_id]);
-		loc[2] = String_Op::to_number<float>(buf[Z_col_id]);
+		loc[0] = String_Op::to_number<double>(buf[X_col_id]);
+		loc[1] = String_Op::to_number<double>(buf[Y_col_id]);
+		loc[2] = String_Op::to_number<double>(buf[Z_col_id]);
     loc_rotated[0] = cos_rot_z*loc[0] - sin_rot_z*loc[1];
     loc_rotated[1] = sin_rot_z*loc[0] + cos_rot_z*loc[1];
     xyz.push_back(loc);
@@ -1142,6 +1142,8 @@ Geostat_grid* Csv_mgrid_infilter::readPointsetFormat(std::ifstream& infile, Redu
     no_data_value_str = QString::number(no_data_value);
   }
 
+  infile.clear();
+  infile.seekg(0, ios::beg);
   get_mgrid_xyz_dimensions(infile,grid,X_col_id,Y_col_id,Z_col_id,
                              x_size,y_size,z_size,rotation_z_angle);
 
@@ -1151,6 +1153,11 @@ Geostat_grid* Csv_mgrid_infilter::readPointsetFormat(std::ifstream& infile, Redu
   std::getline(infile, buffer);
   QString qstr(buffer.c_str());
   QStringList property_names = qstr.split(",");
+  bool is_trailing_comma = false;
+  if( property_names.back().isEmpty()  ) {
+    property_names.pop_back();
+    is_trailing_comma = true;
+  }
 
 
 //Read one column at a time
@@ -1164,8 +1171,13 @@ Geostat_grid* Csv_mgrid_infilter::readPointsetFormat(std::ifstream& infile, Redu
     for(unsigned int i=0; i<30 ; i++ ) {
       std::getline(infile, buffer);
       if( buffer.empty() ) break;
-      std::vector<std::string> values_str = String_Op::decompose_string(buffer, ",", false);
-      is_categ = !String_Op::is_number(values_str[j]);
+      QString qbuffer = QString::fromStdString(buffer);
+      QStringList qstr_values = qbuffer.split(",");
+      bool ok;
+      qstr_values[j].toFloat( &ok);
+      is_categ = !ok;
+      //std::vector<std::string> values_str = String_Op::decompose_string(buffer, ",", false);
+      //is_categ = !String_Op::is_number(values_str[j]);
       if(is_categ) break;
     }
     infile.clear();

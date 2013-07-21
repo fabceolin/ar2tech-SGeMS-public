@@ -97,6 +97,17 @@ void Colocated_neighborhood::find_neighbors( const Geovalue& center ) {
   
 }
 
+void Colocated_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const {
+  if( neighbors.empty() ) {
+    neighbors.push_back( center );
+    neighbors[0].set_property_array( property_ );
+  }
+  else {
+    neighbors[0] = center;
+    neighbors[0].set_property_array( property_ );
+  }  
+}
+
 Geovalue Colocated_neighborhood::center() const {
   return neighbors_[0];
   //Geovalue( grid_, 
