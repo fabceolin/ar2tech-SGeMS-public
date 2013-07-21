@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;ACTIONS_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>python27_d.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;ar2gems_io.lib;QtGuid4.lib;QtCored4.lib;QtXmld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>python27_d.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;QtGuid4.lib;QtCored4.lib;QtXmld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(AR2TECH_SGEMS_DIR)\lib\win32\debug\ar2gems_actions.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -154,7 +154,7 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;ACTIONS_EXPORTS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>python27_d.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;ar2gems_io.lib;QtGuid4.lib;QtCored4.lib;QtXmld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>python27_d.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;QtGuid4.lib;QtCored4.lib;QtXmld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(AR2TECH_SGEMS_DIR)\lib\x64\debug\ar2gems_actions.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(PYTHONDIRx64)\libs;$(QTDIRx64)\lib;$(AR2TECH_SGEMS_DIR)\lib\x64\debug;$(PYTHONDIRx64)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -197,7 +197,7 @@
       <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;ACTIONS_EXPORTS;QT_DLL;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>python27.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;ar2gems_io.lib;QtCore4.lib;QtXml4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>python27.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;QtCore4.lib;QtXml4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(AR2TECH_SGEMS_DIR)\lib\win32\release\ar2gems_actions.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(QTDIRwin32)\lib;$(AR2TECH_SGEMS_DIR)\lib\win32\release\;$(PYTHONDIRwin32)/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -239,7 +239,7 @@
       <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;ACTIONS_EXPORTS;QT_DLL;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>python27.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;ar2gems_io.lib;QtCore4.lib;QtXmld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>python27.lib;ar2gems_utils.lib;ar2gems_appli.lib;ar2gems_grid.lib;QtCore4.lib;QtXmld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(AR2TECH_SGEMS_DIR)\lib\x64\release\ar2gems_actions.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(PYTHONDIRx64)\libs;$(QTDIRx64)\lib;$(AR2TECH_SGEMS_DIR)\lib\x64\release\;$(PYTHONDIRx64)/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
