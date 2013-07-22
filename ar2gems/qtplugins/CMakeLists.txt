@@ -36,6 +36,9 @@ QT4_WRAP_UI(qtplugins_FORMS
   variogram_input_base.ui
 )
 
+# In order for plugins to be loaded
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/plugins/designer)
+
 add_library(ar2gems_qtplugins
   categorical_definition_proxy_model.cpp
   categorical_selectors.cpp
