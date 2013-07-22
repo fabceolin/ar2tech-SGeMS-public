@@ -135,6 +135,92 @@ BOOST_AUTO_TEST_CASE(Point_set_neighborhood___find_neighbors___4threads)
   }
 }
 
+BOOST_AUTO_TEST_CASE(Point_set_neighborhood___center)
+{
+  std::string pset_name("pset, Point_set_neighborhood___center");
+  Point_set * pset = point_set(pset_name, 3*3*3);
+  BOOST_REQUIRE(pset);
+  std::vector< Point_set::location_type > point_locations;
+  for (int x = 0; x < 3; x++)
+    for (int y = 0; y < 3; y++)
+      for (int z = 0; z < 3; z++) {
+        Point_set::location_type loc(x, y, z);
+        point_locations.push_back(loc);
+      }
+  pset->point_locations( point_locations );
+  
+  // add property to grid
+  std::string prop_name("prop, Point_set_neighborhood___center");
+  Grid_continuous_property * prop = pset->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  pset->select_property(prop_name);
+
+  // creat neighborhood
+  GsTLTriplet ranges(1, 1, 1), angles(0, 0, 0);
+  Point_set_neighborhood * nbh = point_set_neighborhood(pset, ranges, angles);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = 1;
+  nbh->find_neighbors( pset->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+
+  // free memory
+  delete nbh;
+  pset->remove_property(prop->name());
+  delete_grid(pset->name());
+}
+
+BOOST_AUTO_TEST_CASE(Point_set_neighborhood___find_neighbors___openmp)
+{
+  std::string pset_name("pset, Point_set_neighborhood___find_neighbors___openmp");
+  Point_set * pset = point_set(pset_name, 3*3*3);
+  BOOST_REQUIRE(pset);
+  std::vector< Point_set::location_type > point_locations;
+  for (int x = 0; x < 3; x++)
+    for (int y = 0; y < 3; y++)
+      for (int z = 0; z < 3; z++) {
+        Point_set::location_type loc(x, y, z);
+        point_locations.push_back(loc);
+      }
+  pset->point_locations( point_locations );
+  
+  // add property to grid
+  std::string prop_name("prop, Point_set_neighborhood___find_neighbors___openmp");
+  Grid_continuous_property * prop = pset->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  pset->select_property(prop_name);
+
+  // creat neighborhood
+  GsTLTriplet ranges(1, 1, 1), angles(0, 0, 0);
+  Point_set_neighborhood * nbh = point_set_neighborhood(pset, ranges, angles);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  // all neighbors informed
+  for (int i = 0; i < prop->size(); i++) 
+    prop->set_value(i, i);
+  Geovalue center = pset->geovalue(0);
+  #pragma omp parallel for
+  for (int i = 0; i < 1000; i++) 
+  {
+    Neighbors neighbors;
+    nbh->find_neighbors( center, neighbors);
+    BOOST_CHECK(neighbors.number_informed_neighbors() == 3);
+    #pragma omp critical
+    {
+      nbh->find_neighbors( center );
+      BOOST_CHECK( two_geovalue_lists_equal(nbh->begin(), nbh->end(), neighbors.begin(), neighbors.end()) );
+    }
+  }
+
+  // free memory
+  delete nbh;
+  pset->remove_property(prop->name());
+  delete_grid(pset->name());
+}
+
 
 
 /**************************************************
@@ -264,4 +350,91 @@ BOOST_AUTO_TEST_CASE(Point_set_rectangular_neighborhood___find_neighbors___4thre
   for (int i = 0; i < num_tasks; i++) {
     delete task_handlers[i];
   }
+}
+
+BOOST_AUTO_TEST_CASE(Point_set_rectangular_neighborhood___center)
+{
+  std::string pset_name("pset, Point_set_rectangular_neighborhood___center");
+  Point_set * pset = point_set(pset_name, 3*3*3);
+  BOOST_REQUIRE(pset);
+  std::vector< Point_set::location_type > point_locations;
+  for (int x = 0; x < 3; x++)
+    for (int y = 0; y < 3; y++)
+      for (int z = 0; z < 3; z++) {
+        Point_set::location_type loc(x, y, z);
+        point_locations.push_back(loc);
+      }
+  pset->point_locations( point_locations );
+  
+  // add property to grid
+  std::string prop_name("prop, Point_set_rectangular_neighborhood___center");
+  Grid_continuous_property * prop = pset->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  pset->select_property(prop_name);
+
+  // creat neighborhood
+  GsTLTriplet ranges(1, 1, 1), angles(0, 0, 0);
+  Point_set_rectangular_neighborhood * nbh = point_set_rectangular_neighborhood(pset, prop, ranges, angles);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = 1;
+  nbh->find_neighbors( pset->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+
+  // free memory
+  delete nbh;
+  pset->remove_property(prop->name());
+  delete_grid(pset->name());
+}
+
+
+BOOST_AUTO_TEST_CASE(Point_set_rectangular_neighborhood___find_neighbors___openmp)
+{
+  std::string pset_name("pset, Point_set_rectangular_neighborhood___find_neighbors___openmp");
+  Point_set * pset = point_set(pset_name, 3*3*3);
+  BOOST_REQUIRE(pset);
+  std::vector< Point_set::location_type > point_locations;
+  for (int x = 0; x < 3; x++)
+    for (int y = 0; y < 3; y++)
+      for (int z = 0; z < 3; z++) {
+        Point_set::location_type loc(x, y, z);
+        point_locations.push_back(loc);
+      }
+  pset->point_locations( point_locations );
+  
+  // add property to grid
+  std::string prop_name("prop, Point_set_rectangular_neighborhood___find_neighbors___openmp");
+  Grid_continuous_property * prop = pset->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  pset->select_property(prop_name);
+
+  // creat neighborhood
+  GsTLTriplet ranges(1, 1, 1), angles(0, 0, 0);
+  Point_set_rectangular_neighborhood * nbh = point_set_rectangular_neighborhood(pset, prop, ranges, angles);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  // all neighbors informed
+  for (int i = 0; i < prop->size(); i++) 
+    prop->set_value(i, i);
+  Geovalue center = pset->geovalue(0);
+  #pragma omp parallel for
+  for (int i = 0; i < 1000; i++) 
+  {
+    Neighbors neighbors;
+    nbh->find_neighbors( center, neighbors);
+    BOOST_CHECK(neighbors.number_informed_neighbors() == 0);
+    #pragma omp critical
+    {
+      nbh->find_neighbors( center );
+      BOOST_CHECK( two_geovalue_lists_equal(nbh->begin(), nbh->end(), neighbors.begin(), neighbors.end()) );
+    }
+  }
+
+  // free memory
+  delete nbh;
+  pset->remove_property(prop->name());
+  delete_grid(pset->name());
 }

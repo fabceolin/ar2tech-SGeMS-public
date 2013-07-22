@@ -114,3 +114,34 @@ BOOST_AUTO_TEST_CASE(Colocated_neighborhood___find_neighbors___4threads)
     delete task_handlers[i];
   }
 }
+
+
+BOOST_AUTO_TEST_CASE(Colocated_neighborhood___center)
+{
+  std::string grid_name("grid, Colocated_neighborhood___center");
+  Cartesian_grid* grid = cartesian_grid(grid_name);
+  BOOST_REQUIRE(grid);
+  grid->set_dimensions(3, 3, 3);
+  SGrid_cursor cursor(*grid->cursor());
+  
+  // add property to grid
+  std::string prop_name("prop, Colocated_neighborhood___center");
+  Grid_continuous_property * prop = grid->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  grid->select_property(prop_name);
+  
+  // create neighborhood
+  Colocated_neighborhood * nbh = new Colocated_neighborhood(grid, prop_name);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = cursor.node_id(1, 1, 1);
+  nbh->find_neighbors( grid->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+  
+  // free memory
+  delete nbh;
+  grid->remove_property(prop->name());
+  delete_grid(grid->name());
+}

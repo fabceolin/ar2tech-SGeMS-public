@@ -62,6 +62,18 @@
 #include <grid/neighbors.h>
 
 
+Geovalue 
+Neighbors::center() const
+{
+  return center_;
+}
+
+void Neighbors::center_is(const Geovalue & _center)
+{
+  center_ = _center;
+}
+
+
 GsTLInt
 Neighbors::number_informed_neighbors()
 {

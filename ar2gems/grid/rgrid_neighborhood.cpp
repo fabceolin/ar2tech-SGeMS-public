@@ -205,6 +205,7 @@ void Rgrid_window_neighborhood::find_neighbors( const Geovalue& center ) {
 void Rgrid_window_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
 {
   neighbors.clear();
+  neighbors.center_is(center);
   if( !property_ ) return;
 
   SGrid_cursor cursor( *grid_->cursor() );
@@ -287,6 +288,7 @@ void Rgrid_window_neighborhood::find_all_neighbors( const Geovalue& center ) {
 void Rgrid_window_neighborhood::find_all_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
 {
   neighbors.clear();
+  neighbors.center_is(center);
   if( !property_ ) return;
 
   SGrid_cursor cursor( *grid_->cursor() );
@@ -490,6 +492,7 @@ void Rgrid_ellips_neighborhood::find_neighbors( const Geovalue& center ) {
 void Rgrid_ellips_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
 {
   neighbors.clear();
+  neighbors.center_is(center);
   neigh_filter_->clear();
   if( !property_ ) return;
 
@@ -725,6 +728,7 @@ Rgrid_ellips_neighborhood_hd::find_neighbors( const Geovalue& center , Neighbors
   // Rgrid_ellips_neighborhood::find_neighbors, except that the condition
   // for a node to be a neighbor is that it contains a hard-data
   neighbors.clear();
+  neighbors.center_is(center);
   if( !property_ ) return;
 
   SGrid_cursor cursor( *grid_->cursor() );

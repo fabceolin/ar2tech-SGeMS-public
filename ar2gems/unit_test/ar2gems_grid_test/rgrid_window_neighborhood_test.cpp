@@ -254,3 +254,34 @@ BOOST_AUTO_TEST_CASE(Rgrid_window_neighborhood___find_all_neighbors___4threads)
     delete task_handlers[i];
   }
 }
+
+BOOST_AUTO_TEST_CASE(Rgrid_window_neighborhood___center)
+{
+  std::string grid_name("grid, Rgrid_window_neighborhood___center");
+  Cartesian_grid* grid = cartesian_grid(grid_name);
+  BOOST_REQUIRE(grid);
+  grid->set_dimensions(3, 3, 3);
+  SGrid_cursor cursor(*grid->cursor());
+  
+  // add property to grid
+  std::string prop_name("prop, Rgrid_window_neighborhood___center");
+  Grid_continuous_property * prop = grid->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  grid->select_property(prop_name);
+  
+  // create neighborhood
+  Rgrid_window_neighborhood * nbh = six_face_rgrid_window_neighborhood(grid);
+  BOOST_REQUIRE(nbh);
+  BOOST_REQUIRE(nbh->geometry().size() == 6);
+
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = cursor.node_id(1, 1, 1);
+  nbh->find_neighbors( grid->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+
+  // free memory
+  delete nbh;
+  grid->remove_property(prop->name());
+  delete_grid(grid->name());
+}

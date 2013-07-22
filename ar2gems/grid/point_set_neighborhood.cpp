@@ -553,6 +553,7 @@ void
 Point_set_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
 {
   neighbors.clear();
+  neighbors.center_is(center);
   std::vector<int> candidates;
   candidates.clear();
   neigh_filter_->clear();

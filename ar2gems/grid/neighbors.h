@@ -67,6 +67,7 @@
 class GRID_DECL Neighbors 
 { 
  public: 
+   typedef Geovalue value_type;
   typedef std::vector<Geovalue>::iterator iterator; 
   typedef std::vector<Geovalue>::const_iterator const_iterator; 
    
@@ -87,14 +88,23 @@ class GRID_DECL Neighbors
    inline Geovalue & front();
    inline Geovalue & back();
 
+   /* APIs from Neighborhood */
+   inline bool is_empty() const;
    inline Neighbors::iterator begin();
+   inline Neighbors::const_iterator begin() const;
    inline Neighbors::iterator end();
+   inline Neighbors::const_iterator end() const;
+   Geovalue center() const;
 
 
-   /* Get the number of informed neighbors */
+   /* new APIs */
+   // Set center
+   void center_is(const Geovalue & _center);
+
+   // Get the number of informed neighbors
    GsTLInt number_informed_neighbors();
 
-   /* Get the number of harddata neighbors */
+   // Get the number of harddata neighbors
    GsTLInt number_harddata_neighbors();
 
 
@@ -103,6 +113,7 @@ class GRID_DECL Neighbors
 
    
  protected: 
+  Geovalue center_;
   std::vector<Geovalue> neighbors_; 
   GsTLInt number_informed_neighbors_; // number of informed neighbors
   GsTLInt number_harddata_neighbors_; // number of harddata neighbors
@@ -113,6 +124,12 @@ class GRID_DECL Neighbors
 /* inline methods */
 bool 
 Neighbors::empty() const
+{
+  return neighbors_.empty();
+}
+
+bool 
+Neighbors::is_empty() const
 {
   return neighbors_.empty();
 }
@@ -192,10 +209,22 @@ Neighbors::begin()
   return neighbors_.begin();
 }
 
+Neighbors::const_iterator 
+Neighbors::begin() const
+{
+  return neighbors_.cbegin();
+}
+
 Neighbors::iterator 
 Neighbors::end()
 {
   return neighbors_.end();
+}
+
+Neighbors::const_iterator 
+Neighbors::end() const
+{
+  return neighbors_.cend();
 }
 
 

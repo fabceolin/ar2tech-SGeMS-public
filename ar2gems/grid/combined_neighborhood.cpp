@@ -237,6 +237,7 @@ void Combined_neighborhood::find_neighbors( const Geovalue& center ) {
 void Combined_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const
 {
   neighbors.clear();
+  neighbors.center_is(center);
   neigh_filter_->clear();
 
   /* this version was not good
@@ -380,6 +381,7 @@ void Combined_neighborhood_dedup::find_neighbors( const Geovalue& center ){
 void Combined_neighborhood_dedup::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const 
 {
   neighbors.clear();
+  neighbors.center_is(center);
   
   // ask both neighborhoods to search neighbors
   Neighbors first_neighbors, second_neighbors;

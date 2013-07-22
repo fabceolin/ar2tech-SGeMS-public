@@ -165,6 +165,7 @@ MgridNeighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbor
   appli_assert(mcursor);
 
   neighbors.clear();
+  neighbors.center_is(center);
   neigh_filter_->clear();
   if( !property_ ) return;
 
@@ -318,6 +319,7 @@ MgridNeighborhood_hd::find_neighbors( const Geovalue& center , Neighbors & neigh
 
   
   neighbors.clear();
+  neighbors.center_is(center);
   if( !property_ ) return;
 
   
@@ -416,6 +418,7 @@ void MgridWindowNeighborhood::find_neighbors( const Geovalue& center , Neighbors
 {
   MaskedGridCursor * mcursor = dynamic_cast<MaskedGridCursor*>(grid_->cursor());
   neighbors.clear();
+  neighbors.center_is(center);
   if( !property_ ) return;
 
   //SGrid_cursor cursor( *grid_->cursor() );
@@ -489,6 +492,7 @@ void MgridWindowNeighborhood::find_all_neighbors( const Geovalue& center , Neigh
   MaskedGridCursor * mcursor = dynamic_cast<MaskedGridCursor*>(grid_->cursor());
 
   neighbors.clear();
+  neighbors.center_is(center);
   if( !property_ ) return;
 
   //SGrid_cursor cursor( *grid_->cursor() );

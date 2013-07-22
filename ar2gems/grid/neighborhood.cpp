@@ -98,6 +98,8 @@ void Colocated_neighborhood::find_neighbors( const Geovalue& center ) {
 }
 
 void Colocated_neighborhood::find_neighbors( const Geovalue& center , Neighbors & neighbors ) const {
+  neighbors.center_is(center);
+
   if( neighbors.empty() ) {
     neighbors.push_back( center );
     neighbors[0].set_property_array( property_ );

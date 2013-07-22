@@ -129,6 +129,40 @@ BOOST_AUTO_TEST_CASE(Combined_neighborhood___find_neighbors___4threads)
   }
 }
 
+BOOST_AUTO_TEST_CASE(Combined_neighborhood___center)
+{
+  std::string grid_name("grid, Combined_neighborhood___center");
+  Cartesian_grid* grid = cartesian_grid(grid_name);
+  BOOST_REQUIRE(grid);
+  grid->set_dimensions(3, 3, 3);
+  SGrid_cursor cursor(*grid->cursor());
+  
+  // add property to grid
+  std::string prop_name("prop, Combined_neighborhood___center");
+  Grid_continuous_property * prop = grid->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  grid->select_property(prop_name);
+  
+  // create neighborhoods
+  Rgrid_ellips_neighborhood * nbh1 = six_face_rgrid_ellips_neighborhood(grid);
+  GsTLTriplet ranges(2, 2, 2), angles(0, 0, 0);
+  Rgrid_ellips_neighborhood * nbh2 = rgrid_ellips_neighborhood(grid, ranges, angles);
+  Combined_neighborhood * nbh = new Combined_neighborhood(nbh1, nbh2);
+  BOOST_REQUIRE(nbh1 && nbh2);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = cursor.node_id(1, 1, 1);
+  nbh->find_neighbors( grid->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+  
+  // free memory
+  delete nbh;
+  grid->remove_property(prop->name());
+  delete_grid(grid->name());
+}
+
 
 
 /**************************************************
@@ -254,4 +288,38 @@ BOOST_AUTO_TEST_CASE(Combined_neighborhood_dedup___find_neighbors___4threads)
   for (int i = 0; i < num_tasks; i++) {
     delete task_handlers[i];
   }
+}
+
+BOOST_AUTO_TEST_CASE(Combined_neighborhood_dedup___center)
+{
+  std::string grid_name("grid, Combined_neighborhood_dedup___center");
+  Cartesian_grid* grid = cartesian_grid(grid_name);
+  BOOST_REQUIRE(grid);
+  grid->set_dimensions(3, 3, 3);
+  SGrid_cursor cursor(*grid->cursor());
+  
+  // add property to grid
+  std::string prop_name("prop, Combined_neighborhood_dedup___center");
+  Grid_continuous_property * prop = grid->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  grid->select_property(prop_name);
+  
+  // create neighborhoods
+  Rgrid_ellips_neighborhood * nbh1 = six_face_rgrid_ellips_neighborhood(grid);
+  GsTLTriplet ranges(2, 2, 2), angles(0, 0, 0);
+  Rgrid_ellips_neighborhood * nbh2 = rgrid_ellips_neighborhood(grid, ranges, angles);
+  Combined_neighborhood_dedup * nbh = new Combined_neighborhood_dedup(nbh1, nbh2);
+  BOOST_REQUIRE(nbh1 && nbh2);
+  BOOST_REQUIRE(nbh);
+  
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = cursor.node_id(1, 1, 1);
+  nbh->find_neighbors( grid->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+  
+  // free memory
+  delete nbh;
+  grid->remove_property(prop->name());
+  delete_grid(grid->name());
 }

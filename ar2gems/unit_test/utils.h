@@ -8,7 +8,7 @@
 #include <math/library_math_init.h>
 #include <appli/library_appli_init.h>
 #include <grid/library_grid_init.h>
-#include <appli/manager_repository.h>
+//#include <appli/manager_repository.h>
 #include <grid/cartesian_grid.h>
 #include <grid/grid_property.h>
 #include <grid/neighbors.h>

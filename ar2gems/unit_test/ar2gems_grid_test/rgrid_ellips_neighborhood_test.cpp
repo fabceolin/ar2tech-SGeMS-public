@@ -130,6 +130,38 @@ BOOST_AUTO_TEST_CASE(Rgrid_ellips_neighborhood___find_neighbors___4threads)
   }
 }
 
+BOOST_AUTO_TEST_CASE(Rgrid_ellips_neighborhood___center)
+{
+  std::string grid_name("grid, Rgrid_ellips_neighborhood___center");
+  Cartesian_grid* grid = cartesian_grid(grid_name);
+  BOOST_REQUIRE(grid);
+  grid->set_dimensions(3, 3, 3);
+  SGrid_cursor cursor(*grid->cursor());
+  
+  // add property to grid
+  std::string prop_name("prop, Rgrid_ellips_neighborhood___center");
+  Grid_continuous_property * prop = grid->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  grid->select_property(prop_name);
+  
+  // create neighborhood
+  Rgrid_ellips_neighborhood * nbh = six_face_rgrid_ellips_neighborhood(grid);
+  BOOST_REQUIRE(nbh);
+  BOOST_REQUIRE(nbh->geometry().size() == 6);
+
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = cursor.node_id(1, 1, 1);
+  nbh->find_neighbors( grid->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+
+  // free memory
+  delete nbh;
+  grid->remove_property(prop->name());
+  delete_grid(grid->name());
+}
+
+
 
 /**************************************************
  *  Rgrid_ellips_neighborhood_hd
@@ -260,4 +292,35 @@ BOOST_AUTO_TEST_CASE(Rgrid_ellips_neighborhood_hd___find_neighbors___4threads)
   for (int i = 0; i < num_tasks; i++) {
     delete task_handlers[i];
   }
+}
+
+BOOST_AUTO_TEST_CASE(Rgrid_ellips_neighborhood_hd___center)
+{
+  std::string grid_name("grid, Rgrid_ellips_neighborhood_hd___center");
+  Cartesian_grid* grid = cartesian_grid(grid_name);
+  BOOST_REQUIRE(grid);
+  grid->set_dimensions(3, 3, 3);
+  SGrid_cursor cursor(*grid->cursor());
+  
+  // add property to grid
+  std::string prop_name("prop, Rgrid_ellips_neighborhood_hd___center");
+  Grid_continuous_property * prop = grid->add_property(prop_name);
+  BOOST_REQUIRE(prop);
+  grid->select_property(prop_name);
+  
+  // create neighborhood
+  Rgrid_ellips_neighborhood_hd * nbh = six_face_rgrid_ellips_neighborhood_hd(grid, prop);
+  BOOST_REQUIRE(nbh);
+  BOOST_REQUIRE(nbh->geometry().size() == 6);
+
+  // find neighbors
+  Neighbors neighbors;
+  int node_id = cursor.node_id(1, 1, 1);
+  nbh->find_neighbors( grid->geovalue(node_id), neighbors);
+  BOOST_CHECK(neighbors.center().node_id() == node_id);
+
+  // free memory
+  delete nbh;
+  grid->remove_property(prop->name());
+  delete_grid(grid->name());
 }
