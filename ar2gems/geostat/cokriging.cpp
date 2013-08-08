@@ -360,8 +360,8 @@ bool Cokriging::initialize( const Parameters_handler* parameters,
 
   geostat_utils::CokrigTagMap cokrig_tagmap;
   cokrig_tagmap[ geostat_utils::FULL ] = "Variogram_C12 Variogram_C22";
-  cokrig_tagmap[ geostat_utils::MM1 ] = "Cov_Z1Z2.value Var_Z2.value";
-  cokrig_tagmap[ geostat_utils::MM2 ] = "MM2_Cov_Z1Z2.value MM2_Variogram_C22";
+  cokrig_tagmap[ geostat_utils::MM1 ] = "Correl_Z1Z2.value Var_Z2.value";
+  cokrig_tagmap[ geostat_utils::MM2 ] = "MM2_Correl_Z1Z2.value MM2_Variogram_C22";
   
   covar_ = 
     geostat_utils::init_covariance_set( cok_type, C11, cokrig_tagmap,
