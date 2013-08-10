@@ -1132,10 +1132,16 @@ bool Gslib_outfilter::write( std::string outfile, const Named_interface* ni,
       errors->append( "can't write to file: " + outfile );
     return false;
   }
+
+  bool ok;
   if( _maskToRegular )
-    return this->writeReduced2Cartesian( out, grid );
+    ok =  this->writeReduced2Cartesian( out, grid );
   else
-    return this->write( out, grid );
+    ok =  this->write( out, grid );
+
+  out.close();
+  return ok;
+
 }
 
 bool Gslib_outfilter::writeReduced2Cartesian( std::ofstream& outfile, const Geostat_grid* grid ) 
@@ -1258,9 +1264,12 @@ bool Gslib_outfilter::write( std::ofstream& outfile, const Geostat_grid* grid ) 
 	}
     for( unsigned int j=0; j < property_names.size(); ++j ) {
       if( properties[j]->is_informed( i ) )
-        outfile << properties[j]->get_value( i ) << " ";
+        outfile << properties[j]->get_value( i );
+      //outfile << properties[j]->get_value( i ) << " ";
       else
-        outfile << static_cast<int>(Grid_continuous_property::no_data_value)<<" ";
+        outfile << static_cast<int>(Grid_continuous_property::no_data_value);
+        //outfile << static_cast<int>(Grid_continuous_property::no_data_value)<<" ";
+      if( j < property_names.size()-1  )  outfile <<" ";
 	
     }
 	
