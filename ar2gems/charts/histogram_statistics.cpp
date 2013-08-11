@@ -95,7 +95,7 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
   vtkSmartPointer<vtkTable> dtable_derived = vtkTable::SafeDownCast( mblock_descriptive->GetBlock( 1 ) );
 
   vtkSmartPointer<vtkVariantArray> desc_stats_array = vtkSmartPointer<vtkVariantArray>::New();
-  desc_stats_array->Allocate(10);
+  desc_stats_array->SetNumberOfValues(10);
   desc_stats_array->SetValue(charts::DATA, prop->name().c_str());
   desc_stats_array->SetValue(charts::GRID, prop->grid_name().c_str());
   desc_stats_array->SetValue(charts::N, vtkVariant(ndata));
@@ -125,7 +125,7 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
   vtkSmartPointer<vtkTable> ordered_stats_table = vtkTable::SafeDownCast( mblock_ordered->GetBlock( nbq ) );
   vtkAbstractArray* quantiles = ordered_stats_table->GetColumn(1);
   vtkSmartPointer<vtkVariantArray> quantile_stats_array = vtkSmartPointer<vtkVariantArray>::New();
-  quantile_stats_array->Allocate(13);
+  quantile_stats_array->SetNumberOfValues(13);
   quantile_stats_array->SetValue(0, prop->name().c_str());
   quantile_stats_array->SetValue(1, prop->grid_name().c_str());
   for(int i=0;i<11;++i) {

@@ -112,6 +112,10 @@ private slots:
 
 private :
 
+  QVTKWidget *qvtkWidget_;
+	vtkSmartPointer<vtkChartXY> chart_;
+	vtkSmartPointer<vtkContextView> context_view_;
+
   QVTKWidget *qvtkWidget_stacked_;
 	vtkSmartPointer<vtkChartXY> chart_stacked_;
 	vtkSmartPointer<vtkContextView> context_view_stacked_;

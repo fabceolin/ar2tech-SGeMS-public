@@ -18,9 +18,9 @@
 
 *.pro.user
 *.pro.user.*
-moc_*.cpp
-qrc_*.cpp
-ui_*.cpp
+moc_*
+qrc_*
+ui_*
 ui_*.h
 Makefile
 *-build-*
@@ -51,4 +51,5 @@ Release/
 html/
 
 # We'll be doing CMake out-of-source builds
-
+CMakeFiles/
+*.cmake

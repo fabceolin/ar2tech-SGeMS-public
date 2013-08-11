@@ -37,23 +37,7 @@
 Chart_base::Chart_base(QWidget *parent)
   : QFrame(parent)
 {
-  /*
-  qvtkWidget_ = new QVTKWidget(this);
-	view_ = vtkSmartPointer<vtkContextView>::New();
-	view_->SetInteractor(qvtkWidget_->GetInteractor());
-	qvtkWidget_->SetRenderWindow(view_->GetRenderWindow());
-	chart_ = vtkSmartPointer<vtkChartXY>::New();
-	view_->GetScene()->AddItem(chart_);
-  */
-//	tableView_ = vtkSmartPointer<vtkQtTableView>::New();
-//	table_ = vtkSmartPointer<vtkTable>::New();
 
-//	QSplitter* mainSplitter = new QSplitter(Qt::Horizontal, this);
-
-//	mainSplitter->addWidget(qvtkWidget_);
-//	mainSplitter->addWidget(tableView_->GetWidget());
-
-//	this->layout()->addWidget(mainSplitter);
 
 	this->setAcceptDrops(true);
 }

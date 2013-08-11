@@ -35,6 +35,7 @@
 #include <grid/grid_region.h>
 
 #include <charts/scatter_plot_proxy_model.h>
+#include <charts/chart_widget.h>
 #include <charts/chart_display_control.h>
 
 #include <vtkMath.h>
@@ -95,7 +96,7 @@ public slots :
   void set_x_axis(float min_x, float max_x);
   void set_y_axis(float min_y, float max_y);
   void reset_axis();
-
+/*
   void set_x_axis_label(const QString& text);
   void set_y_axis_label(const QString& text);
   void set_title(const QString& text);
@@ -131,7 +132,7 @@ public slots :
   void set_title_font_size(int size);
 
   void set_numbers_of_bins(int nbins);
-
+*/
 
 //	virtual void dragEnterEvent(QDragEnterEvent *event);
 //	virtual void dropEvent(QDropEvent *event);
@@ -204,6 +205,7 @@ private:
 
   //QToolBox* stats_view_;
   QTabWidget* information_view_;
+  Chart_widget* chart_widget_;
   Chart_display_control* chart_control_;
 
   QList<QColor> default_colors_;

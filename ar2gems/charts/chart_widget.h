@@ -2,39 +2,45 @@
 ** Copyright (c) 2012 Advanced Resources and Risk Technology, LLC
 ** All rights reserved.
 **
-** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH)
-** version of the open source software sgems.  It is a derivative work by
-** AR2TECH (THE LICENSOR) based on the x-free license granted in the original
-** version of the software (see notice below) and now sublicensed such that it
-** cannot be distributed or modified without the explicit and written permission
+** This file is part of Advanced Resources and Risk Technology, LLC (AR2TECH) 
+** version of the open source software sgems.  It is a derivative work by 
+** AR2TECH (THE LICENSOR) based on the x-free license granted in the original 
+** version of the software (see notice below) and now sublicensed such that it 
+** cannot be distributed or modified without the explicit and written permission 
 ** of AR2TECH.
 **
-** Only AR2TECH can modify, alter or revoke the licensing terms for this
+** Only AR2TECH can modify, alter or revoke the licensing terms for this 
 ** file/software.
 **
-** This file cannot be modified or distributed without the explicit and written
+** This file cannot be modified or distributed without the explicit and written 
 ** consent of AR2TECH.
 **
 ** Contact Dr. Alex Boucher (aboucher@ar2tech.com) for any questions regarding
 ** the licensing of this file/software
 **
-** The open-source version of sgems can be downloaded at
+** The open-source version of sgems can be downloaded at 
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
 
 
-#ifndef CHART_BASE_DISPLAY_CONTROLS_H
-#define CHART_BASE_DISPLAY_CONTROLS_H
+#ifndef CHART_WIDGET_H
+#define CHART_WIDGET_H
 
-#include <charts/chart_base.h>
 #include <charts/common.h>
 
 #include <charts/chart_display_control.h>
 
-#include <vtkStringArray.h>
+#include <QVTKWidget.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
-#include <vtkVariantArray.h>
+
+#include <vtkContextView.h>
+#include <vtkContextScene.h>
+#include <vtkChartXY.h>
+#include <vtkPlot.h>
 
 #include <QColor>
 #include <QToolBox>
@@ -44,16 +50,25 @@
 #include <QSize>
 
 
-class CHARTS_DECL Chart_base_display_controls : public Chart_base
+class CHARTS_DECL Chart_widget : public QVTKWidget
 {
   Q_OBJECT
 
 public:
-    Chart_base_display_controls(QWidget *parent=0);
-    virtual ~Chart_base_display_controls();
+    Chart_widget(QWidget *parent=0);
+    virtual ~Chart_widget();
+
+    vtkChartXY* chart() {return chart_.GetPointer();}
+
+    void set_controler(Chart_display_control* controler);
+
+    
+    void save_figure(QString& filename,QSize plot_size = QSize() );
 
 public slots :
 
+  void save_figure();
+  
   void reset_axis();
   void set_x_axis_label(const QString& text);
   void set_y_axis_label(const QString& text);
@@ -84,18 +99,6 @@ public slots :
   void set_legend_font_size(int size);
   void set_title_font_size(int size);
 
-  virtual void save_figure();
-  virtual void save_figure(QString& filename, QSize plot_size = QSize());
-  virtual void save_report();
-  virtual void view_report();
-
-  void set_report_control_visibility(bool ok);
-  void set_save_report_visibility(bool ok);
-  void set_save_figure_visibility(bool ok);
-  void set_view_report_visibility(bool ok);
-
-  QFrame* get_report_frame() {return report_frame_;}
-
 
 protected:
 
@@ -103,18 +106,12 @@ protected:
 
 protected:
 
-  QVTKWidget *qvtkWidget_;
+  Chart_display_control* chart_control_;
+
 	vtkSmartPointer<vtkChartXY> chart_;
 	vtkSmartPointer<vtkContextView> context_view_;
 
-  Chart_display_control* chart_control_;
-
-  QFrame* report_frame_;
-  QPushButton* view_report_button_;
-  QPushButton* save_report_button_;
-  QPushButton* save_figure_button_;
-
-
+    
 };
 
 

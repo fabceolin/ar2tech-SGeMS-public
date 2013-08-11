@@ -190,6 +190,10 @@ void Chart_display_control::hide_y_controls(bool ok){
   ui.ybox->setHidden(ok);
 }
 
+void Chart_display_control::hide_label_controls(bool ok){
+  ui.labelbox->setHidden(ok);
+}
+
 bool Chart_display_control::is_x_axis_log_scale(){
   return ui.x_logscale->isChecked();
 }

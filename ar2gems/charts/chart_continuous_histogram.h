@@ -37,6 +37,7 @@
 #include <math/continuous_distribution.h>
 
 #include <charts/histogram_proxy_model.h>
+#include <charts/chart_widget.h>
 #include <charts/chart_display_control.h>
 
 #include <vtkMath.h>
@@ -89,7 +90,7 @@ public slots :
   void set_color(Histogram_item* item);
   void set_data_filter(Histogram_item* item);
   void set_data_display_style(Histogram_item* item);
-
+/*
   void set_axis(float min_x, float min_y, float max_x, float max_y);
   void set_x_axis(float min_x, float max_x);
   void set_y_axis(float min_y, float max_y);
@@ -128,7 +129,7 @@ public slots :
   void set_y_label_font_size(int size);
   void set_legend_font_size(int size);
   void set_title_font_size(int size);
-
+  */
   void set_numbers_of_bins(int nbins);
 
 
@@ -205,6 +206,8 @@ private:
 
   vtkSmartPointer<vtkTable> descriptive_stats_table_;
   vtkSmartPointer<vtkTable> ordered_stats_table_;
+
+  Chart_widget* chart_widget_;
 
   //QToolBox* stats_view_;
   QTabWidget* information_view_;

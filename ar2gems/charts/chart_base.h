@@ -61,17 +61,8 @@ public:
     Chart_base(QWidget *parent);
     virtual ~Chart_base();
 
-    vtkSmartPointer<vtkChartXY> chart(){return chart_;}
-
-
 protected:
-  QVTKWidget *qvtkWidget_;
-	vtkSmartPointer<vtkChartXY> chart_;
-	vtkSmartPointer<vtkContextView> context_view_;
 
-  //Data_analysis_control_widget
-//	vtkSmartPointer<vtkTable> table_;
-//	vtkSmartPointer<vtkQtTableView> tableView_;
 };
 
 #endif // CHART_BASE_H

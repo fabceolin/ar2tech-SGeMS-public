@@ -64,6 +64,7 @@ public slots:
 
   void hide_x_controls(bool ok);
   void hide_y_controls(bool ok);
+  void hide_label_controls(bool ok);
 
   void set_title(const QString& label);
   void set_legend_visibility(bool ok);

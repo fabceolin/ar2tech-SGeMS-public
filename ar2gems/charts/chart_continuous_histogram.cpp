@@ -79,17 +79,19 @@ Chart_continuous_histogram::Chart_continuous_histogram(int nbins, QWidget *paren
   chartSplitter->addWidget(tree);
 
   //Add the vtk rendering window
-  qvtkWidget_ = new QVTKWidget(this);
-  context_view_ = vtkSmartPointer<vtkContextView>::New();
-  context_view_->SetInteractor(qvtkWidget_->GetInteractor());
-  qvtkWidget_->SetRenderWindow(context_view_->GetRenderWindow());
-	chart_ = vtkSmartPointer<vtkChartXY>::New();
-	context_view_->GetScene()->AddItem(chart_); 
+  chart_widget_ = new Chart_widget( chartSplitter );
 
-  chart_->GetAxis(0)->SetNumberOfTicks(10);
-  chart_->GetAxis(1)->SetNumberOfTicks(10);
+  //chart_widget_ = new QVTKWidget(this);
+  //context_view_ = vtkSmartPointer<vtkContextView>::New();
+  //context_view_->SetInteractor(chart_widget_->GetInteractor());
+  //chart_widget_->SetRenderWindow(context_view_->GetRenderWindow());
+	//chart_widget_->chart() = vtkSmartPointer<vtkChartXY>::New();
+	//context_view_->GetScene()->AddItem(chart_widget_->chart()); 
 
-  chartSplitter->addWidget(qvtkWidget_);
+  chart_widget_->chart()->GetAxis(0)->SetNumberOfTicks(10);
+  chart_widget_->chart()->GetAxis(1)->SetNumberOfTicks(10);
+
+  chartSplitter->addWidget(chart_widget_);
 
   mainSplitter->addWidget(chartSplitter);
 
@@ -126,6 +128,8 @@ Chart_continuous_histogram::Chart_continuous_histogram(int nbins, QWidget *paren
   descriptive_stats_view_->SetRepresentationFromInput(descriptive_stats_table_);
   ordered_stats_view_->SetRepresentationFromInput(ordered_stats_table_);
 
+  chart_widget_->set_controler(chart_control_);
+
   connect( model_, SIGNAL(data_added(Histogram_item*)), this, SLOT(add_data(Histogram_item*)) );
   connect( model_, SIGNAL(data_removed(Histogram_item*)), this, SLOT(remove_data(Histogram_item*)) );
   connect( model_, SIGNAL(data_filter_changed(Histogram_item*)), this, SLOT(set_data_filter(Histogram_item*)) );
@@ -133,7 +137,7 @@ Chart_continuous_histogram::Chart_continuous_histogram(int nbins, QWidget *paren
   connect( model_, SIGNAL(data_color_changed(Histogram_item*)), this, SLOT(set_color(Histogram_item*)) );
   connect( model_, SIGNAL(data_visibility_changed(Histogram_item*)), this, SLOT(set_visibility(Histogram_item*)) );
   connect( model_, SIGNAL(display_format_changed(Histogram_item*)), this, SLOT(set_data_display_style(Histogram_item*)) );
-
+/*
   connect( chart_control_, SIGNAL(xaxis_label_changed(const QString&)), this, SLOT(set_x_axis_label(const QString&)) );
   connect( chart_control_, SIGNAL(yaxis_label_changed(const QString&)), this, SLOT(set_y_axis_label(const QString&)) );
   connect( chart_control_, SIGNAL(title_changed(const QString&)), this, SLOT(set_title(const QString&)) );
@@ -162,7 +166,7 @@ Chart_continuous_histogram::Chart_continuous_histogram(int nbins, QWidget *paren
   connect( chart_control_, SIGNAL(yaxis_nticks_changed(int)), this, SLOT(set_yaxis_nticks(int)) );
   connect( chart_control_, SIGNAL(yaxis_logscale_changed(bool)), this, SLOT(set_yaxis_logscale(bool)) );
   connect( chart_control_, SIGNAL(yaxis_autoscale_changed()), this, SLOT(set_yaxis_autoscale()) );
-
+  */
   chart_control_->send_axis_signals();
 
   //QObject::connect( tree, SIGNAL(doubleClicked ( const QModelIndex&)), tree, SLOT(show_color_editor(const QModelIndex&)) );
@@ -467,7 +471,7 @@ void Chart_continuous_histogram::update_data_display(Histogram_item* item){
 
       }
     }
-    qvtkWidget_->update();
+    chart_widget_->update();
 }
 
 void Chart_continuous_histogram::initialize_data(Histogram_distribution_item* item){
@@ -556,8 +560,8 @@ void Chart_continuous_histogram::initialize_plot(Histogram_item* item){
 
   std::map<int, histo_data>::iterator it = data_stats_.find(item->id());
 
-  it->second.plot_bar = chart_->AddPlot(vtkChart::BAR); // LINE, POINTS, BAR, STACKED
-  it->second.plot_line = chart_->AddPlot(vtkChart::LINE);
+  it->second.plot_bar = chart_widget_->chart()->AddPlot(vtkChart::BAR); // LINE, POINTS, BAR, STACKED
+  it->second.plot_line = chart_widget_->chart()->AddPlot(vtkChart::LINE);
   it->second.plot_bar->GetYAxis()->SetMinimumLimit(0.00);
   it->second.plot_line->GetYAxis()->SetMinimumLimit(0.00);
   it->second.plot_bar->GetYAxis()->SetMaximumLimit(1.00);
@@ -580,8 +584,8 @@ void Chart_continuous_histogram::remove_data( int id){
 
   std::map<int, histo_data>::iterator it = data_stats_.find(id);
 
-  chart_->RemovePlotInstance(it->second.plot_bar);
-  chart_->RemovePlotInstance(it->second.plot_line);
+  chart_widget_->chart()->RemovePlotInstance(it->second.plot_bar);
+  chart_widget_->chart()->RemovePlotInstance(it->second.plot_line);
   histo_table_->RemoveColumnByName (it->second.name.c_str());
   data_stats_.erase(it);
 }
@@ -1075,7 +1079,7 @@ void Chart_continuous_histogram::set_visibility( Histogram_item* item){
       this->set_visibility(prop_item);
     }
   }
-  qvtkWidget_->update();
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_color( Histogram_item* item){
   if(item->type() == "Property") {
@@ -1138,7 +1142,7 @@ void Chart_continuous_histogram::set_data_filter(Histogram_item* item){
     it->second.plot_bar->Update();
     it->second.plot_line->SetInputData(it->second.histo_line_table, 0, 1);
     it->second.plot_line->Update();
-    qvtkWidget_->update();
+    chart_widget_->update();
 
     }
 
@@ -1193,164 +1197,164 @@ void Chart_continuous_histogram::manage_plot_display(histo_data& data, QString d
   }
   if(changed) {
     this->update_chart_display_control();
-    qvtkWidget_->update();
+    chart_widget_->update();
   }
 }
 
 void Chart_continuous_histogram::update_chart_display_control(){
-  vtkAxis* xaxis = chart_->GetAxis(vtkAxis::BOTTOM);
+  vtkAxis* xaxis = chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM);
   chart_control_->set_xaxis_min(xaxis->GetMinimum());
   chart_control_->set_xaxis_max(xaxis->GetMaximum());
   chart_control_->set_xaxis_precision(xaxis->GetPrecision());
   chart_control_->set_xaxis_nticks(xaxis->GetNumberOfTicks());
 
-  vtkAxis* yaxis = chart_->GetAxis(vtkAxis::LEFT);
+  vtkAxis* yaxis = chart_widget_->chart()->GetAxis(vtkAxis::LEFT);
   chart_control_->set_yaxis_min(yaxis->GetMinimum());
   chart_control_->set_yaxis_max(yaxis->GetMaximum());
   chart_control_->set_yaxis_precision(yaxis->GetPrecision());
   chart_control_->set_yaxis_nticks(yaxis->GetNumberOfTicks());
 }
 
-
+/*
 void Chart_continuous_histogram::set_x_axis_label(const QString& text){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetTitle(text.toStdString());
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetTitle(text.toStdString());
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_y_axis_label(const QString& text){
-  chart_->GetAxis(vtkAxis::LEFT)->SetTitle(text.toStdString());
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetTitle(text.toStdString());
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_title(const QString& text){
-  chart_->SetTitle(text.toStdString().c_str());
-  qvtkWidget_->update();
+  chart_widget_->chart()->SetTitle(text.toStdString().c_str());
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_legend(bool on){
-  chart_->SetShowLegend(on);
-  qvtkWidget_->update();
+  chart_widget_->chart()->SetShowLegend(on);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::set_grid(bool on){
-  chart_->GetAxis(0)->SetGridVisible(on);
-  chart_->GetAxis(1)->SetGridVisible(on);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(0)->SetGridVisible(on);
+  chart_widget_->chart()->GetAxis(1)->SetGridVisible(on);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::set_x_grid(bool on){
-  chart_->GetAxis(0)->SetGridVisible(on);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(0)->SetGridVisible(on);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::set_y_grid(bool on){
-  chart_->GetAxis(1)->SetGridVisible(on);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(1)->SetGridVisible(on);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::set_xaxis_min(double min){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_xaxis_max(double max){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_xaxis_precision(int digits){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetPrecision(digits);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetPrecision(digits);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_xaxis_nticks(int nticks){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetNumberOfTicks(nticks);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetNumberOfTicks(nticks);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_xaxis_logscale(bool on){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetLogScale(on);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetLogScale(on);
+  chart_widget_->update();
   this->update_chart_display_control();
 }
 void Chart_continuous_histogram::set_xaxis_autoscale(){
-  chart_->GetAxis(vtkAxis::BOTTOM)->AutoScale();
-  chart_->Update();
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->AutoScale();
+  chart_widget_->chart()->Update();
+  chart_widget_->update();
   this->update_chart_display_control();
 }
 
 
 void Chart_continuous_histogram::set_yaxis_min(double min){
-  chart_->GetAxis(vtkAxis::LEFT)->SetMinimum(min);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMinimum(min);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_yaxis_max(double max){
-  chart_->GetAxis(vtkAxis::LEFT)->SetMaximum(max);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(max);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_yaxis_precision(int digits){
-  chart_->GetAxis(vtkAxis::LEFT)->SetPrecision(digits);
-  chart_->Update();
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetPrecision(digits);
+  chart_widget_->chart()->Update();
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_yaxis_nticks(int nticks){
-  chart_->GetAxis(vtkAxis::LEFT)->SetNumberOfTicks(nticks);
-  chart_->Update();
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetNumberOfTicks(nticks);
+  chart_widget_->chart()->Update();
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_yaxis_logscale(bool on){
-  chart_->GetAxis(vtkAxis::LEFT)->SetLogScale(on);
-  chart_->Update();
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetLogScale(on);
+  chart_widget_->chart()->Update();
+  chart_widget_->update();
   this->update_chart_display_control();
 }
 void Chart_continuous_histogram::set_yaxis_autoscale(){
-  chart_->GetAxis(vtkAxis::LEFT)->AutoScale();
-  chart_->Update();
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->AutoScale();
+  chart_widget_->chart()->Update();
+  chart_widget_->update();
   this->update_chart_display_control();
 }
 
 void Chart_continuous_histogram::set_x_axis_font_size(int size){
-  chart_->GetAxis(vtkAxis::BOTTOM)->GetLabelProperties()->SetFontSize(size);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->GetLabelProperties()->SetFontSize(size);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_y_axis_font_size(int size){
-  chart_->GetAxis(vtkAxis::LEFT)->GetLabelProperties()->SetFontSize(size);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->GetLabelProperties()->SetFontSize(size);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_x_label_font_size(int size){
-  chart_->GetAxis(vtkAxis::BOTTOM)->GetTitleProperties()->SetFontSize(size);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->GetTitleProperties()->SetFontSize(size);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_y_label_font_size(int size){
-  chart_->GetAxis(vtkAxis::LEFT)->GetTitleProperties()->SetFontSize(size);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->GetTitleProperties()->SetFontSize(size);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_legend_font_size(int size){
-  chart_->GetLegend()->SetLabelSize(size);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetLegend()->SetLabelSize(size);
+  chart_widget_->update();
 }
 void Chart_continuous_histogram::set_title_font_size(int size){
-  chart_->GetTitleProperties()->SetFontSize(size);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetTitleProperties()->SetFontSize(size);
+  chart_widget_->update();
 }
 
 
 
 
 void Chart_continuous_histogram::set_axis(float min_x, float min_y, float max_x, float max_y){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min_x);
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max_x);
-  chart_->GetAxis(vtkAxis::LEFT)->SetMaximum(min_y);
-  chart_->GetAxis(vtkAxis::LEFT)->SetMaximum(max_y);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min_x);
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max_x);
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(min_y);
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(max_y);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::set_x_axis(float min_x, float max_x){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min_x);
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max_x);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min_x);
+  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max_x);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::set_y_axis(float min_y, float max_y){
-  chart_->GetAxis(vtkAxis::LEFT)->SetMaximum(min_y);
-  chart_->GetAxis(vtkAxis::LEFT)->SetMaximum(max_y);
-  qvtkWidget_->update();
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(min_y);
+  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(max_y);
+  chart_widget_->update();
 }
 
 void Chart_continuous_histogram::reset_axis(){
@@ -1372,7 +1376,7 @@ void Chart_continuous_histogram::set_y_clipping_values(float min_y, float max_y)
 void Chart_continuous_histogram::reset_clipping_values(){
 
 }
-
+*/
 void Chart_continuous_histogram::set_numbers_of_bins(int nbins){
 
 }

@@ -2112,11 +2112,11 @@ bool Upscale_group::exec(){
 
 
 //================================================
-/* Capped_property grid_name::prop::capped_value[::output_prop_name]
+/* Cap_property grid_name::prop::capped_value[::output_prop_name]
 * will set values greater than capped_value at capped_value
 * if the ouput property is not specified the change is in place
 */
-bool Capped_property::
+bool Cap_property::
 init( std::string& parameters, GsTL_project* proj,
       Error_messages_handler* errors ) {
 
@@ -2162,8 +2162,14 @@ init( std::string& parameters, GsTL_project* proj,
   }
 
   for( int i = 0 ; i < prop->size() ; i++ ) {
-    if( prop->get_value( i ) > cap_value )
+    if( !prop->is_informed(i) ) continue;
+    float v = prop->get_value( i );
+    if( v > cap_value ) {
       capped_prop->set_value(cap_value,i);
+    }
+    else {
+      capped_prop->set_value(v,i);
+    }
   }
 
   proj->update( params[0] );
@@ -2171,14 +2177,14 @@ init( std::string& parameters, GsTL_project* proj,
 }
 
 
-bool Capped_property::exec() {
+bool Cap_property::exec() {
   return true;
 }
 
 
-Named_interface*
-Capped_property::create_new_interface( std::string& ) {
-  return new Capped_property;
+Named_interface* 
+Cap_property::create_new_interface( std::string& ) {
+  return new Cap_property; 
 }
 
 
