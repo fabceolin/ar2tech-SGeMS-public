@@ -115,7 +115,7 @@ class ACTIONS_DECL New_cartesian_grid_action : public Action {
  private: 
   int nx_, ny_, nz_; 
   float xsize_, ysize_, zsize_; 
-  float Ox_, Oy_, Oz_;  
+  double Ox_, Oy_, Oz_;  
   float z_rotation_;
   std::string name_; 
   GsTL_project* proj_; 

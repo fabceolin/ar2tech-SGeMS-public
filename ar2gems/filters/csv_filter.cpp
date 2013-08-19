@@ -375,7 +375,7 @@ Geostat_grid* Csv_poinset_infilter::read( std::ifstream& infile ) {
         //cat_def->add_category(property_values[k][i].toStdString());
       }
       std::set<QString>::iterator  it_cat_names = cat_names.begin();
-      for( int code; it_cat_names != cat_names.end(); ++code, ++it_cat_names) {
+      for( int code=0; it_cat_names != cat_names.end(); ++code, ++it_cat_names) {
         cat_def->add_category(code, it_cat_names->toStdString() );
       }
       Grid_categorical_property* prop = pset->add_categorical_property( property_names[k].toStdString(),cat_def->name() );

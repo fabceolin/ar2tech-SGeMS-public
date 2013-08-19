@@ -220,9 +220,9 @@ New_cartesian_grid_action::init( std::string& parameters, GsTL_project* proj,
   }
 
   if( params.size() >= 10 ) {
-    Ox_ = String_Op::to_number<float>( params[7] );
-    Oy_ = String_Op::to_number<float>( params[8] );
-    Oz_ = String_Op::to_number<float>( params[9] );
+    Ox_ = String_Op::to_number<double>( params[7] );
+    Oy_ = String_Op::to_number<double>( params[8] );
+    Oz_ = String_Op::to_number<double>( params[9] );
   }
 
    if( params.size() == 11 ) {

@@ -84,6 +84,8 @@
 #include <geostat/clustering_from_centroids.h>
 #include <geostat/kriging_cross_validation.h>
 #include <geostat/cokriging_cross_validation.h>
+#include <geostat/inverse_distance_estimator.h>
+#include <geostat/nearest_neighbor_estimator.h>
 
 int library_geostat_init::references_ = 0;
  
@@ -179,6 +181,8 @@ bool library_geostat_init::bind_geostat_factories( Manager* dir ) {
   ok = dir->factory( Cokriging().name(), Cokriging::create_new_interface );
   ok = dir->factory( Kriging_x_validation().name(), Kriging_x_validation::create_new_interface );
   ok = dir->factory( Cokriging_x_validation().name(), Cokriging_x_validation::create_new_interface );
+  ok = dir->factory( Inverse_distance_estimator().name(), Inverse_distance_estimator::create_new_interface );
+  ok = dir->factory( Nearest_neighbor_estimator().name(), Nearest_neighbor_estimator::create_new_interface );
 
   ok = dir->factory( Sisim().name(), Sisim::create_new_interface );
   ok = dir->factory( Cosgsim().name(), Cosgsim::create_new_interface );

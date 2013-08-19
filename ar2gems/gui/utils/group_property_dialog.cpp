@@ -313,8 +313,8 @@ Modify_group_property_dialog( GsTL_project* proj, QWidget* parent, const char* n
   
   QHBoxLayout* bottom_layout = new QHBoxLayout( this);
   bottom_layout->setSpacing(9);
-  QPushButton* close = new QPushButton( "Create and Close", this);
-  QPushButton* ok = new QPushButton( "Create", this);
+  QPushButton* close = new QPushButton( "Modify and Close", this);
+  QPushButton* ok = new QPushButton( "Modify", this);
   QPushButton* clear = new QPushButton( "Clear", this);
   QPushButton* cancel = new QPushButton( "Exit", this);
   bottom_layout->addStretch();
@@ -470,8 +470,8 @@ Delete_group_property_dialog( GsTL_project* proj,QWidget* parent, const char* na
   
   QHBoxLayout* bottom_layout = new QHBoxLayout( this);
   bottom_layout->setSpacing(9);
-  QPushButton* close = new QPushButton( "Create and Close", this);
-  QPushButton* ok = new QPushButton( "Create", this);
+  QPushButton* close = new QPushButton( "Delete and Close", this);
+  QPushButton* ok = new QPushButton( "Delete", this);
   QPushButton* clear = new QPushButton( "Clear", this);
   QPushButton* cancel = new QPushButton( "Exit", this);
   bottom_layout->addStretch();
