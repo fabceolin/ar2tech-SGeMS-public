@@ -121,7 +121,7 @@ protected :
 
 
 
-class Colormap_continuous: public Colormap {
+class GUI_DECL Colormap_continuous: public Colormap {
 
 public:
 	static Named_interface* create_new_interface(std::string&);
@@ -175,7 +175,7 @@ protected :
 };
 
 
-class Colormap_categorical: public Colormap {
+class GUI_DECL Colormap_categorical: public Colormap {
 
 public:
 	static Named_interface* create_new_interface(std::string&);
