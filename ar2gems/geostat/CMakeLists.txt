@@ -37,7 +37,6 @@ add_library(ar2gems_geostat
   sgsim.cpp
   ImageProcess.cpp
   declus.cpp
-  hmatch.cpp
   clustering_from_centroids.cpp
   sisim.cpp
   PostKriging.cpp
@@ -45,22 +44,15 @@ add_library(ar2gems_geostat
   grid_variog_computer.cpp
 )
 
-
-if(NOT PYTHON_DEBUG_LIBRARIES)
-   # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES
+if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
+   # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES or 
+   # on windows to use the release python lin in windows
   set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
-endif(NOT PYTHON_DEBUG_LIBRARIES)
-
-#target_link_libraries(<python target>
-#  general ${PYTHON_LIBRARIES}
-#  optimized ${PYTHON_LIBRARIES}
-#  debug ${PYTHON_DEBUG_LIBRARIES}
-#  )
+endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
 target_link_libraries(ar2gems_geostat
   ${QT_LIBRARIES}
   ${VTK_LIBRARIES}
-  #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
   optimized ${PYTHON_LIBRARIES}
   debug ${PYTHON_DEBUG_LIBRARIES} 
   ar2gems_appli
