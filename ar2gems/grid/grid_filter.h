@@ -90,7 +90,7 @@ public:
 
   virtual Grid_filter* clone() const {
     Grid_filter_union* union_filter = new Grid_filter_union();
-    for( int i=0; filters_.size(); ++i  ) {
+    for( int i=0; i< filters_.size(); ++i  ) {
       union_filter->add_filter( this->filter(i)->clone() );
     }
     return union_filter;
@@ -144,7 +144,7 @@ public:
 
   virtual Grid_filter* clone() const {
     Grid_filter_intersection* intersection_filter = new Grid_filter_intersection();
-    for( int i=0; filters_.size(); ++i  ) {
+    for( int i=0; i< filters_.size(); ++i  ) {
       intersection_filter->add_filter( this->filter(i)->clone() );
     }
     return intersection_filter;
