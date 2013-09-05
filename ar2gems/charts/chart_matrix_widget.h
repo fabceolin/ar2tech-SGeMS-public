@@ -62,7 +62,7 @@ public:
 
     void set_controler(Chart_display_control* controler);
 
-    void save_figure();
+    
     void save_figure(QString& filename,QSize plot_size = QSize() );
 
 public slots :
@@ -96,6 +96,8 @@ public slots :
   void set_y_label_font_size(int size);
   void set_legend_font_size(int size);
   void set_title_font_size(int size);
+
+  void save_figure();
 
 
 protected:

@@ -29,7 +29,9 @@
 
 #include <charts/common.h>
 #include <QWidget>
+#include <QGroupBox>
 #include <charts/ui_chart_display_control.h>
+
 
 class CHARTS_DECL Chart_display_control : public QWidget
 {
@@ -43,6 +45,10 @@ public:
 
     bool is_x_axis_log_scale();
     bool is_y_axis_log_scale();
+
+    QGroupBox* get_label_box() {return ui.labelbox;}
+    QGroupBox* get_xbox() {return ui.xbox;}
+    QGroupBox* get_ybox() {return ui.ybox;}
 
     QString get_title() const { return this->ui.title_label_edit->text(); }
 

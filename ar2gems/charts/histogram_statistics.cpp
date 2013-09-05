@@ -273,6 +273,22 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
 
 }
 
+
+Continuous_statistics* build_histogram_table( int number_bins, vtkFloatArray* data, float min, float max ){
+
+  int n = data->GetNumberOfTuples();
+  std::vector< std::pair<float, float> > data_weights;
+  data_weights.reserve(n);
+
+  double weight = 1.0/n;
+  for(int i=0; i< n; ++i) {
+    data_weights.push_back(  std::make_pair( data->GetValue(i),weight ) );
+  }
+
+  return build_histogram_table(number_bins, data_weights, data->GetName(), data->GetName() , min,max);
+
+}
+
 Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::pair<float, float> >& data_weights, std::string prop_name, std::string grid_name, float histo_min, float histo_max ){
 
 
@@ -437,3 +453,5 @@ Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::
 
   return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
 }
+
+
