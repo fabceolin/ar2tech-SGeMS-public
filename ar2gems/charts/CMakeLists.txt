@@ -72,6 +72,13 @@ target_link_libraries(ar2gems_charts
   ar2gems_appli
   ar2gems_grid
   ar2gems_math
-  ar2gems_qtplugins
+  ar2gems_widgets
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DCHARTS_EXPORT)
+endif()
+
+INSTALL(TARGETS ar2gems_charts DESTINATION "${INSTALL_DIR_LIB}")
+

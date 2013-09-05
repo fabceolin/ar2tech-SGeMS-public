@@ -95,3 +95,10 @@ add_library(ar2gems_qwt
 target_link_libraries(ar2gems_qwt
   ${QT_LIBRARIES}
 )
+
+
+if (WIN32)
+  add_definitions(-DQWT_DLL -DQWT_MAKEDLL)
+endif()
+
+INSTALL(TARGETS ar2gems_qwt DESTINATION "${INSTALL_DIR_LIB}")

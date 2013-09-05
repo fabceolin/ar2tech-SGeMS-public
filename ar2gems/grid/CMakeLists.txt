@@ -35,8 +35,16 @@ add_library(ar2gems_grid
 )
 
 target_link_libraries(ar2gems_grid
+  ${VTK_LIBRARIES}
   ${QT_LIBRARIES}
   ar2gems_appli
   ar2gems_math
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DGRID_EXPORTS)
+endif()
+
+INSTALL(TARGETS ar2gems_grid DESTINATION "${INSTALL_DIR_LIB}")
+

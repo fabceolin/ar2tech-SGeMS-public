@@ -15,3 +15,9 @@ add_library(ar2gems_appli
 target_link_libraries(ar2gems_appli
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DAPPLI_EXPORTS)
+endif()
+
+INSTALL(TARGETS ar2gems_appli DESTINATION "${INSTALL_DIR_LIB}")

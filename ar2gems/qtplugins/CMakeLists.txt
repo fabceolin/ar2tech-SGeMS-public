@@ -1,5 +1,5 @@
 # Process all headers with Q_OBJECT
-QT4_WRAP_CPP(qtplugins_MOC
+QT4_WRAP_CPP(ar2gems_widgets_MOC
   categorical_definition_proxy_model.h
   categorical_selectors.h
   color_delegate.h
@@ -30,13 +30,15 @@ QT4_WRAP_CPP(qtplugins_MOC
   weight_property_selector.h
 )
 
-QT4_WRAP_UI(qtplugins_FORMS
+QT4_WRAP_UI(ar2gems_widgets_FORMS
   order_properties_dialog.ui
   variogram_structure_base.ui
   variogram_input_base.ui
 )
 
-add_library(ar2gems_qtplugins
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/plugins/designer)
+
+add_library(ar2gems_widgets
   categorical_definition_proxy_model.cpp
   categorical_selectors.cpp
   color_delegate.cpp
@@ -68,13 +70,24 @@ add_library(ar2gems_qtplugins
   variogram_input.cpp
   weight_property_proxy_model.cpp
   weight_property_selector.cpp
-  ${qtplugins_MOC}
-  ${qtplugins_FORMS}
+  ${ar2gems_widgets_MOC}
+  ${ar2gems_widgets_FORMS}
 )
 
-target_link_libraries(ar2gems_qtplugins
+target_link_libraries(ar2gems_widgets
+  ${QT_LIBRARIES}
   ar2gems_appli
   ar2gems_grid
   ar2gems_math
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DQTPLUGINS_EXPORTS)
+endif()
+
+INSTALL(TARGETS ar2gems_widgets DESTINATION "${INSTALL_DIR_LIB}")
+
+#COMMAND ${CMAKE_COMMAND} -E copy
+#${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ar2gems_qtplugins.dll
+#${CMAKE_SOURCE_DIR}/plugins/designer

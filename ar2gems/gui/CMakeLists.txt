@@ -191,7 +191,26 @@ add_library(ar2gems_gui
   ${gui_FORMS}
 )
 
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
+#SOURCE_GROUP("Forms" REGULAR_EXPRESSION .*\.ui)
+#SOURCE_GROUP("Ui Files" REGULAR_EXPRESSION .*/.(ui))
+
+
+if(NOT PYTHON_DEBUG_LIBRARIES)
+   # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES
+  set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
+endif(NOT PYTHON_DEBUG_LIBRARIES)
+
+
+
 target_link_libraries(ar2gems_gui
+  ${QT_LIBRARIES}
+  ${VTK_LIBRARIES}
+#  ${PYTHON_LIBRARIES}
+  #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
+  optimized ${PYTHON_LIBRARIES}
+  debug ${PYTHON_DEBUG_LIBRARIES}   
   ar2gems_actions
   ar2gems_appli
   ar2gems_charts
@@ -199,7 +218,13 @@ target_link_libraries(ar2gems_gui
   ar2gems_geostat
   ar2gems_grid
   ar2gems_math
-  ar2gems_qtplugins
+  ar2gems_widgets
   ar2gems_qwt
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DGUI_EXPORTS -DQWT_DLL)
+endif()  
+      
+INSTALL(TARGETS ar2gems_gui DESTINATION "${INSTALL_DIR_LIB}")

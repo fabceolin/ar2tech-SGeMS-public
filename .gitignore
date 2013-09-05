@@ -26,29 +26,33 @@ Makefile
 *-build-*
 
 # visual studio
-*.tlog
-*.log
-*.user
-*.pdb
+#*.tlog
+#*.log
+#*.user
+#*.pdb
 *.suo
-*.*sdf
-*.ipch
-*.dll.manifest
-*.manifest
-Debug/
-debug/
-Release/
-* - Copy.h
-* - Copy.cpp
-*.manifest.res
-*.idb
-*.lastbuildstate
-*.unsuccessfulbuild
-*.rc
-*.exe
+#*.*sdf
+#*.ipch
+#*.dll.manifest
+#*.manifest
+#Debug/
+#debug/
+#Release/
+#* - Copy.h
+#* - Copy.cpp
+#*.manifest.res
+#*.idb
+#*.lastbuildstate
+#*.unsuccessfulbuild
+#*.rc
+#.exe
+
 
 #doxygen
 html/
+
+#just for the transition to cmake
+unit_test/
 
 # We'll be doing CMake out-of-source builds
 CMakeFiles/

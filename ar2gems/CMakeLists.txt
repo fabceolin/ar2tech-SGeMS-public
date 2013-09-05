@@ -10,7 +10,7 @@ elseif(MSVC)
 endif()
 
 set(BUILD_SHARED_LIBS TRUE)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 ### Enabling Boost ###################################################
@@ -29,7 +29,23 @@ if(QT4_FOUND)
 endif()
 
 ### Enabling VTK #####################################################
-find_package(VTK REQUIRED)
+#find_package(VTK REQUIRED)
+find_package(VTK COMPONENTS
+  vtkCommonCore
+  vtkFiltersSources
+  vtkRenderingCore
+  vtkRenderingOpenGL
+  vtkInteractionStyle
+  vtkChartsCore
+  vtkRenderingFreeTypeOpenGL
+  vtkIOXML  
+  vtkRenderingQt
+  vtkGUISupportQt
+  vtkViewsQt
+  vtkViewsContext2D
+  vtkInteractionWidgets
+)
+  
 if(VTK_FOUND)
   message(STATUS "VTK found in ${VTK_DIR}")
   include(${VTK_USE_FILE})

@@ -38,3 +38,10 @@ target_link_libraries(ar2gems_filters
   ar2gems_math
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DFILTERS_EXPORTS)
+endif()
+
+INSTALL(TARGETS ar2gems_filters DESTINATION "${INSTALL_DIR_LIB}")
+

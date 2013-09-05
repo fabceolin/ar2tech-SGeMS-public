@@ -19,3 +19,9 @@ add_library(ar2gems_math
 target_link_libraries(ar2gems_math
   ar2gems_utils
 )
+
+if (WIN32)
+  add_definitions(-DMATH_EXPORTS)
+endif()
+
+INSTALL(TARGETS ar2gems_math DESTINATION "${INSTALL_DIR_LIB}")

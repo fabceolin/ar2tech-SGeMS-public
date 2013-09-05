@@ -3,6 +3,8 @@ QT4_WRAP_CPP(utils_MOC
   gstl_item_model.h
 )
 
+
+
 add_library(ar2gems_utils
   error_messages_handler.cpp
   gstl_messages_private.cpp
@@ -12,9 +14,23 @@ add_library(ar2gems_utils
   simpleps.cpp
   string_manipulation.cpp
   ${utils_MOC}
+  gstl_item_model.h
+  error_messages_handler.h
+  gstl_messages_private.h
+  manager.h
+  manager_repository.h
+  progress_notifier.h
+  simpleps.h
+  string_manipulation.h  
 )
 
 target_link_libraries(ar2gems_utils
   ${QT_LIBRARIES}
   ar2gems_qwt
 )
+
+if (WIN32)
+ add_definitions(-DUTILS_EXPORTS)
+endif()
+
+INSTALL(TARGETS ar2gems_utils DESTINATION "${INSTALL_DIR_LIB}")
