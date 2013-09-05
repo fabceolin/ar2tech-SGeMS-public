@@ -51,16 +51,7 @@
 ** if any conditions of this licensing are not clear to you.
 **
 **********************************************************************/
-/*
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
-#else
-#include <Python.h>
-#endif
-*/
-#include <Python.h>
+
 #include <gui/utils/script_editor.h>
 #include <gui/utils/script_syntax_highlighter.h>
 #include <actions/python_wrapper.h>
@@ -73,6 +64,14 @@
 #include <grid/geostat_grid.h>
 #include <grid/grid_property.h>
 #include <utils/manager_repository.h>
+
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
+#else
+  #include <Python.h>
+#endif
 
 #include <qtextedit.h>
 #include <qsplitter.h>

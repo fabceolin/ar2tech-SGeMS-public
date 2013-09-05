@@ -55,17 +55,7 @@
 #ifndef __GSTLAPPLI_ACTIONS_PYTHON_COMMANDS_H__ 
 #define __GSTLAPPLI_ACTIONS_PYTHON_COMMANDS_H__ 
  
-/*
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
-#else
 
-#include <Python.h>
-#endif
-*/
-#include <Python.h>
 #include <actions/common.h>
 #include <actions/python_wrapper.h>
 #include <appli/action.h>
@@ -81,6 +71,13 @@
 #include <grid/grid_property.h>
 #include <grid/grid_categorical_property.h>
 
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
+#else
+  #include <Python.h>
+#endif
 
 #include <string> 
 #include <algorithm>

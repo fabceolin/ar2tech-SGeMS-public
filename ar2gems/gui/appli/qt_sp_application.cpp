@@ -51,16 +51,7 @@
 ** if any conditions of this licensing are not clear to you.
 **
 **********************************************************************/
-/*
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
-#else
-#include <Python.h>
-#endif
-*/
-#include <Python.h>
+
 
 #include <sgems_version.h>
 #include <gui/utils/qtprogress_notifier.h>
@@ -108,6 +99,14 @@
 #include <gui/utils/set_not_informed_dialog.h>
 
 #include <gui/appli/about_sgems.h>
+
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
+#else
+  #include <Python.h>
+#endif
 
 #include <QKeySequence>
 #include <qmenubar.h>

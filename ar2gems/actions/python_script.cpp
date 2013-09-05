@@ -28,12 +28,12 @@
 #include <stdio.h>
 #include <utils/gstl_messages.h>
 
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
 #else
-#include <Python.h>
+  #include <Python.h>
 #endif
 
 Named_interface* Python_script::create_new_interface(std::string& _filename)

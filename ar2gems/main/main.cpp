@@ -51,17 +51,7 @@
  ** if any conditions of this licensing are not clear to you.
  **
  **********************************************************************/
-/*
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
-#else
-#include <Python.h>
-#endif
-*/
 
-#include <Python.h>
 
 #include <main/lib_initializer.h>
 
@@ -76,6 +66,14 @@
 
 #include <gui/appli/qt_sp_application.h>
 #include <gui/viewer/qvtkGsTLViewer.h>
+
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
+#else
+  #include <Python.h>
+#endif
 
 #include <QSplashScreen>
 #include <qapplication.h>

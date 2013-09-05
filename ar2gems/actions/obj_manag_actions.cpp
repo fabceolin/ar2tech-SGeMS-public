@@ -52,17 +52,7 @@
 **
 **********************************************************************/
 
-/*
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
-#else
 
-#include <Python.h>
-#endif
-*/
-#include <Python.h>
 
 #include <actions/obj_manag_actions.h>
 #include <appli/action.h>
@@ -79,8 +69,16 @@
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_downscaler.h>
 
-
 #include <geostat/utilities.h>
+
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
+#else
+  #include <Python.h>
+#endif
+
 
 #include <GsTL/math/math_functions.h>
 
