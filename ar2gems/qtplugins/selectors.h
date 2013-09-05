@@ -180,6 +180,8 @@ class QTPLUGINS_DECL  MultiPropertySelector : public QListWidget {
  public:
   MultiPropertySelector( QWidget* parent = 0, const char* name = 0 );
   virtual ~MultiPropertySelector() {}
+
+  QStringList selected_properties() const;
   
   public slots:
     virtual void show_properties( const QString& grid_name );

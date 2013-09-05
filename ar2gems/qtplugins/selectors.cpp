@@ -301,6 +301,16 @@ void MultiPropertySelector::selection_size() {
   emit( selected_count(size) );
 }
 
+QStringList MultiPropertySelector::selected_properties() const {
+
+  QStringList properties;
+  QList<QListWidgetItem*> weights_items = this->selectedItems();
+  for( int i=0; i< weights_items.size(); ++i ) {
+    properties <<weights_items.at(i)->text();
+  }
+  return properties;
+}
+
 
 //===============================================
 
