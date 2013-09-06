@@ -187,28 +187,128 @@ add_library(ar2gems_gui
   vtk_prop/vtk_prop_mgrid.cpp
   vtk_prop/vtk_prop_pointset.cpp
   vtk_prop/vtk_prop_structured_grid.cpp
+  QWidget_value_accessors/default_accessor.h
+  QWidget_value_accessors/qbuttongroup_accessor.h
+  QWidget_value_accessors/qcheckbox_accessor.h
+  QWidget_value_accessors/qcombobox_accessor.h
+  QWidget_value_accessors/qlineedit_accessor.h
+  QWidget_value_accessors/qradiobutton_accessor.h
+  QWidget_value_accessors/qspin_box_accessor.h
+  QWidget_value_accessors/qtable_accessor.h
+  appli/about_sgems.h
+  appli/cli_commands_panel.h
+  appli/data_analysis_gui.h
+  appli/histogram_control_panel.h
+  appli/histogram_gui.h
+  appli/new_cartesian_grid_dialog.h
+  appli/qpplot_control_panel.h
+  appli/qpplot_gui.h
+  appli/qt_algo_control_panel.h
+  appli/qt_grid_summary.h
+  appli/qt_sp_application.h
+  appli/scatterplot_control_panel.h
+  appli/scatterplot_gui.h
+  appli/snapshot_dialog.h
+  appli/splash_screen.h
+  appli/visu_actions.h
+  library_gui_init.h
+  models/categorical_table_model.h
+  models/context_menu_interface.h
+  models/gstl_item.h
+  models/gstl_item_action.h
+  models/gstl_item_selection_model.h
+  models/project_ItemModel.h
+  models/project_selection_model.h
+  models/visualization_tree_view.h
+  utils/categorical_definition_dialog.h
+  utils/categorical_property_dialog.h
+  utils/colormap.h
+  utils/colors.h
+  utils/colorscale.h
+  utils/copy_property_dialog.h
+  utils/data_analysis_save_dialog.h
+  utils/delete_properties_dialog.h
+  utils/delete_regions_dialog.h
+  utils/downscale_grid_dialog.h
+  utils/group_property_dialog.h
+  utils/gstl_slider.h
+  utils/gstl_widget_factory.h
+  utils/indicator_property_dialog.h
+  utils/manager_dialog.h
+  utils/merge_regions_dialog.h
+  utils/multichoice_dialog.h
+  utils/new_distribution_dialog.h
+  utils/new_mgrid_from_cgrid_dialog.h
+  utils/new_region_from_grid_filter_dialog.h
+  utils/new_region_from_property_dialog.h
+  utils/qdirdialog.h
+  utils/qtbased_scribes.h
+  utils/qtprogress_notifier.h
+  utils/qwidget_value_accessor.h
+  utils/qwidget_value_collector.h
+  utils/save_grid_dialog.h
+  utils/script_editor.h
+  utils/script_syntax_highlighter.h
+  utils/set_not_informed_dialog.h
+  utils/std_output_redirect.h
+  utils/upscale_property_dialog.h
+  utils/visualization_profile.h
+  variogram2/first_scr.h
+  variogram2/plot_settings_dialog.h
+  variogram2/print_plots_dialog.h
+  variogram2/pset_params.h
+  variogram2/rgrid_params.h
+  variogram2/variog_multiplot.h
+  variogram2/variog_plot.h
+  variogram2/variogram_controls.h
+  variogram2/variogram_controls_base.h
+  variogram2/variogram_modeler_gui.h
+  variogram2/variogram_modeling_screen.h
+  viewer/colorbar_controller.h
+  viewer/colormap_controller.h
+  viewer/colormap_widget.h
+  viewer/grid_param_viewer.h
+  viewer/grid_section_view.h
+  viewer/group_param_viewer.h
+  viewer/object_property_viewer.h
+  viewer/property_filter_view.h
+  viewer/property_param_viewer.h
+  viewer/property_stats_view.h
+  viewer/qvtkGsTLViewer.h
+  viewer/region_param_viewer.h
+  viewer/visualization_parameters.h
+  viewer/vtk_project_view_gui.h
+  viewer/vtk_prop_map.h
+  vtk_prop/colormap_actor.h
+  vtk_prop/vtk_common.h
+  vtk_prop/vtk_prop_cgrid.h
+  vtk_prop/vtk_prop_strati_grid.h
+  vtk_prop/vtk_prop_gstl.h
+  vtk_prop/vtk_prop_log.h
+  vtk_prop/vtk_prop_mgrid.h
+  vtk_prop/vtk_prop_pointset.h
+  vtk_prop/vtk_prop_structured_grid.h
   ${gui_MOC}
   ${gui_FORMS}
 )
 
-SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx)
-SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
+#SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx)
+#SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 #SOURCE_GROUP("Forms" REGULAR_EXPRESSION .*\.ui)
 #SOURCE_GROUP("Ui Files" REGULAR_EXPRESSION .*/.(ui))
 
 
-if(NOT PYTHON_DEBUG_LIBRARIES)
-   # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES
+if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
+   # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES or 
+   # on windows to use the release python lin in windows
   set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
-endif(NOT PYTHON_DEBUG_LIBRARIES)
+endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
 
 
 target_link_libraries(ar2gems_gui
   ${QT_LIBRARIES}
   ${VTK_LIBRARIES}
-#  ${PYTHON_LIBRARIES}
-  #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
   optimized ${PYTHON_LIBRARIES}
   debug ${PYTHON_DEBUG_LIBRARIES}   
   ar2gems_actions

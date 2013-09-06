@@ -58,7 +58,6 @@
 #include <vtkLegendScaleActor.h>
 #include <vtkCellPicker.h>
 #include <vtkDistanceWidget.h>
-#include <vtkCompassWidget.h>
 #include <vtkCellCentersPointPlacer.h>
 
 class GUI_DECL QvtkGsTLViewer : public QVTKWidget {

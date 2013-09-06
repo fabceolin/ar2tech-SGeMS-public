@@ -51,16 +51,7 @@
  ** if any conditions of this licensing are not clear to you.
  **
  **********************************************************************/
-/*
-#ifdef _DEBUG
-#undef _DEBUG
-#include <Python.h>
-#define _DEBUG
-#else
-#include <Python.h>
-#endif
-*/
-#include <Python.h>
+
 #include <actions/library_actions_init.h>
 #include <actions/python_commands.h>
 #include <utils/manager_repository.h>
@@ -77,6 +68,14 @@
 #include <actions/property_group_actions.h>
 #include <actions/distribution_action.h>
 #include <actions/property_transformer_actions.h>
+
+#if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
+  #undef _DEBUG
+  #include <Python.h>
+  #define _DEBUG
+#else
+  #include <Python.h>
+#endif
 
 void init_python_interpreter();
 

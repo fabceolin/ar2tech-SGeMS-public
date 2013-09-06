@@ -24,29 +24,32 @@ ui_*
 ui_*.h
 Makefile
 *-build-*
+*.qrc.depends
 
 # visual studio
-#*.tlog
-#*.log
-#*.user
-#*.pdb
+*.tlog
+*.log
+*.user
+*.pdb
 *.suo
-#*.*sdf
-#*.ipch
-#*.dll.manifest
-#*.manifest
-#Debug/
-#debug/
-#Release/
-#* - Copy.h
-#* - Copy.cpp
-#*.manifest.res
-#*.idb
-#*.lastbuildstate
-#*.unsuccessfulbuild
-#*.rc
-#.exe
-
+*.*sdf
+*.ipch
+*.dll.manifest
+*.manifest
+Debug/
+debug/
+Release/
+* - Copy.h
+* - Copy.cpp
+*.manifest.res
+*.idb
+*.lastbuildstate
+*.unsuccessfulbuild
+*.rc
+*.exe
+*.vcproj*
+*.vcxproj*
+*.sln
 
 #doxygen
 html/
@@ -56,4 +59,5 @@ unit_test/
 
 # We'll be doing CMake out-of-source builds
 CMakeFiles/
+CMakeCache.txt
 *.cmake

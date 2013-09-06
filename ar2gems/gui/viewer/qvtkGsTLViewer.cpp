@@ -67,7 +67,6 @@
 #include <vtkDistanceRepresentation.h>
 #include <vtkDistanceRepresentation2D.h>
 #include <vtkCamera.h>
-#include <vtkGeoCamera.h>
 #include <vtkRendererCollection.h>
 #include <vtkEventQtSlotConnect.h>
 #include <vtkPointHandleRepresentation3D.h>

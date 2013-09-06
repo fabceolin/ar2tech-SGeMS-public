@@ -10,9 +10,11 @@ QT4_WRAP_CPP(charts_MOC
   chart_dialog.h
   chart_display_control.h
   chart_distribution.h
+  chart_matrix_widget.h
   chart_mdi_area.h
   chart_option_controls.h
   chart_scatter_plot.h
+  chart_widget.h
   continuous_histogram_creator.h
   histogram_chart_model.h
   histogram_item_tree_view.h
@@ -42,9 +44,11 @@ add_library(ar2gems_charts
   chart_dialog.cpp
   chart_display_control.cpp
   chart_distribution.cpp
+  chart_matrix_widget.cpp
   chart_mdi_area.cpp
   chart_option_controls.cpp
   chart_scatter_plot.cpp
+  chart_widget.cpp
   continuous_histogram_creator.cpp
   histogram_chart_model.cpp
   histogram_item_tree_view.cpp
@@ -62,6 +66,38 @@ add_library(ar2gems_charts
   scatter_plot_model_item.cpp
   scatter_plot_point_style_delegate.cpp
   scatter_plot_proxy_model.cpp
+  categorical_histogram_creator.h
+  categorical_histogram_model_item.h
+  categorical_histogram_proxy_model.h
+  chart_base.h
+  chart_base_display_controls.h
+  chart_categorical_histogram.h
+  chart_continuous_histogram.h
+  chart_dialog.h
+  chart_display_control.h
+  chart_distribution.h
+  chart_matrix_widget.h
+  chart_mdi_area.h
+  chart_option_controls.h
+  chart_scatter_plot.h
+  chart_widget.h
+  continuous_histogram_creator.h
+  histogram_chart_model.h
+  histogram_item_tree_view.h
+  histogram_model_item.h
+  histogram_proxy_model.h
+  histogram_statistics.h
+  histogram_style_delegate.h
+  library_charts_init.h
+  log_data_chart.h
+  log_data_chart_creator.h
+  multiple_charts_viewport.h
+  region_weight_delegate.h
+  scatter_plot_creator.h
+  scatter_plot_item_tree_view.h
+  scatter_plot_model_item.h
+  scatter_plot_point_style_delegate.h
+  scatter_plot_proxy_model.h
   ${charts_MOC}
   ${charts_FORMS}
 )
