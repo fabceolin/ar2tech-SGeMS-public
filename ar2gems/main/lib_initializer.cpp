@@ -80,7 +80,7 @@ void Lib_initializer::init()
 
 	// Initialize the root plugin path for the managers
 	std::string path;
-	char* env = getenv("GSTLAPPLIHOME");
+	char* env = getenv("AR2GEMS_PLUGINS_DIR");
 	if (env)
 	{
 		path = std::string(env) + "/plugins/";
@@ -89,7 +89,7 @@ void Lib_initializer::init()
 		QDir current_dir;
 		bool exists = current_dir.cd("plugins");
 		if (!exists)
-			GsTLcerr << "No plugin directory could be found.\n" << "Set environment variable GSTLAPPLIHOME to where SGeMS" << " was installed" << gstlIO::end;
+			GsTLcerr << "No plugin directory could be found.\n" << "Set environment variable AR2GEMS_PLUGINS_DIR to where SGeMS" << " was installed" << gstlIO::end;
 		else
 		{
 			QByteArray tmp = current_dir.absolutePath().toLatin1();
@@ -117,7 +117,7 @@ void Lib_initializer::minimal_init()
 {
 	// Initialize the root plugin path for the managers
 	std::string path;
-	char* env = getenv("GSTLAPPLIHOME");
+	char* env = getenv("AR2GEMS_PLUGINS_DIR");
 	if (env)
 	{
 		path = std::string(env) + "/plugins/";
@@ -126,7 +126,7 @@ void Lib_initializer::minimal_init()
 		QDir current_dir;
 		bool exists = current_dir.cd("plugins");
 		if (!exists)
-			GsTLcerr << "No plugin directory could be found.\n" << "Set environment variable GSTLAPPLIHOME to where SGeMS" << " was installed" << gstlIO::end;
+			GsTLcerr << "No plugin directory could be found.\n" << "Set environment variable AR2GEMS_PLUGINS_DIR to where SGeMS" << " was installed" << gstlIO::end;
 		else
 		{
 			QByteArray tmp = current_dir.absolutePath().toLatin1();
@@ -187,7 +187,7 @@ void Lib_initializer::load_geostat_algos()
 
 	if (list.empty())
 	{
-		GsTLlog << "No geostatistics plugin could be found.\n" << "Check that environment variable GSTLAPPLIHOME is set to " << "where SGeMS was installed\n"
+		GsTLlog << "No geostatistics plugin could be found.\n" << "Check that environment variable AR2GEMS_PLUGINS_DIR is set to " << "where SGeMS was installed\n"
 				<< "or that directory plugins/Geostat actually contains plugins\n" << gstlIO::end;
 		return;
 	}
@@ -253,7 +253,7 @@ void Lib_initializer::load_colormaps()
 	const QFileInfoList list = dir.entryInfoList();
 	if (list.empty())
 	{
-		GsTLcerr << "No colormap could be found.\n" << "Check that environment variable GSTLAPPLIHOME is set to " << "where SGeMS was installed\n"
+		GsTLcerr << "No colormap could be found.\n" << "Check that environment variable AR2GEMS_PLUGINS_DIR is set to " << "where SGeMS was installed\n"
 				<< "or that directory plugins/colormaps contains colormap " << "definitions \n" << gstlIO::end;
 		return;
 	}
@@ -290,7 +290,7 @@ void Lib_initializer::load_categorical_definition()
 	const QFileInfoList list = dir.entryInfoList();
 	if (list.empty())
 	{
-		GsTLcerr << "No categorical definition could be found.\n" << "Check that environment variable GSTLAPPLIHOME is set to "
+		GsTLcerr << "No categorical definition could be found.\n" << "Check that environment variable AR2GEMS_PLUGINS_DIR is set to "
 				<< "where SGeMS was installed\n" << "or that directory plugins/catdefiniton contains categorical definition " << "definitions \n"
 				<< gstlIO::end;
 		return;
@@ -396,7 +396,7 @@ void Lib_initializer::load_action_plugins()
 
 	if (list.empty())
 	{
-		//		GsTLlog << "No action plugin could be found.\n" << "Check that environment variable GSTLAPPLIHOME is set to " << "where SGeMS was installed\n"
+		//		GsTLlog << "No action plugin could be found.\n" << "Check that environment variable AR2GEMS_PLUGINS_DIR is set to " << "where SGeMS was installed\n"
 		//				<< "or that directory plugins/actions actually contains plugins\n" << gstlIO::end;
 		return;
 	}
@@ -463,7 +463,7 @@ void Lib_initializer::load_python_scripts()
 
 	if (list.empty())
 	{
-		//		GsTLcerr << "No python scripts could be found.\n" << "Check that environment variable GSTLAPPLIHOME is set to " << "where SGeMS was installed\n"
+		//		GsTLcerr << "No python scripts could be found.\n" << "Check that environment variable AR2GEMS_PLUGINS_DIR is set to " << "where SGeMS was installed\n"
 		//				<< "or that directory plugins/ " + mng->plugin_path() + " contains python script files \n" << gstlIO::end;
 		return;
 	}
@@ -501,7 +501,7 @@ void Lib_initializer::load_python_group_scripts()
 
 	if (list.empty())
 	{
-		//		GsTLcerr << "No python scripts could be found.\n" << "Check that environment variable GSTLAPPLIHOME is set to " << "where SGeMS was installed\n"
+		//		GsTLcerr << "No python scripts could be found.\n" << "Check that environment variable AR2GEMS_PLUGINS_DIR is set to " << "where SGeMS was installed\n"
 		//				<< "or that directory plugins/ " + mng->plugin_path() + " contains python script files \n" << gstlIO::end;
 		return;
 	}

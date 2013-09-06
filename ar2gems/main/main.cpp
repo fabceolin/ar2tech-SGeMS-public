@@ -285,7 +285,7 @@ QString read_style_sheet() {
 	QFileInfo finfo;
 	QString qss_file("sgems.qss");
 
-	char* env = getenv("GSTLAPPLIHOME");
+	char* env = getenv("AR2GEMS_PLUGINS_DIR");
 	if (env) {
 		QString envpath(env);
 		QDir homedir(envpath);
@@ -309,7 +309,7 @@ QString read_style_sheet() {
 QString path_to_plugins() {
 	QDir pluginsdir; //points to current directory
 
-	char* env = getenv("GSTLAPPLIHOME");
+	char* env = getenv("AR2GEMS_PLUGINS_DIR");
 	if (env) {
 		QString envpath(env);
 		pluginsdir.setPath(envpath);

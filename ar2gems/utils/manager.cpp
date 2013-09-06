@@ -206,7 +206,7 @@ static Prefixed_name split_name(const std::string& name) {
 
 
 std::string Manager::init_plugin_path() { 
-  char* env = getenv("GSTLAPPLIHOME"); 
+  char* env = getenv("AR2GEMS_PLUGINS_DIR"); 
   if( env ) { 
     //std::string base_path( env ); 
     //return base_path + "/plugins/";
