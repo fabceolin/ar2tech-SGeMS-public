@@ -14,14 +14,23 @@ add_library(ar2gems_actions
   python_script.cpp
   python_wrapper.cpp
   unary_action.cpp
+  
+  algorithms_actions.h
+  categorical_definition_actions.h
+  categorical_property_actions.h
+  distribution_action.h
+  library_actions_init.h
+  maskedgrid_actions.h
+  misc_actions.h
+  obj_manag_actions.h
+  property_group_actions.h
+  property_transformer_actions.h
+  python_commands.h
+  python_group_script.h
+  python_script.h
+  python_wrapper.h
+  unary_action.h  
 )
-
-#if (WIN32)
-#	if(NOT PYTHON_DEBUG_LIBRARIES)
-#   	 #Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES
-#  		set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
-#	endif(NOT PYTHON_DEBUG_LIBRARIES)
-#endif (WIN32)
 
 if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
    # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES or 
@@ -44,6 +53,9 @@ target_link_libraries(ar2gems_actions
 
 if (WIN32)
   add_definitions(-DACTIONS_EXPORTS)
+  if(RELEASE_PYTHON_IN_DEBUG)
+    add_definitions(-DRELEASE_PYTHON_IN_DEBUG)
+  endif()
  endif()
 
 INSTALL(TARGETS ar2gems_actions DESTINATION "${INSTALL_DIR_LIB}")

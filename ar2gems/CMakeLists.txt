@@ -9,6 +9,11 @@ elseif(MSVC)
   # customize flags for Visual Studio
 endif()
 
+if(WIN32)
+  set(RELEASE_PYTHON_IN_DEBUG ON CACHE BOOL "Use the release library of python when building ar2gems in debug mode")
+  set(RELEASE_PYTHON_IN_DEBUG ON)
+endif()
+
 set(BUILD_SHARED_LIBS TRUE)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")

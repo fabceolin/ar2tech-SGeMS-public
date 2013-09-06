@@ -14,6 +14,21 @@ add_library(ar2gems_math
   qpplot.cpp
   random_numbers.cpp
   scatterplot.cpp
+  
+  Linear_interpolator_1d.h
+  box.h
+  categorical_distribution.h
+  continuous_distribution.h
+  correlation_measure.h
+  correlation_measure_computer.h
+  direction_3d.h
+  discrete_function.h
+  histogram.h
+  library_math_init.h
+  non_parametric_distribution.h
+  qpplot.h
+  random_numbers.h
+  scatterplot.h  
 )
 
 target_link_libraries(ar2gems_math

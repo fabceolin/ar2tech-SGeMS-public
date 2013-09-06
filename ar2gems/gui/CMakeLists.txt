@@ -292,8 +292,8 @@ add_library(ar2gems_gui
   ${gui_FORMS}
 )
 
-#SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx)
-#SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 #SOURCE_GROUP("Forms" REGULAR_EXPRESSION .*\.ui)
 #SOURCE_GROUP("Ui Files" REGULAR_EXPRESSION .*/.(ui))
 
@@ -325,6 +325,9 @@ target_link_libraries(ar2gems_gui
 
 if (WIN32)
   add_definitions(-DGUI_EXPORTS -DQWT_DLL)
+  if(RELEASE_PYTHON_IN_DEBUG)
+    add_definitions(-DRELEASE_PYTHON_IN_DEBUG)
+  endif()  
 endif()  
       
 INSTALL(TARGETS ar2gems_gui DESTINATION "${INSTALL_DIR_LIB}")

@@ -13,7 +13,7 @@ add_library(ar2gems_grid
   grid_property_manager.cpp
   grid_property_set.cpp
   grid_region_manager.cpp
-  grid_weigth_property.cpp
+  grid_weight_property.cpp
   gstl_kdtree2.cpp
   library_grid_init.cpp
   log_data_grid.cpp
@@ -32,6 +32,39 @@ add_library(ar2gems_grid
   structured_grid.cpp
   superblock.cpp
   utilities.cpp
+  
+  cartesian_grid.h
+  combined_neighborhood.h
+  coordinate_mapper.h
+  cross_variog_computer.h
+  distribution_utilities.h
+  geostat_grid.h
+  geovalue.h
+  grid_categorical_property.h
+  grid_downscaler.h
+  grid_filter.h
+  grid_property.h
+  grid_property_manager.h
+  grid_property_set.h
+  grid_region_manager.h
+  grid_weight_property.h
+  gstl_kdtree2.h
+  log_data_grid.h
+  mgrid_neighborhood.h
+  neighborhood.h
+  neighbors.h
+  point_set.h
+  point_set_neighborhood.h
+  property_copier.h
+  property_transformer.h
+  reduced_grid.h
+  rgrid.h
+  rgrid_geometry.h
+  rgrid_gval_accessor.h
+  rgrid_neighborhood.h
+  structured_grid.h
+  superblock.h
+  utilities.h  
 )
 
 target_link_libraries(ar2gems_grid

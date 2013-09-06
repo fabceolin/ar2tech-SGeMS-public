@@ -3,16 +3,26 @@ QT4_ADD_RESOURCES(main_RESOURCES
   ../qtplugins/resources.qrc
 )
 
-add_executable(ar2gems
-  lib_initializer.cpp
-  main.cpp
-  ${main_RESOURCES}
-)
+IF(WIN32) # Check if we are on Windows
+  if(MSVC) # Check if we are using the Visual Studio compiler
+    add_executable(ar2gems WIN32
+      lib_initializer.cpp
+      main.cpp
+      lib_initializer.h
+      ${main_RESOURCES}
+    )
+  endif()
+  else()
+    add_executable(ar2gems
+      lib_initializer.cpp
+      main.cpp
+      lib_initializer.h
+      ${main_RESOURCES}
+    )  
+endif()
 
-#if(NOT PYTHON_DEBUG_LIBRARIES)
-#   # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES
-#  set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
-#endif(NOT PYTHON_DEBUG_LIBRARIES)
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
    # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES or 
@@ -21,12 +31,11 @@ if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
 target_link_libraries(ar2gems
-  #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
   optimized ${PYTHON_LIBRARIES}
   debug ${PYTHON_DEBUG_LIBRARIES}  
   ${QT_LIBRARIES}
+  ${QT_QTMAIN_LIBRARY}  # to avoid the console windows
   ${VTK_LIBRARIES}
-#  ${PYTHON_LIBRARIES}
   ar2gems_actions
   ar2gems_appli
   ar2gems_charts
@@ -39,5 +48,11 @@ target_link_libraries(ar2gems
   ar2gems_widgets
   ar2gems_utils
 )
+
+if (WIN32)
+  if(RELEASE_PYTHON_IN_DEBUG)
+    add_definitions(-DRELEASE_PYTHON_IN_DEBUG)
+  endif()  
+endif()
 
 INSTALL(TARGETS ar2gems DESTINATION "${INSTALL_DIR_BIN}")

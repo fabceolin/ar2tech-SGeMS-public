@@ -24,6 +24,9 @@ add_library(ar2gems_utils
   string_manipulation.h  
 )
 
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
+
 target_link_libraries(ar2gems_utils
   ${QT_LIBRARIES}
   ar2gems_qwt

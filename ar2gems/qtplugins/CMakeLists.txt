@@ -70,9 +70,43 @@ add_library(ar2gems_widgets
   variogram_input.cpp
   weight_property_proxy_model.cpp
   weight_property_selector.cpp
+  
+  categorical_definition_proxy_model.h
+  categorical_selectors.h
+  color_delegate.h
+  distribution_parameter_widget.h
+  distribution_proxy_model.h
+  distribution_selectors.h
+  ellipsoid_input.h
+  filechooser.h
+  grid_filter_delegate.h
+  grid_filter_model.h
+  grid_filter_model_item.h
+  grid_filter_named_interface.h
+  grid_filter_widgets.h
+  grid_proxy_model.h
+  group_selectors.h
+  gstl_table.h
+  gstl_widgets_plugin.h
+  kriging_type_selector.h
+  kriging_type_selector_base.h
+  neighborhood_filter_input.h
+  non_param_cdf_input.h
+  project_proxy_model.h
+  property_proxy_model.h
+  region_proxy_model.h
+  region_weight_proxy_model.h
+  rename_dialog.h
+  selectors.h
+  variogram_input.h
+  weight_property_proxy_model.h
+  weight_property_selector.h  
   ${ar2gems_widgets_MOC}
   ${ar2gems_widgets_FORMS}
 )
+
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 target_link_libraries(ar2gems_widgets
   ${QT_LIBRARIES}

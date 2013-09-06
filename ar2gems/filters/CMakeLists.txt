@@ -27,9 +27,23 @@ add_library(ar2gems_filters
   sgems_folder_filter.cpp
   sgems_folder_grid_geometry.cpp
   simulacre_filter.cpp
+  csv_filter.h
+  csv_filter_qt_dialogs.h
+  distribution_filter.h
+  gslib/filter_qt_dialogs.h
+  gslib/gslib_filter.h
+  io_actions.h
+  library_filters_init.h
+  save_project_objects.h
+  sgems_folder_filter.h
+  sgems_folder_grid_geometry.h
+  simulacre_filter.h  
   ${filters_MOC}
   ${filters_FORMS}
 )
+
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 target_link_libraries(ar2gems_filters
   ${QT_LIBRARIES}

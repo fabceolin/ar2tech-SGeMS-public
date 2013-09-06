@@ -9,8 +9,14 @@ add_library(ar2gems_appli
   project.cpp
   root_model.cpp
   utilities.cpp
+  project.h
+  root_model.h
+  utilities.h  
   ${appli_MOC}
 )
+
+SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
+SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 target_link_libraries(ar2gems_appli
   ar2gems_utils
