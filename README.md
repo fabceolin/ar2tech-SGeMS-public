@@ -43,12 +43,13 @@ Dependencies
 Build instructions
 ------------------
 
-The build process is currently being ported to cmake.  The cmake version has only been tested on linux.
+SGeMS uses cmake (http://www.cmake.org/) for the build process.  
 
-Compiling SGeMS with Visual Studio 2010 on 64 bits (without cmake)
+
+Building the dependencies on Windows
 --------------------------------------------------
 
-Note that Visual Studio SP1 must be installed.
+Note that for Visual Studio 2010 (msvc10) Visual Studio SP1 must be installed.
 Required external libraries: Qt, VTK, Boost and Python.
 
 Compiling Qt 64 bits
@@ -64,14 +65,20 @@ Compiling Qt 64 bits
    ```
    configure -debug-and-release -no-webkit -platform win32-msvc2010 -no-script -no-scripttools -opensource
    ```
+   (The option -no-webkit is to skip that package since it often generates compiling errors on msvc)
 
 Compiling VTK
 -------------
 
 1. Download and install [CMake][3]
 2. Get the VTK 6.0 source code either from Git or from the [website](http://vtk.org/VTK/resources/software.html).
-   SGeMS is currently built using the master branch of the Github repository
-3. Build the project files with with cmake or cmake-gui.  Be sure to select the Qt options.
+   From git be sure to checkout the tag vtk6.0.0 
+3. Build the project files with with cmake or cmake-gui.  
+   * With cmake-gui: Check the box "Grouped" and "Advanced"
+   * Select the group: VTK_Group_Qt, VTK_Group_Rendering, VTK_Group_Views, VTK_Group_StandAlone
+   * CMake will generate an error if Qt-webkit has not been built in that case: 
+    - Unselect VTK_Group_Qt
+    - Go to Module and select all Qt related module except "Module_vtkGUISupportQtWebkit"
 4. Open the VTK project files into Visual Studio and build the release and debug version.
 
 Compiling Python 64 bits
@@ -79,29 +86,22 @@ Compiling Python 64 bits
 
 Installing Python 2.x from the installer only provide the release dll.  To get the
 debug version, download the source code, open the project and build the debug version.
-You can ignore all the errors.  Copy the debug .dll and .lib to the main Python
-directory along the release version.
+You can ignore all the errors.  Copy the debug .dll to the main Python
+directory and the .lib into the libs folder along with the release version.
 
 Building AR2GEMS
 ----------------
 
+The software is built with [CMake][3]:
+Open cmake-gui and set the proper path to Boost, VTK and Qt
+
+
 ### Windows
 
-1. Set the following environmental variables:
-   * QTDIR and QTDIRx64: path to Qt
-   * VTKDIR: path to VTK
-   * BOOSTDIR: path to Boost
-   * PYTHONDIRx64: path to Python (64 bits)
-   * AR2TECH\_SGEMS\_DIR: path to the source code
-   * AR2TECH\_GSTL\_DIR: the GsTL library is now included in the main source code repository (AR2TECH\_SGEMS\_DIR\\ar2GsTL)
-   * VTK\_AUTOLOAD\_PATH: path to VTK binaries (e.g. C:\\code\-dev\\VTK\\VTK\\bin\\Release)
+Open the the solution ar2gems.sln to build the program
 
-2. Open the visual studio solution and build the release and debug binaries
 
-Building AR2GEMS with CMAKE (tested on linux)
-----------------
-The software is built with [CMake][3]:
-
+### Linux (without cmake-gui)
    ```
    mkdir build
    cd build
@@ -109,11 +109,6 @@ The software is built with [CMake][3]:
    make -j 8
    ```
    
-   
-   [1]: http://sgems.sourceforge.net/
-[2]: http://en.wikipedia.org/wiki/BSD_licenses/
-[3]: http://www.cmake.org/
-
 Read CMakeLists.txt for more info.
 
 [1]: http://sgems.sourceforge.net/
