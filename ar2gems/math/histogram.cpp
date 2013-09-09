@@ -60,6 +60,7 @@
 #include <numeric>
 #include <iterator>
 #include <cmath>
+#include <functional>
 
 
 Histogram::Histogram() {
