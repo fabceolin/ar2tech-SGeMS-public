@@ -72,7 +72,7 @@ Compiling VTK
 
 1. Download and install [CMake][3]
 2. Get the VTK 6.0 source code either from Git or from the [website](http://vtk.org/VTK/resources/software.html).
-   From git be sure to checkout the tag vtk6.0.0 
+   From git be sure to checkout the tag v6.0.0 
 3. Build the project files with with cmake or cmake-gui.  
    * With cmake-gui: Check the box "Grouped" and "Advanced"
    * Select the group: VTK_Group_Qt, VTK_Group_Rendering, VTK_Group_Views, VTK_Group_StandAlone
