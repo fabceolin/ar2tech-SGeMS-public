@@ -38,7 +38,7 @@
 #include <charts/chart_widget.h>
 #include <charts/chart_display_control.h>
 
-#include <vtkMath.h>
+//#include <vtkMath.h>
 #include <vtkTable.h>
 #include <vtkStringArray.h>
 #include <vtkFloatArray.h>

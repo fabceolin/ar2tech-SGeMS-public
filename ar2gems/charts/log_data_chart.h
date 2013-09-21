@@ -35,7 +35,7 @@
 #include <grid/grid_filter.h>
 #include <grid/log_data_grid.h>
 
-#include <vtkMath.h>
+//#include <vtkMath.h>
 #include <vtkTable.h>
 #include <vtkStringArray.h>
 #include <vtkFloatArray.h>

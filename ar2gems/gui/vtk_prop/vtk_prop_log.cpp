@@ -46,7 +46,7 @@
 #include <vtkCellData.h>
 #include <vtkLine.h>
 
-#include <vtkMath.h>
+//#include <vtkMath.h>
 
 Named_interface* vtkProp_log::create_new_interface( std::string& ) {
   return new vtkProp_log;

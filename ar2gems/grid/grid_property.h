@@ -65,7 +65,7 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 
 #include <cmath>
-#include <math.h>
+//#include <math.h>
 #include <string> 
 #include <fstream> 
 #include <set>

@@ -45,7 +45,7 @@
 #include <vtkCellData.h>
 #include <vtkLookupTableWithEnabling.h>
 #include <vtkGeometryFilter.h>
-#include <vtkMath.h>
+//#include <vtkMath.h>
 
 Named_interface* vtkProp_pointset::create_new_interface( std::string& ) {
   return new vtkProp_pointset;
@@ -203,7 +203,7 @@ void vtkProp_pointset::refresh() {
   	if(current_property_->is_informed(i)  )
   		vtk_array->SetValue(i,current_property_->get_value(i));
   	else
-  		vtk_array->SetValue(i,vtkMath::Nan());
+        vtk_array->SetValue(i,Grid_continuous_property::no_data_value);
   }
 
   pset_polydata_->GetCellData()->SetScalars(vtk_array);

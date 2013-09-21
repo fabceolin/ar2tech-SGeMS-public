@@ -42,7 +42,7 @@
 #include <vtkCellPicker.h>
 #include <vtkImageMapToColors.h>
 #include <vtkBitArray.h>
-#include <vtkMath.h>
+//#include <vtkMath.h>
 #include <vtkAppendPolyData.h>
 
 
