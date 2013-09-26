@@ -58,6 +58,6 @@ if (WIN32)
   endif()
  endif()
 
-INSTALL(TARGETS ar2gems_actions DESTINATION "${INSTALL_DIR_LIB}")
+INSTALL(TARGETS ar2gems_actions DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
 
 
