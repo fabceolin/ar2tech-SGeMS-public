@@ -14,13 +14,22 @@ if(WIN32)
 #  set(RELEASE_PYTHON_IN_DEBUG ON)
 endif()
 
-set(BUILD_UNIT_TESTING OFF BOOL "Build the project for unit testing.  This needs the boost test package.  This is one of the few boost library that needs to be compiled")
+
+set(BUILD_UNIT_TESTING 0 CACHE TYPE BOOL) #"Build the project for unit testing.  This needs the boost test package.  This is one of the few boost library that needs to be compiled")
 
 
 set(BUILD_SHARED_LIBS TRUE)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/bin")
+if (WIN32)
+    # Visual Studio will create Release or Debug subfolder in /lib /bin
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+else(WIN32)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/bin")
+endif(WIN32)
+
 
 ### Enabling Boost ###################################################
 find_package(Boost REQUIRED)
@@ -107,6 +116,7 @@ else()
     )
   endif()
 endif()
+
 
 foreach(dir ${PROJ_DIRS})
   add_subdirectory(${dir})
