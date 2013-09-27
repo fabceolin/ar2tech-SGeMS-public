@@ -17,4 +17,4 @@ if (WIN32)
   add_definitions(-DEXTRAGUI_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_extragui DESTINATION "${INSTALL_DIR_LIB}")
+INSTALL(TARGETS ar2gems_extragui DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

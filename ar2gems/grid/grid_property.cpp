@@ -60,13 +60,12 @@
 #include <stdio.h>
 #include <QDomElement>
 #include <QFile>
-//#include <vtkMath.h>
-
+#include <vtkMath.h>
 #include <QTextStream>
 
 //const float Grid_continuous_property::no_data_value = -9966699;
-//const float Grid_continuous_property::no_data_value = static_cast<float>(vtkMath::Nan());
-const float Grid_continuous_property::no_data_value = std::nanf("");
+const float Grid_continuous_property::no_data_value = static_cast<float>(vtkMath::Nan());
+//const float Grid_continuous_property::no_data_value = std::nanf("");
 
 Grid_continuous_property::Grid_continuous_property( GsTLInt size, const std::string& name,
 				    property_type default_value )

@@ -1,40 +1,29 @@
-QT4_ADD_RESOURCES(main_RESOURCES
+QT4_ADD_RESOURCES(main_com_RESOURCES
   ../gui/resources.qrc
   ../qtplugins/resources.qrc
 )
 
-IF(WIN32) # Check if we are on Windows
-  if(MSVC) # Check if we are using the Visual Studio compiler
-    add_executable(ar2gems WIN32
-      lib_initializer.cpp
-      main.cpp
-      lib_initializer.h
-      ${main_RESOURCES}
-    )
-  endif()
-  else()
-    add_executable(ar2gems
-      lib_initializer.cpp
-      main.cpp
-      lib_initializer.h
-      ${main_RESOURCES}
-    )  
-endif()
+#This will generate the console version for windows
+add_executable(ar2gems_com
+  lib_initializer.cpp
+  main.cpp
+  lib_initializer.h
+  ${main_RESOURCES}
+)
 
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
    # Required for platforms like Linux that don't set PYTHON_DEBUG_LIBRARIES or 
-   # on windows to use the release python lin in windows
+   # on windows to use the release python in windows
   set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
 endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
-target_link_libraries(ar2gems 
+target_link_libraries(ar2gems_com
   optimized ${PYTHON_LIBRARIES}
   debug ${PYTHON_DEBUG_LIBRARIES}  
   ${QT_LIBRARIES}
-  ${QT_QTMAIN_LIBRARY}  # to avoid the console windows
   ${VTK_LIBRARIES}
   ar2gems_actions
   ar2gems_appli
@@ -55,4 +44,4 @@ if (WIN32)
   endif()  
 endif()
 
-INSTALL(TARGETS ar2gems DESTINATION "${INSTALL_DIR_BIN}")
+INSTALL(TARGETS ar2gems_com DESTINATION "${INSTALL_DIR_BIN}")

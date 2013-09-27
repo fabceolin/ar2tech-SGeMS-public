@@ -119,5 +119,5 @@ if (WIN32)
   add_definitions(-DCHARTS_EXPORT)
 endif()
 
-INSTALL(TARGETS ar2gems_charts DESTINATION "${INSTALL_DIR_LIB}")
+INSTALL(TARGETS ar2gems_charts DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
 

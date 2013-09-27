@@ -10,13 +10,26 @@ elseif(MSVC)
 endif()
 
 if(WIN32)
-  set(RELEASE_PYTHON_IN_DEBUG ON CACHE BOOL "Use the release library of python when building ar2gems in debug mode")
-  set(RELEASE_PYTHON_IN_DEBUG ON)
+  set(RELEASE_PYTHON_IN_DEBUG ON BOOL "Use the release library of python when building ar2gems in debug mode")
+#  set(RELEASE_PYTHON_IN_DEBUG ON)
 endif()
 
+
+set(BUILD_UNIT_TESTING 0 CACHE TYPE BOOL) #"Build the project for unit testing.  This needs the boost test package.  This is one of the few boost library that needs to be compiled")
+
+
 set(BUILD_SHARED_LIBS TRUE)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+if (WIN32)
+    # Visual Studio will create Release or Debug subfolder in /lib /bin
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+else(WIN32)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/bin")
+endif(WIN32)
+
 
 ### Enabling Boost ###################################################
 find_package(Boost REQUIRED)
@@ -78,10 +91,32 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 ### Project tree #####################################################
-set(PROJ_DIRS
-  actions appli charts filters geostat grid gui
-  main math qtplugins qwt utils widget_accessor
-)
+if( BUILD_UNIT_TESTING )
+  if(WIN32)
+    set(PROJ_DIRS
+      actions appli charts filters geostat grid gui
+      main main_com math qtplugins qwt unit_test utils widget_accessor
+    )
+  else()
+    set(PROJ_DIRS
+      actions appli charts filters geostat grid gui
+      main math qtplugins qwt utils unit_test widget_accessor
+    )
+  endif()
+else()
+  if(WIN32)
+    set(PROJ_DIRS
+      actions appli charts filters geostat grid gui
+      main main_com math qtplugins qwt utils widget_accessor
+    )
+  else()
+    set(PROJ_DIRS
+      actions appli charts filters geostat grid gui
+      main math qtplugins qwt utils widget_accessor
+    )
+  endif()
+endif()
+
 
 foreach(dir ${PROJ_DIRS})
   add_subdirectory(${dir})

@@ -79,5 +79,5 @@ if (WIN32)
   add_definitions(-DGRID_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_grid DESTINATION "${INSTALL_DIR_LIB}")
+INSTALL(TARGETS ar2gems_grid DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
 

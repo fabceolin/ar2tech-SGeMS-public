@@ -26,4 +26,4 @@ if (WIN32)
   add_definitions(-DAPPLI_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_appli DESTINATION "${INSTALL_DIR_LIB}")
+INSTALL(TARGETS ar2gems_appli DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

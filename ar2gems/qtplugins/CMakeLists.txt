@@ -120,7 +120,7 @@ if (WIN32)
   add_definitions(-DQTPLUGINS_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_widgets DESTINATION "${INSTALL_DIR_LIB}")
+INSTALL(TARGETS ar2gems_widgets DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
 
 #COMMAND ${CMAKE_COMMAND} -E copy
 #${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ar2gems_qtplugins.dll
