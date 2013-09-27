@@ -199,10 +199,10 @@ void Combined_neighborhood::find_neighbors( const Geovalue& center ) {
   // ask both neighborhoods to search neighbors
   first_->find_neighbors( center );
   second_->find_neighbors( center );
-  if( cov_ ) {
-    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-  }
+//  if( cov_ ) {
+//    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+//    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+//  }
   
 
   std::vector<Geovalue> neighbors_temp;
@@ -258,10 +258,10 @@ void Combined_neighborhood::find_neighbors( const Geovalue& center , Neighbors &
   Neighbors first_neighbors, second_neighbors;
   first_->find_neighbors( center , first_neighbors );
   second_->find_neighbors( center , second_neighbors );
-  if ( cov_ ) {
-    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-    std::sort(second_neighbors.begin(), second_neighbors.end(),Geovalue_covariance_comparator(center.location(), *cov_));
-  }
+//  if ( cov_ ) {
+//    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+//    std::sort(second_neighbors.begin(), second_neighbors.end(),Geovalue_covariance_comparator(center.location(), *cov_));
+//  }
   
 
   std::vector<Geovalue> neighbors_temp;
@@ -342,10 +342,10 @@ void Combined_neighborhood_dedup::find_neighbors( const Geovalue& center ){
   // ask both neighborhoods to search neighbors
   first_->find_neighbors( center );
   second_->find_neighbors( center );
-  if( cov_ ) {
-    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-  } 
+  //if( cov_ ) {
+  //  std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+  //  std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+  //} 
 
   // remove the colocated neighbors
   iterator end_1st = first_->end();
@@ -395,10 +395,10 @@ void Combined_neighborhood_dedup::find_neighbors( const Geovalue& center , Neigh
   Neighbors first_neighbors, second_neighbors;
   first_->find_neighbors( center , first_neighbors );
   second_->find_neighbors( center , second_neighbors );
-  if( cov_ ) {
-    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-  }
+//  if( cov_ ) {
+//    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+//    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+//  }
  
   // remove the colocated neighbors
   iterator end_1st = first_neighbors.end();

@@ -292,7 +292,6 @@ protected:
   
   Root_model *model_;
 
-  
 
 }; 
  

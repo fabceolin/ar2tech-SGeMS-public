@@ -103,7 +103,7 @@ init( std::string& parameters, GsTL_project* proj,
       }
 
       std::set<int>::iterator it_cat_codes = cat_codes.begin();
-      for( int code; it_cat_codes != cat_codes.end(); ++code, ++it_cat_codes) {
+      for(; it_cat_codes != cat_codes.end(); ++it_cat_codes) {
         cat_def->add_category(*it_cat_codes, QString("Code %1").arg(*it_cat_codes).toStdString() );
       }
       cprop->set_category_definition( cat_def );
