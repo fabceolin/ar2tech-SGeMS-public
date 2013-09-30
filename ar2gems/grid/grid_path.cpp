@@ -87,13 +87,13 @@ Grid_path::Grid_path(Geostat_grid * _grid, Grid_continuous_property * _prop, Gri
   // init random path
   if(_region == 0) {
     grid_path_.resize( grid_->size() );
-    for( int i = 0; i < i <  grid_->size(); i++ ) {
+    for( int i = 0; i < grid_->size(); i++ ) {
       grid_path_[i] = i;
     }
   }
   else {
     grid_path_.reserve( grid_->size() );
-    for( int i = 0; i < i <  grid_->size(); i++ ) {
+    for( int i = 0; i < grid_->size(); i++ ) {
       if(_region->is_inside_region(i)) grid_path_.push_back( i );
     }
   }
@@ -109,7 +109,7 @@ Grid_path::Grid_path(Geostat_grid * _grid,  Grid_region * _region)
   // init random path
   if(_region == 0) {
     grid_path_.resize( grid_->size() );
-    for( int i = 0; i < i <  grid_->size() ; i++ ) {
+    for( int i = 0; i < grid_->size() ; i++ ) {
       grid_path_[i] = i;
     }
   }
@@ -187,13 +187,13 @@ Grid_path_const::Grid_path_const(const Geostat_grid * _grid, const Grid_continuo
   // init random path
   if(_region == 0) {
     grid_path_.resize( grid_->size() );
-    for( int i = 0; i < i <  grid_->size(); i++ ) {
+    for( int i = 0; i <  grid_->size(); i++ ) {
       grid_path_[i] = i;
     }
   }
   else {
     grid_path_.reserve( grid_->size() );
-    for( int i = 0; i < i <  grid_->size(); i++ ) {
+    for( int i = 0; i <  grid_->size(); i++ ) {
       if(_region->is_inside_region(i)) grid_path_.push_back( i );
     }
   }
@@ -209,7 +209,7 @@ Grid_path_const::Grid_path_const(const Geostat_grid * _grid, const Grid_region *
   // init random path
   if(_region == 0) {
     grid_path_.resize( grid_->size() );
-    for( int i = 0; i < i <  grid_->size(); i++ ) {
+    for( int i = 0; i < grid_->size(); i++ ) {
       grid_path_[i] = i;
     }
   }
