@@ -68,6 +68,7 @@
 #include <grid/rgrid.h>
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_downscaler.h>
+#include <grid/grid_path.h>
 
 #include <geostat/utilities.h>
 
@@ -1439,7 +1440,8 @@ bool Create_trend::init( std::string& parameters, GsTL_project* proj,
 
 bool Create_trend::exec() {
   grid_->select_property(trend_->name());
-  Geostat_grid::iterator it = grid_->begin();
+
+  Grid_path_ordered path(grid_, trend_);
 
 // This is hard coded and should be replaced
 // with a more flexible structure
@@ -1455,13 +1457,13 @@ bool Create_trend::exec() {
   if(direction_id_.size() == 2) s = -1;
   Geovalue::property_type min = 9e99;
   Geovalue::property_type max = -9e99;
-  for( ; it!= grid_->end(); it++ ) {
+  for(Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
     float t = s*(it->location()[id]);
     it->set_property_value(t);
     if(t < min) min = t;
     if(t > max) max = t;
   }
-  for( it= grid_->begin(); it!= grid_->end(); it++ ) {
+  for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
     Geovalue::property_type t = it->property_value();
     it->set_property_value((t-min)/(max-min));
   }
@@ -1564,7 +1566,7 @@ bool Create_indicator_properties::init( std::string& parameters, GsTL_project* p
 
   }
 // Check if it already exists
-  GsTLGridPropertyGroup* group =  grid_->get_group( group_name_ );
+  Grid_property_group* group =  grid_->get_group( group_name_ );
   if(group) {
     errors->report( "A group with the indicators already exists");
     return false;
@@ -1857,7 +1859,9 @@ bool Upscale_properties::exec() {
 
   const SGrid_cursor* source_cursor = source_grid_->cursor();
   const SGrid_cursor* target_cursor = target_grid_->cursor();
-  Geostat_grid::const_iterator it = source_grid_->begin();
+
+  Grid_path_ordered_const path_source(source_grid_);
+  Grid_path_ordered_const::const_iterator it = path_source.begin();
 
   const RGrid_geometry* target_geom = target_grid_->geometry();
 
@@ -1873,7 +1877,7 @@ bool Upscale_properties::exec() {
                                  target_origin_corner.z() + target_geom->cell_dims().z()*target_geom->dim(2) );
 
 
-  for( ; it != source_grid_->end(); ++it ) {
+  for( ; it != path_source.end(); ++it ) {
     int source_nodeid = it->node_id();
     Geostat_grid::location_type src_loc = source_grid_->location(source_nodeid);
     if(src_loc.x() <= target_origin_corner.x() ||
@@ -2006,7 +2010,7 @@ void Upscale_properties::process_categorical_property(const Grid_categorical_pro
   }
 
   // Build a group to store the properies
-  GsTLGridPropertyGroup* group = target_grid_->add_group(cprop->name()+" upscaled", "General");
+  Grid_property_group* group = target_grid_->add_group(cprop->name()+" upscaled", "General");
   if( group ) {
     for( int c=0; c<ncat; ++c ) {
       group->add_property(props[c]);
@@ -2068,7 +2072,7 @@ bool Upscale_group::init( std::string& parameters, GsTL_project* proj,
   }
 
   group_name_ = params[3];
-  const GsTLGridPropertyGroup* group = source_grid_->get_group(group_name_ );
+  const Grid_property_group* group = source_grid_->get_group(group_name_ );
   if(group == 0) {
     errors->report( "No group called "+group_name_+" in grid "+ params[1] );
   }
@@ -2096,7 +2100,7 @@ bool Upscale_group::init( std::string& parameters, GsTL_project* proj,
 bool Upscale_group::exec(){
   bool ok = upscaler_.exec();
   if(ok) {
-    GsTLGridPropertyGroup* group = target_grid_->add_group(group_name_+" upscaled", "General");
+    Grid_property_group* group = target_grid_->add_group(group_name_+" upscaled", "General");
     if(group) {
       std::vector<Grid_continuous_property*> props = upscaler_.get_upscaled_properties();
       for( int i=0; i<props .size(); ++i )

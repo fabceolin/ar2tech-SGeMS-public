@@ -30,8 +30,11 @@
 #include <grid/common.h>
 #include <math/gstlvector.h> 
 #include <grid/geovalue.h>  
-#include <vector> 
 #include <grid/rgrid.h>
+#include <grid/grid_path.h>
+#include <grid/gval_iterator.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
 
 #include "grid_path.h"
  
@@ -41,7 +44,46 @@
  * Multi_grid_path class builds path for each multigrid level on an RGrid. 
  * Nodes on the path of each multigrid level is shuffled randomly.
  */
-class GRID_DECL Multi_grid_path : public Grid_path< Gval_iterator<TabularMapIndex> >
+class GRID_DECL Multi_grid_path : public Grid_path
+{
+
+public:
+  // set multigrid level. This method is not thread-safe.
+  void multigrid_level_is( GsTLInt _multigrid_level );
+
+  // get the reference to the begin of the path
+//  iterator begin() const;
+
+  // get the end of the path
+//  iterator end() const;
+
+  // get the size of the path
+//  GsTLInt size() const;
+
+  // get the node_id (used in the grid) of a node on the path. The argument _path_index is the index on the path
+ // GsTLInt node_id( GsTLInt _path_index ) const;
+
+  // get the Geovalue associated with a node on the path. The argument _path_index is the index on the path
+ // Geovalue geovalue( GsTLInt _path_index ) const;
+
+
+protected:
+  SGrid_cursor * cursor_;
+  GsTLInt multigrid_level_; // multigrid_level_ = 1, finiest grid, by default
+
+
+public:
+  Multi_grid_path(RGrid * _rgrid, int level, Grid_region* _region=0);
+  Multi_grid_path(RGrid * _rgrid, int level, Grid_continuous_property * _prop, Grid_region* _region = 0);
+  virtual ~Multi_grid_path(void);
+};
+
+
+/** 
+ * Multi_grid_path class builds path for each multigrid level on an RGrid. 
+ * Nodes on the path of each multigrid level is shuffled randomly.
+ */
+class GRID_DECL Multi_grid_path_const : public Grid_path_const
 {
 public:
   typedef Geostat_grid::random_path_iterator iterator;
@@ -52,32 +94,30 @@ public:
   void multigrid_level_is( GsTLInt _multigrid_level );
 
   // get the reference to the begin of the path
-  iterator begin() const;
+//  iterator begin() const;
 
   // get the end of the path
-  iterator end() const;
+//  iterator end() const;
 
   // get the size of the path
-  GsTLInt size() const;
+//  GsTLInt size() const;
 
   // get the node_id (used in the grid) of a node on the path. The argument _path_index is the index on the path
-  GsTLInt node_id( GsTLInt _path_index ) const;
+//  GsTLInt node_id( GsTLInt _path_index ) const;
 
   // get the Geovalue associated with a node on the path. The argument _path_index is the index on the path
-  Geovalue geovalue( GsTLInt _path_index ) const;
+//  Const_geovalue geovalue( GsTLInt _path_index ) const;
 
 
 protected:
-  std::vector<GsTLInt> grid_path_;
-  RGrid * grid_;
-  Grid_continuous_property * prop_;
   SGrid_cursor * cursor_;
   GsTLInt multigrid_level_; // multigrid_level_ = 1, finiest grid, by default
 
 
 public:
-  Multi_grid_path(RGrid * _grid, Grid_continuous_property * _prop);
-  virtual ~Multi_grid_path(void);
+  Multi_grid_path_const(const RGrid * _rgrid, int level, const Grid_region* _region=0);
+  Multi_grid_path_const(const RGrid * _rgrid, int level, const Grid_continuous_property * _prop, const Grid_region* _region = 0);
+  virtual ~Multi_grid_path_const(void);
 };
 
 

@@ -63,8 +63,6 @@
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/utils/smartptr.h> 
 
-#include <grid/grid_region_temp_selector.h> 
-
 #include <string> 
 #include <vector> 
  
@@ -115,8 +113,8 @@ class GEOSTAT_DECL Indicator_kriging : public Geostat_algo {
   std::vector< Covariance<Location> > covar_vector_; 
   std::vector< SmartPtr<Neighborhood> > neighborhoods_vector_; 
 
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector prim_hd_grid_region_;
+  Grid_region* target_grid_region_;
+  Grid_region* prim_hd_grid_region_;
  
   int thres_count_; 
 

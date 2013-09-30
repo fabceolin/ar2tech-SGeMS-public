@@ -23,42 +23,8 @@
 ** ----------------------------------------------------------------------------*/
 
 #include <grid/grid_path_multigrid.h>
+#include <math/random_numbers.h>
 
-
-Multi_grid_path::iterator
-Multi_grid_path::begin() const
-{
-  return Multi_grid_path::iterator( grid_, prop_, 
-	                  		       0, grid_path_.size(),  
-		                           TabularMapIndex(&grid_path_) );
-}
-
-Multi_grid_path::iterator
-Multi_grid_path::end() const
-{
-  return Multi_grid_path::iterator( grid_, prop_, 
-	                  		       grid_path_.size(), grid_path_.size(),  
-		                           TabularMapIndex(&grid_path_) );
-}
-
-GsTLInt 
-Multi_grid_path::size() const
-{
-  return grid_path_.size();
-}
-
-GsTLInt 
-Multi_grid_path::node_id( GsTLInt _path_index ) const
-{
-  return cursor_->node_id( grid_path_[_path_index] );
-}
-
-Geovalue 
-Multi_grid_path::geovalue( GsTLInt _path_index ) const
-{
-  GsTLInt node_id = cursor_->node_id( grid_path_[_path_index] );
-  return Geovalue(grid_, prop_, node_id);
-}
 
 void 
 Multi_grid_path::multigrid_level_is(GsTLInt _multigrid_level)
@@ -72,29 +38,137 @@ Multi_grid_path::multigrid_level_is(GsTLInt _multigrid_level)
   for( int i = 0; i < int( grid_path_.size() ); i++ ) 
     grid_path_[i] = i;
 
-  STL_generator gen;
-  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
+//  STL_generator gen;
+//  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
 }
 
-Multi_grid_path::Multi_grid_path(RGrid * _grid, Grid_continuous_property * _prop)
+Multi_grid_path::Multi_grid_path(RGrid * _rgrid, int level, Grid_region* _region) : Grid_path(  )
 {
-  if ( !_grid || !_prop ) return;
-  this->grid_ = _grid;
-  this->prop_ = _prop;
-  this->cursor_ = new SGrid_cursor( *grid_->cursor() );
-  multigrid_level_ = 1; // initially
+  this->grid_ = _rgrid;
+  this->prop_ = 0;
+
+  if ( !_rgrid  ) return;
+  this->cursor_ = new SGrid_cursor( *_rgrid->cursor() );
+  multigrid_level_ = level; // initially
   cursor_->set_multigrid_level(multigrid_level_);
 
-  // init random path
+  if(_region == 0) {
+    grid_path_.resize( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      grid_path_[i] = cursor_->node_id(i);
+    }
+  }
+  else {
+    grid_path_.reserve( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      int node_id = cursor_->node_id(i);
+      if(_region->is_inside_region(node_id)) grid_path_.push_back( node_id );
+    }
+  }
+
+}
+
+Multi_grid_path::Multi_grid_path(RGrid * _rgrid, int level, Grid_continuous_property * _prop, Grid_region* _region): Grid_path(  ){
+  this->grid_ = _rgrid;
+  this->prop_ = _prop;
+
+  if ( !_rgrid && !_prop  ) return;
+  this->cursor_ = new SGrid_cursor( *_rgrid->cursor() );
+  multigrid_level_ = level; // initially
+  cursor_->set_multigrid_level(multigrid_level_);
+
+  if(_region == 0) {
+    grid_path_.resize( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      grid_path_[i] = cursor_->node_id(i);
+    }
+  }
+  else {
+    grid_path_.reserve( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      int node_id = cursor_->node_id(i);
+      if(_region->is_inside_region(node_id)) grid_path_.push_back( node_id );
+    }
+  }
+}
+
+Multi_grid_path::~Multi_grid_path(void)
+{
+  this->grid_ = NULL;
+  this->prop_ = NULL;
+  delete this->cursor_;
+}
+
+// --------------------
+
+
+void 
+Multi_grid_path_const::multigrid_level_is(GsTLInt _multigrid_level)
+{
+  multigrid_level_ = _multigrid_level;
+  cursor_->set_multigrid_level(multigrid_level_);
+
+  // init random path for this multigrid_level
+  grid_path_.clear();
   grid_path_.resize( cursor_->max_index() );
   for( int i = 0; i < int( grid_path_.size() ); i++ ) 
     grid_path_[i] = i;
 
-  STL_generator gen;
-  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
+//  STL_generator gen;
+//  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
 }
 
-Multi_grid_path::~Multi_grid_path(void)
+Multi_grid_path_const::Multi_grid_path_const(const RGrid * _rgrid, int level, const Grid_region* _region) : Grid_path_const(  )
+{
+  this->grid_ = _rgrid;
+  this->prop_ = 0;
+
+  if ( !_rgrid  ) return;
+  this->cursor_ = new SGrid_cursor( *_rgrid->cursor() );
+  multigrid_level_ = level; // initially
+  cursor_->set_multigrid_level(multigrid_level_);
+
+  if(_region == 0) {
+    grid_path_.resize( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      grid_path_[i] = cursor_->node_id(i);
+    }
+  }
+  else {
+    grid_path_.reserve( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      int node_id = cursor_->node_id(i);
+      if(_region->is_inside_region(node_id)) grid_path_.push_back( node_id );
+    }
+  }
+
+}
+
+Multi_grid_path_const::Multi_grid_path_const(const RGrid * _rgrid, int level, const Grid_continuous_property * _prop, const Grid_region* _region): Grid_path_const(  ){
+  this->grid_ = _rgrid;
+  this->prop_ = _prop;
+
+  if ( !_rgrid && !_prop  ) return;
+  this->cursor_ = new SGrid_cursor( *_rgrid->cursor() );
+  multigrid_level_ = level; // initially
+  cursor_->set_multigrid_level(multigrid_level_);
+
+  if(_region == 0) {
+    grid_path_.resize( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      grid_path_[i] = cursor_->node_id(i);
+    }
+  }
+  else {
+    grid_path_.reserve( cursor_->max_index() );
+    for( int i = 0; i < int( cursor_->max_index() ); i++ ) {
+      int node_id = cursor_->node_id(i);
+      if(_region->is_inside_region(node_id)) grid_path_.push_back( node_id );
+    }
+  }
+}
+
+Multi_grid_path_const::~Multi_grid_path_const(void)
 {
   this->grid_ = NULL;
   this->prop_ = NULL;

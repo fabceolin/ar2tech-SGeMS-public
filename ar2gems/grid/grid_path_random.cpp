@@ -23,6 +23,7 @@
 ** ----------------------------------------------------------------------------*/
 
 #include <grid/grid_path_random.h>
+#include <math/random_numbers.h>
 
 
 Grid_random_path::iterator
@@ -60,23 +61,63 @@ Grid_random_path::geovalue( GsTLInt _path_index ) const
   return Geovalue(grid_, prop_, node_id);
 }
 
-Grid_random_path::Grid_random_path(Geostat_grid * _grid, Grid_continuous_property * _prop)
+Grid_random_path::Grid_random_path(Geostat_grid * _grid, Grid_continuous_property * _prop, Grid_region* _region)
 {
   if ( !_grid || !_prop ) return;
   this->grid_ = _grid;
   this->prop_ = _prop;
   
   // init random path
-  grid_path_.resize( grid_->size() );
-  for( int i = 0; i < int( grid_path_.size() ); i++ ) 
-    grid_path_[i] = i;
+  if(_region == 0) {
+    grid_path_.resize( grid_->size() );
+    for( int i = 0; i < int( grid_path_.size() ); i++ ) {
+      grid_path_[i] = i;
+    }
+  }
+  else {
+    grid_path_.reserve( grid_->size() );
+    for( int i = 0; i < int( grid_path_.size() ); i++ ) {
+      if(_region->is_inside_region(i)) grid_path_.push_back( i );
+    }
+  }
 
   STL_generator gen;
   std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
 }
 
+
+Grid_random_path::Grid_random_path(Geostat_grid * _grid, Grid_region* _region){
+  if ( !_grid  ) return;
+  this->grid_ = _grid;
+  this->prop_ = 0;
+  
+  // init random path
+  if(_region == 0) {
+    grid_path_.resize( grid_->size() );
+    for( int i = 0; i < int( grid_path_.size() ); i++ ) {
+      grid_path_[i] = i;
+    }
+  }
+  else {
+    grid_path_.reserve( grid_->size() );
+    for( int i = 0; i < int( grid_path_.size() ); i++ ) {
+      if(_region->is_inside_region(i)) grid_path_.push_back( i );
+    }
+  }
+
+  STL_generator gen;
+  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
+
+}
+
+
 Grid_random_path::~Grid_random_path(void)
 {
   this->grid_ = NULL;
   this->prop_ = NULL;
+}
+
+bool Grid_random_path::set_property(std::string prop_name){
+  this->prop_ = grid_->property(prop_name);
+  return prop_ != 0;
 }

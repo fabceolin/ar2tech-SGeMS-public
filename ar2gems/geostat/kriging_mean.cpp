@@ -64,6 +64,7 @@
 #include <utils/manager_repository.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
+#include <grid/grid_path.h>
 #include <appli/utilities.h>
 
 #include <GsTL/kriging/kriging_weights.h>
@@ -117,9 +118,10 @@ int KrigingMean::execute( GsTL_project* ) {
   prop->set_parameters(parameters_);
   simul_grid_->select_property( prop->name() );
 
-  typedef Geostat_grid::iterator iterator;
-  iterator begin = simul_grid_->begin();
-  iterator end = simul_grid_->end();
+  Grid_path path( simul_grid_, prop, target_grid_region_ );
+  typedef Grid_path::iterator iterator;
+  iterator begin = path.begin();
+  iterator end = path.end();
   
   for( ; begin != end; ++begin ) {
     if( !progress_notifier->notify() ) {
@@ -210,8 +212,7 @@ bool KrigingMean::initialize( const Parameters_handler* parameters,
   else 
     return false;
 
-  gridTempRegionSelector_.set_temporary_region(
-                parameters->value( "Grid_Name.region" ), simul_grid_);
+  target_grid_region_ = simul_grid_->region(parameters->value( "Grid_Name.region" ));
 
 
   std::string harddata_grid_name = parameters->value( "Hard_Data.grid" );
@@ -230,13 +231,8 @@ bool KrigingMean::initialize( const Parameters_handler* parameters,
   else 
     return false;
 
-  // If the hard data is on the same grid than the
-  // estimation grid, than it cannot be set to a region others than the one
-  // already set on that grid
-  // The is only used if the neighborhood is to consider only data within a region
-  if(harddata_grid_ !=  simul_grid_)
-      hdgridTempRegionSelector_.set_temporary_region(
-              parameters->value( "Hard_Data.region" ),harddata_grid_ );
+  hd_grid_region_ = harddata_grid_->region(parameters->value( "Hard_Data.region" ));
+
 
   int max_neigh = 
     String_Op::to_number<int>( parameters->value( "Max_Conditioning_Data.value" ) );

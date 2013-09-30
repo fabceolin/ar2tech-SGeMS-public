@@ -1011,14 +1011,14 @@ Grid_categorical_property* add_categorical_property_to_grid( Geostat_grid* grid,
 
 
 
-GsTLGridPropertyGroup* 
+Grid_property_group* 
   add_group_to_grid( Geostat_grid* grid, 
                         const std::string& group_name,
                         std::string group_type ) {
   std::ostringstream new_group_name_stream;
   new_group_name_stream << group_name;
 
-  GsTLGridPropertyGroup* new_group =
+  Grid_property_group* new_group =
     grid->add_group( group_name, group_type );
 
   while( !new_group ) {

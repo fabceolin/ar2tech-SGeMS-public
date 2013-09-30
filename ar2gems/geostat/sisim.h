@@ -65,7 +65,6 @@
 #include <GsTL/cdf_estimator/indicator_cdf_estimator.h> 
 #include <GsTL/cdf_estimator/soft_indicator_cdf_estimator.h>
 #include <GsTL/utils/smartptr.h> 
-#include <grid/grid_region_temp_selector.h>  
 #include <string> 
 #include <vector> 
  
@@ -135,9 +134,9 @@ class GEOSTAT_DECL Sisim : public Geostat_algo {
   //CdfEstimator* cdf_estimator_;
   CdfSoftEstimator* cdf_estimator_;//cdf_soft_estimator_;
  
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector hd_grid_region_;
-  Temporary_gridRegion_Selector coded_grid_region_;
+  Grid_region* target_grid_region_;
+  Grid_region* hd_grid_region_;
+  Grid_region* coded_grid_region_;
 
  protected: 
   int median_ik( Progress_notifier* progress_notifier ); 

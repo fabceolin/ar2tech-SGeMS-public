@@ -676,7 +676,7 @@ Visualization_parameters* Vtk_view::get_viz_parameters( GsTL_object_item* item)
 		return viz_param;
 	}
 
-	GsTLGridPropertyGroup* group = dynamic_cast<GsTLGridPropertyGroup*>(item);
+	Grid_property_group* group = dynamic_cast<Grid_property_group*>(item);
 	if(group) {
 		grid = dynamic_cast< Geostat_grid*>(group->parent());
 		GsTL_vtkProp* vtk_prop = this->get_vtk_prop( grid );

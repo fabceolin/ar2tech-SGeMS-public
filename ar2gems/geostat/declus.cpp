@@ -38,6 +38,7 @@
 #include <grid/point_set_neighborhood.h>
 #include <utils/manager_repository.h>
 #include <grid/point_set.h>
+#include <grid/grid_path.h>
 #include <appli/utilities.h>
 #include <grid/grid_region_temp_selector.h> 
 
@@ -150,8 +151,10 @@ int Declus::execute( GsTL_project* ) {
 //determine which cell each datum is in:
 //
                   int npoints = 0;
-                  Geostat_grid::iterator it = grid_->begin();
-                  for( ; it!= grid_->end(); ++it) {
+  
+                  Grid_path path(grid_, region_);
+                  Grid_path::iterator it = path.begin();
+                  for( ; it!= path.end(); ++it) {
                     if(region_ && !region_->is_inside_region(it->node_id()) ) continue;
 //                  do i=1,nd
                     Geostat_grid::location_type loc = it->location();

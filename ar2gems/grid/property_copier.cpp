@@ -367,8 +367,6 @@ bool Cgrid_to_cgrid_copier::copy( const Geostat_grid* server,
   // if the 2 grids are identical, just copy the property
   if( are_identical_grids( from_grid, to_grid ) ) {
     
-    Geostat_grid::const_iterator it = from_grid->begin();
-
     appli_assert( server_prop->size() == client_prop->size() );
     for(int nodeid=0; nodeid<from_grid->size();++nodeid) {
       if( server_prop->is_informed(nodeid) ) {
@@ -416,7 +414,6 @@ bool Cgrid_to_cgrid_copier::copy( const Geostat_grid* server,
   cursor.set_multigrid_level( 1 );
 
   GsTL_cube bbox = to_grid->bounding_box();
-  GsTLInt current_id = 0;
 
   // Use a map to record what point was assigned to which grid node
   // This map is used in case multiple points could be assigned to the
@@ -426,20 +423,18 @@ bool Cgrid_to_cgrid_copier::copy( const Geostat_grid* server,
   typedef std::map<GsTLInt,location_type>::iterator map_iterator;
   std::map<GsTLInt,location_type> already_assigned;
 
-  Cartesian_grid::const_iterator grid_it = from_grid->begin( server_prop );
+  for(int server_id = 0 ; server_id < from_grid->size(); ++server_id ) {
 
-  for( ; grid_it != from_grid->end( server_prop ); ++grid_it, current_id++ ) {
-
-    if( !grid_it->is_informed() ) continue;
+    if( !server_prop->is_informed(server_id) ) continue;
 
     // only consider the points inside the target's bounding box
-    location_type current_loc = grid_it->location();
+    location_type current_loc = from_grid->location(server_id);
     if( !bbox.contains( current_loc) ) continue;
 
 
     GsTLInt node_id = to_grid->closest_node( current_loc );
     appli_assert( node_id >=0 && node_id < client_prop->size() );
-    appli_assert( current_id < server_prop->size() );
+    appli_assert( server_id < server_prop->size() );
     if(  !to_grid->is_inside_selected_region(node_id) ) continue;
             
     // If there is already a property value (not assigned by the
@@ -469,7 +464,7 @@ bool Cgrid_to_cgrid_copier::copy( const Geostat_grid* server,
 //    if( perform_assignment ) {
   	// store the node id of the source and of the target and make a backup of the
     // property value of the client property
-   	last_assignement_.push_back( std::make_pair( grid_it->node_id(), node_id ) );
+   	last_assignement_.push_back( std::make_pair( server_id, node_id ) );
 
     if( undo_enabled_ ) {
       Property_type backup_val = Grid_continuous_property::no_data_value;
@@ -478,7 +473,7 @@ bool Cgrid_to_cgrid_copier::copy( const Geostat_grid* server,
       backup_.push_back( std::make_pair( node_id, backup_val ) );
     }
 
-    Property_type val = grid_it->property_value();
+    Property_type val = server_prop->get_value(server_id);
     client_prop->set_value( val, node_id );
     already_assigned[node_id] = current_loc;
     if( mark_as_hard_ )
@@ -651,23 +646,14 @@ bool Pset_to_pset_copier::copy( const Geostat_grid* server,
   copy_categorical_definition(server_prop,client_prop);
 
   // Copy the property
-  Geostat_grid::const_iterator it = from_grid->begin();
-  for( ; it != from_grid->end(); ++ it) {
-    int nodeid = it->node_id();
-    if( it->is_informed() && to_grid->is_inside_selected_region(nodeid) ) 
-      client_prop->set_value( it->property_value(), nodeid );
+  for( int nodeid=0 ; nodeid < from_grid->size(); ++nodeid) {
+    if( server_prop->is_informed(nodeid) && to_grid->is_inside_selected_region(nodeid) ) 
+      client_prop->set_value( server_prop->get_value_no_check(nodeid), nodeid );
 	  else if(overwrite_)
 		  client_prop->set_not_informed( nodeid );
   }
 
-  /*
-   for( int i=0; i < server_prop->size() ; i++ ) {
-	  if( server_prop->is_informed( i ) ) 
-		  client_prop->set_value( server_prop->get_value( i ), i );
-	  else if(overwrite_)
-		  client_prop->set_not_informed( i );
-    }
-    */
+
    return true;
 }
 
@@ -684,21 +670,20 @@ bool Rgrid_to_pset_copier::copy( const Geostat_grid* server,
   Point_set* client_pset = dynamic_cast<Point_set*>(client);
 
   // looping on the point set since it is the constraining grid
-  Point_set::iterator it = client_pset->begin();
-  for(int i=0 ; it!= client_pset->end(); ++it, ++i) {
-    if(!client_pset->is_inside_selected_region(i) ) continue;
+  for(int client_id=0 ; client_id < client_pset->size(); ++client_id) {
+    if(!client_pset->is_inside_selected_region(client_id) ) continue;
 
-    Geostat_grid::location_type loc = it->location();
+    Geostat_grid::location_type loc = client_pset->location(client_id);
     int node_id = server_rgrid->closest_node(loc);
     if(node_id < 0 ) continue;
 
 
     if( server_prop->is_informed(node_id) )  {
-      client_prop->set_value(server_prop->get_value(node_id),i);
-      if( mark_as_hard_ ) client_prop->set_harddata( true, i );
+      client_prop->set_value(server_prop->get_value(node_id),client_id);
+      if( mark_as_hard_ ) client_prop->set_harddata( true, client_id );
     }
 	  else if(overwrite_)
-		  client_prop->set_not_informed( i );
+		  client_prop->set_not_informed( client_id );
 
   }
 

@@ -48,7 +48,7 @@ Group_param_viewer::Group_param_viewer()
 
 }
 
-Group_param_viewer::Group_param_viewer(GsTLGridPropertyGroup* group, GsTL_vtkProp* vtk_prop)
+Group_param_viewer::Group_param_viewer(Grid_property_group* group, GsTL_vtkProp* vtk_prop)
  : QWidget(0), vtk_prop_(0), grid_(0){
 
 	this->setLayout(new QVBoxLayout(this));
@@ -60,7 +60,7 @@ Group_param_viewer::~Group_param_viewer() {
 	// TODO Auto-generated destructor stub
 }
 
-void Group_param_viewer::initialize(GsTLGridPropertyGroup* group, GsTL_vtkProp* vtk_prop){
+void Group_param_viewer::initialize(Grid_property_group* group, GsTL_vtkProp* vtk_prop){
 	vtk_prop_ = vtk_prop;
 	grid_ = vtk_prop_->grid();
 	group_ = group;
@@ -104,7 +104,7 @@ Group_viz_parameters::~Group_viz_parameters(){
 }
 
 
-void Group_viz_parameters::initialize( GsTLGridPropertyGroup* group, GsTL_vtkProp* vtk_prop){
+void Group_viz_parameters::initialize( Grid_property_group* group, GsTL_vtkProp* vtk_prop){
 	group_ = group;
 	vtk_prop_=vtk_prop;
 	viewer_ = new Group_param_viewer(group, vtk_prop);

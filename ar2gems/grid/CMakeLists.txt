@@ -14,6 +14,8 @@ add_library(ar2gems_grid
   grid_property_set.cpp
   grid_region_manager.cpp
   grid_weight_property.cpp
+  grid_path.cpp
+  grid_path_multigrid.cpp
   gstl_kdtree2.cpp
   library_grid_init.cpp
   log_data_grid.cpp
@@ -30,7 +32,6 @@ add_library(ar2gems_grid
   rgrid_gval_accessor.cpp
   rgrid_neighborhood.cpp
   structured_grid.cpp
-  superblock.cpp
   utilities.cpp
   
   cartesian_grid.h
@@ -48,6 +49,8 @@ add_library(ar2gems_grid
   grid_property_set.h
   grid_region_manager.h
   grid_weight_property.h
+  grid_path.h
+  grid_path_multigrid.h
   gstl_kdtree2.h
   log_data_grid.h
   mgrid_neighborhood.h
@@ -62,8 +65,8 @@ add_library(ar2gems_grid
   rgrid_geometry.h
   rgrid_gval_accessor.h
   rgrid_neighborhood.h
+  sgrid_cursor.h
   structured_grid.h
-  superblock.h
   utilities.h  
 )
 

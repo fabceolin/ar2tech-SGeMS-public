@@ -390,7 +390,7 @@ read_region_and_goup(QDataStream& stream,
         char* group_name;
         char* group_type;
 		    stream >> group_name>>group_type;
-        GsTLGridPropertyGroup* group = grid->add_group(group_name, group_type);
+        Grid_property_group* group = grid->add_group(group_name, group_type);
         quint32 group_size;
         stream>>group_size;
         for(int i=0; i<group_size;i++) {
@@ -650,7 +650,7 @@ write_region_and_goup( QDataStream& stream, const Geostat_grid* grid ) {
     std::list< std::string >::iterator it_name  = group_names.begin();
 
     for( ; it_name != group_names.end(); ++it_name) {
-      const GsTLGridPropertyGroup* group = grid->get_group(*it_name);
+      const Grid_property_group* group = grid->get_group(*it_name);
       stream << group->name().c_str()<<group->type().c_str();
       std::vector<std::string> group_prop_names = group->property_names();
       stream<< (quint32)group_prop_names.size();

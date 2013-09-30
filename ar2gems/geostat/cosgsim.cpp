@@ -65,6 +65,7 @@
 #include <grid/combined_neighborhood.h>
 #include <grid/gval_iterator.h>
 #include <grid/property_copier.h>
+#include <grid/grid_path.h>
 #include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
@@ -123,6 +124,7 @@ int Cosgsim::execute( GsTL_project* ) {
   
 
   // loop on all realizations
+  Grid_path path(simul_grid_,target_grid_region_);
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
 
     // update the progress notifier
@@ -161,13 +163,15 @@ int Cosgsim::execute( GsTL_project* ) {
     }
      
     // compute the random path
-    simul_grid_->init_random_path();
+    path.set_property( prop->name() );
+    path.randomize();
+    //simul_grid_->init_random_path();
    
     appli_message( "Doing simulation" );
     // do the simulation
     int status = 
-      sequential_cosimulation( simul_grid_->random_path_begin(),
-			                         simul_grid_->random_path_end(),
+      sequential_cosimulation( path.begin(),
+			                         path.end(),
 			                         neighborhood_vector_.begin(), 
                                neighborhood_vector_.end(),
                   			       ccdf, cdf_estimator,
@@ -321,15 +325,21 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
 
 
  // Set up the regions
-  Grid_region* prim_region = 0;
-  Grid_region* sec_region = 0;
   std::string region_name = parameters->value( "Grid_Name.region" );
+  std::string prim_region_name = parameters->value( "Primary_Harddata_Grid.region" );
+  std::string sec_region_name = parameters->value( "Secondary_Harddata_Grid.region" );
+
+  target_grid_region_ = simul_grid_->region(region_name);
+  prim_hd_grid_region_ = prim_harddata_grid_->region( prim_region_name );
+  sec_hd_grid_region_ = sec_harddata_grid_->region( sec_region_name );
+
+  /*
   if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
     errors->report("Grid_Name","Region "+region_name+" does not exist");
   }
   else grid_region_.set_temporary_region( region_name, simul_grid_);
 
-  std::string prim_region_name = parameters->value( "Primary_Harddata_Grid.region" );
+  
   if( prim_harddata_grid_ )  prim_region = prim_harddata_grid_->region( prim_region_name );
   if(prim_harddata_grid_ && !assign_harddata && prim_harddata_grid_ != simul_grid_) {
     
@@ -349,7 +359,7 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
     }
     else  sec_hd_grid_region_.set_temporary_region( sec_region_name,sec_harddata_grid_ );
   }
-
+  */
   //--------------
   // transform the hard data into standard gaussian variables if required
 
@@ -363,7 +373,7 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
     }
 	  if( primary_variable_ ) {
 		  primary_variable_ = 
-        distribution_utils::gaussian_transform_property( primary_variable_ , original_cdf_.raw_ptr(), prim_harddata_grid_, prim_region );
+        distribution_utils::gaussian_transform_property( primary_variable_ , original_cdf_.raw_ptr(), prim_harddata_grid_, prim_hd_grid_region_ );
 		  if( !primary_variable_ ) return false;
 
       clean_primary_var_ = true;
@@ -390,7 +400,7 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
     }
     if( secondary_variable_group_ == 0 ) {
       secondary_variable_ = 
-        distribution_utils::gaussian_transform_property( secondary_variable_, sec_distribution_.raw_ptr(), sec_harddata_grid_, sec_region );
+        distribution_utils::gaussian_transform_property( secondary_variable_, sec_distribution_.raw_ptr(), sec_harddata_grid_, sec_hd_grid_region_ );
       if( !secondary_variable_ ) return false;
       clean_secondary_var_ = true;
     }
@@ -467,17 +477,15 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
       simul_grid_->neighborhood( ranges_1, angles_1, &C11 );
     simul_neigh->max_size( max_neigh_1 );
 
-    std::string prim_harddata_region_name = parameters->value( "Primary_Harddata_Grid.region" );
-    Grid_region* prim_hd_region = prim_harddata_grid_->region(prim_harddata_region_name);
 
     Neighborhood* harddata_neigh;
     if( dynamic_cast<Point_set*>(prim_harddata_grid_) ) {
       harddata_neigh = 
-        prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, true, prim_hd_region );
+        prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, true, prim_hd_grid_region_);
     } 
     else {
       harddata_neigh = 
-        prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, false, prim_hd_region );
+        prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, false, prim_hd_grid_region_ );
     }
 
 
@@ -516,9 +524,6 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
                                         parameters, errors, defaults );
   if( !covar_ ) return false;
 
-  std::string sec_harddata_region_name = parameters->value( "Secondary_Harddata_Grid.region" );
-  Grid_region* sec_hd_region = sec_harddata_grid_->region(sec_harddata_region_name);
-
   NeighborhoodHandle sec_neighborhood = 
     geostat_utils::init_secondary_neighborhood( cok_type, sec_harddata_grid_, 
                                                 secondary_variable_,
@@ -526,7 +531,7 @@ bool Cosgsim::initialize( const Parameters_handler* parameters,
                                                 "Max_Conditioning_Data_2.value",
                                                 "Search_Ellipsoid_2.value",
                                                 "Variogram_C22", 
-                                                sec_hd_region );
+                                                sec_hd_grid_region_ );
   
   neighborhood_vector_.push_back( sec_neighborhood );
   geostat_utils::set_advanced_search(neighborhood_vector_[1], 

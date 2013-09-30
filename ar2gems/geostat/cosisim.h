@@ -61,12 +61,12 @@
 #include <grid/geostat_grid.h> 
 #include <grid/neighborhood.h> 
 #include <grid/property_copier.h> 
+#include <grid/grid_path.h>
  
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/kriging/markov_bayes_covariance.h> 
 #include <GsTL/math/indicator_coding.h>
 #include <GsTL/utils/smartptr.h> 
-#include <grid/grid_region_temp_selector.h> 
 #include <string> 
 #include <vector> 
  
@@ -90,7 +90,7 @@ public:
  
  
 protected:  
-  typedef Geostat_grid::random_path_iterator RandomPath;
+  typedef Grid_path::iterator RandomPath;
   typedef Non_parametric_cdf<float> Ccdf_type;
   typedef geostat_utils::NeighborhoodHandle NeighorhoodType;
 
@@ -125,8 +125,8 @@ protected:
  
   Indicator<float> indicator_coder_;
 
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector soft_grid_region_;
+  Grid_region* target_grid_region_;
+  Grid_region* soft_grid_region_;
 
 protected: 
   void init_neighborhoods( Geostat_grid* hard_grid, Geostat_grid* soft_grid, 

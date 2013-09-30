@@ -62,9 +62,9 @@ public slots :
   void add_data( Grid_categorical_property* prop);
   void add_data( Grid_categorical_property* prop, Grid_weight_property* weigths);
   void add_data( Grid_categorical_property* prop, Grid_region* region);
-  void add_data( GsTLGridPropertyGroup* group);
-  void add_data( GsTLGridPropertyGroup* group, Grid_weight_property* weigths);
-  void add_data( GsTLGridPropertyGroup* group, Grid_region* region);
+  void add_data( Grid_property_group* group);
+  void add_data( Grid_property_group* group, Grid_weight_property* weigths);
+  void add_data( Grid_property_group* group, Grid_region* region);
   void add_data( Categorical_distribution* dist);
   void remove_data( int id);
 

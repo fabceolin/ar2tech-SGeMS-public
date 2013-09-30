@@ -88,6 +88,7 @@ class GRID_DECL Const_geovalue {
  
   Const_geovalue(); 
   Const_geovalue( const Const_geovalue& rhs ); 
+  Const_geovalue( const Geostat_grid* grid, int node_id ); 
   Const_geovalue( const Geostat_grid* grid, const Grid_continuous_property* prop,  
 	                int node_id ); 
  
@@ -120,12 +121,15 @@ class GRID_DECL Const_geovalue {
     return grid_->is_inside_selected_region(node_id_ ); 
   }
 
+  bool is_inside_region(Grid_region* region) const { 
+    return region->is_inside_region( node_id_ ); 
+  }
 
   //---------- 
   // GsTL requirements for concept Geovalue 
  public: 
   bool is_informed() const {  
-    if( node_id_ < 0 ) 
+    if( node_id_ < 0 || property_array_ == 0) 
       return false; 
      
     appli_assert( node_id_ < property_array_->size() ); 
@@ -137,8 +141,9 @@ class GRID_DECL Const_geovalue {
 #endif
   } 
    
-  property_type property_value() const {  
-    appli_assert( node_id_ >= 0 && node_id_ < property_array_->size() ); 
+  property_type property_value() const { 
+
+    appli_assert( property_array_ !=0 && node_id_ >= 0 && node_id_ < property_array_->size() ); 
 #ifdef SGEMS_ACCESSOR_LARGE_FILE
     return property_array_->get_value(node_id_);
 #else
@@ -208,6 +213,7 @@ class GRID_DECL Geovalue {
  
   Geovalue(); 
   Geovalue( const Geovalue& rhs ); 
+  Geovalue::Geovalue( Geostat_grid* grid, int node_id );
   Geovalue( Geostat_grid* grid, Grid_continuous_property* prop,  
 	    int node_id ); 
  
@@ -244,6 +250,10 @@ class GRID_DECL Geovalue {
     return grid_->is_inside_selected_region(node_id_ ); 
   }
 
+  bool is_inside_region(Grid_region* region) const { 
+    return region->is_inside_region( node_id_ ); 
+  }
+
   //---------- 
   // GsTL requirements for concept Geovalue 
  public: 
@@ -265,15 +275,17 @@ class GRID_DECL Geovalue {
   } 
    
   property_type property_value() const {  
-    appli_assert( node_id_ >= 0 && node_id_ < property_array_->size() ); 
+    appli_assert( property_array_ !=0 && node_id_ >= 0 && node_id_ < property_array_->size() ); 
 #ifdef SGEMS_ACCESSOR_LARGE_FILE
     return property_array_->get_value(node_id_);
 #else
     return values_array_[ node_id_ ]; 
 #endif
   } 
+
+
   void set_property_value( const property_type& val ) { 
-    appli_assert( node_id_ >= 0 && node_id_ < property_array_->size() );
+    appli_assert( property_array_ !=0 && node_id_ >= 0 && node_id_ < property_array_->size() );
 #ifdef SGEMS_ACCESSOR_LARGE_FILE
     return property_array_->set_value(val,node_id_);
 #else

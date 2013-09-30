@@ -50,10 +50,10 @@ public:
 //	static Named_interface* create_new_interface(std::string&);
 
 	Group_param_viewer();
-	Group_param_viewer(GsTLGridPropertyGroup* group, GsTL_vtkProp* vtk_prop);
+	Group_param_viewer(Grid_property_group* group, GsTL_vtkProp* vtk_prop);
 	virtual ~Group_param_viewer();
 
-	void initialize( GsTLGridPropertyGroup* group, GsTL_vtkProp* vtk_prop);
+	void initialize( Grid_property_group* group, GsTL_vtkProp* vtk_prop);
 
 // Project View interface
 	virtual void update(std::string obj);
@@ -63,7 +63,7 @@ public:
 protected :
 	GsTL_vtkProp* vtk_prop_;
 	const Geostat_grid* grid_;
-	GsTLGridPropertyGroup* group_;
+	Grid_property_group* group_;
 };
 
 
@@ -74,14 +74,14 @@ public :
 
 	Group_viz_parameters();
 	~Group_viz_parameters();
-	void initialize( GsTLGridPropertyGroup* group, GsTL_vtkProp* vtk_prop);
+	void initialize( Grid_property_group* group, GsTL_vtkProp* vtk_prop);
 
 	virtual void display(){}
 	virtual void undisplay(){}
 	virtual QWidget* interface();
 
 protected :
-	GsTLGridPropertyGroup* group_;
+	Grid_property_group* group_;
 	Group_param_viewer* viewer_;
 };
 

@@ -1323,6 +1323,7 @@ bool Filtersim_Cont::simulate_one_realization( SmartPtr<Progress_notifier>& prog
 {
     simul_grid_->select_property( prop->name() );
     simul_grid_->set_level(1);	
+    Grid_path path(simul_grid_, prop );
 
     if( property_copier_ ) 
         property_copier_->copy( harddata_grid_, harddata_property_, simul_grid_, prop );
@@ -1331,7 +1332,7 @@ bool Filtersim_Cont::simulate_one_realization( SmartPtr<Progress_notifier>& prog
     Filtersim_Servosystem_Cont< Random_number_generator >* continuous_sampler  =  
                         new Filtersim_Servosystem_Cont< Random_number_generator >( 
                                                     target_mean_, serv_, 
-                                                    simul_grid_->begin(), simul_grid_->end(),
+                                                    path.begin(), path.end(),
                                                     Random_number_generator(), patch_nxyzdt_ );
 
     if( property_copier_ ) 

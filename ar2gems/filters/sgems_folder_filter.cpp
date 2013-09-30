@@ -539,15 +539,15 @@ bool Sgems_folder_input_filter::read_regions(QDir dir,const QDomElement& root, G
 
 bool Sgems_folder_input_filter::read_group(const QDomElement& root, Geostat_grid* grid, std::string* errors){
 
-	QDomElement elemGroup = root.firstChildElement("GsTLGridPropertyGroup");
+	QDomElement elemGroup = root.firstChildElement("Grid_property_group");
 
-	for(; !elemGroup.isNull(); elemGroup = elemGroup.nextSiblingElement("GsTLGridPropertyGroup") ) {
+	for(; !elemGroup.isNull(); elemGroup = elemGroup.nextSiblingElement("Grid_property_group") ) {
 		std::string name = elemGroup.attribute("name").toStdString();
 		std::string type = elemGroup.attribute("type").toStdString();
 		std::string info = elemGroup.attribute("info").toStdString();
 		QString members = elemGroup.attribute("memberProperties");
 		QStringList pname_in_group =  members.split(";");
-		GsTLGridPropertyGroup *group = grid->add_group(name,type);
+		Grid_property_group *group = grid->add_group(name,type);
 		group->set_group_info(info);
 		for(int i=0; i< pname_in_group.size(); ++i) {
 			group->add_property(grid->property(pname_in_group[i].toStdString()));
@@ -1160,8 +1160,8 @@ Sgems_folder_output_filter::write_group(QDomDocument& doc, const Geostat_grid* g
 
 	//Write each region
 	for(; it!=glist.end(); ++it) {
-		QDomElement elemGroup = doc.createElement("GsTLGridPropertyGroup");
-		const GsTLGridPropertyGroup* group = grid->get_group(*it);
+		QDomElement elemGroup = doc.createElement("Grid_property_group");
+		const Grid_property_group* group = grid->get_group(*it);
 		elemGroup.setAttribute("name",group->name().c_str());
 		elemGroup.setAttribute("type",group->type().c_str());
 

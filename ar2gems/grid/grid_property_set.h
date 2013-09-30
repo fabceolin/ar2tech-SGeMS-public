@@ -72,15 +72,15 @@
 
 
  
-class GRID_DECL GsTLGridPropertyGroup :public GsTL_object_item {
+class GRID_DECL Grid_property_group :public GsTL_object_item {
 public:
 
 //  static Named_interface* create_new_interface( std::string& name);
 
   typedef std::map<std::string, Grid_continuous_property*> property_map;
-  GsTLGridPropertyGroup();
-  GsTLGridPropertyGroup(std::string name);
-  virtual ~GsTLGridPropertyGroup(){}
+  Grid_property_group();
+  Grid_property_group(std::string name);
+  virtual ~Grid_property_group(){}
 
   virtual std::string name() const {return name_;}
   virtual std::string type() const {return type_;}
@@ -133,7 +133,7 @@ protected :
 };
 
 
-GsTLGridPropertyGroup*
+Grid_property_group*
 Create_new_property_group(const std::string& name,const std::string& type="");
 
 class GRID_DECL Grid_property_group_manager {
@@ -141,12 +141,12 @@ public :
   Grid_property_group_manager();
   virtual ~Grid_property_group_manager(){}
 
-  GsTLGridPropertyGroup* add_group(const std::string& name, const std::string& type);
+  Grid_property_group* add_group(const std::string& name, const std::string& type);
 
   void remove_group(const std::string& name);
 
-  GsTLGridPropertyGroup* get_group(const std::string& name);
-  const GsTLGridPropertyGroup* get_group(const std::string& name) const;
+  Grid_property_group* get_group(const std::string& name);
+  const Grid_property_group* get_group(const std::string& name) const;
 
   bool add_property_to_group(Grid_continuous_property* prop, const std::string& group_name);
 
@@ -156,17 +156,17 @@ public :
 
   std::list<std::string> group_names(const std::string& type="") const;
 
-  std::map<std::string, GsTLGridPropertyGroup*>::iterator begin_group();
-  std::map<std::string, GsTLGridPropertyGroup*>::iterator end_group();
-  std::map<std::string, GsTLGridPropertyGroup*>::const_iterator begin_group() const;
-  std::map<std::string, GsTLGridPropertyGroup*>::const_iterator end_group() const;
+  std::map<std::string, Grid_property_group*>::iterator begin_group();
+  std::map<std::string, Grid_property_group*>::iterator end_group();
+  std::map<std::string, Grid_property_group*>::const_iterator begin_group() const;
+  std::map<std::string, Grid_property_group*>::const_iterator end_group() const;
 
   unsigned int size() const;
 
   void set_parent_item( GsTL_object_item* parent){parent_=parent;}
 
 protected :
-  typedef std::map<std::string, GsTLGridPropertyGroup*> group_map;
+  typedef std::map<std::string, Grid_property_group*> group_map;
   typedef std::map<std::string, int> group_type_map;
   group_map groups_;
   group_type_map group_type_;
@@ -182,7 +182,7 @@ protected :
 
 
 
-class GRID_DECL SimulationPropertyGroup : public GsTLGridPropertyGroup {
+class GRID_DECL SimulationPropertyGroup : public Grid_property_group {
 public:
 
  // static Named_interface* create_new_interface( std::string& name);
@@ -208,7 +208,7 @@ protected :
 class CategoricalPropertyDefinition;
 
 
-class GRID_DECL CategoricalPropertyGroup : public GsTLGridPropertyGroup {
+class GRID_DECL CategoricalPropertyGroup : public Grid_property_group {
 public:
 
  // static Named_interface* create_new_interface( std::string& name);
@@ -265,7 +265,7 @@ public:
 //indicator for categorical attribute
 // note: the indicator property are continuous values modeling
 // a categorical attributes
-class GRID_DECL IndicatorContinuousPropertyGroup : public GsTLGridPropertyGroup {
+class GRID_DECL IndicatorContinuousPropertyGroup : public Grid_property_group {
 public:
 
  // static Named_interface* create_new_interface( std::string& name);

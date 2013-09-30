@@ -67,7 +67,6 @@
 #include <GsTL/kriging/kriging_constraints.h> 
 #include <GsTL/kriging/kriging_combiner.h> 
 #include <GsTL/utils/smartptr.h> 
-#include <grid/grid_region_temp_selector.h>  
 #include <string> 
 #include <geostat/parameters_handler_impl.h>
 #include <QDomDocument>
@@ -119,8 +118,8 @@ protected:
     bool clear_temp_properties_;
 
     // Set up the regions
-    Temporary_gridRegion_Selector grid_region_;
-    Temporary_gridRegion_Selector hd_grid_region_;
+    Grid_region* target_grid_region_;
+    Grid_region* hd_grid_region_;
 
 protected:
 

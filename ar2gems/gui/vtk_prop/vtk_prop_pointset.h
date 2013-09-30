@@ -27,7 +27,7 @@
  
 #include <gui/common.h>
 #include <gui/vtk_prop/vtk_prop_gstl.h>
-#include <grid/reduced_grid.h>
+#include <grid/point_set.h>
 
 class vtkPolyData;
 class vtkPolyDataMapper;

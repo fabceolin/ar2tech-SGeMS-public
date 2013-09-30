@@ -65,6 +65,7 @@
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
 #include <grid/grid_region.h>
+#include <grid/grid_path.h>
 #include <appli/utilities.h>
 
 #include <GsTL/kriging/kriging_weights.h>
@@ -129,11 +130,9 @@ int Kriging::execute( GsTL_project* ) {
 
   this->init_option_properties(prop->name(),var_prop,nsamples_prop,aver_dist_prop,sum_pos_prop,sum_weights_prop, lagrangian_prop);
 
-
-
-  typedef Geostat_grid::iterator iterator;
-  iterator begin = simul_grid_->begin();
-  iterator end = simul_grid_->end();
+  Grid_path path(simul_grid_, prop, target_grid_region_);
+  Grid_path::iterator begin =path.begin();
+  Grid_path::iterator end = path.end();
   
   for( ; begin != end; ++begin ) {
     if( !progress_notifier->notify() ) {
@@ -269,8 +268,7 @@ bool Kriging::initialize( const Parameters_handler* parameters,
   else 
     return false;
 
-  gridTempRegionSelector_.set_temporary_region(
-                parameters->value( "Grid_Name.region" ), simul_grid_);
+  target_grid_region_ = simul_grid_->region(parameters->value( "Grid_Name.region" ));
 
 
   std::string harddata_grid_name = parameters->value( "Hard_Data.grid" );
@@ -290,15 +288,8 @@ bool Kriging::initialize( const Parameters_handler* parameters,
     return false;
 
   std::string harddata_region_name = parameters->value( "Hard_Data.region" );
-  Grid_region* hd_region = harddata_grid_->region(harddata_region_name);
+  hd_grid_region_ = harddata_grid_->region(harddata_region_name);
 
-  // If the hard data is on the same grid than the
-  // estimation grid, than it cannot be set to a region others than the one
-  // already set on that grid
-  // The is only used if the neighborhood is to consider only data within a region
-  if(harddata_grid_ !=  simul_grid_)
-      hdgridTempRegionSelector_.set_temporary_region(
-              parameters->value( "Hard_Data.region" ),harddata_grid_ );
 
   int max_neigh = 
     String_Op::to_number<int>( parameters->value( "Max_Conditioning_Data.value" ) );
@@ -377,13 +368,13 @@ bool Kriging::initialize( const Parameters_handler* parameters,
   if( dynamic_cast<Point_set*>(harddata_grid_) ) {
     harddata_grid_->set_coordinate_mapper(simul_grid_->coordinate_mapper());
     neighborhood_ = SmartPtr<Neighborhood>(
-      harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, true, hd_region ) );
+      harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, true, hd_grid_region_ ) );
 
     //harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, true, hd_region, simul_grid_->coordinate_mapper() ) );
   } 
   else {
     neighborhood_ =  SmartPtr<Neighborhood>(
-      harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, false, hd_region ));
+      harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, false, hd_grid_region_ ));
   }
   neighborhood_->select_property( harddata_property_name_ );
   neighborhood_->max_size( max_neigh );

@@ -29,7 +29,6 @@
 #include <geostat/common.h>
 #include <grid/geostat_grid.h>
 #include <grid/grid_property.h>
-#include <grid/grid_region_temp_selector.h> 
 #include <grid/neighborhood.h> 
 #include <geostat/geostat_algo.h>
 
@@ -58,8 +57,9 @@ private :
 
   SmartPtr<Neighborhood> neighborhood_; 
   int min_neigh_;
-  Temporary_gridRegion_Selector gridTempRegionSelector_;
-  Temporary_gridRegion_Selector hdgridTempRegionSelector_;
+  Grid_region* target_grid_region_;
+  Grid_region* hd_grid_region_;
+  
 
 };
 

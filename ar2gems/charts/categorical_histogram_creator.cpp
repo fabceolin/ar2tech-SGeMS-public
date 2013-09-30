@@ -111,7 +111,7 @@ void Categorical_histogram_creator::show_categorical_histogram(){
       it->second.append(index);
     }
     else if(item->item_type() == "Group") {
-      GsTLGridPropertyGroup* group = static_cast<GsTLGridPropertyGroup*>(index.internalPointer());
+      Grid_property_group* group = static_cast<Grid_property_group*>(index.internalPointer());
       std::map<std::string,Grid_continuous_property*>::iterator it_prop = group->begin_property();
       Grid_categorical_property* cprop = dynamic_cast<Grid_categorical_property*>(it_prop->second);
       if(!cprop) continue;

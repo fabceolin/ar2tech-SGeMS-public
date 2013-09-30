@@ -68,8 +68,6 @@
 #include <GsTL/kriging/kriging_combiner.h> 
 #include <GsTL/utils/smartptr.h>
 
-#include <grid/grid_region_temp_selector.h> 
-
 #include <string> 
  
 class Neighborhood; 
@@ -118,8 +116,8 @@ class GEOSTAT_DECL dssim : public Geostat_algo {
   //First2_moments_cdf* marginal_;
   First2_moments_cdf* ccdf_;
   
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector hd_grid_region_;
+  Grid_region* target_grid_region_;
+  Grid_region* hd_grid_region_;
 
  // bool use_target_hist_; 
  // geostat_utils::NonParametricCdfType target_cdf_; 

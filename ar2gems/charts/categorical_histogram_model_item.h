@@ -155,11 +155,11 @@ private :
 
 class CHARTS_DECL Categorical_histogram_group_item :public Categorical_histogram_item {
 public :
-  Categorical_histogram_group_item( GsTLGridPropertyGroup* group, int& id);
+  Categorical_histogram_group_item( Grid_property_group* group, int& id);
   virtual ~Categorical_histogram_group_item();
 
   virtual QString type() const {return "Group";}
-  GsTLGridPropertyGroup* group() {return group_;}
+  Grid_property_group* group() {return group_;}
   virtual GsTL_object_item* object_item() {return group_;}
 
   virtual Grid_weight_property* weights(){return weights_;}
@@ -182,7 +182,7 @@ public :
 
 private :
 
-  GsTLGridPropertyGroup* group_;
+  Grid_property_group* group_;
   Grid_region* region_;
   Grid_weight_property* weights_;
 

@@ -67,28 +67,22 @@ Named_interface* create_Rgrid( std::string& ) {
 //=======================================================
 
 
-//TL modified
-bool RGrid::reNameProperty(std::string oldName, std::string newName)
-{
-	return property_manager_.reNameProperty(oldName, newName);
-}
 
 RGrid::RGrid( )
-  :  Strati_grid(),
+  :  Geostat_grid(),
      geom_(0),
-     cell_connection_(0),
-     connection_is_updated_(false), property_manager_(),
      accessor_(0),
+     connection_is_updated_(false),
      grid_cursor_(0){
 	 region_manager_.set_parent_item(this);
 	 property_manager_.set_parent_item(this);
 }
 
 RGrid::RGrid( std::string name )
-:  Strati_grid(name),
+:  Geostat_grid(name),
    geom_(0),
    cell_connection_(0),
-   connection_is_updated_(false), property_manager_(),
+   connection_is_updated_(false),
    accessor_(0),
    grid_cursor_(0){
 	 region_manager_.set_parent_item(this);
@@ -123,148 +117,6 @@ void RGrid::set_accessor(RGrid_gval_accessor* accessor) {
     delete accessor_;
     accessor_ = accessor;
   }
-}
-
-
-Grid_continuous_property* RGrid::add_property( const std::string& name ) {
-				
-  return property_manager_.add_property( name );
-}
-
-Grid_continuous_property* RGrid::add_property_from_disk( const std::string& name, const std::string& filename ) {
-
-  return property_manager_.add_property_from_disk( name, filename );
-}
-
-
-Grid_weight_property* RGrid::add_weight_property( const std::string& name ) {
-				
-  return property_manager_.add_weight_property( name );
-}
-
-Grid_weight_property* RGrid::add_weight_property_from_disk( const std::string& name, const std::string& filename ) {
-
-  return property_manager_.add_weight_property_from_disk( name, filename );
-}
-
-
-Grid_categorical_property* RGrid::add_categorical_property(
-		const std::string& name,
-		const std::string& definition_name){
-	return property_manager_.add_categorical_property( name, definition_name );
-}
-
-
-Grid_categorical_property* RGrid::add_categorical_property_from_disk(
-		const std::string& name,
-		const std::string& filename,
-		const std::string& definition_name){
-	return property_manager_.add_categorical_property_from_disk( name, filename, definition_name );
-}
-
-bool RGrid::remove_property( const std::string& name ) {
- // return property_manager_.remove_property( name );
-
-  std::string name_group;
-
-  Grid_continuous_property* prop = property(name );
-  if(!prop) return false;
-  std::vector< GsTLGridPropertyGroup*> groups = prop->groups();
-  bool ok = property_manager_.remove_property( name);
-  if(!ok) return false;
-  for(int i=0; i<groups.size(); i++) {
-    if(groups[i]->size() == 0) {
-      remove_group(groups[i]->name());
-    }
-  }
-  return true;
-
-}
-
-Grid_continuous_property* RGrid::select_property(const std::string& prop_name) {
-  Grid_continuous_property* prop = property_manager_.select_property( prop_name );
-
-  if (accessor_) delete accessor_;
-
-  if( prop )
-    accessor_ = new RGrid_gval_accessor(this, prop);
-  else
-    accessor_ = 0;
-
-  return prop;
-}
-
-
-
-std::list<std::string> RGrid::property_list() const {
-
-  std::list<std::string> result;
-
-  Grid_property_manager::Property_name_iterator it = 
-    property_manager_.names_begin();
-  Grid_property_manager::Property_name_iterator end = 
-    property_manager_.names_end();
-  for( ; it != end ; ++it )
-    result.push_back( *it );
-
-  return result;
-}
-
-std::list<std::string> RGrid::categorical_property_list() const {
-  std::list<std::string> result;
-
-  Grid_property_manager::Property_name_iterator it =
-    property_manager_.names_begin();
-  Grid_property_manager::Property_name_iterator end =
-    property_manager_.names_end();
-  for( ; it != end ; ++it ) {
-    const Grid_categorical_property* prop = categorical_property(*it);
-    if(prop) result.push_back( *it );
-  }
-
-  return result;
-}
-
-
-std::list<std::string> RGrid::weight_property_list() const {
-  std::list<std::string> result;
-
-  Grid_property_manager::Property_name_iterator it =
-    property_manager_.names_begin();
-  Grid_property_manager::Property_name_iterator end =
-    property_manager_.names_end();
-  for( ; it != end ; ++it ) {
-    const Grid_weight_property* prop = weight_property(*it);
-    if(prop) result.push_back( *it );
-  }
-
-  return result;
-}
-
-
-MultiRealization_property* 
-RGrid::add_multi_realization_property( const std::string& name ) {
-  MultiRealization_property* mprops = property_manager_.new_multireal_property( name );
-  GsTLGridPropertyGroup* group = this->add_group( mprops->name(), "Simulation" );
-  if(group) {
-    mprops->set_group(group);
-  }
-  return mprops;
-}
-
- 
-std::list<std::string> RGrid::region_list() const {
-
-  std::list<std::string> result;
-
-  Grid_region_manager::Region_name_iterator it = 
-    region_manager_.names_begin();
-  Grid_region_manager::Region_name_iterator end = 
-    region_manager_.names_end();
-  for( ; it != end ; ++it )
-    result.push_back( *it );
-
-  return result;
 }
 
 Neighborhood* RGrid::neighborhood( double x, double y, double z,
@@ -355,41 +207,7 @@ Window_neighborhood* RGrid::window_neighborhood( const Grid_template& templ) {
   return new Rgrid_window_neighborhood( templ, this,
 					property_manager_.selected_property() );
 }
-  
-
-void RGrid::init_random_path( bool from_scratch ) {
-  if( int( grid_path_.size() ) !=  grid_cursor_->max_index() ) {
-    grid_path_.resize( grid_cursor_->max_index() );
-    for( int i=0; i < int( grid_path_.size() ); i++ ) 
-      grid_path_[i] = i;
-  }
-  else {
-    if( from_scratch ) {
-      for( int i=0; i < int( grid_path_.size() ); i++ ) 
-      grid_path_[i] = i;
-    }
-  }
-  
-  STL_generator gen;
-  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
-
-}
-
-
-void RGrid::clear_selected_region_from_property(){
-  Grid_property_manager::Property_name_iterator it = property_manager_.names_begin();
-  for(; it != property_manager_.names_end(); ++it) {
-    Grid_continuous_property* prop = property_manager_.get_property( *it );
-    prop->set_region(NULL);
-  }
-}
-
-
-/*
- *
- */
-
-
+ 
 
 
 QString RGrid::item_type() const{
@@ -401,7 +219,7 @@ GsTL_object_item *RGrid::child(int row){
 		return &property_manager_;
 	}
 	else if(row < group_manager_.size() +1) {
-		std::map<std::string, GsTLGridPropertyGroup*>::iterator  it = group_manager_.begin_group();
+		std::map<std::string, Grid_property_group*>::iterator  it = group_manager_.begin_group();
 		for(int i=1; i<row; ++i, ++it){}
 		return it->second;
 	}
@@ -415,7 +233,7 @@ const GsTL_object_item *RGrid::child(int row) const{
 		return &property_manager_;
 	}
 	else if(row < group_manager_.size() +1) {
-		std::map<std::string, GsTLGridPropertyGroup*>::const_iterator  it = group_manager_.begin_group();
+		std::map<std::string, Grid_property_group*>::const_iterator  it = group_manager_.begin_group();
 		for(int i=1; i<row; ++i, ++it){}
 		return it->second;
 	}
