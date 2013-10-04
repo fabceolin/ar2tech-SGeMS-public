@@ -154,6 +154,12 @@ rep->GetAxis()->GetProperty()->SetColor( 1.0, 0.0, 0.0 );
   rep->GetPoint2Representation())->SmoothMotionOff();
 
   distance_->SetEnabled(false);
+  /*
+  this->GetRenderWindow()->StereoCapableWindowOn();
+  //this->GetRenderWindow()->SetStereoTypeToCrystalEyes();
+  this->GetRenderWindow()->SetStereoTypeToInterlaced();
+  this->GetRenderWindow()->StereoRenderOn();
+  */
 /*
 
   compass_ = vtkSmartPointer<vtkCompassWidget>::New();

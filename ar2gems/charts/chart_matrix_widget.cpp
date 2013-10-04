@@ -29,6 +29,7 @@
 #include <vtkAxis.h>
 #include <vtkTextProperty.h>
 #include <vtkChartLegend.h>
+#include <vtkScatterPlotMatrix.h>
 
 #include <QSplitter>
 #include <QTreeView>
@@ -474,3 +475,17 @@ void Chart_matrix_widget::save_figure(QString& filename,QSize plot_size ) {
   QApplication::restoreOverrideCursor();
 
 }
+
+// ----------------------
+
+Chart_scatter_matrix_widget::Chart_scatter_matrix_widget( QWidget *parent)
+  :  Chart_matrix_widget(parent)
+{
+
+
+  context_view_->GetScene()->RemoveItem( chart_matrix_ );
+	chart_matrix_ = vtkSmartPointer<vtkScatterPlotMatrix>::New();
+	context_view_->GetScene()->AddItem(chart_matrix_);  
+
+}
+

@@ -449,6 +449,8 @@ Point_set_neighborhood::find_neighbors( const Geovalue& center , Neighbors & nei
   if(!includes_center_ && neighbors.size() > max_neighbors_) {
     neighbors.pop_back();
   }
+
+  neighbors.set_valid(neigh_filter_->is_neighborhood_valid());
   
 /*  
   if( neigh_filter_->is_neighborhood_valid() ) 

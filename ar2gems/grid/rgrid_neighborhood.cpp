@@ -255,6 +255,8 @@ void Rgrid_window_neighborhood::find_neighbors( const Geovalue& center , Neighbo
 			  );
     //neighbors_.push_back( grid_->geovalue( center_location + (*begin) ) );
   }
+
+  neighbors.set_valid(neigh_filter_->is_neighborhood_valid());
 }
 
 
@@ -308,6 +310,8 @@ void Rgrid_window_neighborhood::find_all_neighbors( const Geovalue& center , Nei
 						     node[2] ) )
 			  );
   }
+
+  neighbors.set_valid(neigh_filter_->is_neighborhood_valid());
 }
 
 
@@ -561,6 +565,8 @@ void Rgrid_ellips_neighborhood::find_neighbors( const Geovalue& center , Neighbo
 
     it++;
   }
+
+  neighbors.set_valid(neigh_filter_->is_neighborhood_valid());
  // if(!neigh_filter_->is_neighborhood_valid()) neighbors_.clear();
 
 }
@@ -790,6 +796,8 @@ Rgrid_ellips_neighborhood_hd::find_neighbors( const Geovalue& center , Neighbors
 
     it++;
   }
+
+  neighbors.set_valid(neigh_filter_->is_neighborhood_valid());
 }
 
 

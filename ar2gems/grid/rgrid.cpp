@@ -76,6 +76,7 @@ RGrid::RGrid( )
      grid_cursor_(0){
 	 region_manager_.set_parent_item(this);
 	 property_manager_.set_parent_item(this);
+   group_manager_.set_parent_item(this);
 }
 
 RGrid::RGrid( std::string name )
