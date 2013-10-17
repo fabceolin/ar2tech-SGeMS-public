@@ -258,8 +258,8 @@ removeSimulatedNode( GsTLGridProperty* prop, vector<int>& grid_path )
 
 template < class RandNumberGenerator >
 template<class RGrid, class GsTLGridProperty>
-void Servo_system_sampler< RandNumberGenerator >::
-removeSimulatedNode( RGrid* grid, GsTLGridProperty* prop, vector<int>& grid_path )
+void Servo_system_sampler< RandNumberGenerator >::removeSimulatedNode
+  ( RGrid* grid, GsTLGridProperty* prop, vector<int>& grid_path )
 {
     SGrid_cursor  cursor = SGrid_cursor( *(grid->cursor()) );
     int current_value; 

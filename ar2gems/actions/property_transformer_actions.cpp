@@ -53,8 +53,8 @@ bool New_pca_transformer::init( std::string& parameters, GsTL_project* proj,
       String_Op::decompose_string( parameters, Actions::separator,
 				   true );
 
-  if( params.size() < 5 ) {
-    errors->report( "Must have at least 5 parameters, name of the transformer, name of the grid, region (if any) and at elast two properties" );
+  if( params.size() < 6 ) {
+    errors->report( "Must have at least 6 parameters, name of the transformer, name of the grid, region (if any), flag (0:correlation, 1:covariance) and at least two properties" );
     return false;
   }
 
@@ -78,8 +78,11 @@ bool New_pca_transformer::init( std::string& parameters, GsTL_project* proj,
   if( !params[2].empty() )  {
     region = grid->region(params[2]);
   }
+
+  bool use_covariance = params[3]=="1"?true:false;
+
   std::vector<const Grid_continuous_property*> props;
-  for(int i=3; i<params.size(); ++i) {
+  for(int i=4; i<params.size(); ++i) {
     Grid_continuous_property* prop = grid->property(params[i]);
     if(prop==0) {
       errors->report( "The property "+params[i]+" does not exist" );
@@ -95,7 +98,7 @@ bool New_pca_transformer::init( std::string& parameters, GsTL_project* proj,
      errors->report( "The transformer could not be find" );
      return false;
   }
-  bool ok = pc_trans->initialize(props, region);
+  bool ok = pc_trans->initialize(props, region, use_covariance);
 
   if(!ok) {
     Root::instance()->delete_interface(transformer_manager + "/" + params[0]);
