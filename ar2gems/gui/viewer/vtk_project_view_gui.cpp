@@ -575,42 +575,42 @@ void Vtk_view::set_red_blue_stereo_mode(){
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 void Vtk_view::set_crystal_eyes_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToCrystalEyes();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_interlaced_stereo_mode() {
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToInterlaced();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_left_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToLeft();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_right_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRight();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_dresden_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToDresden();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_anaglyph_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToAnaglyph();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_checkerboard_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToCheckerboard();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
 void Vtk_view::set_split_horizontal_stereo_mode(){
-  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToSplitViewportHorizontal();
   gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
 }
 
