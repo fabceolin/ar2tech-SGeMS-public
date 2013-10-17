@@ -118,7 +118,7 @@ int DiffProperties::execute( GsTL_project* ) {
 
   std::vector< Grid_continuous_property* >::const_iterator it_prop = props_.begin();
 
-  GsTLGridPropertyGroup* group;
+  Grid_property_group* group;
   std::string group_name = "Difference with "+prop_base_->name();
   group = grid_->get_group(group_name);
   if(group == 0)
@@ -132,11 +132,9 @@ int DiffProperties::execute( GsTL_project* ) {
     if(group) group->add_property(prop_diff);
     grid_->select_property( prop_diff->name() );
     
-    Geostat_grid::iterator it = grid_->begin();
-    for( ; it!= grid_->end(); ++it) {
-      int id = it->node_id();
+    for(int id=0 ; id < grid_->size(); ++id) {
       if( (*it_prop)->is_informed(id) && prop_base_->is_informed(id) ) {
-        it->set_property_value( (*it_prop)->get_value(id) -  prop_base_->get_value(id) );
+        prop_diff->set_value( (*it_prop)->get_value(id), prop_base_->get_value(id) );
       }
     }
   }

@@ -65,7 +65,7 @@ bool New_property_group::init( std::string& parameters, GsTL_project* proj,
     return false;
   }
 
-  GsTLGridPropertyGroup* group = grid->get_group(params[1]);
+  Grid_property_group* group = grid->get_group(params[1]);
   if(group)  {
     errors->report( "The goup "+params[1]+" already exist; hence cannot be created" );
     return false;
@@ -133,7 +133,7 @@ bool Add_properties_to_group::init( std::string& parameters, GsTL_project* proj,
     return false;
   }
 
-  GsTLGridPropertyGroup* group = grid->get_group(params[1]);
+  Grid_property_group* group = grid->get_group(params[1]);
   if(!group)  {
     errors->report( "The goup "+params[1]+" does not exist" );
     return false;
@@ -190,7 +190,7 @@ bool Remove_properties_from_group::init( std::string& parameters, GsTL_project* 
     return false;
   }
 
-  GsTLGridPropertyGroup* group = grid->get_group(params[1]);
+  Grid_property_group* group = grid->get_group(params[1]);
   if(!group)  {
     errors->report( "The goup "+params[1]+" does not exist" );
     return false;
@@ -245,13 +245,13 @@ bool Delete_property_in_group::init( std::string& parameters, GsTL_project* proj
     return false;
   }
 
-  GsTLGridPropertyGroup* group = grid->get_group(params[1]);
+  Grid_property_group* group = grid->get_group(params[1]);
   if(!group)  {
     errors->report( "The goup "+params[1]+" does not exist" );
     return false;
   }
 
-  GsTLGridPropertyGroup::property_map::iterator it = group->begin_property();
+  Grid_property_group::property_map::iterator it = group->begin_property();
   for(; it != group->end_property(); ++it){
   	grid->remove_property(it->second->name());
   }
@@ -293,7 +293,7 @@ bool Remove_group::init( std::string& parameters, GsTL_project* proj,
     return false;
   }
 
-  GsTLGridPropertyGroup* group = grid->get_group(params[1]);
+  Grid_property_group* group = grid->get_group(params[1]);
   if(!group)  {
     errors->report( "The group "+params[1]+" does not exist" );
     return false;

@@ -308,7 +308,7 @@ void Chart_scatter_plot::load_data(GsTL_object_item* item_x, std::vector<GsTL_ob
 
     }
     else if(item_y->item_type().startsWith("Group") ) {
-      GsTLGridPropertyGroup* group_y = dynamic_cast<GsTLGridPropertyGroup*>(item_y);
+      Grid_property_group* group_y = dynamic_cast<Grid_property_group*>(item_y);
       std::vector<GsTL_object_item*>::iterator it = items_filter.begin();
       for( ; it != items_filter.end(); ++it) {
         if( (*it) == 0) {
@@ -379,15 +379,15 @@ void Chart_scatter_plot::add_data( Grid_continuous_property* prop, Grid_region* 
   model_->insert_row(prop,region, default_colors_.at(default_color_id_%max_index_default_colors_) );
   default_color_id_++;
 }
-void Chart_scatter_plot::add_data( GsTLGridPropertyGroup* group){
+void Chart_scatter_plot::add_data( Grid_property_group* group){
   model_->insert_row(group, default_colors_.at(default_color_id_%max_index_default_colors_));
   default_color_id_++;
 }
-void Chart_scatter_plot::add_data( GsTLGridPropertyGroup* group, Grid_weight_property* weigths){
+void Chart_scatter_plot::add_data( Grid_property_group* group, Grid_weight_property* weigths){
   model_->insert_row(group,weigths, default_colors_.at(default_color_id_%max_index_default_colors_));
   default_color_id_++;
 }
-void Chart_scatter_plot::add_data( GsTLGridPropertyGroup* group, Grid_region* region){
+void Chart_scatter_plot::add_data( Grid_property_group* group, Grid_region* region){
   model_->insert_row(group,region, default_colors_.at(default_color_id_%max_index_default_colors_));
   default_color_id_++;
 }

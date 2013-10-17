@@ -63,6 +63,7 @@
 #include <grid/gval_iterator.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
+#include <grid/grid_path.h>
 #include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
@@ -123,11 +124,8 @@ int Sgsim::execute( GsTL_project* ) {
 
   bool from_scratch = true;
   // loop on all realizations
+  Grid_path path(simul_grid_, target_grid_region_);
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
-
-    // compute the random path
-    simul_grid_->init_random_path(from_scratch);
-    from_scratch = false;
 
     // update the progress notifier
     progress_notifier->message() << "working on realization " 
@@ -141,6 +139,10 @@ int Sgsim::execute( GsTL_project* ) {
     Grid_continuous_property* prop = multireal_property_->new_realization();
     simul_grid_->select_property( prop->name() );
     neighborhood_->select_property( prop->name() );
+    
+    path.set_property(prop->name() );
+    path.randomize();
+
 
     // initialize the new realization with the hard data, if that was requested 
     if( property_copier_ ) {
@@ -165,8 +167,8 @@ int Sgsim::execute( GsTL_project* ) {
 
     // do the simulation
     int status = 
-      sequential_simulation( simul_grid_->random_path_begin(),
-			     simul_grid_->random_path_end(),
+      sequential_simulation( path.begin(),
+			     path.end(),
 			     *(neighborhood_.raw_ptr()),
 			     ccdf,
 			     cdf_estimator,
@@ -244,6 +246,7 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
   multireal_property_ =
     simul_grid_->add_multi_realization_property( property_name );
 
+  target_grid_region_ = simul_grid_->region(parameters->value( "Grid_Name.region" ));
 
 
   //-------------
@@ -277,9 +280,8 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
   }
 
   std::string hd_region_name = parameters->value( "Hard_Data.region" );
-  Grid_region* hd_region = 0;
-  if( harddata_grid_ != NULL ) {
-    hd_region = harddata_grid_->region( hd_region_name );
+  if(harddata_grid_) {
+    hd_grid_region_ = harddata_grid_->region( hd_region_name );
   }
 
 
@@ -319,7 +321,7 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
 
 	  if( harddata_property_ ) {
 		  harddata_property_ = 
-		    distribution_utils::gaussian_transform_property( harddata_property_, target_cdf_.raw_ptr(), harddata_grid_, hd_region );
+		    distribution_utils::gaussian_transform_property( harddata_property_, target_cdf_.raw_ptr(), harddata_grid_, hd_grid_region_ );
 		  if( !harddata_property_ ) return false;
       
       clear_temp_properties_ = true;
@@ -396,17 +398,14 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
 
     harddata_grid_->select_property(harddata_property_->name());
 
-    std::string harddata_region_name = parameters->value( "Hard_Data.region" );
-    Grid_region* hd_region = harddata_grid_->region(harddata_region_name);
-
     Neighborhood* harddata_neigh;
     if( dynamic_cast<Point_set*>(harddata_grid_) ) {
       harddata_neigh = 
-        harddata_grid_->neighborhood( ranges, angles, &covar_, true, hd_region );
+        harddata_grid_->neighborhood( ranges, angles, &covar_, true, hd_grid_region_ );
     } 
     else {
       harddata_neigh = 
-        harddata_grid_->neighborhood( ranges, angles, &covar_, false, hd_region );
+        harddata_grid_->neighborhood( ranges, angles, &covar_, false, hd_grid_region_ );
     }
     harddata_neigh->max_size( max_neigh );
     geostat_utils::set_advanced_search(harddata_neigh, 
@@ -441,22 +440,6 @@ bool Sgsim::initialize( const Parameters_handler* parameters,
                              tags_map,
                              parameters, errors,
                              simul_grid_, defaults );
-
-
-// Set up the regions
-  std::string region_name = parameters->value( "Grid_Name.region" );
-  if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
-    errors->report("Grid_Name","Region "+region_name+" does not exist");
-  }
-  else grid_region_.set_temporary_region( region_name, simul_grid_);
-
-  if(harddata_grid_ && !assign_harddata && harddata_grid_ != simul_grid_) {
-    std::string hd_region_name = parameters->value( "Hard_Data.region" );
-    if (!hd_region_name.empty() && harddata_grid_->region( hd_region_name ) == NULL ) {
-      errors->report("Hard_Data","Region "+hd_region_name+" does not exist");
-    }
-    else  hd_grid_region_.set_temporary_region( hd_region_name,harddata_grid_ );
-  }
 
 
 
@@ -499,6 +482,8 @@ Sgsim::Sgsim() {
   harddata_property_ = 0;
   neighborhood_ = 0;
   multireal_property_ = 0;
+  hd_grid_region_ = 0;
+  target_grid_region_ = 0;
 
   use_target_hist_ = false;
   clear_temp_properties_ = false;

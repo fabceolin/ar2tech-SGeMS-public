@@ -81,6 +81,22 @@ protected:
 }; 
  
 
+class GRID_DECL Linear_transformer : public Multi_property_transformer {
+   
+public:
+
+//  PCA_transformer( std::vector<const Grid_continuous_property*> props, const Grid_region* region = 0, bool use_covariance=true);
+  Linear_transformer(){}
+  virtual ~Linear_transformer() {} 
+
+  virtual std::vector<float> get_importance_of_factors() const = 0;
+  virtual std::vector<float> get_weights(int factors) const = 0;
+
+
+
+}; 
+
+
 class GRID_DECL PCA_transformer : public Multi_property_transformer {
    
 public:
@@ -113,6 +129,10 @@ public:
    */
   virtual std::vector<Grid_continuous_property*> back_transform(Geostat_grid* grid,     
               std::vector<const Grid_continuous_property*>, const Grid_region* region = 0 );
+
+  virtual std::vector<float> get_importance_of_factors() const;
+  virtual std::vector<float> get_weights(int factors) const;
+
 
 private:
   std::vector<std::string> variate_names_;

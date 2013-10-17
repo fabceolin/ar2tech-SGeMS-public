@@ -148,7 +148,7 @@ void View_group_property_dialog::display_properties(const QString& group_name){
 
   if(grid == 0) return;
 
-  GsTLGridPropertyGroup* group = grid->get_group( group_name.toStdString() );
+  Grid_property_group* group = grid->get_group( group_name.toStdString() );
   if(group == 0) return;
 
   std::vector<std::string> prop_names = group->property_names();
@@ -371,7 +371,7 @@ display_properties(const QString& group_name) {
 
   if(grid == 0) return;
 
-  GsTLGridPropertyGroup* group = grid->get_group( group_name.toStdString() );
+  Grid_property_group* group = grid->get_group( group_name.toStdString() );
   if(group == 0) return;
 
   std::vector< std::string> props_in_group = group->property_names();
@@ -401,7 +401,7 @@ modify_group_property( )  {
   QString group_name = group_selector_->currentText();
   if(group_name.isEmpty()) return;
 
-  GsTLGridPropertyGroup* group = grid->get_group( group_name.toStdString() );
+  Grid_property_group* group = grid->get_group( group_name.toStdString() );
   if(group == 0) return;
 
   QStringList new_props = prop_selector_->selected_properties();

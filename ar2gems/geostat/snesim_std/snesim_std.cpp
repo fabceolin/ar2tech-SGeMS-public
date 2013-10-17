@@ -57,6 +57,7 @@
 #include <grid/strati_grid.h>
 #include <grid/rgrid.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <grid/rgrid_neighborhood.h>
 #include <utils/manager_repository.h>
 #include <math/random_numbers.h>
@@ -307,6 +308,7 @@ int Snesim_Std::execute( GsTL_project* proj )
     bool not_success;
 
     // loop on all realizations
+    Grid_path simul_path(simul_grid_, grid_region_ );
     for( int nreal = 1; nreal <= nb_reals_; nreal++ ) 
     {
         progress_notifier->message() << "working on realization " << nreal << gstlIO::end;
@@ -319,6 +321,7 @@ int Snesim_Std::execute( GsTL_project* proj )
         simul_grid_->select_property( prop->name() );
 
         simul_grid_->set_level(1);	
+        simul_path.set_property(prop->name());
 
         if( property_copier_ ) 
             property_copier_->copy( harddata_grid_, harddata_property_, simul_grid_, prop );
@@ -326,13 +329,13 @@ int Snesim_Std::execute( GsTL_project* proj )
         if ( !use_vertical_ )
         {  // use the basic servo-system correction
             sampler1_ =  new ServoSystem( marginal_, double(constraint_to_target_cdf_),
-                simul_grid_->begin(), simul_grid_->end(), 
+                simul_path.begin(), simul_path.begin(), 
                 Random_number_generator() );
         }
         else
         {  // use the modifed servo-system to account the vertical effect            
             sampler2_ =  new LayerServoSystem( vert_marginal_, double(constraint_to_target_cdf_),
-                simul_grid_->begin(), simul_grid_->end(), 
+                simul_path.begin(), simul_path.begin(),  
                 Random_number_generator(), get_vertical_index_ );
         }
 
@@ -349,14 +352,14 @@ int Snesim_Std::execute( GsTL_project* proj )
             // use the basic servo-system correction
             // Monte_carlo_sampler_t monte_sampler;
             sampler1_ =  new ServoSystem( marginal_, double(constraint_to_target_cdf_),
-                simul_grid_->begin(), simul_grid_->end(),
+               simul_path.begin(), simul_path.begin(), 
                 Random_number_generator() );
         }
         else
         {
             // use the modifed servo-system to account the vertical effect
             sampler2_ =  new LayerServoSystem( vert_marginal_, double(constraint_to_target_cdf_),
-                simul_grid_->begin(), simul_grid_->end(), 
+                simul_path.begin(), simul_path.begin(),  
                 Random_number_generator(), get_vertical_index_ );
         }
 
@@ -1065,6 +1068,8 @@ void Snesim_Std::init_random_path_normal(int level)
 		
 		for(int gi = 0;gi < sg_cursor->max_index(); gi++)
 		{
+      int node_id = sg_cursor->node_id( gi);
+      if( grid_region_ &&  !grid_region_->is_inside_region(node_id ) ) continue;
 			// check for grid size xsize etc here.
 			int jx,jy,jz;
 			sg_cursor->coords(sg_cursor->node_id(gi),jx,jy,jz);
@@ -1089,8 +1094,11 @@ void Snesim_Std::init_random_path_normal(int level)
 
         grid_paths_[3].clear();
 
-		for( int i=0; i < sg_cursor->max_index(); i++ )
+		for( int i=0; i < sg_cursor->max_index(); i++ ) {
+      int node_id = sg_cursor->node_id( i);
+      if( grid_region_ &&  !grid_region_->is_inside_region(node_id ) ) continue;
 			grid_paths_[3].push_back(i);
+    }
 
         //GsTLcout << "nb nodes is "  << sg_cursor->max_index() << gstlIO::end;
 		
@@ -1550,8 +1558,9 @@ bool Snesim_Std::get_simul_grid( const Parameters_handler* parameters,
   if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
     error_mesgs->report("GridSelector_Sim","Region "+region_name+" does not exist");
   }
-  else grid_region_.set_temporary_region( region_name, simul_grid_);
-    return true;
+  else grid_region_ = simul_grid_->region(region_name);
+  
+  return error_mesgs->empty();
 }
 
 
@@ -1583,14 +1592,13 @@ bool Snesim_Std::get_training_image( const Parameters_handler* parameters,
 		}
 
      // Set up the regions
-    if(training_image_ != simul_grid_) {
-        std::string region_name = parameters->value( "PropertySelector_Training.region" );
-        if (!region_name.empty() && training_image_->region( region_name ) == NULL ) {
-          error_mesgs->report("PropertySelector_Training","Region "+region_name+" does not exist");
-        }
-        else ti_grid_region_.set_temporary_region( region_name, training_image_);
-          return true;
+
+    std::string region_name = parameters->value( "PropertySelector_Training.region" );
+    if (!region_name.empty() && training_image_->region( region_name ) == NULL ) {
+        error_mesgs->report("PropertySelector_Training","Region "+region_name+" does not exist");
     }
+    else ti_grid_region_ = training_image_->region( region_name );
+
 
 		Grid_continuous_property* ti_prop = training_image_->select_property( training_property_name_ );
     Grid_categorical_property* ti_cprop = dynamic_cast<Grid_categorical_property*>(ti_prop);
@@ -2061,6 +2069,8 @@ bool Snesim_Std::simulate_one_realization( SmartPtr<Progress_notifier>& progress
         copy_pre_simulation_data();
     }
 
+    Grid_path path_ti(training_image_, training_image_->property(training_property_name_), ti_grid_region_);
+
     // loop on all coarse grids
     for( int ncoarse = nb_multigrids_ ; ncoarse >=1 ; ncoarse-- ) 
     {
@@ -2150,7 +2160,8 @@ bool Snesim_Std::simulate_one_realization( SmartPtr<Progress_notifier>& progress
 
                 progress_notifier->notify();
                 //typedef Tree_list<std::pair<Colocated_value*, Colocated_value*> > TreeList;
-                TreeList mptree( training_image_->begin(), training_image_->end(),
+                
+                TreeList mptree( path_ti.begin(), path_ti.end(),
                     training_nbd,
                     mg_template->begin(), mg_template->end(),
                     &coloc_pair, angles_,

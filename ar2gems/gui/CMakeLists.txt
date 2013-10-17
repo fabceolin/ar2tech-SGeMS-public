@@ -292,10 +292,7 @@ add_library(ar2gems_gui
   ${gui_FORMS}
 )
 
-SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
-SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
-#SOURCE_GROUP("Forms" REGULAR_EXPRESSION .*\.ui)
-#SOURCE_GROUP("Ui Files" REGULAR_EXPRESSION .*/.(ui))
+source_group(Qt FILES ${gui_MOC} ${gui_FORMS})
 
 
 if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)

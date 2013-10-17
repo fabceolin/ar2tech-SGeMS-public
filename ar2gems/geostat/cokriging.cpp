@@ -62,6 +62,7 @@
 #include <grid/gval_iterator.h>
 #include <utils/manager_repository.h>
 #include <grid/cartesian_grid.h>
+#include <grid/grid_path.h>
 #include <grid/point_set.h>
 #include <grid/property_copier.h>
 #include <appli/utilities.h>
@@ -85,6 +86,9 @@ Cokriging::Cokriging()
   prim_harddata_grid_ = 0;
   sec_harddata_grid_ = 0;
   covar_ = 0;
+  target_grid_region_ = 0;
+  prim_hd_grid_region_ = 0;
+  sec_hd_grid_region_ = 0;
 }
  
 
@@ -118,9 +122,11 @@ int Cokriging::execute( GsTL_project* ) {
 
   simul_grid_->select_property( property_name_ );
   
-  typedef Geostat_grid::iterator iterator;
-  iterator begin = simul_grid_->begin();
-  iterator end = simul_grid_->end();
+  Grid_path path(simul_grid_, simul_grid_->property(property_name_) , target_grid_region_);
+
+  typedef Grid_path::iterator iterator;
+  iterator begin = path.begin();
+  iterator end = path.end();
   
   for( ; begin != end; ++begin ) {
 //    std::cout << "center: " << begin->location() << "  ";
@@ -265,10 +271,10 @@ bool Cokriging::initialize( const Parameters_handler* parameters,
 
 
   std::string prim_harddata_region_name = parameters->value( "Primary_Harddata_Grid.region" );
-  Grid_region* prim_hd_region = prim_harddata_grid_->region(prim_harddata_region_name);
+  prim_hd_grid_region_ = prim_harddata_grid_->region(prim_harddata_region_name);
 
   std::string sec_harddata_region_name = parameters->value( "Secondary_Harddata_Grid.region" );
-  Grid_region* sec_hd_region = sec_harddata_grid_->region(sec_harddata_region_name);
+  sec_hd_grid_region_ = sec_harddata_grid_->region(sec_harddata_region_name);
 
 //  bool assign = 
 //    String_Op::to_number<bool>( parameters->value( "Assign_Hard_Data.value" ) );
@@ -334,11 +340,11 @@ bool Cokriging::initialize( const Parameters_handler* parameters,
 
   if( dynamic_cast<Point_set*>(prim_harddata_grid_) ) {
   prim_neighborhood = 
-    prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, true, prim_hd_region );
+    prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, true, prim_hd_grid_region_ );
   } 
   else {
     prim_neighborhood = 
-      prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, false, prim_hd_region );
+      prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, false, prim_hd_grid_region_ );
   }
 
   prim_neighborhood->select_property( primary_variable_ );
@@ -382,7 +388,7 @@ bool Cokriging::initialize( const Parameters_handler* parameters,
                                                 "Max_Conditioning_Data_2.value",
                                                 "Search_Ellipsoid_2.value",
                                                 "Variogram_C22",
-                                                sec_hd_region);
+                                                sec_hd_grid_region_);
  
   /*  Problem with GsTLGroupBox :: to be solded ASAP
   if(cok_type == geostat_utils::FULL) {
@@ -434,7 +440,7 @@ bool Cokriging::initialize( const Parameters_handler* parameters,
   if( !errors->empty() )
     return false;
 
-
+/*
 // Set up the regions
   grid_region_.set_temporary_region(
                 parameters->value( "Grid_Name.region" ), simul_grid_);
@@ -446,7 +452,7 @@ bool Cokriging::initialize( const Parameters_handler* parameters,
   if(sec_harddata_grid_ !=  simul_grid_ && sec_harddata_grid_ !=  prim_harddata_grid_ )
       sec_hd_grid_region_.set_temporary_region(
               parameters->value( "Secondary_Harddata_Grid.region" ),sec_harddata_grid_ );
-
+*/
 
   //if( assign || ( prim_harddata_grid_ == simul_grid_ ) ) {
   if( assign  ) {

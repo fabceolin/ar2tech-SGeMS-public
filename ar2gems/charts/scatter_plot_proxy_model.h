@@ -75,16 +75,16 @@ public:
     bool insert_row(Grid_continuous_property* prop_x, Grid_continuous_property* prop_y, Grid_region* region, QColor color = QColor());
     bool insert_row(Grid_continuous_property* prop_x, Grid_continuous_property* prop_y, Grid_categorical_property* cprop, QColor color = QColor());
 
-    bool insert_row(Grid_continuous_property* prop_x,GsTLGridPropertyGroup* group_y,QColor color = QColor());
-    bool insert_row(Grid_continuous_property* prop_x, GsTLGridPropertyGroup* group_y,Grid_weight_property* weights, QColor color = QColor());
-    bool insert_row(Grid_continuous_property* prop_x, GsTLGridPropertyGroup* group_y, Grid_region* region, QColor color = QColor());
-    bool insert_row(Grid_continuous_property* prop_x, GsTLGridPropertyGroup* group_y, Grid_categorical_property* cprop, QColor color = QColor());
+    bool insert_row(Grid_continuous_property* prop_x,Grid_property_group* group_y,QColor color = QColor());
+    bool insert_row(Grid_continuous_property* prop_x, Grid_property_group* group_y,Grid_weight_property* weights, QColor color = QColor());
+    bool insert_row(Grid_continuous_property* prop_x, Grid_property_group* group_y, Grid_region* region, QColor color = QColor());
+    bool insert_row(Grid_continuous_property* prop_x, Grid_property_group* group_y, Grid_categorical_property* cprop, QColor color = QColor());
 
 
-    bool insert_row(GsTLGridPropertyGroup* group_x,GsTLGridPropertyGroup* group_y,QColor color = QColor());
-    bool insert_row(GsTLGridPropertyGroup* group_x, GsTLGridPropertyGroup* group_y,Grid_weight_property* weights, QColor color = QColor());
-    bool insert_row(GsTLGridPropertyGroup* group_x, GsTLGridPropertyGroup* group_y, Grid_region* region, QColor color = QColor());
-    bool insert_row(GsTLGridPropertyGroup* group_x, GsTLGridPropertyGroup* group_y, Grid_categorical_property* cprop, QColor color = QColor());
+    bool insert_row(Grid_property_group* group_x,Grid_property_group* group_y,QColor color = QColor());
+    bool insert_row(Grid_property_group* group_x, Grid_property_group* group_y,Grid_weight_property* weights, QColor color = QColor());
+    bool insert_row(Grid_property_group* group_x, Grid_property_group* group_y, Grid_region* region, QColor color = QColor());
+    bool insert_row(Grid_property_group* group_x, Grid_property_group* group_y, Grid_categorical_property* cprop, QColor color = QColor());
 
     bool insert_row(Scatter_plot_item* item);
     bool remove_row(Scatter_plot_item* item);
@@ -138,9 +138,9 @@ private :
   bool is_item_exist(Grid_continuous_property* prop);
   bool is_item_exist(Grid_continuous_property* prop, Grid_region* region);
   bool is_item_exist(Grid_continuous_property* prop, Grid_weight_property* weights);
-  bool is_item_exist(GsTLGridPropertyGroup* prop);
-  bool is_item_exist(GsTLGridPropertyGroup* prop, Grid_region* region);
-  bool is_item_exist(GsTLGridPropertyGroup* prop, Grid_weight_property* weights);
+  bool is_item_exist(Grid_property_group* prop);
+  bool is_item_exist(Grid_property_group* prop, Grid_region* region);
+  bool is_item_exist(Grid_property_group* prop, Grid_weight_property* weights);
   */
 
   int current_id_; //id for each element in the histogram

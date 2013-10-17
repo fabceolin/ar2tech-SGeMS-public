@@ -27,6 +27,7 @@
 #include <actions/unary_action.h>
 #include <utils/error_messages_handler.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <utils/string_manipulation.h>
 #include <appli/action.h>
 #include <geostat/utilities.h>
@@ -79,7 +80,8 @@ bool Unary_action::init(std::string& _parameters, GsTL_project* _proj, Error_mes
 
 bool Unary_action::exec() {
 	// set the active property to reading property
-	this->grid_->select_property(this->property_name_);
+	//this->grid_->select_property(this->property_name_);
+  Grid_continuous_property* source_prop = grid_->property(property_name_);
 
 	// add new property to the grid
 //	Grid_continuous_property* newProperty = 
@@ -88,19 +90,15 @@ bool Unary_action::exec() {
   if( !newProperty ) 
     newProperty = this->grid_->add_property( this->new_property_name_ );
 
-	// get iterators for the original property and the new property
-	Geostat_grid::iterator property_begin = this->grid_->begin();
-	Geostat_grid::iterator property_end = this->grid_->end();
-	Geostat_grid::iterator new_property_begin = this->grid_->begin(newProperty);
-	Geostat_grid::iterator new_property_end = this->grid_->end(newProperty);
-	for (; property_begin != property_end; ++property_begin, ++new_property_begin) {
-		if(!property_begin->is_informed()) continue;
+  
+	for (int i=0; i<grid_->size(); ++i) {
+		if(!source_prop->is_informed(i)) continue;
 		Geovalue::property_type new_prop_value = 0.0;
-    bool ok = this->transform(property_begin->property_value(), new_prop_value);
+    bool ok = this->transform(source_prop->get_value(i), new_prop_value);
 		if ( ok ) 
-      new_property_begin->set_property_value(new_prop_value);
+      newProperty->set_value(new_prop_value, i);
     else 
-			new_property_begin->set_not_informed();
+			newProperty->set_not_informed(i);
 	}
 	return true;
 }
@@ -120,15 +118,14 @@ bool Standardize_transform_action::init(std::string& _parameters, GsTL_project* 
 	bool ok = Unary_action::init(_parameters,_proj,_errors);
 	if(!ok) return false;
 
-	this->grid_->select_property(this->property_name_);
+  Grid_continuous_property* prop = grid_->property(property_name_);
 	Geovalue::property_type sum=0.;
 	Geovalue::property_type sum2=0.;
 	int n = 0;
-	Geostat_grid::iterator property_begin = this->grid_->begin();
-	Geostat_grid::iterator property_end = this->grid_->end();
-	for (; property_begin != property_end; ++property_begin) {
-		if(!property_begin->is_informed()) continue;
-		Geovalue::property_type val = property_begin->property_value();
+
+	for (int i=0; i<grid_->size(); ++i) {
+		if(!prop->is_informed(i)) continue;
+    Geovalue::property_type val = prop->get_value(i);
 		sum += val;
 		sum2 += val*val;
 		n++;

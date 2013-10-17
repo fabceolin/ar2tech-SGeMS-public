@@ -63,6 +63,7 @@
 #include <grid/sgrid_cursor.h>
 #include <grid/rgrid.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <GsTL/math/math_functions.h>
 
 #include <cmath>
@@ -153,7 +154,7 @@ int transcat::execute(  GsTL_project* proj )
     int nb_of_nodes = source_grid_->size();
 
     //GsTLcout << "starting processing " << gstlIO::end;
-
+    Grid_path_ordered path(source_grid_, source_grid_->selected_property() );
     for (int iter=0; iter<nb_iterations_; iter++)
     {
         // copy working property from the current output property which is initialized by the original property
@@ -164,9 +165,10 @@ int transcat::execute(  GsTL_project* proj )
         neighborhood->select_property( working_prop_name );
 
         int loc = 0;
+        
         // moving average over each grid node
-        for( Geostat_grid::iterator node_iter = source_grid_->begin(); 
-                node_iter != source_grid_->end();  node_iter++, loc++ )  
+        for( Grid_path_ordered::iterator node_iter = path.begin(); 
+                node_iter != path.end();  node_iter++, loc++ )  
         {
             //GsTLcout << "      node id:  " << loc;
 

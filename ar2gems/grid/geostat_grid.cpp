@@ -23,38 +23,10 @@
 ** ----------------------------------------------------------------------------*/
 
 
-
-/**********************************************************************
-** Author: Nicolas Remy
-** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
-**   University
-** All rights reserved.
-**
-** This file is part of the "grid" module of the Geostatistical Earth
-** Modeling Software (GEMS)
-**
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
-** appearing in the file LICENSE.XFREE included in the packaging of this file.
-**
-** This file may be distributed and/or modified under the terms of the
-** GNU General Public License version 2 as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL included in the
-** packaging of this file.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-** See http://www.gnu.org/copyleft/gpl.html for GPL licensing information.
-**
-** Contact the Stanford Center for Reservoir Forecasting, Stanford University
-** if any conditions of this licensing are not clear to you.
-**
-**********************************************************************/
-
 #include <utils/manager.h>
 #include <grid/geostat_grid.h>
 #include <grid/neighborhood.h>
+#include <grid/grid_property_set.h>
 
 
 Geostat_grid::Geostat_grid(std::string name) :
@@ -83,179 +55,151 @@ int Geostat_grid::row() const{
 	return 0;
 }
 
-/*
- *
- */
 
-/*
-int Geostat_grid::columnCount(const QModelIndex &) const
-{
-    return 1;
+
+Grid_continuous_property* Geostat_grid::add_property( const std::string& name ) {
+				
+  return property_manager_.add_property( name );
+}
+
+Grid_continuous_property* Geostat_grid::add_property_from_disk( const std::string& name, const std::string& filename ) {
+
+  return property_manager_.add_property_from_disk( name, filename );
 }
 
 
-int Geostat_grid::rowCount(const QModelIndex &parent) const
-{
-    if (parent.column() > 0)
-        return 0;
+Grid_weight_property* Geostat_grid::add_weight_property( const std::string& name ) {
+				
+  return property_manager_.add_weight_property( name );
+}
 
-    GsTL_object_item *parentItem;
+Grid_weight_property* Geostat_grid::add_weight_property_from_disk( const std::string& name, const std::string& filename ) {
 
-    if (!parent.isValid()) {
-        return this->childCount();
+  return property_manager_.add_weight_property_from_disk( name, filename );
+}
+
+
+Grid_categorical_property* Geostat_grid::add_categorical_property(
+		const std::string& name,
+		const std::string& definition_name){
+	return property_manager_.add_categorical_property( name, definition_name );
+}
+
+
+Grid_categorical_property* Geostat_grid::add_categorical_property_from_disk(
+		const std::string& name,
+		const std::string& filename,
+		const std::string& definition_name){
+	return property_manager_.add_categorical_property_from_disk( name, filename, definition_name );
+}
+
+bool Geostat_grid::remove_property( const std::string& name ) {
+ // return property_manager_.remove_property( name );
+
+  std::string name_group;
+
+  Grid_continuous_property* prop = property(name );
+  if(!prop) return false;
+  std::vector< Grid_property_group*> groups = prop->groups();
+  bool ok = property_manager_.remove_property( name);
+  if(!ok) return false;
+  for(int i=0; i<groups.size(); i++) {
+    if(groups[i]->size() == 0) {
+      remove_group(groups[i]->name());
     }
-    else {
-    	GsTL_object_item* parentItem = static_cast<GsTL_object_item*>(parent.internalPointer());
-        return parentItem  ? parentItem->childCount() :0;
-    }
+  }
+  return true;
 
-    return parentItem->childCount();
 }
 
-Qt::ItemFlags Geostat_grid::flags(const QModelIndex &index) const
+Grid_continuous_property* Geostat_grid::select_property(const std::string& prop_name) {
+  Grid_continuous_property* prop = property_manager_.select_property( prop_name );
+
+  return prop;
+}
+
+bool Geostat_grid::reNameProperty(std::string oldName, std::string newName)
 {
-    if (!index.isValid())
-        return 0;
-
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable |  Qt::ItemIsDragEnabled;
-
-
+	return property_manager_.reNameProperty(oldName, newName);
 }
 
 
+std::list<std::string> Geostat_grid::property_list() const {
 
-QModelIndex Geostat_grid::index(int row, int column, const QModelIndex &parent)
-            const
-{
-	if(!parent.isValid()) {
-		createIndex(0,0,(void*)this);
-	}
+  std::list<std::string> result;
 
-    if (!hasIndex(row, column, parent))
-        return QModelIndex();
+  Grid_property_manager::Property_name_iterator it = 
+    property_manager_.names_begin();
+  Grid_property_manager::Property_name_iterator end = 
+    property_manager_.names_end();
+  for( ; it != end ; ++it )
+    result.push_back( *it );
 
-    GsTL_object_item *parentItem;
-
-    if (!parent.isValid())
-        parentItem = parent_;
-    else
-        parentItem = static_cast<GsTL_object_item*>(parent.internalPointer());
-
-    GsTL_object_item *childItem = parentItem->child(row);
-    if (childItem)
-        return createIndex(row, column, childItem);
-    else
-        return QModelIndex();
+  return result;
 }
 
-// Need to be transfered into the implementation
+std::list<std::string> Geostat_grid::categorical_property_list() const {
+  std::list<std::string> result;
 
+  Grid_property_manager::Property_name_iterator it =
+    property_manager_.names_begin();
+  Grid_property_manager::Property_name_iterator end =
+    property_manager_.names_end();
+  for( ; it != end ; ++it ) {
+    const Grid_categorical_property* prop = categorical_property(*it);
+    if(prop) result.push_back( *it );
+  }
 
-QModelIndex Geostat_grid::parent(const QModelIndex &child) const
-{
-    if (!child.isValid())
-        return QModelIndex();
-
-    GsTL_object_item *childItem = static_cast<GsTL_object_item*>(child.internalPointer());
-    GsTL_object_item *parentItem = childItem->parent();
-
-    if (!parentItem )// || parentItem == rootItem_)
-        return QModelIndex();
-
-    return createIndex(parentItem->row(), 0, parentItem);
+  return result;
 }
 
 
+std::list<std::string> Geostat_grid::weight_property_list() const {
+  std::list<std::string> result;
 
+  Grid_property_manager::Property_name_iterator it =
+    property_manager_.names_begin();
+  Grid_property_manager::Property_name_iterator end =
+    property_manager_.names_end();
+  for( ; it != end ; ++it ) {
+    const Grid_weight_property* prop = weight_property(*it);
+    if(prop) result.push_back( *it );
+  }
 
-QVariant
-Geostat_grid::headerData(int section, Qt::Orientation orientation, int role) const
-{
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        switch (section) {
-            case 0:
-                return tr("Name");
-            case 1:
-                return tr("Type");
-            default:
-                return QVariant();
-        }
-    }
-
-    return QVariant();
-}
-
-QVariant Geostat_grid::data(const QModelIndex &index, int role) const
-{
-    if (!index.isValid())
-        return QVariant();
-
-    if (role == Qt::DecorationRole) {
-    	QIcon icon;
-    	GsTL_object_item *item = static_cast<GsTL_object_item*>(index.internalPointer());
-    	QString type = item->item_data(1).toString();
-    	if(type == "Categorical") {
-    		icon.addFile(QString::fromUtf8(":/icons/appli/Pixmaps/cat_property.svg"), QSize(), QIcon::Normal, QIcon::Off);
-    	}
-    	else if(type == "Continuous") {
-    		icon.addFile(QString::fromUtf8(":/icons/appli/Pixmaps/cont_property.svg"), QSize(), QIcon::Normal, QIcon::Off);
-    	}
-    	return icon;
-    }
-
-    if( role == Qt::DisplayRole ) {
-    	GsTL_object_item *item = static_cast<GsTL_object_item*>(index.internalPointer());
-    	return item->item_data(index.column());
-    }
-
-    return QVariant();
+  return result;
 }
 
 
-
-
-
-QStringList Geostat_grid::mimeTypes() const
-{
-    QStringList types;
-    types << "text/plain";
-    return types;
+MultiRealization_property* 
+Geostat_grid::add_multi_realization_property( const std::string& name ) {
+  MultiRealization_property* mprops = property_manager_.new_multireal_property( name );
+  Grid_property_group* group = this->add_group( mprops->name(), "Simulation" );
+  if(group) {
+    mprops->set_group(group);
+  }
+  return mprops;
 }
-*/
-/*
-QMimeData *Geostat_grid::mimeData(const QModelIndexList &indexes) const
-{
-    QMimeData *mimeData = new QMimeData();
-	QString mimeCompleteString;
 
-	for (int i = 0; i < indexes.size(); i+=3) {
-		QModelIndex index = indexes.at(i);
-		if(!index.isValid()) {
-    		continue;
-		}
-		if (i != 0)
-			mimeCompleteString.append("\n");
+ 
+std::list<std::string> Geostat_grid::region_list() const {
 
-		GsTL_item* item = static_cast<GsTL_item*>(index.internalPointer());
+  std::list<std::string> result;
 
+  Grid_region_manager::Region_name_iterator it = 
+    region_manager_.names_begin();
+  Grid_region_manager::Region_name_iterator end = 
+    region_manager_.names_end();
+  for( ; it != end ; ++it )
+    result.push_back( *it );
 
-		GsTL_grid_item* gridItem = dynamic_cast<GsTL_grid_item*>(item);
-		if( gridItem ) {
-    		mimeCompleteString.append("PropPath/"+gridItem->data(0).toString());
-    		continue;
-		}
-		GsTL_property_item* propItem = dynamic_cast<GsTL_property_item*>(item);
-		if( propItem ) {
-    		GsTL_item* parentGridItem = propItem->parent();
-    		QString mimeString = QString("PropPath/%1/%2").arg(parentGridItem->data(0).toString(),
-															   propItem->data(0).toString());
-
-    		mimeCompleteString.append(mimeString);
-    		continue;
-		}
-	}
-
-	mimeData->setText(mimeCompleteString);
-    return mimeData;
+  return result;
 }
-*/
+
+
+void Geostat_grid::clear_selected_region_from_property(){
+  Grid_property_manager::Property_name_iterator it = property_manager_.names_begin();
+  for(; it != property_manager_.names_end(); ++it) {
+    Grid_continuous_property* prop = property_manager_.get_property( *it );
+    prop->set_region(NULL);
+  }
+}

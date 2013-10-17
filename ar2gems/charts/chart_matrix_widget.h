@@ -115,4 +115,16 @@ protected:
 };
 
 
+class CHARTS_DECL Chart_scatter_matrix_widget : public Chart_matrix_widget
+{
+  Q_OBJECT
+
+public:
+    Chart_scatter_matrix_widget(QWidget *parent=0);
+    virtual ~Chart_scatter_matrix_widget(){}
+
+
+
+};
+
 #endif // CHART_BASE_DISPLAY_CONTROLS_H

@@ -531,6 +531,7 @@ void Colormap_categorical::init_color_table() {
   discrete_color_table_->RemoveAllPoints();
 
   discrete_color_table_->SetNumberOfValues( n_cat_ );
+  //discrete_color_table_->SetNumberOfIndexedColors
 
   for( int i=0; i < n_cat_ ; i++ ) {
   	float r,g,b;
@@ -538,7 +539,7 @@ void Colormap_categorical::init_color_table() {
 
     discrete_color_table_->AddRGBPoint(cat_id,cat_def_->red(cat_id),cat_def_->green(cat_id),cat_def_->blue(cat_id));
     discrete_color_table_->GetScalarOpacityFunction()->AddPoint(cat_id,cat_def_->alpha(cat_id));
-
+    this->set_default_nan_color();
 
     //color_table_->SetTableValue(cat_id,cat_def_->red(i),cat_def_->green(cat_id),cat_def_->blue(cat_id), cat_def_->alpha(cat_id));
     //color_table_->SetTableValue(i,cat_def_->red(i),cat_def_->green(i),cat_def_->blue(i), cat_def_->alpha(i));
@@ -551,7 +552,7 @@ void Colormap_categorical::init_color_table() {
   }
   discrete_color_table_->Build();
 
-  this->set_default_nan_color();
+  
 
 }
 

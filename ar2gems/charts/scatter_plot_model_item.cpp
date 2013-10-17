@@ -54,7 +54,7 @@ Scatter_plot_property_item::Scatter_plot_property_item( Grid_continuous_property
 
 
 
-Scatter_plot_property_group_item::Scatter_plot_property_group_item( Grid_continuous_property* prop_x,GsTLGridPropertyGroup* group_y, int& id)
+Scatter_plot_property_group_item::Scatter_plot_property_group_item( Grid_continuous_property* prop_x,Grid_property_group* group_y, int& id)
   : Scatter_plot_item(id), prop_x_(prop_x), group_y_(group_y), weights_(0), region_(0) 
 {
 
@@ -69,7 +69,7 @@ Scatter_plot_property_group_item::Scatter_plot_property_group_item( Grid_continu
 
 
   //Build the list of property
-  GsTLGridPropertyGroup::property_map::const_iterator it_y=  group_y_->begin_property();
+  Grid_property_group::property_map::const_iterator it_y=  group_y_->begin_property();
   for( ; it_y!= group_y_->end_property(); ++it_y) {
     if( prop_x_ == it_y->second ) continue;
     ++id;
@@ -186,7 +186,7 @@ void Scatter_plot_property_group_item::region(QString region_name){
  ---------------------
  */
 
-Scatter_plot_group_item::Scatter_plot_group_item( GsTLGridPropertyGroup* group_x,GsTLGridPropertyGroup* group_y, int& id)
+Scatter_plot_group_item::Scatter_plot_group_item( Grid_property_group* group_x,Grid_property_group* group_y, int& id)
   : Scatter_plot_item(id), group_x_(group_x), group_y_(group_y), weights_(0), region_(0) 
 {
 
@@ -200,8 +200,8 @@ Scatter_plot_group_item::Scatter_plot_group_item( GsTLGridPropertyGroup* group_x
 
 
   //Build the list of property
-  GsTLGridPropertyGroup::property_map::const_iterator it_x=  group_x_->begin_property();
-  GsTLGridPropertyGroup::property_map::const_iterator it_y=  group_y_->begin_property();
+  Grid_property_group::property_map::const_iterator it_x=  group_x_->begin_property();
+  Grid_property_group::property_map::const_iterator it_y=  group_y_->begin_property();
   for( ; it_x!= group_x_->end_property(); ++it_x, ++it_y) {
     ++id;
     prop_items_.insert( new Scatter_plot_property_item(it_x->second, it_y->second, id, this)  );

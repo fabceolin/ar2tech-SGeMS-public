@@ -121,7 +121,7 @@ void Scatter_plot_creator::show_scatter_plot(){
     if( prop ) y_items.push_back( prop );
   }
   for(int i=0; i<y_groups_items.size(); ++i) {
-    GsTLGridPropertyGroup* prop = grid->get_group( y_groups_items.at(i)->text().toStdString() );
+    Grid_property_group* prop = grid->get_group( y_groups_items.at(i)->text().toStdString() );
     if( prop ) y_items.push_back( prop );
   }
   if(y_items.empty()) return;

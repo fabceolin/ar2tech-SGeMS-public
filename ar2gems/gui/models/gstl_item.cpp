@@ -123,7 +123,7 @@ GsTL_item *GsTL_grid_item::child(int row){
     if(row < groups.size()+1) {
 		std::list<std::string>::const_iterator it = groups.begin();
 		for(int i=0; i<(row-1); ++i, ++it){}
-		GsTLGridPropertyGroup* group = grid_->get_group( *it );
+		Grid_property_group* group = grid_->get_group( *it );
 		return new GsTL_group_property_item(group, this);
     }
 
@@ -176,7 +176,7 @@ void GsTL_grid_item::delete_grid(){
 
 GsTL_group_property_item::GsTL_group_property_item():GsTL_item(0){}
 
-GsTL_group_property_item::GsTL_group_property_item(GsTLGridPropertyGroup* group, GsTL_item *parent)
+GsTL_group_property_item::GsTL_group_property_item(Grid_property_group* group, GsTL_item *parent)
     :GsTL_item(parent),group_(group), grid_(0)
 {
     if(parent) {
@@ -194,7 +194,7 @@ GsTL_group_property_item::~GsTL_group_property_item(){}
 
 
 GsTL_item *GsTL_group_property_item::child(int row){
-	GsTLGridPropertyGroup::property_map::const_iterator it = group_->begin_property();
+	Grid_property_group::property_map::const_iterator it = group_->begin_property();
 	for(int i=0; i< row; ++i,++it) {}
 	return new GsTL_property_item(it->second, this);
 }
@@ -238,7 +238,7 @@ int GsTL_group_property_item::row() const{
     return 0;
 }
 
-GsTLGridPropertyGroup* GsTL_group_property_item::group() {
+Grid_property_group* GsTL_group_property_item::group() {
 	return group_;
 }
 
@@ -405,7 +405,7 @@ int GsTL_property_item::row() const{
 
 	GsTL_group_property_item* group_item = dynamic_cast<GsTL_group_property_item*>(parentItem_);
 	if(group_item) {
-		GsTLGridPropertyGroup* group = group_item->group();
+		Grid_property_group* group = group_item->group();
 		std::vector<std::string> props = group->property_names();
 		std::vector<std::string>::const_iterator it = props.begin();
 		for(int i=0; it != props.end(); ++i, ++it) {

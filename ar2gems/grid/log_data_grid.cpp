@@ -512,11 +512,11 @@ QString Log_data_grid::item_type() const{
 
 GsTL_object_item *Log_data_grid::child(int row){
 	if(row == 0) {
-		return &point_prop_;
+    return &property_manager_;
 	}
 
 	else if(row < group_manager_.size() +1) {
-		std::map<std::string, GsTLGridPropertyGroup*>::iterator  it = group_manager_.begin_group();
+		std::map<std::string, Grid_property_group*>::iterator  it = group_manager_.begin_group();
     std::advance(it,row-1);
 		//for(int i=1; i<row; ++i, ++it){}
 		return it->second;
@@ -532,10 +532,10 @@ GsTL_object_item *Log_data_grid::child(int row){
 
 const GsTL_object_item *Log_data_grid::child(int row) const{
 	if(row == 0) {
-		return &point_prop_;
+		return &property_manager_;
 	}
   	else if(row < group_manager_.size() +1) {
-      std::map<std::string, GsTLGridPropertyGroup*>::const_iterator  it = group_manager_.begin_group();
+      std::map<std::string, Grid_property_group*>::const_iterator  it = group_manager_.begin_group();
       std::advance(it,row-1);
 		  //for(int i=1; i<row; ++i, ++it){}
 		  return it->second;
@@ -570,7 +570,7 @@ QVariant Log_data_grid::item_data(int column) const{
 }
 
 GsTL_object_item* Log_data_grid::properties_item(){
-	return &point_prop_;
+	return &property_manager_;
 }
 
 

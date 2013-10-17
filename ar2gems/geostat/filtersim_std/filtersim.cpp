@@ -60,6 +60,7 @@
 #include <grid/rgrid.h>
 #include <grid/rgrid_neighborhood.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <geostat/parameters_handler.h>
 #include <geostat/utilities.h>
 #include <appli/utilities.h>
@@ -1347,18 +1348,20 @@ bool Filtersim_Std::simulate_one_realization( SmartPtr<Progress_notifier>& progr
     Filtersim_Servosystem_Cate< Random_number_generator >* categorical_sampler = 0;
     Filtersim_Servosystem_Cont< Random_number_generator >* continuous_sampler = 0;
 
+    Grid_path path(simul_grid_, prop );
+
     if ( is_categorical_ )
     {
         categorical_sampler =  new Filtersim_Servosystem_Cate< Random_number_generator >( 
                                                     target_cpdf_, serv_, 
-                                                    simul_grid_->begin(), simul_grid_->end(),
+                                                    path.begin(), path.end(),
                                                     Random_number_generator(), patch_nxyzdt_ );
     }
     else
     {
         continuous_sampler =  new Filtersim_Servosystem_Cont< Random_number_generator >( 
                                                     target_mean_, serv_, 
-                                                    simul_grid_->begin(), simul_grid_->end(),
+                                                    path.begin(), path.end(),
                                                     Random_number_generator(), patch_nxyzdt_ );
     }
 

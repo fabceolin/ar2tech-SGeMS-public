@@ -66,8 +66,6 @@
 #include <GsTL/kriging/cokriging_combiner.h> 
 #include <GsTL/kriging/cokriging_constraints.h> 
 
-#include <grid/grid_region_temp_selector.h> 
-
 #include <string> 
  
 class Neighborhood; 
@@ -122,9 +120,10 @@ class GEOSTAT_DECL Cokriging : public Geostat_algo {
 
   int min_neigh_1_, min_neigh_2_;
 
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector prim_hd_grid_region_;
-  Temporary_gridRegion_Selector sec_hd_grid_region_;
+  Grid_region* target_grid_region_;
+  Grid_region* prim_hd_grid_region_;
+  Grid_region* sec_hd_grid_region_;
+
  
  protected: 
 /*  virtual bool finish_covset_and_neighborhood( Covariance<Location>& C11, 

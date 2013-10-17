@@ -190,12 +190,12 @@ private :
 
 class CHARTS_DECL Scatter_plot_property_group_item :public Scatter_plot_item {
 public :
-  Scatter_plot_property_group_item(Grid_continuous_property* prop_x, GsTLGridPropertyGroup* group_y, int& id);
+  Scatter_plot_property_group_item(Grid_continuous_property* prop_x, Grid_property_group* group_y, int& id);
   virtual ~Scatter_plot_property_group_item();
 
   virtual QString type() const {return "Property-Group";}
   Grid_continuous_property* prop() {return prop_x_;}
-  GsTLGridPropertyGroup* group() {return group_y_;}
+  Grid_property_group* group() {return group_y_;}
   virtual GsTL_object_item* object_item_x() {return prop_x_;}
   virtual GsTL_object_item* object_item_y() {return group_y_;}
 
@@ -236,7 +236,7 @@ public :
 private :
 
   Grid_continuous_property*prop_x_;
-  GsTLGridPropertyGroup* group_y_;
+  Grid_property_group* group_y_;
   Grid_region* region_;
   Grid_weight_property* weights_;
   Grid_categorical_property* cprop_;
@@ -249,12 +249,12 @@ private :
 
 class CHARTS_DECL Scatter_plot_group_item :public Scatter_plot_item {
 public :
-  Scatter_plot_group_item( GsTLGridPropertyGroup* group_x, GsTLGridPropertyGroup* group_y, int& id);
+  Scatter_plot_group_item( Grid_property_group* group_x, Grid_property_group* group_y, int& id);
   virtual ~Scatter_plot_group_item();
 
   virtual QString type() const {return "Group";}
-  GsTLGridPropertyGroup* group_x() {return group_x_;}
-  GsTLGridPropertyGroup* group_y() {return group_y_;}
+  Grid_property_group* group_x() {return group_x_;}
+  Grid_property_group* group_y() {return group_y_;}
   virtual GsTL_object_item* object_item_x() {return group_x_;}
   virtual GsTL_object_item* object_item_y() {return group_y_;}
 
@@ -294,8 +294,8 @@ public :
   */
 private :
 
-  GsTLGridPropertyGroup* group_x_;
-  GsTLGridPropertyGroup* group_y_;
+  Grid_property_group* group_x_;
+  Grid_property_group* group_y_;
   Grid_region* region_;
   Grid_weight_property* weights_;
   Grid_categorical_property* cprop_;

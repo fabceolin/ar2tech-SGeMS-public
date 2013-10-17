@@ -29,7 +29,6 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 
-#include <grid/grid_region_temp_selector.h> 
 
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/geometry/Block_covariance.h>
@@ -80,7 +79,7 @@ class GEOSTAT_DECL Kriging_x_validation : public Geostat_algo {
   std::vector<double> kriging_weights_;
 
   int min_neigh_;
- Temporary_gridRegion_Selector hdgridTempRegionSelector_;
+  Grid_region* hd_grid_region_;
 
 /* 
  protected: 

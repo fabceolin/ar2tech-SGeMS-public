@@ -63,7 +63,6 @@
 #include <math/gstlvector.h>
 #include <grid/neighborhood.h>
 #include <utils/string_manipulation.h>
-#include <grid/point_set.h>
 #include <math/gstlpoint.h>
 
 #include <qdatastream.h>
@@ -208,18 +207,7 @@ protected:
 };
 
 
-/*
-inline GsTLGridNode Reduced_grid::ijkValue(int node_id) const {
-	std::map<int,int>::const_iterator itr = reduced2original_.find(node_id);
-	node_id = itr->second;
-	GsTLInt max_nxy = geom_->dim(0)*geom_->dim(1);
-	GsTLInt inxy = node_id % max_nxy; 
-	GsTLInt k = (node_id - inxy)/max_nxy; 
-	GsTLInt j = (inxy - node_id%geom_->dim(0))/geom_->dim(0); 
-	GsTLInt i = inxy%geom_->dim(0);
-	return GsTLGridNode(i,j,k);
-}
-*/
+
 inline bool Reduced_grid::is_inside_mask(int idInFullGrid) const {
   return mask_[idInFullGrid];
 }

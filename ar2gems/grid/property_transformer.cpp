@@ -198,6 +198,29 @@ std::vector<Grid_continuous_property*>
 }
 
 
+std::vector<float> PCA_transformer::get_importance_of_factors() const{
+  std::vector<float> eigenvals;
+  for(int i=0; i<eigenvalues_.size(); +i) {
+    eigenvals.push_back(eigenvalues_[i]);
+  }
+
+  return eigenvals;
+
+}
+
+std::vector<float> PCA_transformer::get_weights(int factor_id) const{
+
+  std::vector<float> eigenvec;
+  for(int i=0; i<eigenvalues_.size(); +i) {
+    eigenvec.push_back(eigenvectors_(factor_id,i));
+  }
+
+  return eigenvec;
+
+}
+
+
+
 bool PCA_transformer::initialize(QDomElement elem){
 
   return true;
@@ -233,7 +256,7 @@ QDomElement PCA_transformer::serialize() const{
       qstr_eigvectors.append(  QString("%1").arg(eigenvectors_(i,j)) );
     }
   }
-  elem.setAttribute("EigenVectors",qstr_eigvectors.join(";"));
+  elem.setAttribute("EigenVectors",qstr_eigvectors.join(","));
 
   return elem;
 

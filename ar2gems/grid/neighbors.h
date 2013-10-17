@@ -23,35 +23,6 @@
 ** ----------------------------------------------------------------------------*/
 
 
-
-/**********************************************************************
-** Author: Nicolas Remy
-** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
-**   University
-** All rights reserved.
-**
-** This file is part of the "grid" module of the Geostatistical Earth
-** Modeling Software (GEMS)
-**
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
-** appearing in the file LICENSE.XFREE included in the packaging of this file.
-**
-** This file may be distributed and/or modified under the terms of the
-** GNU General Public License version 2 as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL included in the
-** packaging of this file.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-** See http://www.gnu.org/copyleft/gpl.html for GPL licensing information.
-**
-** Contact the Stanford Center for Reservoir Forecasting, Stanford University
-** if any conditions of this licensing are not clear to you.
-**
-**********************************************************************/
-
 #ifndef __GSTLAPPLI_GRID_MODEL_NEIGHBORS_H__ 
 #define __GSTLAPPLI_GRID_MODEL_NEIGHBORS_H__ 
  
@@ -96,6 +67,9 @@ class GRID_DECL Neighbors
    inline Neighbors::const_iterator end() const;
    Geovalue center() const;
 
+   inline bool is_valid() const;
+   inline void set_valid(bool on);
+
 
    /* new APIs */
    // Set center
@@ -118,6 +92,8 @@ class GRID_DECL Neighbors
   GsTLInt number_informed_neighbors_; // number of informed neighbors
   GsTLInt number_harddata_neighbors_; // number of harddata neighbors
   bool neighbors_vector_changed_; // keep track of modifications on neighbors_ vector
+
+  bool is_valid_;
 }; 
 
 
@@ -227,6 +203,7 @@ Neighbors::end() const
   return neighbors_.cend();
 }
 
-
+bool Neighbors::is_valid() const{ return is_valid_;}
+void Neighbors::set_valid(bool on) { is_valid_ = on;}
 
 #endif 

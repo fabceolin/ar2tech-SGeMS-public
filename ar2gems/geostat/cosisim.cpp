@@ -85,8 +85,7 @@ int Cosisim::execute( GsTL_project* ) {
     utils::create_notifier( "Running CoSisim", 
 			    total_steps, frequency );
 
-
-  simul_grid_->init_random_path();
+  Grid_path path(simul_grid_,target_grid_region_);
 
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
@@ -104,15 +103,14 @@ int Cosisim::execute( GsTL_project* ) {
     prop->set_parameters(parameters_);
     simul_grid_->select_property( prop->name() );
 
-    typedef Geostat_grid::random_path_iterator RandomPathIterator;
-    RandomPathIterator path_begin = simul_grid_->random_path_begin();
-    RandomPathIterator path_end = simul_grid_->random_path_end();
+    path.set_property( prop->name() );
+    path.randomize();
 
     int status = 0;
     if( do_median_ik_ )
-      status = median_ik( path_begin, path_end, progress_notifier.raw_ptr() );
+      status = median_ik( path.begin(), path.end(), progress_notifier.raw_ptr() );
     else
-      status = full_ik( path_begin, path_end, progress_notifier.raw_ptr() );
+      status = full_ik(  path.begin(), path.end(), progress_notifier.raw_ptr() );
 
     reset_indicator_properties();
 
@@ -395,7 +393,8 @@ bool Cosisim::initialize( const Parameters_handler* parameters,
   multireal_property_ =
     simul_grid_->add_multi_realization_property( property_name );
 
-
+  std::string region_name = parameters->value( "Grid_Name.region" );
+  target_grid_region_ = simul_grid_->region(region_name);
 
   int nb_indicators =
     String_Op::to_number<int>( parameters->value( "Nb_Indicators.value" ) );
@@ -532,6 +531,8 @@ bool Cosisim::initialize( const Parameters_handler* parameters,
           sec_harddata_grid->property( secondary_indicators_names[i] )
         );
     }
+    std::string sec_region_name = parameters->value( "Secondary_Harddata_Grid.region" );
+    soft_grid_region_ = sec_harddata_grid->region(sec_region_name);
 
     if( nb_indicators != secondary_indicators_names.size() ) {
       std::ostringstream message;
@@ -539,7 +540,7 @@ bool Cosisim::initialize( const Parameters_handler* parameters,
       errors->report( std::string("Secondary_Indicators"), message.str() );
     }
   }
-
+  
 
   // check if errors were reported so far
   if( !errors->empty() ) return false;
@@ -748,11 +749,12 @@ bool Cosisim::initialize( const Parameters_handler* parameters,
     kconstraints_ = new geostat_utils::CoKrigingConstraints;
   }
 
-  std::string region_name = parameters->value( "Grid_Name.region" );
+  /*
   if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
     errors->report("Grid_Name","Region "+region_name+" does not exist");
   }
   else grid_region_.set_temporary_region( region_name, simul_grid_);
+
 
   if( simul_grid_ != sec_harddata_grid ) {
     std::string region_name = parameters->value( "Secondary_Harddata_Grid.region" );
@@ -761,7 +763,7 @@ bool Cosisim::initialize( const Parameters_handler* parameters,
     }
     else soft_grid_region_.set_temporary_region( region_name, sec_harddata_grid);
   }
-
+  */
 
   //-------------------------------
   // Done!
@@ -822,12 +824,12 @@ void Cosisim::init_neighborhoods( Geostat_grid* hard_grid, Geostat_grid* soft_gr
       if( dynamic_cast<Point_set*>(hard_grid) ) {
         neighborhood = SmartPtr<Neighborhood>(
           soft_grid->neighborhood( soft_ranges, soft_angles,
-                                   &covariances[j], true )  );
+          &covariances[j], true, soft_grid_region_ )  );
       } 
       else {
         neighborhood = SmartPtr<Neighborhood>(
           soft_grid->neighborhood( soft_ranges, soft_angles,
-                                   &covariances[j] )  );
+                                   &covariances[j], false, soft_grid_region_ )  );
       }
 
        neighborhood->select_property( secondary_indicators_[j]->name() );
@@ -853,6 +855,8 @@ Cosisim::Cosisim() {
   ccdf_ = 0;
   marginal_ = 0;
   kconstraints_ = 0;
+  target_grid_region_ = 0;
+  soft_grid_region_ = 0;
 
 }
 

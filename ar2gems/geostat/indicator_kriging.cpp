@@ -64,6 +64,7 @@
 #include <grid/grid_property_manager.h>
 #include <grid/neighborhood.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <appli/utilities.h>
 
 #include <GsTL/kriging/kriging_weights.h>
@@ -126,8 +127,9 @@ int Indicator_kriging::median_ik( Progress_notifier* progress_notifier ) {
   // the following line could probably be omitted
   simul_grid_->select_property( simul_properties[0]->name() );
 
-  Geostat_grid::iterator begin = simul_grid_->begin();
-  Geostat_grid::iterator end = simul_grid_->end();
+  Grid_path path(simul_grid_, simul_properties[0], target_grid_region_);
+  Grid_path::iterator begin =path.begin();
+  Grid_path::iterator end = path.end();
   
   
   for( ; begin != end; ++begin ) {
@@ -218,8 +220,9 @@ int Indicator_kriging::full_ik( Progress_notifier* progress_notifier ) {
   // the following line could probably be omitted
   simul_grid_->select_property( simul_properties[0]->name() );
 
-  Geostat_grid::iterator begin = simul_grid_->begin();
-  Geostat_grid::iterator end = simul_grid_->end();
+  Grid_path path(simul_grid_, simul_properties[0], target_grid_region_);
+  Grid_path::iterator begin =path.begin();
+  Grid_path::iterator end = path.end();
 
   // loop over the grid
 
@@ -437,7 +440,8 @@ bool Indicator_kriging::initialize( const Parameters_handler* parameters,
     hdata_properties_.push_back( prop );
   }
 
-
+  target_grid_region_ = simul_grid_->region(parameters->value( "Grid_Name.region" ));
+  prim_hd_grid_region_ = simul_grid_->region(parameters->value( "Hard_Data.region" ));
 
   //-------------
   // The search neighborhood parameters
@@ -543,13 +547,13 @@ bool Indicator_kriging::initialize( const Parameters_handler* parameters,
       if( dynamic_cast<Point_set*>(hdata_grid_) ) {
         neighborhoods_vector_[j] = 
           SmartPtr<Neighborhood>( 
-            hdata_grid_->neighborhood( ranges, angles, &covar_vector_[j], true )
+          hdata_grid_->neighborhood( ranges, angles, &covar_vector_[j], true, prim_hd_grid_region_ )
           );
       } 
       else {
         neighborhoods_vector_[j] = 
           SmartPtr<Neighborhood>(
-            hdata_grid_->neighborhood( ranges, angles, &covar_vector_[j] )
+            hdata_grid_->neighborhood( ranges, angles, &covar_vector_[j], false, prim_hd_grid_region_ )
           );
       }
 
@@ -559,13 +563,10 @@ bool Indicator_kriging::initialize( const Parameters_handler* parameters,
     }
   }
 
-// Set up the regions
-  grid_region_.set_temporary_region(
-                parameters->value( "Grid_Name.region" ), simul_grid_);
+
 
   if(hdata_grid_ !=  simul_grid_)
-      prim_hd_grid_region_.set_temporary_region(
-              parameters->value( "Hard_Data.region" ),hdata_grid_ );
+      
 
 
 

@@ -76,6 +76,14 @@ Geovalue::Geovalue( const Geovalue& rhs )
 {
 }
 
+Geovalue::Geovalue( Geostat_grid* grid, int node_id )
+  : grid_(grid), property_array_(0), 
+    node_id_(node_id),
+    loc_( invalid_coord_, invalid_coord_, invalid_coord_ ),
+    xyz_loc_( invalid_coord_, invalid_coord_, invalid_coord_ ){
+
+  values_array_ = 0 ;
+}
 
 Geovalue::Geovalue( Geostat_grid* grid, Grid_continuous_property* prop,
 		    int node_id )
@@ -191,6 +199,14 @@ Const_geovalue::Const_geovalue( const Const_geovalue& rhs )
     loc_( rhs.loc_ ) {
 }
 
+Const_geovalue::Const_geovalue( const Geostat_grid* grid, int node_id )
+    : grid_(grid), property_array_(0), 
+    node_id_(node_id),
+    loc_( invalid_coord_, invalid_coord_, invalid_coord_ ) {
+
+  values_array_ = 0 ;
+
+}
 
 Const_geovalue::Const_geovalue( const Geostat_grid* grid,
                                 const Grid_continuous_property* prop,

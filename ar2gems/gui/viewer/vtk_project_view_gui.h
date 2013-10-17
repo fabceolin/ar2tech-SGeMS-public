@@ -120,6 +120,18 @@ public slots :
 
   void remove_viz_parameters(const QModelIndex & source_parent, int start, int end);
 
+  //void set_stereo_mode(const QString& mode );
+  //void set_stereo_mode( );
+  void set_no_stereo_mode();
+  void  set_red_blue_stereo_mode();
+  void  set_crystal_eyes_stereo_mode() ;
+  void  set_interlaced_stereo_mode() ;
+  void  set_left_stereo_mode();
+  void  set_right_stereo_mode();
+  void  set_dresden_stereo_mode();
+  void  set_anaglyph_stereo_mode();
+  void  set_checkerboard_stereo_mode();
+  void  set_split_horizontal_stereo_mode();
 
 signals :
   void rendering_window_modified();
@@ -156,6 +168,7 @@ protected :
     QPushButton *legend_scale_button_;
     QPushButton *orientation_button_;
     QPushButton *distance_button_;
+    QPushButton *stereo_button_;
 
     Visualization_tree_view *tree_;
     //Filter_root_proxy_model* model_;

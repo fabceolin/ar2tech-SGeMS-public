@@ -56,8 +56,9 @@ private :
   std::string property_name_;
 
   SmartPtr<Neighborhood> neighborhood_; 
-  Temporary_gridRegion_Selector gridTempRegionSelector_;
-  Temporary_gridRegion_Selector hdgridTempRegionSelector_;
+
+  Grid_region* target_grid_region_;
+  Grid_region* hd_region_;
 
 };
 

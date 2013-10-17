@@ -45,6 +45,7 @@
         <file>appli/Pixmaps/weight_property.svg</file>
         <file>appli/Pixmaps/ar2tech-sgems.png</file>
         <file>appli/Pixmaps/ar2gems-icon-256x256.png</file>
+        <file>appli/Pixmaps/stereo.svg</file>
     </qresource>
     <qresource>
         <file alias="ar2gems-splash.png">appli/Pixmaps/ar2gems-splash.png</file>

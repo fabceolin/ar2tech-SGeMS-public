@@ -62,7 +62,7 @@ Histogram_proxy_model::Histogram_proxy_model(QList< GsTL_object_item*> items, QO
       continue;
     }
 
-    GsTLGridPropertyGroup* group = dynamic_cast< GsTLGridPropertyGroup*>(items.at(i));
+    Grid_property_group* group = dynamic_cast< Grid_property_group*>(items.at(i));
     if(group) {
       Histogram_group_item* group_item  = new Histogram_group_item(group, current_id_);
       current_id_++;
@@ -157,7 +157,7 @@ bool Histogram_proxy_model::insert_row(Grid_continuous_property* prop, Grid_regi
 
 }
 
-bool Histogram_proxy_model::insert_row(GsTLGridPropertyGroup* group, Grid_region* region, Grid_continuous_property* weights, QColor color){
+bool Histogram_proxy_model::insert_row(Grid_property_group* group, Grid_region* region, Grid_continuous_property* weights, QColor color){
   std::map<GsTL_object_item*,Histogram_item*>::iterator it =  lookup_items_.find(group);
   if( it != lookup_items_.end() ) return false;
 
@@ -232,7 +232,7 @@ bool Histogram_proxy_model::insert_row(Grid_continuous_property* prop, Grid_weig
   return this->insert_row(item);
 }
 
-bool Histogram_proxy_model::insert_row(GsTLGridPropertyGroup* group, QColor color){
+bool Histogram_proxy_model::insert_row(Grid_property_group* group, QColor color){
 
   //if (this->is_item_exist(group) ) return false;;
 
@@ -245,7 +245,7 @@ bool Histogram_proxy_model::insert_row(GsTLGridPropertyGroup* group, QColor colo
 }
 
 
-bool Histogram_proxy_model::insert_row(GsTLGridPropertyGroup* group, Grid_region* region, QColor color){
+bool Histogram_proxy_model::insert_row(Grid_property_group* group, Grid_region* region, QColor color){
 
   //if (this->is_item_exist(group, region) ) return false;;
 
@@ -258,7 +258,7 @@ bool Histogram_proxy_model::insert_row(GsTLGridPropertyGroup* group, Grid_region
 
 }
 
-bool Histogram_proxy_model::insert_row(GsTLGridPropertyGroup* group, Grid_weight_property* weights, QColor color){
+bool Histogram_proxy_model::insert_row(Grid_property_group* group, Grid_weight_property* weights, QColor color){
   //if (this->is_item_exist(group, weights) ) return false;
 
   Histogram_item* item = new Histogram_group_item(group, current_id_);
@@ -283,7 +283,7 @@ bool Histogram_proxy_model::insert_rows(std::vector<GsTL_object_item*> new_objec
       ok = ok | this->insert_row(prop);
     }
 
-    GsTLGridPropertyGroup* group = dynamic_cast< GsTLGridPropertyGroup*>(new_object_items[i]);
+    Grid_property_group* group = dynamic_cast< Grid_property_group*>(new_object_items[i]);
     if(group) {
       ok = ok | this->insert_row(group);
     }
@@ -693,7 +693,7 @@ bool Histogram_proxy_model::is_item_exist(Grid_continuous_property* prop, Grid_w
   return false;
 }
 
-bool Histogram_proxy_model::is_item_exist(GsTLGridPropertyGroup* group){
+bool Histogram_proxy_model::is_item_exist(Grid_property_group* group){
   std::set< Histogram_item*>::iterator it = items_.begin();
   for( ; it!= items_.end(); ++it) {
     Histogram_group_item* g_item = dynamic_cast<Histogram_group_item*>(*it);
@@ -702,7 +702,7 @@ bool Histogram_proxy_model::is_item_exist(GsTLGridPropertyGroup* group){
   return false;
 }
 
-bool Histogram_proxy_model::is_item_exist(GsTLGridPropertyGroup* group, Grid_region* region){
+bool Histogram_proxy_model::is_item_exist(Grid_property_group* group, Grid_region* region){
   std::set< Histogram_item*>::iterator it = items_.begin();
   for( ; it!= items_.end(); ++it) {
     Histogram_group_item* g_item = dynamic_cast<Histogram_group_item*>(*it);
@@ -711,7 +711,7 @@ bool Histogram_proxy_model::is_item_exist(GsTLGridPropertyGroup* group, Grid_reg
   return false;
 }
 
-bool Histogram_proxy_model::is_item_exist(GsTLGridPropertyGroup* group, Grid_weight_property* weights){
+bool Histogram_proxy_model::is_item_exist(Grid_property_group* group, Grid_weight_property* weights){
   std::set< Histogram_item*>::iterator it = items_.begin();
   for( ; it!= items_.end(); ++it) {
     Histogram_group_item* g_item = dynamic_cast<Histogram_group_item*>(*it);

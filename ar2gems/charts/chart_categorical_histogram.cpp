@@ -168,7 +168,7 @@ void Chart_categorical_histogram::load_data(QModelIndexList indexes){
       cprops.push_back(static_cast<Grid_categorical_property*>(item->data_pointer()));
     }
     else if(item->item_type() == "Group") {
-      GsTLGridPropertyGroup* group = static_cast<GsTLGridPropertyGroup*>(index.internalPointer());
+      Grid_property_group* group = static_cast<Grid_property_group*>(index.internalPointer());
       std::map<std::string,Grid_continuous_property*>::const_iterator  it_p_in_group = group->begin_property();
       for( ; it_p_in_group != group->end_property(); ++it_p_in_group ) {
         Grid_categorical_property* cprop = dynamic_cast<Grid_categorical_property*>(it_p_in_group->second);
@@ -209,7 +209,7 @@ void Chart_categorical_histogram::load_data(QModelIndexList indexes){
       default_color_id_++;
     }
     else if(item->item_type().contains("Group:")) {
-      GsTLGridPropertyGroup* group = static_cast<GsTLGridPropertyGroup*>(index.internalPointer());
+      Grid_property_group* group = static_cast<Grid_property_group*>(index.internalPointer());
       std::map<GsTL_object_item*,Grid_region*>::iterator it = grid_to_region.find(group->parent());
       Grid_region* region = 0;
       if(it != grid_to_region.end()) region = it->second;
@@ -240,15 +240,15 @@ void Chart_categorical_histogram::add_data( Grid_categorical_property* prop, Gri
   model_->insert_row(prop,region, default_colors_.at(default_color_id_%max_index_default_colors_) );
   default_color_id_++;
 }
-void Chart_categorical_histogram::add_data( GsTLGridPropertyGroup* group){
+void Chart_categorical_histogram::add_data( Grid_property_group* group){
   model_->insert_row(group, default_colors_.at(default_color_id_%max_index_default_colors_));
   default_color_id_++;
 }
-void Chart_categorical_histogram::add_data( GsTLGridPropertyGroup* group, Grid_weight_property* weigths){
+void Chart_categorical_histogram::add_data( Grid_property_group* group, Grid_weight_property* weigths){
   model_->insert_row(group,weigths, default_colors_.at(default_color_id_%max_index_default_colors_));
   default_color_id_++;
 }
-void Chart_categorical_histogram::add_data( GsTLGridPropertyGroup* group, Grid_region* region){
+void Chart_categorical_histogram::add_data( Grid_property_group* group, Grid_region* region){
   model_->insert_row(group,region, default_colors_.at(default_color_id_%max_index_default_colors_));
   default_color_id_++;
 }

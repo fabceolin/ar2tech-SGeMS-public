@@ -61,7 +61,7 @@ Histogram_distribution_item::Histogram_distribution_item( Continuous_distributio
 }
 
 
-Histogram_group_item::Histogram_group_item( GsTLGridPropertyGroup* group, int& id)
+Histogram_group_item::Histogram_group_item( Grid_property_group* group, int& id)
   : Histogram_item(id), group_(group), weights_(0), region_(0) 
 {
   grid_ = dynamic_cast< Geostat_grid*>(group_->parent());
@@ -69,7 +69,7 @@ Histogram_group_item::Histogram_group_item( GsTLGridPropertyGroup* group, int& i
   item_name_  = group_->item_name();
 
   //Build the list of property
-  GsTLGridPropertyGroup::property_map::const_iterator it=  group_->begin_property();
+  Grid_property_group::property_map::const_iterator it=  group_->begin_property();
   for( ; it!= group_->end_property(); ++it) {
     ++id;
     prop_items_.insert( new Histogram_property_item(it->second, id, this)  );

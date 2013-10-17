@@ -119,7 +119,7 @@ class GUI_DECL GsTL_group_property_item : public GsTL_item
 public:
 	GsTL_group_property_item();
 
-	GsTL_group_property_item(GsTLGridPropertyGroup* group, GsTL_item *parent = 0);
+	GsTL_group_property_item(Grid_property_group* group, GsTL_item *parent = 0);
     virtual ~GsTL_group_property_item();
 
     virtual QString type()const {return "GroupProperty";}
@@ -131,12 +131,12 @@ public:
     virtual int row() const;
 
     QString gridName() const {return gridName_;}
-    GsTLGridPropertyGroup* group();
+    Grid_property_group* group();
     Geostat_grid* grid(){return grid_;}
 
 private:
     Geostat_grid* grid_;
-    GsTLGridPropertyGroup* group_;
+    Grid_property_group* group_;
     QString gridName_;
 };
 

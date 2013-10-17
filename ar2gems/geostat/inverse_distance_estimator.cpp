@@ -33,6 +33,7 @@
 #include <utils/manager_repository.h>
 #include <grid/grid_region.h>
 #include <grid/point_set.h>
+#include <grid/grid_path.h>
 #include <geostat/utilities.h>
 #include <appli/utilities.h>
 
@@ -72,9 +73,7 @@ bool Inverse_distance_estimator::initialize( const Parameters_handler* parameter
   }
   else 
     return false;
-
-  gridTempRegionSelector_.set_temporary_region(
-                parameters->value( "Grid_Name.region" ), grid_);
+  target_grid_region_ = grid_->region(parameters->value( "Grid_Name.region" ));
 
 
   std::string hd_grid_name = parameters->value( "Hard_Data.grid" );
@@ -94,15 +93,8 @@ bool Inverse_distance_estimator::initialize( const Parameters_handler* parameter
     return false;
 
   std::string harddata_region_name = parameters->value( "Hard_Data.region" );
-  Grid_region* hd_region = hd_grid_->region(harddata_region_name);
+  hd_grid_region_ = hd_grid_->region(harddata_region_name);
 
-  // If the hard data is on the same grid than the
-  // estimation grid, than it cannot be set to a region others than the one
-  // already set on that grid
-  // The is only used if the neighborhood is to consider only data within a region
-  if(hd_grid_ !=  grid_)
-      hdgridTempRegionSelector_.set_temporary_region(
-              parameters->value( "Hard_Data.region" ),hd_grid_ );
 
   int max_neigh = 
     String_Op::to_number<int>( parameters->value( "Max_Conditioning_Data.value" ) );
@@ -153,11 +145,11 @@ bool Inverse_distance_estimator::initialize( const Parameters_handler* parameter
   hd_grid_->select_property(harddata_property_name);
   if( dynamic_cast<Point_set*>(hd_grid_) ) {
   neighborhood_ = SmartPtr<Neighborhood>(
-    hd_grid_->neighborhood( ellips_ranges, ellips_angles, 0, true, hd_region ) );
+    hd_grid_->neighborhood( ellips_ranges, ellips_angles, 0, true, hd_grid_region_ ) );
   } 
   else {
     neighborhood_ =  SmartPtr<Neighborhood>(
-      hd_grid_->neighborhood( ellips_ranges, ellips_angles, 0, false, hd_region ));
+      hd_grid_->neighborhood( ellips_ranges, ellips_angles, 0, false, hd_grid_region_ ));
   }
   neighborhood_->select_property( harddata_property_name );
   neighborhood_->max_size( max_neigh );
@@ -185,9 +177,9 @@ int Inverse_distance_estimator::execute( GsTL_project* proj ){
   prop->set_parameters(parameters_);
   grid_->select_property( prop->name() );
   
-  typedef Geostat_grid::iterator iterator;
-  iterator begin = grid_->begin();
-  iterator end = grid_->end();
+  Grid_path path(grid_, prop, target_grid_region_);
+  Grid_path::iterator begin =path.begin();
+  Grid_path::iterator end = path.end();
   
   for( ; begin != end; ++begin ) {
     if( !progress_notifier->notify() ) {

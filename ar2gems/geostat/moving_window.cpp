@@ -32,6 +32,7 @@
 #include <grid/geostat_grid.h>
 #include <grid/rgrid_neighborhood.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <math/gstlpoint.h>
 #include <geostat/utilities.h>
 #include <algorithm>
@@ -249,7 +250,7 @@ bool Moving_window::initialize( const Parameters_handler* parameters,
 
    std::string prefix = parameters->value("prefix_out.value");
 
-  GsTLGridPropertyGroup* group = geostat_utils::add_group_to_grid( grid_, prefix,"General");
+  Grid_property_group* group = geostat_utils::add_group_to_grid( grid_, prefix,"General");
 
   
  if(nCategory_ > 0) {
@@ -289,11 +290,12 @@ bool Moving_window::initialize( const Parameters_handler* parameters,
 
 int Moving_window::execute(GsTL_project *) { 
 
-  Geostat_grid::iterator it_gval = grid_->begin();
+  Grid_path_ordered path(grid_, grid_->selected_property() );
+  Grid_path_ordered::iterator it_gval = path.begin();
   std::vector< float > scores;
 
   
-  for(; it_gval != grid_->end(); ++it_gval ) {
+  for(; it_gval != path.end(); ++it_gval ) {
     neigh_->find_neighbors ( *it_gval );
     
     if( nCategory_ > 0 ) {

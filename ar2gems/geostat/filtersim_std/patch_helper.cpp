@@ -55,7 +55,7 @@
 **********************************************************************/
 
 #include "patch_helper.h"
-
+#include <grid/grid_path.h>
 /*
  * constructor, from simulation grid, use region concept
  * only the nodes in the current active regions can be patched
@@ -70,8 +70,9 @@ Patch_Helper::Patch_Helper( RGrid* simul_grid, vector<bool>& region, bool has_ha
     // if has hard data, then set hard data as patched
     if ( has_hard_data )
     {
-        for (RGrid::iterator current_node_iter = simul_grid->begin(); 
-             current_node_iter != simul_grid->end(); current_node_iter++) 
+        Grid_path_ordered path(simul_grid, simul_grid->selected_property() );
+        for (Grid_path_ordered::iterator current_node_iter = path.begin(); 
+             current_node_iter != path.end(); current_node_iter++) 
         {
             if ( current_node_iter->is_harddata() ) 
             {
@@ -103,8 +104,9 @@ Patch_Helper::Patch_Helper( RGrid* simul_grid, bool has_hard_data )
     // if has hard data, then set hard data as patched
     if ( has_hard_data )
     {
-        for (RGrid::iterator current_node_iter = simul_grid->begin(); 
-             current_node_iter != simul_grid->end(); current_node_iter++) 
+        Grid_path_ordered path(simul_grid, simul_grid->selected_property() );
+        for (Grid_path_ordered::iterator current_node_iter = path.begin(); 
+             current_node_iter != path.end(); current_node_iter++) 
         {
             if ( current_node_iter->is_harddata() ) 
             {
