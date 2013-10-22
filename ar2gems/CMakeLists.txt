@@ -6,6 +6,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3 -march=native")
   set(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -ggdb -march=native")
 elseif(MSVC)
+  set(CMAKE_CXX_FLAGS_RELEASE "/MP4")
   # customize flags for Visual Studio
 endif()
 

@@ -3,9 +3,6 @@
 
 Name SGeMS-ar2Tech-beta-x64
 
-;File: "D:\workspace\ar2gems\lib\x64\Release\plugins\colorscales\*" -> no files found.
-;File: "D:\workspace\ar2gems\lib\x64\Release\plugins\Geostat\*.dll" -> no files found
-
 ; getting variables from CMAKE
 !define INSTALLER_OUTFILE_NAME "@CPACK_NSIS_INSTALLER_OUTFILE_NAME@"
 
@@ -107,8 +104,8 @@ Section "Main" SEC0000
     ;This is specifically for sgems-UQ
     ;File ${AR2GEMS_PLUGINS_DIR}\Geostat\metrics-data.dll    
     ;File ${AR2GEMS_PLUGINS_DIR}\Geostat\metrics-algo.dll
-;FIXME ;SetOutPath $INSTDIR\plugins\colorscales
-;FIXME ;File ${AR2GEMS_PLUGINS_DIR}\colorscales\*
+    SetOutPath $INSTDIR\plugins\colorscales
+    File ${AR2GEMS_PLUGINS_DIR}\colorscales\*
     SetOutPath $INSTDIR\plugins\Geostat
 ;FIXME ;File ${AR2GEMS_PLUGINS_DIR}\Geostat\*.dll
     File ${AR2GEMS_PLUGINS_DIR}\Geostat\*.ui
@@ -127,6 +124,9 @@ Section "Main" SEC0000
     ; manage headers
     File /r @CPACK_NSIS_AR2GEMS_BINARY_DIR@\include    
     ;
+    
+    SetOutPath $INSTDIR\plugins\designer
+    File ${AR2GEMS_BINARY_DIR}\ar2gems_widgets.dll 
      
 SectionEnd
 
@@ -138,11 +138,21 @@ Section "Main" SEC0010
     ; manage headers
     ;File /r @CPACK_NSIS_AR2GEMS_BINARY_DIR@\include    
     ; 
+    
+   ; SETUP AR2GEMS_PLUGINS_DIR ENV variable 
+   ; include for some of the windows messages defines
+   !include "winmessages.nsh"
+   ; HKLM (all users) vs HKCU (current user) defines
+   ;!define env_hklm 'HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"'
+   ;!define env_hkcu 'HKCU "Environment"'
+   ; set variable
+   WriteRegExpandStr ${env_hklm} AR2GEMS_PLUGINS_DIR $INSTDIR
+   ; make sure windows knows about the change
+   ;SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
+   
 SectionEnd   
 
 Section "post" SEC0001
-
-
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
     
     ;WriteRegExpandStr ${env_hkcu} VTK_AUTOLOAD_PATH $INSTDIR
@@ -153,8 +163,8 @@ Section "post" SEC0001
     SetOutPath $SMPROGRAMS\$StartMenuGroup
     SetOutPath $INSTDIR
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk" $INSTDIR\sgems-ar2tech-beta-uninstall.exe
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" "$INSTDIR\sgems-x64.exe" "" "$INSTDIR\ar2gems_icon_256_256.ico"
-    CreateShortcut "$DESKTOP\$(^Name).lnk" "$INSTDIR\sgems-x64.exe" "" "$INSTDIR\ar2gems_icon_256_256.ico"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" "$INSTDIR\ar2gems.exe" "" "$INSTDIR\ar2gems_icon_256x256.ico"
+    CreateShortcut "$DESKTOP\$(^Name).lnk" "$INSTDIR\ar2gems.exe" "" "$INSTDIR\ar2gems_icon_256x256.ico"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" URLInfoAbout "${URL}"

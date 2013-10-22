@@ -1,4 +1,10 @@
-add_library(ar2gems_math
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    set(LIB_NAME ar2gems_math)
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    set(LIB_NAME ar2gems_math_d)
+endif ()
+
+add_library(${LIB_NAME}
   Linear_interpolator_1d.cpp
   box.cpp
   categorical_distribution.cpp
@@ -31,12 +37,21 @@ add_library(ar2gems_math
   scatterplot.h  
 )
 
-target_link_libraries(ar2gems_math
-  ar2gems_utils
+
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    target_link_libraries(${LIB_NAME}
+        ar2gems_utils
+    )
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    target_link_libraries(${LIB_NAME}
+        ar2gems_utils_d
 )
+endif ()
+      
+
 
 if (WIN32)
   add_definitions(-DMATH_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_math DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

@@ -1,4 +1,10 @@
-add_library(ar2gems_actions
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    set(LIB_NAME ar2gems_actions)
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    set(LIB_NAME ar2gems_actions_d)
+endif ()
+
+add_library(${LIB_NAME}
   algorithms_actions.cpp
   categorical_definition_actions.cpp
   categorical_property_actions.cpp
@@ -38,18 +44,35 @@ if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
   set(PYTHON_DEBUG_LIBRARIES ${PYTHON_LIBRARIES})
 endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
-target_link_libraries(ar2gems_actions
-  #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
-  optimized ${PYTHON_LIBRARIES}
-  debug ${PYTHON_DEBUG_LIBRARIES}  
-#  ${PYTHON_LIBRARIES} 
-  ar2gems_appli
-  ar2gems_filters
-  ar2gems_geostat
-  ar2gems_grid
-  ar2gems_math
-  ar2gems_utils
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    target_link_libraries(${LIB_NAME}
+      #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
+      optimized ${PYTHON_LIBRARIES}
+      debug ${PYTHON_DEBUG_LIBRARIES}  
+    #  ${PYTHON_LIBRARIES} 
+      ar2gems_appli
+      ar2gems_filters
+      ar2gems_geostat
+      ar2gems_grid
+      ar2gems_math
+      ar2gems_utils
 )
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    target_link_libraries(${LIB_NAME}
+      #general ${PYTHON_LIBRARIES}          # this cause linking release and debug version of python in debug build type of ar2gems
+      optimized ${PYTHON_LIBRARIES}
+      debug ${PYTHON_DEBUG_LIBRARIES}  
+    #  ${PYTHON_LIBRARIES} 
+      ar2gems_appli_d
+      ar2gems_filters_d
+      ar2gems_geostat_d
+      ar2gems_grid_d
+      ar2gems_math_d
+      ar2gems_utils_d
+    )
+endif ()
+
+
 
 if (WIN32)
   add_definitions(-DACTIONS_EXPORTS)
@@ -58,6 +81,6 @@ if (WIN32)
   endif()
  endif()
 
-INSTALL(TARGETS ar2gems_actions DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
 
 

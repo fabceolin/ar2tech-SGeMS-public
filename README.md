@@ -52,9 +52,15 @@ Building the dependencies on Windows
 Note that for Visual Studio 2010 (msvc10) Visual Studio SP1 must be installed.
 Required external libraries: Qt, VTK, Boost and Python.
 
-Compiling Qt 64 bits
+Boost
 --------------------
+Install precompiled Boost library from http://boost.teeks99.com/ (checked with boost_1_49_0-vc64-bin.exe)
 
+Qt 64 bits
+--------------------
+Install precompiled Qt binary from http://sourceforge.net/projects/qtx64/files/qt-x64/4.8.4/msvc2010/
+OR
+Compile:
 1. Download Qt source code (a zip file) from: http://qt-project.org/downloads
 2. Unzip it (e.g. c:\Qt\4.8.3-x64)
 3. Open the prompt shell for visual studio 2010 (
@@ -67,9 +73,9 @@ Compiling Qt 64 bits
    ```
    (The option -no-webkit is to skip that package since it often generates compiling errors on msvc)
 
-Compiling VTK
+VTK
 -------------
-
+Compile:
 1. Download and install [CMake][3]
 2. Get the VTK 6.0 source code either from Git or from the [website](http://vtk.org/VTK/resources/software.html).
    From git be sure to checkout the tag vtk6.0.0 
@@ -81,13 +87,15 @@ Compiling VTK
     - Go to Module and select all Qt related module except "Module_vtkGUISupportQtWebkit"
 4. Open the VTK project files into Visual Studio and build the release and debug version.
 
-Compiling Python 64 bits
+Python 64 bits
 ------------------------
 
 Installing Python 2.x from the installer only provide the release dll.  To get the
 debug version, download the source code, open the project and build the debug version.
-You can ignore all the errors.  Copy the debug .dll to the main Python
-directory and the .lib into the libs folder along with the release version.
+You can ignore all the errors.  Copy the debug .dll and .lib to the main Python
+directory along the release version.
+
+Note(WIN only): python 2.7.5 installs python27.dll into windows system path, this dll is needed at NSIS package creation. It expects to find it in python27/Libs/python27.dll, so if it's not there, then manual copying is requred
 
 Building AR2GEMS
 ----------------
@@ -98,16 +106,43 @@ Open cmake-gui and set the proper path to Boost, VTK and Qt
 
 ### Windows
 
-Open the the solution ar2gems.sln to build the program
+1. Run Cmake-gui, select ar2gems source and build dir.
+2. Check that the following Cmake variables are defined (not set to NOTFOUND)
+for example:
+- QT_QMAKE_EXECUTABLE D:/Qt/qt-4.8.4-x64-msvc2010/bin/qmake.exe
+- VTK_DIR D:/VTK-master/build
+3. If windows installer is needed, then Cmake variable ALLOW_BUILD_PACKAGE needs to be set 1(default is 0, OFF).
+4. Add new variable BOOST_ROOT with type STRING and with value path to boost lib and include dirs
+for example:
+- BOOST_ROOT E:\workspace\ar2externals\Boost\win64\release-V1.49.0-VC2010
+5. Click <configure>, select VisualStudio2010 Win64 (Use default native compilers)
+6. Click <generate>, this will generate VC2010 project files in build directory
+7. Open the visual studio project file ALL_BUILD.vcxproj and build the release and debug binaries
+8. Open the visual studio project file headers.vcxproj and build (this step is needed for packing all headers together with package)
+9. Open the visual studio project file PACKAGE.vcxproj and build, installer will be generated in build directory
 
 
-### Linux (without cmake-gui)
+### Linux
+----------------
+The software is built with [CMake][3]:
+
+For package building:
+1. Cmake variable ALLOW_BUILD_PACKAGE needs to be set 1(default is 0, OFF).
+2. The package type ("DEB" or "RPM") needs to be specified in Cmake variable PACKAGE_TYPE (default for UNIX is "DEB").
    ```
    mkdir build
    cd build
    cmake ..
    make -j 8
+   sudo make package // create DEB package (will be available in build root)
    ```
+
+Run instructions
+------------------
+
+### Linux
+----------------
+sh /usr/bin/ar2gems.sh
    
 Read CMakeLists.txt for more info.
 

@@ -3,9 +3,14 @@ QT4_WRAP_CPP(utils_MOC
   gstl_item_model.h
 )
 
+if (CMAKE_BUILD_TYPE MATCHES "Release")
+    set(LIB_NAME ar2gems_utils)
+elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
+    set(LIB_NAME ar2gems_utils_d)
+endif ()
 
 
-add_library(ar2gems_utils
+add_library(${LIB_NAME}
   error_messages_handler.cpp
   gstl_messages_private.cpp
   manager.cpp
@@ -27,13 +32,20 @@ add_library(ar2gems_utils
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
-target_link_libraries(ar2gems_utils
-  ${QT_LIBRARIES}
-  ar2gems_qwt
-)
+if (CMAKE_BUILD_TYPE MATCHES "Release")
+    target_link_libraries(${LIB_NAME}
+      ${QT_LIBRARIES}
+      ar2gems_qwt
+    )
+elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
+    target_link_libraries(${LIB_NAME}
+      ${QT_LIBRARIES}
+      ar2gems_qwt_d
+    )
+endif ()
 
 if (WIN32)
  add_definitions(-DUTILS_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_utils DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
