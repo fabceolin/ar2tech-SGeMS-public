@@ -62,6 +62,11 @@ class GRID_DECL Multi_property_transformer : public Named_interface {
   virtual std::string name() const { return name_; }
   virtual void name(std::string name){ name_ = name; }
 
+  virtual std::vector<std::string> variate_names() const =0;
+  virtual std::string variate_name(int id) const =0;
+  virtual std::string service_variable_name(int id) const = 0;
+
+
 
  
   //------------------------------------ 
@@ -89,7 +94,7 @@ public:
   Linear_transformer(){}
   virtual ~Linear_transformer() {} 
 
-  virtual std::vector<float> get_importance_of_factors() const = 0;
+  virtual std::vector<float> get_contribution(bool standradize = true) const = 0;
   virtual std::vector<float> get_weights(int factors) const = 0;
 
 
@@ -97,7 +102,7 @@ public:
 }; 
 
 
-class GRID_DECL PCA_transformer : public Multi_property_transformer {
+class GRID_DECL PCA_transformer : public Linear_transformer {
    
 public:
   static Named_interface* create_new_interface( std::string& name);
@@ -130,9 +135,12 @@ public:
   virtual std::vector<Grid_continuous_property*> back_transform(Geostat_grid* grid,     
               std::vector<const Grid_continuous_property*>, const Grid_region* region = 0 );
 
-  virtual std::vector<float> get_importance_of_factors() const;
+  virtual std::vector<float> get_contribution(bool standradize = true) const;
   virtual std::vector<float> get_weights(int factors) const;
 
+  virtual std::vector<std::string> variate_names() const;
+  virtual std::string variate_name(int id) const;
+  virtual std::string service_variable_name(int id) const;
 
 private:
   std::vector<std::string> variate_names_;
@@ -141,6 +149,7 @@ private:
   Eigen::VectorXf eigenvalues_;
   Eigen::MatrixXf eigenvectors_;
 
+  double sum_eigenvalues_;
   
 
 }; 

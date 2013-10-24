@@ -42,14 +42,14 @@ bool PCA_transformer::initialize( std::vector<const Grid_continuous_property*> p
                                 const Grid_region* region, bool use_covariance)
 {
   int prop_size = props[0]->size();
-  int n_prop = props.size();
+  nvariate_ = props.size();
   int max_size;
   if(region == 0) max_size = prop_size;
   else max_size = region->active_size();
   Eigen::MatrixXf X(max_size,props.size());
 
   variate_names_.clear();
-  for(int j=0;j<n_prop; ++j) {
+  for(int j=0;j<nvariate_; ++j) {
     variate_names_.push_back(props[j]->name());
   }
 
@@ -57,8 +57,8 @@ bool PCA_transformer::initialize( std::vector<const Grid_continuous_property*> p
   for(int i=0; i<prop_size; ++i) {
     if(region!=0 && !region->is_inside_region(i) ) continue;
     bool are_informed = true;
-    Eigen::VectorXf v(n_prop);
-    for(int j=0;j<n_prop; ++j) {
+    Eigen::VectorXf v(nvariate_);
+    for(int j=0;j<nvariate_; ++j) {
       if( !props[j]->is_informed(i) ) {
         are_informed = false;
         break;
@@ -70,7 +70,7 @@ bool PCA_transformer::initialize( std::vector<const Grid_continuous_property*> p
     index++;
   }
   int max_index = index-1;
-  X.conservativeResize(index,n_prop);
+  X.conservativeResize(index,nvariate_);
   means_ = X.colwise().mean();
 //  X.array().colwise() -= means_.array();
   for(int c=0; c<X.cols(); ++c ) {
@@ -83,6 +83,8 @@ bool PCA_transformer::initialize( std::vector<const Grid_continuous_property*> p
   // compute the eigenvalue on the Cov Matrix
   Eigen::EigenSolver<Eigen::MatrixXf> eig_solver(cov_matrix);
   eigenvalues_ = eig_solver.eigenvalues().real();
+
+  sum_eigenvalues_ = eigenvalues_.sum();
   
   eigenvectors_ = eig_solver.eigenvectors().real();	
 
@@ -198,10 +200,12 @@ std::vector<Grid_continuous_property*>
 }
 
 
-std::vector<float> PCA_transformer::get_importance_of_factors() const{
+std::vector<float> PCA_transformer::get_contribution(bool standardize) const{
   std::vector<float> eigenvals;
-  for(int i=0; i<eigenvalues_.size(); +i) {
-    eigenvals.push_back(eigenvalues_[i]);
+  for(int i=0; i<eigenvalues_.size(); ++i) {
+    float contribution = eigenvalues_[i];
+    if(standardize) contribution/=sum_eigenvalues_;
+    eigenvals.push_back(contribution);
   }
 
   return eigenvals;
@@ -211,7 +215,7 @@ std::vector<float> PCA_transformer::get_importance_of_factors() const{
 std::vector<float> PCA_transformer::get_weights(int factor_id) const{
 
   std::vector<float> eigenvec;
-  for(int i=0; i<eigenvalues_.size(); +i) {
+  for(int i=0; i<eigenvalues_.size(); ++i) {
     eigenvec.push_back(eigenvectors_(factor_id,i));
   }
 
@@ -260,4 +264,17 @@ QDomElement PCA_transformer::serialize() const{
 
   return elem;
 
+}
+
+std::vector<std::string> PCA_transformer::variate_names() const{
+  return variate_names_;
+}
+ 
+std::string PCA_transformer::variate_name(int id) const{
+  if(id >= variate_names_.size()) return "";
+  return variate_names_[id];
+}
+
+std::string PCA_transformer::service_variable_name(int id) const{
+  return QString("PC %1").arg(id+1).toStdString();
 }
