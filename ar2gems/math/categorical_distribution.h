@@ -41,8 +41,14 @@ public:
     return new Categorical_distribution;
   }
 
+
+
+
   template<typename Iterator>
   Categorical_distribution(Iterator weight_begin, Iterator weight_end);
+  template< typename Iterator >
+  Categorical_distribution( unsigned int categories_count,  Iterator p_begin);
+
   Categorical_distribution(){}
   virtual ~Categorical_distribution(void);
 
@@ -55,6 +61,21 @@ public:
   int simulate(double p) const;
 
   std::string type(){return "Discrete";}
+
+
+//  Categ_non_param_cdf( unsigned int categories_count ) 
+/*
+  //-----------------
+  inline void z_set( unsigned int categories_count );
+ 
+  template<class forward_iterator>
+  inline void p_set(forward_iterator p_begin, forward_iterator p_end);
+ 
+  virtual bool make_valid() { return make_cdf_valid( *this); } 
+  virtual double prob(value_type z) const;
+  virtual value_type inverse(double p) const;
+  */
+
 
 private :
   boost::random::discrete_distribution<int, double> dist_;

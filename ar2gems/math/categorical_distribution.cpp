@@ -10,6 +10,17 @@ Categorical_distribution::Categorical_distribution(Iterator weight_begin, Iterat
   
 }
 
+template<typename Iterator>
+Categorical_distribution::Categorical_distribution( unsigned int categories_count,  Iterator p_begin){
+
+  n_ = categories_count;
+  cum_weights_.resize(n_);
+  Iterator p_end(p_begin);
+  std::advance(p_end,n_);
+  std::partial_sum(p_begin, p_end, cum_weights_.begin() );
+
+}
+
 
 Categorical_distribution::~Categorical_distribution(void)
 {

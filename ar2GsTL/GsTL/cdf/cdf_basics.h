@@ -64,11 +64,12 @@ class Non_parametric_cdf : public Cdf<T> {
   value_type mean( void ) const
   {
     if(!is_mean_computed_) {
-	    double inc_p = 0.005;
+	    double dp = 0.0001;
+      double max_p = 1.0-dp;
 	    mean_ = 0.;
 
-	    for(double pp = 0.005; pp<0.995; pp+=inc_p ) {
-		    mean_ += inverse( pp )*inc_p;
+	    for(double pp = dp; pp<max_p; pp+=dp ) {
+		    mean_ += inverse( pp )*dp;
       }
       is_mean_computed_ = true;
     }
@@ -77,15 +78,16 @@ class Non_parametric_cdf : public Cdf<T> {
   value_type variance( void ) const
   {
     if(!is_variance_computed_) {
-	    double inc_p = 0.005;
+	    double dp = 0.0001;
+      double max_p = 1.0-dp;
 	    double s1 = 0.;
 	    double s2 = 0.;
 	    double inv_p;
 
-	    for(double pp = 0.005; pp<0.995; pp+=inc_p ){
+	    for(double pp = dp; pp<max_p; pp+=dp ){
 		    inv_p = inverse( pp );
-		    s1 += inv_p*inc_p;
-		    s2 += inv_p*inv_p*inc_p;
+		    s1 += inv_p*dp;
+		    s2 += inv_p*inv_p*dp;
 	    }
 
 	    variance_ =  s2 - s1*s1;

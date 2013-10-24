@@ -201,7 +201,7 @@ public:
     return "Widget for selecting a grid object among all the objects currently loaded";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -244,7 +244,7 @@ public:
     return "Widget for selecting a property of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -288,7 +288,7 @@ public:
     return "Widget for selecting a hard data property of a grid object.  Provide field to enter a LVM or external drifts";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/kriging_type_selector.h"; }
+  QString includeFile() const { return "qtplugins/kriging_type_selector.h"; }
 
 private:
   bool _initialized;
@@ -333,7 +333,7 @@ public:
     return "Widget for selecting a single property of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -377,7 +377,7 @@ public:
     return "Widget for selecting multiple properties of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -421,7 +421,7 @@ public:
     return "Widget for selecting a group property of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/group_selectors.h"; }
+  QString includeFile() const { return "qtplugins/group_selectors.h"; }
   
 private:
   bool _initialized;
@@ -465,7 +465,7 @@ public:
     return "Widget for selecting multiple properties of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/group_selectors.h"; }
+  QString includeFile() const { return "qtplugins/group_selectors.h"; }
   
 private:
   bool _initialized;
@@ -509,7 +509,7 @@ public:
     return "Widget for selecting multiple properties of a grid object and ordering them";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -552,7 +552,7 @@ public:
     return "Table widget with copy/paste support";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/gstl_table.h"; }
+  QString includeFile() const { return "qtplugins/gstl_table.h"; }
   
 private:
   bool _initialized;
@@ -595,7 +595,7 @@ public:
     return "Widget for selecting a file";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/filechooser.h"; }
+  QString includeFile() const { return "qtplugins/filechooser.h"; }
   
 private:
   bool _initialized;
@@ -638,7 +638,7 @@ public:
     return "Widget for inputing a variogram";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/variogram_input.h"; }
+  QString includeFile() const { return "qtplugins/variogram_input.h"; }
   
 private:
   bool _initialized;
@@ -681,7 +681,7 @@ public:
     return "Widget for choose a kriging type and input the corresponding parameters";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/kriging_type_selector.h"; }
+  QString includeFile() const { return "qtplugins/kriging_type_selector.h"; }
   
 private:
   bool _initialized;
@@ -724,7 +724,7 @@ public:
     return "Widget to group other widgets";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -768,7 +768,7 @@ public:
     return "CloneGroupBox widgets";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -812,7 +812,7 @@ public:
     return "Widget to group other widgets";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -855,7 +855,7 @@ public:
     return "Trend components";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/kriging_type_selector.h"; }
+  QString includeFile() const { return "qtplugins/kriging_type_selector.h"; }
   
 private:
   bool _initialized;
@@ -899,7 +899,7 @@ public:
     return "Widget for selecting a hard data property of a grid object.  Provide field to enter a LVM or external drifts";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/kriging_type_selector.h"; }
+  QString includeFile() const { return "qtplugins/kriging_type_selector.h"; }
 
 private:
   bool _initialized;
@@ -943,7 +943,7 @@ public:
     return "widget for defining a 3D Ellipsoid";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/ellipsoid_input.h"; }
+  QString includeFile() const { return "qtplugins/ellipsoid_input.h"; }
   
 private:
   bool _initialized;
@@ -985,7 +985,7 @@ public:
     return "Widget for upper tail extrapolation";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/non_param_cdf_input.h"; }
+  QString includeFile() const { return "qtplugins/non_param_cdf_input.h"; }
   
 private:
   bool _initialized;
@@ -1028,7 +1028,7 @@ public:
     return "Widget for lower tail extrapolation";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/non_param_cdf_input.h"; }
+  QString includeFile() const { return "qtplugins/non_param_cdf_input.h"; }
   
 private:
   bool _initialized;
@@ -1071,7 +1071,7 @@ public:
     return "Widgets for defining a non parametric distribution";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/non_param_cdf_input.h"; }
+  QString includeFile() const { return "qtplugins/non_param_cdf_input.h"; }
   
 private:
   bool _initialized;
@@ -1117,7 +1117,7 @@ public:
     return "Widget for selecting a single region of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -1162,7 +1162,7 @@ public:
     return "Widget for selecting a grid object with a region";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -1208,7 +1208,7 @@ public:
     return "Widget for selecting multiple regions of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -1253,7 +1253,7 @@ public:
     return "widget for octant search parameters";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/neighborhood_filter_input.h"; }
+  QString includeFile() const { return "qtplugins/neighborhood_filter_input.h"; }
   
 private:
   bool _initialized;
@@ -1298,7 +1298,7 @@ public:
     return "widget for advanced search parameters";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/neighborhood_filter_input.h"; }
+  QString includeFile() const { return "qtplugins/neighborhood_filter_input.h"; }
   
 private:
   bool _initialized;
@@ -1344,7 +1344,7 @@ public:
     return "Widget for selecting a property of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/selectors.h"; }
+  QString includeFile() const { return "qtplugins/selectors.h"; }
   
 private:
   bool _initialized;
@@ -1389,7 +1389,7 @@ public:
     return "Widget for selecting a single categorical property of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/categorical_selectors.h"; }
+  QString includeFile() const { return "qtplugins/categorical_selectors.h"; }
   
 private:
   bool _initialized;
@@ -1432,7 +1432,7 @@ public:
     return "Widget for selecting multiple categroical properties of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/categorical_selectors.h"; }
+  QString includeFile() const { return "qtplugins/categorical_selectors.h"; }
   
 private:
   bool _initialized;
@@ -1475,7 +1475,7 @@ public:
     return "Widget for selecting multiple categorical properties of a grid object and ordering them";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/categorical_selectors.h"; }
+  QString includeFile() const { return "qtplugins/categorical_selectors.h"; }
   
 private:
   bool _initialized;
@@ -1520,7 +1520,7 @@ public:
     return "Widget for selecting a categorical definitions";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/categorical_selectors.h"; }
+  QString includeFile() const { return "qtplugins/categorical_selectors.h"; }
   
 private:
   bool _initialized;
@@ -1566,7 +1566,7 @@ public:
     return "Widget for selecting multiple categorical definitions";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/categorical_selectors.h"; }
+  QString includeFile() const { return "qtplugins/categorical_selectors.h"; }
   
 private:
   bool _initialized;
@@ -1611,7 +1611,7 @@ public:
     return "Widget for selecting multiple categorical definitions";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/categorical_selectors.h"; }
+  QString includeFile() const { return "qtplugins/categorical_selectors.h"; }
   
 private:
   bool _initialized;
@@ -1657,7 +1657,7 @@ public:
     return "Widget for selecting a single weight property of a grid object";
   }
 
-  QString includeFile() const { return "GsTLAppli/extra/qtplugins/weight_property_selectors.h"; }
+  QString includeFile() const { return "qtplugins/weight_property_selectors.h"; }
   
 private:
   bool _initialized;
