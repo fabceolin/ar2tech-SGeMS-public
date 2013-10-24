@@ -104,6 +104,8 @@ public:
    
   RGrid_gval_accessor* accessor(); 
   void set_accessor(RGrid_gval_accessor* accessor); 
+
+  virtual Grid_continuous_property* select_property(const std::string& prop_name);
    
   /** Provides access to the \c Sgrid_cursor used by the grid.
   */
@@ -327,9 +329,10 @@ Geovalue RGrid::geovalue( GsTLInt gindex ) {
  
 inline 
 Geovalue RGrid::geovalue( GsTLInt i, GsTLInt j, GsTLInt k ) { 
-  accessor_->set_geovalue( grid_cursor_->node_id( i,j,k ), 
-			   geom_->coordinates( i,j,k ) ); 
-  return (*accessor_->node()); 
+  return Geovalue(this,this->selected_property(),grid_cursor_->node_id( i,j,k ));
+//  accessor_->set_geovalue( grid_cursor_->node_id( i,j,k ), 
+//			   geom_->coordinates( i,j,k ) ); 
+//  return (*accessor_->node()); 
 } 
  
  

@@ -120,6 +120,19 @@ void RGrid::set_accessor(RGrid_gval_accessor* accessor) {
   }
 }
 
+Grid_continuous_property* RGrid::select_property(const std::string& prop_name) {
+  Grid_continuous_property* prop = property_manager_.select_property( prop_name );
+
+  if (accessor_) delete accessor_;
+
+  if( prop )
+    accessor_ = new RGrid_gval_accessor(this, prop);
+  else
+    accessor_ = 0;
+
+  return prop;
+}
+
 Neighborhood* RGrid::neighborhood( double x, double y, double z,
 				   double ang1, double ang2, double ang3,
 				   const Covariance<location_type>* cov,
