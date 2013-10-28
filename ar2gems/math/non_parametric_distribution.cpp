@@ -30,6 +30,28 @@
 double Non_parametric_distribution::pdf(double z) const{
 
   return dist_->pdf(z);
+  /*  // need ti first solve the problem of duplicates z
+  z_iterator it=  std::lower_bound(dist_->z_begin(),dist_->z_end(),z);
+
+  if( it == dist_->z_begin() ) {
+    dist_->pdf(z);
+  }
+  else if(it == dist_->z_end()) {
+    dist_->pdf(z);
+  }
+  else {
+    z_iterator it_low = it-1;
+    double dz = *it - *it_low;
+    int index = std::distance(dist_->z_begin(), it);
+    double p_low = *(dist_->p_begin() + index-1 );
+    double p_high = *(dist_->p_begin() + index );
+
+    return (p_high - p_low)/dz;
+    */
+
+  }
+
+
 
   /*
   double delta = 0.0001;
