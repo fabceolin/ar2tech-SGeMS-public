@@ -16,6 +16,8 @@ add_library(${LIB_NAME}
   grid_categorical_property.cpp
   grid_downscaler.cpp
   grid_filter.cpp
+  grid_path.cpp
+  grid_path_multigrid.cpp
   grid_property.cpp
   grid_property_manager.cpp
   grid_property_set.cpp
@@ -37,7 +39,6 @@ add_library(${LIB_NAME}
   rgrid_gval_accessor.cpp
   rgrid_neighborhood.cpp
   structured_grid.cpp
-  superblock.cpp
   utilities.cpp
   
   cartesian_grid.h
@@ -51,6 +52,8 @@ add_library(${LIB_NAME}
   grid_categorical_property.h
   grid_downscaler.h
   grid_filter.h
+  grid_path.h
+  grid_path_multigrid.h
   grid_property.h
   grid_property_manager.h
   grid_property_set.h
@@ -71,7 +74,6 @@ add_library(${LIB_NAME}
   rgrid_gval_accessor.h
   rgrid_neighborhood.h
   structured_grid.h
-  superblock.h
   utilities.h  
 )
 
