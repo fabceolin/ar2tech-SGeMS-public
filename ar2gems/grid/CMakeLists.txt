@@ -6,6 +6,7 @@ add_library(ar2gems_grid
   distribution_utilities.cpp
   geostat_grid.cpp
   geovalue.cpp
+  graph_connections.cpp
   grid_categorical_property.cpp
   grid_downscaler.cpp
   grid_filter.cpp
@@ -41,6 +42,7 @@ add_library(ar2gems_grid
   distribution_utilities.h
   geostat_grid.h
   geovalue.h
+  graph_connections.h
   grid_categorical_property.h
   grid_downscaler.h
   grid_filter.h

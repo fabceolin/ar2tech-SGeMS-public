@@ -354,8 +354,12 @@ if (!QIcon::hasThemeIcon(GENERIC_ICON_TO_CHECK)) {
 
   QPixmap pixmap(QString(":/ar2gems-splash.png"));
 
+
 	QSplashScreen* splash = new QSplashScreen(pixmap,Qt::WindowStaysOnTopHint);
+
+#ifdef NDEBUG
   splash->show();
+#endif // DEBUG
 
 	splash->setFont(QFont("Times", 8, QFont::Bold));
 	splash->showMessage("Initializing...");
@@ -412,7 +416,9 @@ if (!QIcon::hasThemeIcon(GENERIC_ICON_TO_CHECK)) {
 
 	//------------------
 
+ // #ifndef DEBUG
 
+//#endif // DEBUG
 	splash->finish(appli);
 	delete splash;
 

@@ -385,8 +385,6 @@ RGrid::location( int node_id ) const {
 	GsTLInt j = (inxy - node_id%geom_->dim(0))/geom_->dim(0); 
 	GsTLInt i = inxy%geom_->dim(0);
 
-  //This is still potentially faulty for 3D grid as the z may be in
-  // Stratigraphic coordinates, see manual
   return geom_->coordinates( i,j,k ); 
 } 
  

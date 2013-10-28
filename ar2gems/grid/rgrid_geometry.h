@@ -67,11 +67,13 @@ public:
     virtual RGrid_geometry* clone() const = 0; 
  
     GsTLInt dim( GsTLInt i ) const { return n_[i];} 
+    GsTLInt ni() const { return n_[0];} 
+    GsTLInt nj() const { return n_[1];} 
+    GsTLInt nk() const { return n_[2];} 
+
     GsTLInt size() const { return ( n_[0]*n_[1]*n_[2] ); } 
     void set_size( GsTLInt i, GsTLInt n ) {  
         n_[i] = n ; 
-        n1_[i] = n-1; 
-        if (n1_[i] <= 0 ) n1_[i] = 1; 
     } 
  
     /** Returns the location of node (i,j,k). For an Rgrid, the location 
@@ -112,11 +114,9 @@ protected:
     RGrid_geometry() 
       : cell_dims_(1,1,1) { 
         n_[0] = 0; n_[1] = 0; n_[2] = 0; 
-        n1_[0] = 1; n1_[1] = 1; n1_[2] = 1; 
     } 
 protected: 
     GsTLInt n_[3]; 
-    GsTLInt n1_[3]; 
  
     GsTLCoordVector cell_dims_;
 

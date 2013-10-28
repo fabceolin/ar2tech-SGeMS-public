@@ -392,7 +392,7 @@ public :
   Grid_region_manager region_manager_;
   Grid_property_manager property_manager_; 
 
-  std::vector<GsTLInt> grid_path_; 
+  //std::vector<GsTLInt> grid_path_; 
 
  protected :
   std::string name_;
