@@ -15,7 +15,13 @@ QT4_WRAP_UI(filters_FORMS
   gslib/importwizard.ui
 )
 
-add_library(ar2gems_filters
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    set(LIB_NAME ar2gems_filters)
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    set(LIB_NAME ar2gems_filters_d)
+endif ()
+
+add_library(${LIB_NAME}
   csv_filter.cpp
   csv_filter_qt_dialogs.cpp
   distribution_filter.cpp
@@ -45,17 +51,29 @@ add_library(ar2gems_filters
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
-target_link_libraries(ar2gems_filters
-  ${QT_LIBRARIES}
-  ar2gems_appli
-  ar2gems_grid
-  ar2gems_math
-  ar2gems_utils
-)
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    target_link_libraries(${LIB_NAME}
+      ${QT_LIBRARIES}
+      ar2gems_appli
+      ar2gems_grid
+      ar2gems_math
+      ar2gems_utils
+    )
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    target_link_libraries(${LIB_NAME}
+      ${QT_LIBRARIES}
+      ar2gems_appli_d
+      ar2gems_grid_d
+      ar2gems_math_d
+      ar2gems_utils_d
+    )
+endif ()
+
+
 
 if (WIN32)
   add_definitions(-DFILTERS_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_filters DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
-
+        
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

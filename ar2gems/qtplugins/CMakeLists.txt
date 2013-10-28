@@ -37,8 +37,13 @@ QT4_WRAP_UI(ar2gems_widgets_FORMS
 )
 
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/plugins/designer)
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    set(LIB_NAME ar2gems_widgets)
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    set(LIB_NAME ar2gems_widgets_d)
+endif ()
 
-add_library(ar2gems_widgets
+add_library(${LIB_NAME}
   categorical_definition_proxy_model.cpp
   categorical_selectors.cpp
   color_delegate.cpp
@@ -108,19 +113,32 @@ add_library(ar2gems_widgets
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
-target_link_libraries(ar2gems_widgets
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+target_link_libraries(${LIB_NAME}
   ${QT_LIBRARIES}
   ar2gems_appli
   ar2gems_grid
   ar2gems_math
   ar2gems_utils
 )
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+target_link_libraries(${LIB_NAME}
+  ${QT_LIBRARIES}
+  ar2gems_appli_d
+  ar2gems_grid_d
+  ar2gems_math_d
+  ar2gems_utils_d
+)
+endif ()
+
 
 if (WIN32)
   add_definitions(-DQTPLUGINS_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_widgets DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_PLUGINS}/plugins/designer" COMPONENT application)
+
 
 #COMMAND ${CMAKE_COMMAND} -E copy
 #${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ar2gems_qtplugins.dll
