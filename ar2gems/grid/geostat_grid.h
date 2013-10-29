@@ -78,6 +78,7 @@
 #include <QAbstractProxyModel>
 #include <QStringList>
 
+#include <vtkGenericCell.h>
 
 #include <typeinfo> 
 #include <list> 
@@ -144,6 +145,7 @@ class GRID_DECL Geostat_grid : public Named_interface {
   /** get the support (length or volume) of a cell at location nodeid
   */
   virtual double get_support(int nodeid) const {return 1;}
+ // virtual void get_cell( vtkGenericCell* cell ) const {}  // to be implemented in each grid
 
   virtual Geovalue geovalue( GsTLInt node_id )=0;
 

@@ -130,6 +130,12 @@ namespace String_Op {
   */
   UTILS_DECL bool is_number( const std::string& str ) ;
 
+  /** checks whether string \a str is the string representation of
+  * a number.
+  */
+  UTILS_DECL bool is_positive_number( const std::string& str ) ;
+  
+
     /** Removes leading and trailing whitespace
    */ 
   UTILS_DECL std::string simplify_white_space( std::string str );
