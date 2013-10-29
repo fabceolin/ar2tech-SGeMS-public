@@ -51,6 +51,10 @@ public:
   /// \param nconnections Number of connections between grid blocks
 	void set_number_of_connections(int nconnections ); //{ edge_vec_.reserve(nconnections); }
 
+  /// \brief Get number of connections
+  int get_number_of_connections();
+
+
   /// \brief Add one vertex (ie. point) to the graph
 	/// \param node_id integer with the node index
   /// \param double x : x-position of vertex (usually grid block center, but can be anything)
@@ -85,6 +89,8 @@ public:
 
 private:
 
+  int nEdges_;
+  int nVertex_;
 	struct Vertex_data { double xc; double yc; double zc; };
 	struct Edge_data { double dum; double weight;};
 

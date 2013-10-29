@@ -2,9 +2,11 @@
 #include <boost/graph/adjacency_iterator.hpp>
 #include <boost/graph/adjacency_list.hpp>
 
-void Graph_connection::set_number_of_cells(int ncells ) {  vertex_vec_.reserve(ncells);  }
+void Graph_connection::set_number_of_cells(int ncells ) {  vertex_vec_.reserve(ncells); nVertex_=ncells; }
 
-void Graph_connection::set_number_of_connections(int nconnections ) {  edge_vec_.reserve(nconnections); }
+void Graph_connection::set_number_of_connections(int nconnections ) {  edge_vec_.reserve(nconnections); nEdges_= nconnections;}
+
+int Graph_connection::get_number_of_connections() { return nEdges_; }
 
 void Graph_connection::add_cell(int node_id, double x, double y, double z)  	{
 	vertex_t vertex = boost::add_vertex(graph_);
