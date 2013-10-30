@@ -1,10 +1,4 @@
-if (CMAKE_BUILD_TYPE MATCHES  "Release")
-    set(LIB_NAME ar2gems_grid)
-elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
-    set(LIB_NAME ar2gems_grid_d)
-endif ()
-
-add_library(${LIB_NAME}
+add_library(ar2gems_grid
   cartesian_grid.cpp
   combined_neighborhood.cpp
   coordinate_mapper.cpp
@@ -73,27 +67,20 @@ add_library(${LIB_NAME}
   utilities.h  
 )
 
-if (CMAKE_BUILD_TYPE MATCHES  "Release")
-    target_link_libraries(${LIB_NAME}
+target_link_libraries(ar2gems_grid
       ${VTK_LIBRARIES}
       ${QT_LIBRARIES}
       ar2gems_appli
       ar2gems_math
       ar2gems_utils
     )
-elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
-    target_link_libraries(${LIB_NAME}
-      ${VTK_LIBRARIES}
-      ${QT_LIBRARIES}
-      ar2gems_appli_d
-      ar2gems_math_d
-      ar2gems_utils_d
-    )
-endif ()
+set_target_properties( ar2gems_grid PROPERTIES OUTPUT_NAME_RELEASE ar2gems_grid )
+set_target_properties( ar2gems_grid PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_grid_d )
+
 
 if (WIN32)
   add_definitions(-DGRID_EXPORTS)
 endif()
 
          
-INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ar2gems_grid DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

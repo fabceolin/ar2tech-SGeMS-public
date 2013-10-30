@@ -116,7 +116,7 @@ Section "Main" SEC0000
     SetOutPath $INSTDIR\plugins\imageformats
     File /r ${QT_PLUGINS_DIR}\imageformats\qsvg4.dll    
     SetOutPath $INSTDIR
-    File ${PYTHON27_DIR}\libs\python27.dll
+    File /nonfatal ${PYTHON27_DIR}\libs\python27.dll
     File ${PYTHON27_DIR}\Lib\*.py
     File ${AR2GEMS_SOURCE_DIR}\WinGsTLAppli\main\ar2gems_icon_256x256.ico
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
