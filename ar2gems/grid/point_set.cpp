@@ -78,18 +78,12 @@ Named_interface* Point_set::create_new_interface( std::string& name_and_size_str
 }
 
 
-//TL modified
-bool Point_set::reNameProperty(std::string oldName, std::string newName)
-{
-	return point_prop_.reNameProperty(oldName, newName);
-}
-
 Point_set::Point_set(std::string name, int size)
   : Geostat_grid(name), xyz_point_loc_( size ), point_loc_( size ) {
   
 //	point_prop_ = new Grid_property_manager();
-  point_prop_.set_prop_size(size);
-  point_prop_.set_parent_item(this);
+  property_manager_.set_prop_size(size);
+  property_manager_.set_parent_item(this);
   region_manager_.set_region_size( size );
   region_manager_.set_parent_item(this);
   group_manager_.set_parent_item(this);
@@ -130,136 +124,6 @@ void Point_set::point_locations( const std::vector<location_type>& locations ) {
 
   } 
 
-Grid_continuous_property*
-Point_set::add_property( const std::string& name )
-                                   
-{
-  return point_prop_.add_property( name );
-}
-
-Grid_continuous_property*
-Point_set::add_property_from_disk(const std::string& name,
-																					const std::string& filename){
-	return point_prop_.add_property_from_disk( name, filename );
-}
-
-
-Grid_weight_property*
-Point_set::add_weight_property( const std::string& name )
-                                   
-{
-  return point_prop_.add_weight_property( name );
-}
-
-Grid_weight_property*
-Point_set::add_weight_property_from_disk(const std::string& name,
-																					const std::string& filename){
-	return point_prop_.add_weight_property_from_disk( name, filename );
-}
-
-
-Grid_categorical_property*
-Point_set::add_categorical_property(
-		const std::string& name,
-		const std::string& definition_name){
-	return point_prop_.add_categorical_property( name, definition_name );
-}
-
-Grid_categorical_property*
-Point_set::add_categorical_property_from_disk(
-		const std::string& name,
-		const std::string& filename,
-		const std::string& definition_name){
-	return point_prop_.add_categorical_property_from_disk( name, filename, definition_name );
-}
-
-bool Point_set::remove_property(const std::string& name)
-{
-  std::string name_group;
-  Grid_continuous_property* prop = property(name );
-  if(!prop) return false;
-  std::vector< GsTLGridPropertyGroup*> groups = prop->groups();
-  bool ok = point_prop_.remove_property( name);
-  if(!ok) return false;
-  for(int i=0; i<groups.size(); i++) {
-	  if(groups[i]->size() == 0) {
-		  remove_group(groups[i]->name());
-	  }
-  }
-  return true;
-
-//  return point_prop_.remove_property( name);
-}
-
-
-std::list<std::string> Point_set::property_list() const {
-  std::list<std::string> result;
-
-  Grid_property_manager::Property_name_iterator it =
-    point_prop_.names_begin();
-  Grid_property_manager::Property_name_iterator end =
-    point_prop_.names_end();
-  for( ; it != end ; ++it )
-    result.push_back( *it );
-
-  return result;
-}
-
-std::list<std::string> Point_set::weight_property_list() const {
-  std::list<std::string> result;
-
-  Grid_property_manager::Property_name_iterator it =
-    point_prop_.names_begin();
-  Grid_property_manager::Property_name_iterator end =
-    point_prop_.names_end();
-  for( ; it != end ; ++it ) {
-    const Grid_weight_property* prop = weight_property(*it);
-    if(prop) result.push_back( *it );
-  }
-
-  return result;
-}
-
-std::list<std::string> Point_set::categorical_property_list() const {
-  std::list<std::string> result;
-
-  Grid_property_manager::Property_name_iterator it =
-    point_prop_.names_begin();
-  Grid_property_manager::Property_name_iterator end =
-    point_prop_.names_end();
-  for( ; it != end ; ++it ) {
-    const Grid_categorical_property* prop = categorical_property(*it);
-    if(prop) result.push_back( *it );
-  }
-
-  return result;
-}
-
-
-MultiRealization_property* 
-Point_set::add_multi_realization_property( const std::string& name ) {
-  MultiRealization_property* mprops = point_prop_.new_multireal_property( name );
-  GsTLGridPropertyGroup* group = this->add_group( mprops->name(), "Simulation" );
-  if(group) {
-    mprops->set_group(group);
-  }
-  return mprops;
-}
-
-std::list<std::string> Point_set::region_list() const {
-
-  std::list<std::string> result;
-
-  Grid_region_manager::Region_name_iterator it = 
-    region_manager_.names_begin();
-  Grid_region_manager::Region_name_iterator end = 
-    region_manager_.names_end();
-  for( ; it != end ; ++it )
-    result.push_back( *it );
-
-  return result;
-}
-
 
 Neighborhood* Point_set::neighborhood( double x, double y, double z,
 				       double ang1, double ang2, double ang3,
@@ -270,7 +134,7 @@ Neighborhood* Point_set::neighborhood( double x, double y, double z,
   const int max_neighbors = 20;
   return new Point_set_neighborhood( x,y,z, ang1,ang2,ang3,
 				     max_neighbors, this, 
-				     point_prop_.selected_property(),
+				     property_manager_.selected_property(),
 				     cov, only_harddata, region,
              coord_mapper);
     
@@ -287,59 +151,10 @@ Neighborhood* Point_set::neighborhood( const GsTLTripletTmpl<double>& dim,
   return new Point_set_neighborhood( dim[0], dim[1], dim[2],
 				     angles[0], angles[1], angles[2], 
 				     max_neighbors, this,
-				     point_prop_.selected_property(),
+				     property_manager_.selected_property(),
 				     cov, only_harddata, region, 
              coord_mapper );
 }
-
-
-void Point_set::init_random_path( bool from_scratch ) { 
-  if( grid_path_.empty() ) {
-    grid_path_.resize( xyz_point_loc_.size() );
-    from_scratch = true;
-  }
-
-  if( from_scratch ) {
-    for( int i=0; i < int( grid_path_.size() ); i++ ) 
-      grid_path_[i] = i;
-  }
-  
-  STL_generator gen;
-  std::random_shuffle( grid_path_.begin(), grid_path_.end(), gen );
-
-} 
-
-Point_set::random_path_iterator 
-Point_set::random_path_begin( Grid_continuous_property* prop ) {
-  if( int(grid_path_.size()) != xyz_point_loc_.size() )  
-    init_random_path( true ); 
-
-  Grid_continuous_property* property = prop;
-  if( !prop )
-    property = point_prop_.selected_property();
- 
-  return random_path_iterator( this, property,
-                  			       0, xyz_point_loc_.size(),
-			                         TabularMapIndex(&grid_path_) ); 
-}
-
-
-Point_set::random_path_iterator 
-Point_set::random_path_end( Grid_continuous_property* prop ) {
-  if( int(grid_path_.size()) != xyz_point_loc_.size() )  
-    init_random_path( true ); 
-
-  Grid_continuous_property* property = prop;
-  if( !prop )
-    property = point_prop_.selected_property();
-
-  return random_path_iterator( this, property,
-                  			       xyz_point_loc_.size(), xyz_point_loc_.size(),
-			                         TabularMapIndex(&grid_path_) ); 
-
-}
- 
-
 
 
 
@@ -349,10 +164,10 @@ QString Point_set::item_type() const{
 
 GsTL_object_item *Point_set::child(int row){
 	if(row == 0) {
-		return &point_prop_;
+		return &property_manager_;
 	}
 	else if(row < group_manager_.size() +1) {
-		std::map<std::string, GsTLGridPropertyGroup*>::iterator  it = group_manager_.begin_group();
+		std::map<std::string, Grid_property_group*>::iterator  it = group_manager_.begin_group();
 		for(int i=1; i<row; ++i, ++it){}
 		return it->second;
 	}
@@ -362,10 +177,10 @@ GsTL_object_item *Point_set::child(int row){
 
 const GsTL_object_item *Point_set::child(int row) const {
 	if(row == 0) {
-		return &point_prop_;
+		return &property_manager_;
 	}
 	else if(row < group_manager_.size() +1) {
-		std::map<std::string, GsTLGridPropertyGroup*>::const_iterator  it = group_manager_.begin_group();
+		std::map<std::string, Grid_property_group*>::const_iterator  it = group_manager_.begin_group();
 		for(int i=1; i<row; ++i, ++it){}
 		return it->second;
 	}
@@ -412,11 +227,4 @@ void Point_set::set_coordinate_mapper(Coordinate_mapper* coord_mapper){
  }
 }
 
-/*
-QModelIndex	Point_set::mapToSource ( const QModelIndex & proxyIndex ) const{
-	return proxyIndex;
-}
-QModelIndex	Point_set::mapFromSource ( const QModelIndex & sourceIndex ) const{
-	return sourceIndex;
-}
-*/
+

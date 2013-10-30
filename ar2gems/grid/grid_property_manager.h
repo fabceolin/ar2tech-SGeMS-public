@@ -75,7 +75,7 @@
 //class Grid_categorical_property;
 class Grid_property_manager; 
 //class CategoricalPropertyDefinition;
-class GsTLGridPropertyGroup;
+class Grid_property_group;
  
  
 /** A MultiRealization_property is a property that can have multiple  
@@ -109,7 +109,7 @@ class GRID_DECL MultiRealization_property {
 
   void set_category_definition(CategoricalPropertyDefinition* definition);
 
-  void set_group( GsTLGridPropertyGroup* group);
+  void set_group( Grid_property_group* group);
 
   Grid_categorical_property* new_categorical_realization(); 
  
@@ -126,7 +126,7 @@ class GRID_DECL MultiRealization_property {
   int size_; 
   Grid_property_manager* prop_manager_; 
   CategoricalPropertyDefinition* definition_;
-  GsTLGridPropertyGroup* group_;
+  Grid_property_group* group_;
 }; 
  
  
@@ -292,7 +292,6 @@ protected:
   
   Root_model *model_;
 
-  
 
 }; 
  

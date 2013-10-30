@@ -59,7 +59,7 @@ Categorical_histogram_distribution_item::Categorical_histogram_distribution_item
 }
 
 
-Categorical_histogram_group_item::Categorical_histogram_group_item( GsTLGridPropertyGroup* group, int& id)
+Categorical_histogram_group_item::Categorical_histogram_group_item( Grid_property_group* group, int& id)
   : Categorical_histogram_item(id), group_(group), weights_(0), region_(0) 
 {
   grid_ = dynamic_cast< Geostat_grid*>(group_->parent());
@@ -67,7 +67,7 @@ Categorical_histogram_group_item::Categorical_histogram_group_item( GsTLGridProp
   item_name_  = group_->item_name();
 
   //Build the list of property
-  GsTLGridPropertyGroup::property_map::const_iterator it=  group_->begin_property();
+  Grid_property_group::property_map::const_iterator it=  group_->begin_property();
   for( ; it!= group_->end_property(); ++it) {
     ++id;
     Grid_categorical_property* cprop = dynamic_cast<Grid_categorical_property*>(it->second);

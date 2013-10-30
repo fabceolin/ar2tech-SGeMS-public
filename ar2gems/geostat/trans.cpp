@@ -243,16 +243,16 @@ SmartPtr<Continuous_distribution> trans::get_cdf( const Parameters_handler* para
 void  trans::cdf_transform( Grid_continuous_property* prop )
 {
 	grid_->select_property( prop->name() );
-	for( Geostat_grid::iterator it = grid_->begin(); it != grid_->end(); ++it )
+	for( int i=0; i< grid_->size(); ++i )
 	{
-    if(region_ && !region_->is_inside_region(it->node_id()) ) continue;
-		if( it->is_informed() ) {
-			double p = cdf_source_->prob(it->property_value());
+    if(region_ && !region_->is_inside_region(i) ) continue;
+		if( prop->is_informed(i) ) {
+      double p = cdf_source_->prob(prop->get_value(i));
       if(p > 0 && p < 1.0) {
-			  it->set_property_value( cdf_target_->inverse(p) );
+			  prop->set_value( cdf_target_->inverse(p), i );
       }
       else {
-        it->set_not_informed();
+        prop->set_not_informed(i);
       }
 		}
 	}
@@ -263,13 +263,13 @@ void  trans::cdf_transform_weighted( Grid_continuous_property* prop  )
 {
 	grid_->select_property( prop->name() );
 	wgth_iterator it_wt = weights_.begin();
-	for( Geostat_grid::iterator it = grid_->begin(); it != grid_->end(); ++it, ++it_wt )
+	for( int i=0; i< grid_->size(); ++i )
 	{
-    if(region_ && !region_->is_inside_region(it->node_id()) ) continue;
-		if( it->is_informed() ) {
-			float val = it->property_value();
+    if(region_ && !region_->is_inside_region(i) ) continue;
+		if( prop->is_informed(i) ) {
+      float val = prop->get_value(i);
 			float zval = cdf_target_->inverse( cdf_source_->prob( val ) );
-			it->set_property_value( val - *it_wt*(val-zval) );
+			prop->set_value( val - weights_[i]*(val-zval), i );
 		}
 	}
 }

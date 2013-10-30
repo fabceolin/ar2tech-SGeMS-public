@@ -819,7 +819,7 @@ static PyObject* sgems_get_property_in_group( PyObject *self, PyObject *args)
 		return Py_BuildValue("[]");
 	}
 
-  GsTLGridPropertyGroup* group = grid->get_group(group_name);
+  Grid_property_group* group = grid->get_group(group_name);
 	if( !group ) {
 		*GsTLAppli_Python_cerr::instance() << group_name << " does not exist" << gstlIO::end;
 		Py_INCREF(Py_None);

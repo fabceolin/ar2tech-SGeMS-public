@@ -329,6 +329,34 @@ QFrame* Vtk_view::init_viewer_frame(){
 	distance_button_->setToolTip("Turn on/off the distance rulers");
 	hboxControlButton->addWidget(distance_button_);
 
+	stereo_button_ = new QPushButton(viewerMainFrame);
+	stereo_button_->setObjectName(QString::fromUtf8("distance_button_"));
+	sizePolicyButton.setHeightForWidth(stereo_button_->sizePolicy().hasHeightForWidth());
+	stereo_button_->setSizePolicy(sizePolicyButton);
+	stereo_button_->setMaximumSize(QSize(31, 31));
+	QIcon icon_stereo;
+	icon_stereo.addFile(QString::fromUtf8(":/icons/appli/Pixmaps/stereo.svg"), QSize(), QIcon::Normal, QIcon::Off);
+	stereo_button_->setIcon(icon_stereo);
+	stereo_button_->setIconSize(QSize(25, 25));
+//	stereo_button_->setCheckable(true);
+//	stereo_button_->setChecked(false);
+	stereo_button_->setToolTip("Turn on/off the stereo rendering");
+  QMenu* menu = new QMenu(stereo_button_);
+  menu->addAction( "No Stereo", this, SLOT( set_no_stereo_mode() ));
+  menu->addAction( "Red-Blue", this, SLOT( set_red_blue_stereo_mode() ));
+  menu->addAction( "Crystal Eyes", this, SLOT( set_crystal_eyes_stereo_mode() ));
+  menu->addAction( "Interlaced", this, SLOT( set_interlaced_stereo_mode() ));
+  menu->addAction( "Left", this, SLOT( set_left_stereo_mode() ));
+  menu->addAction( "Right", this, SLOT( set_right_stereo_mode() ));
+  menu->addAction( "Dresden", this, SLOT( set_dresden_stereo_mode() ));
+  menu->addAction( "Anaglyph", this, SLOT( set_anaglyph_stereo_mode() ));
+  menu->addAction("Checkerboard", this, SLOT( set_checkerboard_stereo_mode() ));
+  menu->addAction("Split Viewport Horizontal", this, SLOT( set_split_horizontal_stereo_mode() ));
+  stereo_button_->setMenu(menu);
+
+	hboxControlButton->addWidget(stereo_button_);
+
+
 	QSpacerItem *spacerItemback = new QSpacerItem(190, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
 	hboxControlButton->addItem(spacerItemback);
@@ -538,6 +566,100 @@ void Vtk_view::reRender()
   emit this->rendering_window_modified( );
 }
 
+void Vtk_view::set_no_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOff();
+}
+
+void Vtk_view::set_red_blue_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+void Vtk_view::set_crystal_eyes_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToCrystalEyes();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_interlaced_stereo_mode() {
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToInterlaced();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_left_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToLeft();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_right_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRight();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_dresden_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToDresden();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_anaglyph_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToAnaglyph();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_checkerboard_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToCheckerboard();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+void Vtk_view::set_split_horizontal_stereo_mode(){
+  gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToSplitViewportHorizontal();
+  gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+}
+
+/*
+void Vtk_view::set_stereo_mode(const QString& mode ){
+
+  bool is_stereo = true;
+  if(mode =="Red-Blue" ) {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRedBlue();
+  }
+  else if(mode =="Crystal Eyes") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToCrystalEyes();
+  }
+  else if(mode =="Interlaced") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToInterlaced();
+  }
+  else if(mode =="Left") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToLeft();
+  }
+  else if(mode =="Right") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToRight();
+  }
+  else if(mode =="Dresden") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToDresden();
+  }
+  else if(mode =="Anaglyph") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToAnaglyph();
+  }
+  else if(mode =="Checkerboard") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToCheckerboard();
+  }
+  else if(mode =="Split Viewport Horizontal") {
+    gstl_vtk_viewer_->GetRenderWindow()->SetStereoTypeToSplitViewportHorizontal();
+  }
+  else {
+    is_stereo = false;
+  }
+
+
+  if(is_stereo){
+    gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOn();
+  }
+  else {
+    gstl_vtk_viewer_->GetRenderWindow()->StereoRenderOff();
+  }
+
+}
+*/
+
 void Vtk_view::set_view_plane(const GsTLVector<float>& focal_point,
                               const GsTLVector<float>& position,
                               const GsTLVector<float>& view_up)
@@ -676,7 +798,7 @@ Visualization_parameters* Vtk_view::get_viz_parameters( GsTL_object_item* item)
 		return viz_param;
 	}
 
-	GsTLGridPropertyGroup* group = dynamic_cast<GsTLGridPropertyGroup*>(item);
+	Grid_property_group* group = dynamic_cast<Grid_property_group*>(item);
 	if(group) {
 		grid = dynamic_cast< Geostat_grid*>(group->parent());
 		GsTL_vtkProp* vtk_prop = this->get_vtk_prop( grid );

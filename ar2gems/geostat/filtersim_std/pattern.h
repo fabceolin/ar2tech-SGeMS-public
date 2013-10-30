@@ -59,6 +59,7 @@
 #define __filtersim_pattern_type_H__
 
 #include <grid/rgrid.h>
+#include <grid/grid_path.h>
 #include <geostat/common.h>
 #include <vector>
 #include <cmath>
@@ -165,8 +166,9 @@ void create_filter_cate_scores( RGrid* training_image_,
     for (int cur_filter=0; cur_filter<nb_filter; cur_filter++) 
         weight.push_back( my_filters_->get_weights(cur_filter) );
 
-    for( Geostat_grid::iterator node_iter = training_image_->begin(); 
-                node_iter != training_image_->end();  node_iter++, loc++ ) 
+    Grid_path path(training_image_, training_image_->property(training_property_name_));
+    for( Grid_path::iterator node_iter = path.begin(); 
+                node_iter != path.end();  node_iter++, loc++ ) 
     {
         // find the neighbors of the current node
         neighborhood->find_neighbors( *node_iter );
@@ -247,8 +249,9 @@ void create_filter_cont_scores( RGrid* training_image_,
     for (int cur_filter=0; cur_filter<nb_filter; cur_filter++) 
         weight.push_back( my_filters_->get_weights(cur_filter) );
 
-    for( Geostat_grid::iterator node_iter = training_image_->begin(); 
-                node_iter != training_image_->end();  node_iter++, loc++ ) 
+    Grid_path path(training_image_, training_image_->property(training_property_name_));
+    for( Grid_path::iterator node_iter = path.begin(); 
+                node_iter != path.end();  node_iter++, loc++ ) 
     {
         // find the neighbors of the current node
         neighborhood->find_neighbors( *node_iter );

@@ -63,6 +63,7 @@
 #include <grid/gval_iterator.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
+#include <grid/grid_path.h>
 #include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
@@ -118,7 +119,8 @@ int dssim::execute( GsTL_project* ) {
   Monte_carlo_sampler_t< Random_number_generator > sampler( gen );
   
   // compute the random path
-  simul_grid_->init_random_path();
+  Grid_path path(simul_grid_, target_grid_region_);
+  //simul_grid_->init_random_path();
 
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
@@ -144,12 +146,14 @@ int dssim::execute( GsTL_project* ) {
       //initializer_->assign( prop, harddata_grid_, harddata_property_->name() );
     }
 
+    path.randomize();
+    path.set_property(prop->name());
 
     appli_message( "Doing simulation" );
     // do the simulation
     int status = 
-      sequential_simulation( simul_grid_->random_path_begin(),
-			     simul_grid_->random_path_end(),
+      sequential_simulation( path.begin(),
+			     path.end(),
 			     *(neighborhood_.raw_ptr()),
 			     *ccdf_,
 			     cdf_estimator,
@@ -359,15 +363,14 @@ bool dssim::initialize( const Parameters_handler* parameters,
   if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
     errors->report("Grid_Name","Region "+region_name+" does not exist");
   }
-  else grid_region_.set_temporary_region( region_name, simul_grid_);
+  target_grid_region_ = simul_grid_->region( region_name );
 
-  if(harddata_grid_ && !assign_harddata && harddata_grid_ != simul_grid_) {
-    region_name = parameters->value( "Hard_Data.region" );
-    if (!region_name.empty() && harddata_grid_->region( region_name ) == NULL ) {
-      errors->report("Hard_Data","Region "+region_name+" does not exist");
-    }
-    else  hd_grid_region_.set_temporary_region( region_name,harddata_grid_ );
+
+  region_name = parameters->value( "Hard_Data.region" );
+  if (!region_name.empty() && harddata_grid_->region( region_name ) == NULL ) {
+    errors->report("Hard_Data","Region "+region_name+" does not exist");
   }
+  hd_grid_region_ = simul_grid_->region( region_name );
 
   //----------------
   // Report errors if any

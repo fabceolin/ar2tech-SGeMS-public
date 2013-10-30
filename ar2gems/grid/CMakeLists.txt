@@ -1,4 +1,10 @@
-add_library(ar2gems_grid
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    set(LIB_NAME ar2gems_grid)
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    set(LIB_NAME ar2gems_grid_d)
+endif ()
+
+add_library(${LIB_NAME}
   cartesian_grid.cpp
   combined_neighborhood.cpp
   coordinate_mapper.cpp
@@ -6,9 +12,12 @@ add_library(ar2gems_grid
   distribution_utilities.cpp
   geostat_grid.cpp
   geovalue.cpp
+  graph_connections.cpp
   grid_categorical_property.cpp
   grid_downscaler.cpp
   grid_filter.cpp
+  grid_path.cpp
+  grid_path_multigrid.cpp
   grid_property.cpp
   grid_property_manager.cpp
   grid_property_set.cpp
@@ -30,7 +39,6 @@ add_library(ar2gems_grid
   rgrid_gval_accessor.cpp
   rgrid_neighborhood.cpp
   structured_grid.cpp
-  superblock.cpp
   utilities.cpp
   
   cartesian_grid.h
@@ -40,9 +48,12 @@ add_library(ar2gems_grid
   distribution_utilities.h
   geostat_grid.h
   geovalue.h
+  graph_connections.h
   grid_categorical_property.h
   grid_downscaler.h
   grid_filter.h
+  grid_path.h
+  grid_path_multigrid.h
   grid_property.h
   grid_property_manager.h
   grid_property_set.h
@@ -63,24 +74,44 @@ add_library(ar2gems_grid
   rgrid_gval_accessor.h
   rgrid_neighborhood.h
   structured_grid.h
-  superblock.h
   utilities.h  
 )
 
+<<<<<<< HEAD
 target_link_libraries(ar2gems_grid
+=======
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    target_link_libraries(${LIB_NAME}
+>>>>>>> dev-cmake-debug-release-key
       ${VTK_LIBRARIES}
       ${QT_LIBRARIES}
       ar2gems_appli
       ar2gems_math
       ar2gems_utils
     )
+<<<<<<< HEAD
 set_target_properties( ar2gems_grid PROPERTIES OUTPUT_NAME_RELEASE ar2gems_grid )
 set_target_properties( ar2gems_grid PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_grid_d )
 
+=======
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    target_link_libraries(${LIB_NAME}
+      ${VTK_LIBRARIES}
+      ${QT_LIBRARIES}
+      ar2gems_appli_d
+      ar2gems_math_d
+      ar2gems_utils_d
+    )
+endif ()
+>>>>>>> dev-cmake-debug-release-key
 
 if (WIN32)
   add_definitions(-DGRID_EXPORTS)
 endif()
 
          
+<<<<<<< HEAD
 INSTALL(TARGETS ar2gems_grid DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+=======
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+>>>>>>> dev-cmake-debug-release-key

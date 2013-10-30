@@ -104,8 +104,9 @@ private :
 
 
   const CategoricalPropertyDefinition* cat_def_;
+  const Grid_region* region_;
 
-  Temporary_gridRegion_Selector gridTempRegionSelector_;
+//  Temporary_gridRegion_Selector gridTempRegionSelector_;
 
 };
 

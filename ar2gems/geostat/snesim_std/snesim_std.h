@@ -71,7 +71,6 @@
 
 #include <vector>
 #include <string>
-#include <grid/grid_region_temp_selector.h> 
 #include "layer_servo_system_sampler.h"
 
 using namespace std;
@@ -334,30 +333,10 @@ private:
 	int subgrid_choice_;
 	int num_close_max_;
 
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector ti_grid_region_;
+  Grid_region* grid_region_;
+  Grid_region* ti_grid_region_;
 
-    /*
-	int scanchoice_;
-	int nbins_;
-	double maxdiff_;
-	int hardno_;
-	int resim_sg_;  
-	int max_scan_;
-	
-	int resim_choice_;
-	int sim_prev_;
 
-	int rdmax1_;
-	int rdmax2_;
-	int rdmax3_;
-	double ang1_;
-	double ang2_;
-	double ang3_;
-	double affx_;
-	double affy_;
-	double affz_;
-    */
 };
 
 #endif

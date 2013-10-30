@@ -59,7 +59,6 @@
 #include <geostat/common.h>
 #include <geostat/geostat_algo.h> 
 #include <geostat/utilities.h> 
-#include <grid/grid_region_temp_selector.h> 
 
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/geometry/Block_covariance.h>
@@ -121,8 +120,8 @@ private:
   int min_neigh_;
   GsTLVector<int> nblock_pts_;
 
-  Temporary_gridRegion_Selector gridTempRegionSelector_;
-  Temporary_gridRegion_Selector hdgridTempRegionSelector_;
+  Grid_region* target_grid_region_;
+  Grid_region* hd_grid_region_;
 
   bool do_block_kriging_;
 

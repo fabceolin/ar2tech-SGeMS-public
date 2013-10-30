@@ -24,34 +24,6 @@
 
 
 
-/**********************************************************************
-** Author: Nicolas Remy
-** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
-**   University
-** All rights reserved.
-**
-** This file is part of the "geostat" module of the Geostatistical Earth
-** Modeling Software (GEMS)
-**
-** This file may be distributed and/or modified under the terms of the 
-** license defined by the Stanford Center for Reservoir Forecasting and 
-** appearing in the file LICENSE.XFREE included in the packaging of this file.
-**
-** This file may be distributed and/or modified under the terms of the
-** GNU General Public License version 2 as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL included in the
-** packaging of this file.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-** See http://www.gnu.org/copyleft/gpl.html for GPL licensing information.
-**
-** Contact the Stanford Center for Reservoir Forecasting, Stanford University
-** if any conditions of this licensing are not clear to you.
-**
-**********************************************************************/
-
 #include <geostat/cokriging_cross_validation.h>
 #include <geostat/parameters_handler.h>
 #include <utils/gstl_messages.h>
@@ -64,6 +36,7 @@
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
 #include <grid/property_copier.h>
+#include <grid/grid_path.h>
 #include <appli/utilities.h>
 
 #include <GsTL/kriging/cokriging_weights.h>
@@ -135,9 +108,10 @@ int Cokriging_x_validation::execute( GsTL_project* ) {
 
   prim_harddata_grid_->select_property( property_name_ );
   
-  typedef Geostat_grid::iterator iterator;
-  iterator begin = prim_harddata_grid_->begin();
-  iterator end = prim_harddata_grid_->end();
+  Grid_path path(prim_harddata_grid_, prim_harddata_grid_->property(property_name_) , prim_hd_grid_region_);
+  typedef Grid_path::iterator iterator;
+  iterator begin = path.begin();
+  iterator end = path.end();
   
   for( ; begin != end; ++begin ) {
 //    std::cout << "center: " << begin->location() << "  ";
@@ -284,10 +258,10 @@ bool Cokriging_x_validation::initialize( const Parameters_handler* parameters,
   */
 
   std::string prim_harddata_region_name = parameters->value( "Primary_Harddata_Grid.region" );
-  Grid_region* prim_hd_region = prim_harddata_grid_->region(prim_harddata_region_name);
+  prim_hd_grid_region_ = prim_harddata_grid_->region(prim_harddata_region_name);
 
   std::string sec_harddata_region_name = parameters->value( "Secondary_Harddata_Grid.region" );
-  Grid_region* sec_hd_region = sec_harddata_grid_->region(sec_harddata_region_name);
+  sec_hd_grid_region_ = sec_harddata_grid_->region(sec_harddata_region_name);
 
   //-------------
   // Primary variable variogram (covariance), C11(h), initialization 
@@ -328,11 +302,11 @@ bool Cokriging_x_validation::initialize( const Parameters_handler* parameters,
 
   if( dynamic_cast<Point_set*>(prim_harddata_grid_) ) {
     prim_neighborhood = 
-      prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, true, prim_hd_region );
+      prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, true, prim_hd_grid_region_ );
   } 
   else {
     prim_neighborhood = 
-      prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, false, prim_hd_region );
+      prim_harddata_grid_->neighborhood( ranges_1, angles_1, &C11, false, prim_hd_grid_region_ );
   }
 
   prim_neighborhood->select_property( primary_variable_ );
@@ -377,7 +351,7 @@ bool Cokriging_x_validation::initialize( const Parameters_handler* parameters,
                                                 "Max_Conditioning_Data_2.value",
                                                 "Search_Ellipsoid_2.value",
                                                 "Variogram_C22",
-                                                sec_hd_region);
+                                                sec_hd_grid_region_);
  
   /*  Problem with GsTLGroupBox :: to be solded ASAP
   if(cok_type == geostat_utils::FULL) {
@@ -428,7 +402,7 @@ bool Cokriging_x_validation::initialize( const Parameters_handler* parameters,
 
   if( !errors->empty() )
     return false;
-
+/*
   if(prim_harddata_grid_ )
       prim_hd_grid_region_.set_temporary_region(
               parameters->value( "Primary_Harddata_Grid.region" ),prim_harddata_grid_ );
@@ -436,7 +410,7 @@ bool Cokriging_x_validation::initialize( const Parameters_handler* parameters,
   if( sec_harddata_grid_ !=  prim_harddata_grid_ )
       sec_hd_grid_region_.set_temporary_region(
               parameters->value( "Secondary_Harddata_Grid.region" ),sec_harddata_grid_ );
-
+*/
   this->extract_parameters(parameters);
   return true;
 }

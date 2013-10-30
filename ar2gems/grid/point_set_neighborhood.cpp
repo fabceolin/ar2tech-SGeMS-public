@@ -89,28 +89,6 @@ private:
 
 
 
-#ifdef USE_ANN_KDTREE
-/* This function selects those points of the point set that are informed
-* (for the current property). The locations are stored in locs_, and the
-* node id in node_ids_. 
-*/
-void Point_set_neighborhood::select_informed_pset_locations() {
-  if( !pset_ || !property_ ) return;
-
-  locs_.clear();
-  node_ids_.clear();
-
-  const std::vector<GsTLPoint>& all_points = pset_->point_locations();
-  for( unsigned int i=0 ; i < all_points.size() ; i++ ) {
-    if( !property_->is_informed( i ) ) continue;
-
-    locs_.push_back( all_points[i] );
-    node_ids_.push_back( i );
-  }
-}
-#endif
-
-
 Point_set_neighborhood::Point_set_neighborhood( double x,double y,double z,
 						double ang1,double ang2,double ang3,
 						int max_neighbors,
@@ -151,40 +129,6 @@ Point_set_neighborhood::Point_set_neighborhood( double x,double y,double z,
 
 	coord_transform_ = new CoordTransform(a_,b_,c_,ang1_,ang2_,ang3_);
 
-
-/* super block */
-#ifdef USE_SUPERBLOCKS
- // #warning "using superblocks"
-    // Rationale to define the total number of superblocks we want:
-    // on average, each block should contain 3 points, assuming the
-    // points are evenly distributed in space
-    const int max_blocks = 120;
-    int total_sblocks = std::min( GsTL::round(pset_->size() / 3), max_blocks );
-    sblock_ = new Superblock( pset, x,y,z, ang1,ang2,ang3, total_sblocks );
-    
-
-    if( cov ) 
-      cov_ = new Covariance<location_type>( *cov );
-    else
-      cov_ = 0;
-#endif
-/* end super block */
-
-#ifdef USE_KDTREE 
-//#warning "USE_KDTREE decrepated!!!!!!!  use USE_ANN_KDTREE instead!!!!!!!"
-    if( pset_ ) {
-	  location_type loc;
-      const std::vector<GsTLPoint>& locs = pset_->point_locations();
-	  for( int i=0; i < locs.size() ; i++ ) {
-		loc = (*coord_transform_)(locs[i]);
-        kdtree_.insert( loc, i );
-	  }
-    }
-
-    kdtree_.build();
-#endif
-
-#ifdef USE_KDTREE2
 
   //use_only_informed_node_ =  pset_->selected_property() == property_;
   //use_only_informed_node_ = true;
@@ -281,56 +225,20 @@ Point_set_neighborhood::Point_set_neighborhood( double x,double y,double z,
   //kdtree_->set_informatation_property(property_, &idx_);
 
 
-#endif
-
-#ifdef USE_ANN_KDTREE
-    select_informed_pset_locations();
-
-    p_coords_ = new CoordT* [ locs_.size() ];
-    for( int i=0; i < locs_.size() ; i++ ) {
-      // do anisotropic transformation of the data
-      locs_[i] = (*coord_transform_)( locs_[i] );
-      p_coords_[i] = locs_[i].raw_access();
-    }
-    kdtree_ = new KDTree_type( p_coords_, locs_.size(), GsTLPoint::dimension );
-
-    neigh_ids_ = new int[max_neighbors_];
-    dists_ = new float[max_neighbors_];
-#endif
-
 }
 
 
 Point_set_neighborhood::~Point_set_neighborhood() {
   delete cov_;
 
-#ifdef USE_SUPERBLOCKS
-  delete sblock_;
-#endif
-
-#ifdef USE_ANN_KDTREE
-  delete [] p_coords_;
-  delete [] neigh_ids_;
-  delete [] dists_;
-#endif
-
-#ifdef USE_KDTREE2
   delete kdtree_;
   delete coords_;
-
-#endif
 
 }
 
 void Point_set_neighborhood::max_size( int s ) {
   max_neighbors_ = std::min( s, pset_->size() );
 
-#ifdef USE_ANN_KDTREE
-  delete [] neigh_ids_;
-  delete [] dists_;
-  neigh_ids_ = new int[max_neighbors_];
-  dists_ = new float[max_neighbors_];
-#endif
 } 
 
 
@@ -339,13 +247,6 @@ bool Point_set_neighborhood::
 select_property( const std::string& prop_name ) {
   if(property_ && prop_name == property_->name()) return true;
   property_ = pset_->property( prop_name );
-
-#ifdef USE_ANN_KDTREE
-  select_informed_pset_locations();
-
-#endif
-
-#ifdef USE_KDTREE2
 
   if(!use_n_closest_) kdtree_->set_property(property_);
   
@@ -377,8 +278,6 @@ select_property( const std::string& prop_name ) {
   }
 
 
-#endif
-
   return ( property_ != 0 );
 }
 
@@ -394,82 +293,6 @@ void Point_set_neighborhood::find_neighbors(const Geovalue& center) {
   center_.set_property_array( property_ );
 
 
-
-#ifdef USE_SUPERBLOCKS
-  // use superblocks 
-  sblock_->get_candidates( candidates_, center.location() );
-  
-  int candidates_count = candidates_.size();
-
-  // keep only those candidates that are inside the search ellipsoid
-  for( int i = 0; i < candidates_count ; i++ ) {
-
-    if( !property_->is_informed( candidates_[i] ) ) continue;
-    GsTLPoint p = pset_->location( candidates_[i] );
-    double dist = norm_( pset_->location( candidates_[i] ) - center.location() );
-    if( dist <= a_ ) {
-      neighbors_.push_back( Geovalue( pset_, property_, candidates_[i] ) );
-      //neighbors_.push_back( pset_->geovalue( candidates_[i] ) );
-    }
-  }
-
-  // If we found more than max_neighbors_ neighbors, only keep the 
-  // max_neighbors_ closest (using the covariance distance).
-  if( int( neighbors_.size() ) >  max_neighbors_ && cov_ != 0 ) {
-    std::partial_sort( neighbors_.begin(), neighbors_.begin() + max_neighbors_,
-		       neighbors_.end(), 
-		       Covariance_distance_( center.location(), *cov_ ) );
-    neighbors_.erase(neighbors_.begin() + max_neighbors_, neighbors_.end() );
-  }
-#endif
-
-
-#ifdef USE_KDTREE
-  location_type loc = (*coord_transform_)(center.location());
-  bool keep_searching = true;
-  int i=1;
-  const int max_iteration = 2;
-  while( keep_searching ) { 
-    int n = kdtree_.in_sphere( loc, float( a_*i/max_iteration ), candidates_ );
-    for( int j=0; j < candidates_.size() ; j++ ) {
-	    //First check if that node is informed
-	    if( property_->is_informed(candidates_[j])  )
-            neighbors_.push_back( Geovalue( pset_, property_, candidates_[j] ) );
-    }
-    if(neighbors_.size() >= max_neighbors_ || i ==max_iteration ) keep_searching=false;
-    else {
-      neighbors_.clear();
-      candidates_.clear();
-      i++;
-    }
-  }
-   
-  // If we found more than max_neighbors_ neighbors, only keep the 
-  // max_neighbors_ closest (using the covariance distance).
-  if( int( neighbors_.size() ) >  max_neighbors_ && cov_ != 0 ) {
-    std::partial_sort( neighbors_.begin(), neighbors_.begin() + max_neighbors_,
-		       neighbors_.end(), 
-		       Covariance_distance_( center.location(), *cov_ ) );
-    neighbors_.erase(neighbors_.begin() + max_neighbors_, neighbors_.end() );
-  }
-#endif
-
-
-#ifdef USE_ANN_KDTREE
-
-  GsTLPoint loc = center.location();
-  kdtree_->annkSearch( loc.raw_access(), max_neighbors_,
-                       neigh_ids_, dists_ );
-
-  for( int j=0; j < max_neighbors_ ; j++ ) {
-    unsigned int node_id = node_ids_[ neigh_ids_[j] ];
-    if( property_->is_informed( node_id ) )
-      neighbors_.push_back( Geovalue( pset_, property_, node_id ) );
-  }
-#endif
-
-
-#ifdef USE_KDTREE2
   location_type loc = (*coord_transform_)(center.location());
   double a2 = a_*a_;
   std::vector<GsTLCoord> center_node;
@@ -544,7 +367,7 @@ void Point_set_neighborhood::find_neighbors(const Geovalue& center) {
   else
     neighbors_.clear();
 */
-#endif
+
 
 }
 
@@ -560,86 +383,6 @@ Point_set_neighborhood::find_neighbors( const Geovalue& center , Neighbors & nei
   if( !property_ ) return;
 
 
-
-#ifdef USE_SUPERBLOCKS
-  // use superblocks 
-  sblock_->get_candidates( candidates, center.location() );
-  
-  int candidates_count = candidates.size();
-
-  // keep only those candidates that are inside the search ellipsoid
-  for( int i = 0; i < candidates_count ; i++ ) {
-
-    if( !property_->is_informed( candidates[i] ) ) continue;
-    GsTLPoint p = pset_->location( candidates[i] );
-    double dist = norm_( pset_->location( candidates[i] ) - center.location() );
-    if( dist <= a_ ) {
-      neighbors.push_back( Geovalue( pset_, property_, candidates[i] ) );
-      //neighbors.push_back( pset_->geovalue( candidates[i] ) );
-    }
-  }
-
-  // If we found more than max_neighbors_ neighbors, only keep the 
-  // max_neighbors_ closest (using the covariance distance).
-  if( int( neighbors.size() ) >  max_neighbors_ && cov_ != 0 ) {
-    std::partial_sort( neighbors.begin(), neighbors.begin() + max_neighbors_,
-		       neighbors.end(), 
-		       Covariance_distance_( center.location(), *cov_ ) );
-    neighbors.erase(neighbors.begin() + max_neighbors_, neighbors.end() );
-  }
-#endif
-
-
-#ifdef USE_KDTREE
-  location_type loc = (*coord_transform_)(center.location());
-  bool keep_searching = true;
-  int i=1;
-  const int max_iteration = 2;
-  while( keep_searching ) { 
-    int n = kdtree_.in_sphere( loc, float( a_*i/max_iteration ), candidates );
-    for( int j=0; j < candidates.size() ; j++ ) {
-	    //First check if that node is informed
-	    if( property_->is_informed(candidates[j])  )
-            neighbors.push_back( Geovalue( pset_, property_, candidates[j] ) );
-    }
-    if(neighbors.size() >= max_neighbors_ || i ==max_iteration ) keep_searching=false;
-    else {
-      neighbors.clear();
-      candidates.clear();
-      i++;
-    }
-  }
-   
-  // If we found more than max_neighbors_ neighbors, only keep the 
-  // max_neighbors_ closest (using the covariance distance).
-  if( int( neighbors.size() ) >  max_neighbors_ && cov_ != 0 ) {
-    std::partial_sort( neighbors.begin(), neighbors.begin() + max_neighbors_,
-		       neighbors.end(), 
-		       Covariance_distance_( center.location(), *cov_ ) );
-    neighbors.erase(neighbors.begin() + max_neighbors_, neighbors.end() );
-  }
-#endif
-
-
-#ifdef USE_ANN_KDTREE
-
-  GsTLPoint loc = center.location();
-  int* neigh_ids = new int[max_neighbors_];
-  float* dists = new float[max_neighbors_];
-  kdtree_->annkSearch( loc.raw_access(), max_neighbors_,
-                       neigh_ids, dists );
-
-  for( int j=0; j < max_neighbors_ ; j++ ) {
-    unsigned int node_id = node_ids_[ neigh_ids[j] ];
-    if( property_->is_informed( node_id ) )
-      neighbors.push_back( Geovalue( pset_, property_, node_id ) );
-  }
-  delete [] neigh_ids;
-  delete [] dists;
-#endif
-
-
-#ifdef USE_KDTREE2
   location_type loc = (*coord_transform_)(center.location());
   double a2 = a_*a_;
   std::vector<GsTLCoord> center_node;
@@ -706,6 +449,8 @@ Point_set_neighborhood::find_neighbors( const Geovalue& center , Neighbors & nei
   if(!includes_center_ && neighbors.size() > max_neighbors_) {
     neighbors.pop_back();
   }
+
+  neighbors.set_valid(neigh_filter_->is_neighborhood_valid());
   
 /*  
   if( neigh_filter_->is_neighborhood_valid() ) 
@@ -714,7 +459,7 @@ Point_set_neighborhood::find_neighbors( const Geovalue& center , Neighbors & nei
   else
     neighbors.clear();
 */
-#endif
+
 
 }
 

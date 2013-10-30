@@ -87,12 +87,21 @@ public:
     mid_interp_(mid_interp),
     up_interp_(up_interp)  {
 
-    for(Z_iterator it=z_begin; it != z_end ; it++)
-      z_values_.push_back(*it);
+
+    z_values_.clear();
+    z_values_.insert(z_values_.begin(),z_begin, z_end);
+//    for(Z_iterator it=z_begin; it != z_end ; it++) {
+//      z_values_.push_back(*it);
+//    }
     
     //Assume that the z are equiprobable
     p_values_.clear();
-    p_values_.insert( p_values_.begin(), z_values_.size(), 1.0/z_values_.size() );
+    p_values_.reserve(z_values_.size());
+    double dp = 1.0/z_values_.size();
+    for(int i=0; i<z_values_.size(); ++i) {
+      p_values_.push_back( (double)i*dp );
+    }
+ //   p_values_.insert( p_values_.begin(), z_values_.size(), 1.0/z_values_.size() );
     //p_values_.resize(z_values_.size());
 
     range = z_values_.back() - z_values_.front();

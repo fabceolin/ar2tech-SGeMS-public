@@ -82,7 +82,7 @@ item_name_ = name_.c_str();
 }
 
 Grid_continuous_property::~Grid_continuous_property() {
-	std::vector<GsTLGridPropertyGroup*> groups = this->groups();
+	std::vector<Grid_property_group*> groups = this->groups();
 	for(int i=0; i<groups.size(); ++i ) {
 		groups[i]->remove_property(this);
 //		this->remove_group_membership(groups[i]->name());
@@ -546,7 +546,7 @@ bool Grid_continuous_property::has_group_membership() const{
 inline 
 std::vector< std::pair<std::string,std::string> > Grid_continuous_property::group_pair_name_type() const{
   std::vector< std::pair<std::string,std::string> > group_ids;
-  std::vector<  GsTLGridPropertyGroup* >::const_iterator it = groups_.begin();
+  std::vector<  Grid_property_group* >::const_iterator it = groups_.begin();
   for(; it != groups_.end(); ++it) {
     std::pair<std::string, std::string > id( (*it)->name(), (*it)->type() );
     group_ids.push_back( id );
@@ -556,7 +556,7 @@ std::vector< std::pair<std::string,std::string> > Grid_continuous_property::grou
 
 std::vector<std::string > Grid_continuous_property::group_names() const{
   std::vector<std::string> names;
-  std::vector<  GsTLGridPropertyGroup* >::const_iterator it = groups_.begin();
+  std::vector<  Grid_property_group* >::const_iterator it = groups_.begin();
   for(; it != groups_.end(); ++it) {
     names.push_back( (*it)->name() );
   }
@@ -566,7 +566,7 @@ std::vector<std::string > Grid_continuous_property::group_names() const{
 
 std::vector<std::string > Grid_continuous_property::group_types() const{
   std::vector<std::string> types;
-  std::vector< GsTLGridPropertyGroup* >::const_iterator it = groups_.begin();
+  std::vector< Grid_property_group* >::const_iterator it = groups_.begin();
   for(; it != groups_.end(); ++it) {
     types.push_back( (*it)->type() );
   }
@@ -574,13 +574,13 @@ std::vector<std::string > Grid_continuous_property::group_types() const{
 }
 
 
- std::vector< GsTLGridPropertyGroup*>& Grid_continuous_property::groups() {
+ std::vector< Grid_property_group*>& Grid_continuous_property::groups() {
   return groups_;
 }
 
 
-bool Grid_continuous_property::add_group_membership(GsTLGridPropertyGroup* group) {
-  std::vector<  GsTLGridPropertyGroup* >::iterator it = groups_.begin();
+bool Grid_continuous_property::add_group_membership(Grid_property_group* group) {
+  std::vector<  Grid_property_group* >::iterator it = groups_.begin();
   std::string gname = group->name();
   for(; it != groups_.end(); ++it) {
     if(gname == (*it)->name()) return false;
@@ -590,12 +590,12 @@ bool Grid_continuous_property::add_group_membership(GsTLGridPropertyGroup* group
 }
 
 
-bool Grid_continuous_property::remove_group_membership(GsTLGridPropertyGroup* group){
+bool Grid_continuous_property::remove_group_membership(Grid_property_group* group){
   return remove_group_membership(group->name());
 }
 
 bool Grid_continuous_property::remove_group_membership(const std::string& group_name){
-  std::vector<  GsTLGridPropertyGroup* >::iterator it = groups_.begin();
+  std::vector<  Grid_property_group* >::iterator it = groups_.begin();
   for(; it != groups_.end(); ++it) {
     if(group_name == (*it)->name()) {
       groups_.erase(it);
@@ -635,7 +635,7 @@ QVariant Grid_continuous_property::item_data(int column) const{
 }
 int Grid_continuous_property::row() const{
 	int nChild = parent_->childCount();
-	for(int i; i<nChild; ++i) {
+	for(int i=0; i<nChild; ++i) {
 		if( parent_->child(i) == this ) return i;
 	}
 	return 0;
@@ -683,18 +683,18 @@ void Property_parameters::clear_parameters(){
 
 
 /*
-bool GsTLGridPropertyGroup::add_property(Grid_continuous_property* prop) {
+bool Grid_property_group::add_property(Grid_continuous_property* prop) {
   properties_.insert(prop);
   return true;
 }
 
-bool GsTLGridPropertyGroup::remove_property(Grid_continuous_property* prop){
+bool Grid_property_group::remove_property(Grid_continuous_property* prop){
     unsigned int ok = properties_.erase( prop );
     return ok != 0;
 }
 
 std::vector<Grid_continuous_property::property_type> 
-GsTLGridPropertyGroup::get_vector_data( int node_id ){
+Grid_property_group::get_vector_data( int node_id ){
   property_set::iterator it = properties_.begin();
   std::vector<Grid_continuous_property::property_type> values;
   values.reserve(properties_.size() );

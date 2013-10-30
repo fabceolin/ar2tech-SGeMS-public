@@ -54,8 +54,15 @@ elseif (WIN32)
     	
 	set(PATH_EXTERNALS "E:/workspace/ar2externals")
     	
+<<<<<<< HEAD
 	SET(BOOST_ROOT "e:/release-V1.49.0-VC2010" CACHE TYPE STRING)
 
+=======
+	find_package(Boost)
+	if (NOT Boost_FOUND)
+		SET(BOOST_ROOT "${PATH_EXTERNALS}/Boost/win64/release-V1.49.0-VC2010" CACHE TYPE STRING)
+	endif (NOT Boost_FOUND)
+>>>>>>> dev-cmake-debug-release-key
 	#SET(VTK_DIR "${PATH_EXTERNALS}/VTK/win64/debug-V6.1.0_master-VC2010")
 	SET(VTK_DIR "d:/workspace/VTK-master/build" CACHE TYPE STRING)
     

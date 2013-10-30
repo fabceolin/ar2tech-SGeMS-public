@@ -346,11 +346,11 @@ namespace geostat_utils {
   * The returned pointer is ensured to be non-null. The actual name of the new
   * function can be accessed from the returned group:
   * \code
-  * GsTLGridPropertyGroup* new_group = add_property_to_grid( grid, name );
+  * Grid_property_group* new_group = add_property_to_grid( grid, name );
   * std::string actual_name = new_group->name();
   * \endcode
   */
-  GEOSTAT_DECL GsTLGridPropertyGroup* 
+  GEOSTAT_DECL Grid_property_group* 
     add_group_to_grid( Geostat_grid* grid, 
                           const std::string& group_name,
                           std::string group_type = "General" );

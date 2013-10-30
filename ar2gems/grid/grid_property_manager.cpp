@@ -206,7 +206,7 @@ const Grid_categorical_property* MultiRealization_property::categorical_realizat
 
 }
 
-void MultiRealization_property::set_group( GsTLGridPropertyGroup* group){
+void MultiRealization_property::set_group( Grid_property_group* group){
   group_ = group;
 }
 

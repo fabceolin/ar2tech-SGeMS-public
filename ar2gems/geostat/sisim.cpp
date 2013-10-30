@@ -60,6 +60,7 @@
 #include <utils/progress_notifier.h>
 #include <utils/error_messages_handler.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <utils/manager_repository.h>
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
@@ -91,6 +92,9 @@ Sisim::Sisim() {
   coded_grid_ = 0;
   ccdf_ = 0;
   marginal_ = 0;
+  hd_grid_region_ = 0;
+  coded_grid_region_ = 0;
+
 }
 
 
@@ -119,9 +123,6 @@ int Sisim::execute( GsTL_project* ) {
     sgrid->set_level( 1 );
   }
 
-  // compute the random path
-  simul_grid_->init_random_path();
-
   if( do_median_ik_ ) {
     return median_ik( progress_notifier.raw_ptr() );
   }
@@ -137,7 +138,7 @@ int Sisim::median_ik( Progress_notifier* progress_notifier ) {
   Random_number_generator gen;
   Monte_carlo_sampler_t< Random_number_generator > sampler( gen );
   
-
+  Grid_path path(simul_grid_, target_grid_region_);
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
     // update the progress notifier
@@ -159,6 +160,9 @@ int Sisim::median_ik( Progress_notifier* progress_notifier ) {
     simul_grid_->select_property( prop->name() );
     neighborhood_->select_property( prop->name() );
 
+    path.set_property(prop->name());
+    path.randomize();
+
     // initialize the new realization with the hard data
     if( property_copier_ ) {
       property_copier_->copy( harddata_grid_, harddata_property_,
@@ -171,8 +175,8 @@ int Sisim::median_ik( Progress_notifier* progress_notifier ) {
     // do the simulation
     appli_message( "Doing simulation" );
     int status = 
-      sequential_simulation( simul_grid_->random_path_begin(),
-			     simul_grid_->random_path_end(),
+      sequential_simulation( path.begin(),
+			     path.end(),
 			     *(neighborhood_.raw_ptr()),
 			     *ccdf_,
 			     *cdf_estimator_,
@@ -197,7 +201,7 @@ int Sisim::full_ik( Progress_notifier* progress_notifier ) {
   Random_number_generator gen;
   Monte_carlo_sampler_t< Random_number_generator > sampler( gen );
   
-
+   Grid_path path(simul_grid_, target_grid_region_);
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
     // update the progress notifier
@@ -227,13 +231,14 @@ int Sisim::full_ik( Progress_notifier* progress_notifier ) {
     }
     //if( initializer_ )
     //  initializer_->assign( prop, harddata_grid_, harddata_property_->name() );
-     
+    //path.set_property(prop->name());
+    path.randomize();
 
     // do the simulation
     appli_message( "Doing simulation" );
     int status = 
-      sequential_cosimulation( simul_grid_->random_path_begin(),
-			                         simul_grid_->random_path_end(),
+      sequential_cosimulation( path.begin(),
+			                         path.end(),
 			                         neighborhoods_vector_.begin(), 
                                neighborhoods_vector_.end(),
                     			     *ccdf_,
@@ -278,6 +283,8 @@ bool Sisim::initialize( const Parameters_handler* parameters,
     simul_grid_->add_multi_realization_property( property_name );
   appli_assert( multireal_property_ );
 
+  target_grid_region_ = simul_grid_->region(parameters->value( "Grid_Name.region" ));
+
   //-------------
   // Miscellaneous simulation parameters
 
@@ -306,6 +313,7 @@ bool Sisim::initialize( const Parameters_handler* parameters,
 
     // Get the harddata property from the grid
     harddata_property_ = harddata_grid_->property( hdata_property_name );
+    hd_grid_region_ = harddata_grid_->region(parameters->value( "Hard_Data_Grid.region" ));
   }
 
 
@@ -353,7 +361,13 @@ bool Sisim::initialize( const Parameters_handler* parameters,
       coded_props.push_back( coded_grid_->property( coded_names[i] ) );
       errors->report(coded_props[i]==NULL,"coded_props","A property does not exist");
     }
+    coded_grid_region_ = coded_grid_->region(parameters->value( "coded_grid.region" ));
   }
+
+  
+  
+
+
 
 
   //-------------
@@ -490,11 +504,11 @@ bool Sisim::initialize( const Parameters_handler* parameters,
     Neighborhood* harddata_neigh;
     if( dynamic_cast<Point_set*>(harddata_grid_) ) {
       harddata_neigh = 
-        harddata_grid_->neighborhood( ranges, angles, &covar_vector_[0],true );
+        harddata_grid_->neighborhood( ranges, angles, &covar_vector_[0],true, hd_grid_region_ );
     } 
     else {
       harddata_neigh = 
-        harddata_grid_->neighborhood( ranges, angles, &covar_vector_[0] );
+        harddata_grid_->neighborhood( ranges, angles, &covar_vector_[0], false, hd_grid_region_ );
     }
 
 		harddata_neigh->max_size( max_neigh  );
@@ -542,11 +556,11 @@ bool Sisim::initialize( const Parameters_handler* parameters,
 
         if( dynamic_cast<Point_set*>(coded_grid_) ) {
           coded_neigh = SmartPtr<Neighborhood>(
-            coded_grid_->neighborhood(ranges, angles, &covar_vector_[j],true ));
+            coded_grid_->neighborhood(ranges, angles, &covar_vector_[j],true, coded_grid_region_ ));
         } 
         else {
           coded_neigh = SmartPtr<Neighborhood>(
-            coded_grid_->neighborhood(ranges, angles, &covar_vector_[j] ));
+            coded_grid_->neighborhood(ranges, angles, &covar_vector_[j], false, coded_grid_region_ ));
         }
         coded_neigh->select_property( coded_props[j]->name() );
         coded_neigh->max_size( max_neigh );
@@ -562,7 +576,7 @@ bool Sisim::initialize( const Parameters_handler* parameters,
 
 			  SmartPtr<Neighborhood>  neighborhood = 
 			  SmartPtr<Neighborhood>( new Combined_neighborhood_dedup( coded_neigh,
-																			  simul_neigh, &covar_vector_[j],true) );
+																			  simul_neigh, &covar_vector_[j],true ) );
         neighborhood->max_size( max_neigh );
         neighborhoods_vector_[j] = NeighborhoodHandle( neighborhood );
 
@@ -577,11 +591,11 @@ bool Sisim::initialize( const Parameters_handler* parameters,
 			Neighborhood* harddata_neigh;
       if( dynamic_cast<Point_set*>(harddata_grid_) ) {
         harddata_neigh = 
-          harddata_grid_->neighborhood( ranges, angles, &covar_vector_[j],true );
+          harddata_grid_->neighborhood( ranges, angles, &covar_vector_[j],true, hd_grid_region_ );
       } 
       else {
         harddata_neigh = 
-          harddata_grid_->neighborhood( ranges, angles, &covar_vector_[j] );
+          harddata_grid_->neighborhood( ranges, angles, &covar_vector_[j], false, hd_grid_region_ );
       }
       
 
@@ -643,28 +657,6 @@ bool Sisim::initialize( const Parameters_handler* parameters,
       
   }
 
-  // Set up the regions
-  std::string region_name = parameters->value( "Grid_Name.region" );
-  if (!region_name.empty() && simul_grid_->region( region_name ) == NULL ) {
-    errors->report("Grid_Name","Region "+region_name+" does not exist");
-  }
-  else grid_region_.set_temporary_region( region_name, simul_grid_);
-
-  if(harddata_grid_ && !assign_harddata && harddata_grid_ != simul_grid_) {
-    region_name = parameters->value( "Hard_Data_Grid.region" );
-    if (!region_name.empty() && harddata_grid_->region( region_name ) == NULL ) {
-      errors->report("Hard_Data_Grid","Region "+region_name+" does not exist");
-    }
-    else  hd_grid_region_.set_temporary_region( region_name,harddata_grid_ );
-  }
-
-  if(coded_grid_ && coded_grid_ != simul_grid_ && coded_grid_ != harddata_grid_) {
-    region_name = parameters->value( "coded_grid.region" );
-    if (!region_name.empty() && coded_grid_->region( region_name ) == NULL ) {
-      errors->report("coded_grid","Region "+region_name+" does not exist");
-    }
-    else  coded_grid_region_.set_temporary_region( region_name,harddata_grid_ );
-  }
 
   //-------------------------------
   // Done!

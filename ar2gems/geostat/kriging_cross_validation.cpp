@@ -65,6 +65,7 @@
 #include <grid/cartesian_grid.h>
 #include <grid/point_set.h>
 #include <grid/grid_region.h>
+#include <grid/grid_path.h>
 #include <appli/utilities.h>
 
 #include <GsTL/kriging/kriging_weights.h>
@@ -139,9 +140,9 @@ int Kriging_x_validation::execute( GsTL_project* ) {
 
 
 
-  typedef Geostat_grid::iterator iterator;
-  iterator begin = harddata_grid_->begin();
-  iterator end = harddata_grid_->end();
+  Grid_path path(harddata_grid_, kvalue_prop, hd_grid_region_);
+  Grid_path::iterator begin =path.begin();
+  Grid_path::iterator end = path.end();
   
   for( ; begin != end; ++begin ) {
     if( !progress_notifier->notify() ) {
@@ -251,10 +252,8 @@ bool Kriging_x_validation::initialize( const Parameters_handler* parameters,
     return false;
 
   std::string harddata_region_name = parameters->value( "Hard_Data.region" );
-  Grid_region* hd_region = harddata_grid_->region(harddata_region_name);
-
-  hdgridTempRegionSelector_.set_temporary_region(
-        parameters->value( "Hard_Data.region" ),harddata_grid_ );
+  hd_grid_region_ = harddata_grid_->region(harddata_region_name);
+  
 
   int max_neigh = 
     String_Op::to_number<int>( parameters->value( "Max_Conditioning_Data.value" ) );
@@ -304,11 +303,11 @@ bool Kriging_x_validation::initialize( const Parameters_handler* parameters,
   harddata_grid_->select_property(harddata_property_name_);
   if( dynamic_cast<Point_set*>(harddata_grid_) ) {
   neighborhood_ = SmartPtr<Neighborhood>(
-    harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, true, hd_region ) );
+    harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, true, hd_grid_region_ ) );
   } 
   else {
     neighborhood_ =  SmartPtr<Neighborhood>(
-      harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, false, hd_region ));
+      harddata_grid_->neighborhood( ellips_ranges, ellips_angles, &covar_, false, hd_grid_region_ ));
   }
   neighborhood_->select_property( harddata_property_name_ );
   neighborhood_->max_size( max_neigh );

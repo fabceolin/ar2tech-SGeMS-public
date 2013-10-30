@@ -47,7 +47,7 @@ public:
   virtual ~Continuous_distribution(void){}
 
   virtual bool copy(const Continuous_distribution* dist) = 0;
-  virtual Continuous_distribution* clone() = 0;
+  virtual Continuous_distribution* clone() const = 0;
 
   virtual double cdf(float z) const=0;
   virtual float kurtosis() const=0;
@@ -121,7 +121,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Beta_distribution* dist = new Beta_distribution;
     dist->copy(this);
     return dist; 
@@ -200,7 +200,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const {
     Exponential_distribution* dist = new Exponential_distribution;
     dist->copy(this);
     return dist; 
@@ -278,7 +278,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Extreme_value_distribution* dist = new Extreme_value_distribution;
     dist->copy(this);
     return dist; 
@@ -358,7 +358,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Gamma_distribution* dist = new Gamma_distribution;
     dist->copy(this);
     return dist; 
@@ -509,7 +509,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Logistic_distribution* dist = new Logistic_distribution;
     dist->copy(this);
     return dist; 
@@ -593,7 +593,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     LogNormal_distribution* dist = new LogNormal_distribution;
     dist->copy(this);
     return dist; 
@@ -712,7 +712,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Gaussian_distribution* dist = new Gaussian_distribution;
     dist->copy(this);
     return dist; 
@@ -791,7 +791,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Pareto_distribution* dist = new Pareto_distribution;
     dist->copy(this);
     return dist; 
@@ -868,7 +868,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Rayleigh_distribution* dist = new Rayleigh_distribution;
     dist->copy(this);
     return dist; 
@@ -948,7 +948,7 @@ public:
   }
 
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Triangular_distribution* dist = new Triangular_distribution;
     dist->copy(this);
     return dist; 
@@ -1029,7 +1029,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Uniform_distribution* dist = new Uniform_distribution;
     dist->copy(this);
     return dist; 
@@ -1107,7 +1107,7 @@ public:
       return false;
   }
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Weibull_distribution* dist = new Weibull_distribution;
     dist->copy(this);
     return dist; 

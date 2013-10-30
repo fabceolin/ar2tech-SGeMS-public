@@ -91,6 +91,7 @@
 #include <utils/gstl_messages.h>
 #include <appli/action.h>
 #include <grid/gval_iterator.h>
+#include <grid/grid_path.h>
 #include <grid/reduced_grid.h>
 #include <actions/distribution_action.h>
 #include <filters/filter.h>
@@ -901,8 +902,9 @@ void QSP_application::show_prop_val() {
   for( ; begin != end ; ++begin ) {
     Geostat_grid* grid = dynamic_cast<Geostat_grid*>(  begin->raw_ptr() );
     appli_assert( grid != 0 );
-    Geostat_grid::iterator it = grid->begin();
-    Geostat_grid::iterator grid_end = grid->end();
+    Grid_path_ordered path(grid, grid->selected_property() );
+    Grid_path_ordered::iterator it = path.begin();
+    Grid_path_ordered::iterator grid_end = path.end();
     for( ; it != grid_end ; ++it ){
       std::cerr << it->property_value() << std::endl;
     }

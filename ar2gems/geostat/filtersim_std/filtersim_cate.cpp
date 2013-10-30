@@ -1482,6 +1482,7 @@ bool Filtersim_Cate::simulate_one_realization( SmartPtr<Progress_notifier>& prog
 {
     simul_grid_->select_property( prop->name() );
     simul_grid_->set_level(1);	
+    Grid_path path(simul_grid_, prop );
 
     if( property_copier_ ) 
         property_copier_->copy( harddata_grid_, harddata_property_, simul_grid_, prop );
@@ -1490,7 +1491,7 @@ bool Filtersim_Cate::simulate_one_realization( SmartPtr<Progress_notifier>& prog
     Filtersim_Servosystem_Cate< Random_number_generator >* categorical_sampler =
                         new Filtersim_Servosystem_Cate< Random_number_generator >( 
                                                     target_cpdf_, serv_, 
-                                                    simul_grid_->begin(), simul_grid_->end(),
+                                                    path.begin(), path.end(),
                                                     Random_number_generator(), patch_nxyzdt_ );
 
     if( property_copier_ ) 
@@ -2056,8 +2057,9 @@ void Filtersim_Cate::post_processing_realization( Grid_continuous_property*prop 
 
     int loc = 0;
     // moving average over each grid node
-    for( Geostat_grid::iterator node_iter = simul_grid_->begin(); 
-                node_iter != simul_grid_->end();  node_iter++, loc++ )  
+    Grid_path path(simul_grid_, prop );
+    for( Grid_path::iterator node_iter = path.begin(); 
+                node_iter != path.end();  node_iter++, loc++ )  
     {
         if ( region_[loc] && node_iter->is_informed() && (!cond_prop->is_informed(loc)) )   
         {  // if not a hard data and in the current working region, then do following

@@ -63,7 +63,7 @@ public :
   }
   virtual bool copy(const Continuous_distribution* dist);
 
-  virtual Continuous_distribution* clone(){
+  virtual Continuous_distribution* clone() const{
     Non_parametric_distribution* dist = new Non_parametric_distribution;
     dist->copy(this);
     return dist; 

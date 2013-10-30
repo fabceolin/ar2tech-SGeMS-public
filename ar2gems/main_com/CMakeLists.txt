@@ -22,7 +22,12 @@ endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
 
 
+<<<<<<< HEAD
 target_link_libraries(ar2gems_com
+=======
+if (CMAKE_BUILD_TYPE MATCHES  "Release")
+    target_link_libraries(ar2gems_com
+>>>>>>> dev-cmake-debug-release-key
       optimized ${PYTHON_LIBRARIES}
       debug ${PYTHON_DEBUG_LIBRARIES}  
       ${QT_LIBRARIES}
@@ -39,8 +44,30 @@ target_link_libraries(ar2gems_com
       ar2gems_widgets
       ar2gems_utils 
     )
+<<<<<<< HEAD
 set_target_properties( ar2gems_com PROPERTIES OUTPUT_NAME_RELEASE ar2gems_com )
 set_target_properties( ar2gems_com PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_com_d )
+=======
+elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
+    target_link_libraries(ar2gems_com
+      optimized ${PYTHON_LIBRARIES}
+      debug ${PYTHON_DEBUG_LIBRARIES}  
+      ${QT_LIBRARIES}
+      ${VTK_LIBRARIES}
+      ar2gems_actions_d
+      ar2gems_appli_d
+      ar2gems_charts_d
+      ar2gems_extragui_d
+      ar2gems_filters_d
+      ar2gems_geostat_d
+      ar2gems_grid_d
+      ar2gems_gui_d
+      ar2gems_math_d
+      ar2gems_widgets_d
+      ar2gems_utils_d 
+    )
+endif ()
+>>>>>>> dev-cmake-debug-release-key
 
 if (WIN32)
   if(RELEASE_PYTHON_IN_DEBUG)

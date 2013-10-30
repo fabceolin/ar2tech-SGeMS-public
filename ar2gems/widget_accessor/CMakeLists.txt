@@ -1,21 +1,47 @@
-add_library(ar2gems_extragui
+if (CMAKE_BUILD_TYPE MATCHES "Release")
+    set(LIB_NAME ar2gems_extragui)
+elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
+    set(LIB_NAME ar2gems_extragui_d)
+endif ()
+
+add_library(${LIB_NAME}
   library_extragui_init.cpp
   qt_accessors.cpp
   qt_accessors.h  
 )
 
+<<<<<<< HEAD
 target_link_libraries(ar2gems_extragui
+=======
+if (CMAKE_BUILD_TYPE MATCHES "Release")
+    target_link_libraries(${LIB_NAME}
+>>>>>>> dev-cmake-debug-release-key
       ${QT_LIBRARIES}
       ar2gems_appli
       ar2gems_gui
       ar2gems_widgets
       ar2gems_utils
     )
+<<<<<<< HEAD
 set_target_properties( ar2gems_extragui PROPERTIES OUTPUT_NAME_RELEASE ar2gems_extragui )
 set_target_properties( ar2gems_extragui PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_extragui_d )
+=======
+elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
+    target_link_libraries(${LIB_NAME}
+      ${QT_LIBRARIES}
+      ar2gems_appli_d
+      ar2gems_gui_d
+      ar2gems_widgets_d
+      ar2gems_utils_d
+    )
+endif ()
+
+
+
+>>>>>>> dev-cmake-debug-release-key
 
 if (WIN32)
   add_definitions(-DEXTRAGUI_EXPORTS)
 endif()
 
-INSTALL(TARGETS ar2gems_extragui DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

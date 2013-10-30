@@ -60,30 +60,18 @@
 #include <math/gstlpoint.h> 
 #include <grid/neighborhood.h> 
 #include <grid/point_set.h> 
-#include <grid/superblock.h> 
 #include <math/gstlvector.h> 
 #include <grid/gstl_kdtree2.h>
 #include <grid/coordinate_mapper.h>
 
 #include <GsTL/geometry/geometry_algorithms.h> 
 #include <GsTL/geometry/covariance.h> 
-//#include <GsTL/utils/KDTree.h>
+
 
 
 #include <vector> 
- 
-//#undef USE_ANN_KDTREE
-#if !defined(USE_KDTREE) && !defined(USE_ANN_KDTREE)
-#define USE_SUPERBLOCKS
-#endif
-#define USE_KDTREE
-#undef USE_ANN_KDTREE
 
-#undef USE_ANN_KDTREE
-#undef USE_KDTREE
-#undef USE_SUPERBLOCKS
-#undef USE_KDTREE2
-#define USE_KDTREE2
+
 
 
 template<class A, class B, class C>
@@ -140,28 +128,7 @@ protected:
   
   bool only_harddata_;
 
-#ifdef USE_SUPERBLOCKS
-  Superblock* sblock_; 
-#endif
 
-#ifdef USE_KDTREE
-  KDTree<GsTLPoint, int> kdtree_;
-#endif
-
-#ifdef USE_ANN_KDTREE
-  typedef ANNkd_tree<GsTLPoint::coordinate_type, float, int> KDTree_type;
-  KDTree_type* kdtree_;
-  typedef GsTLPoint::coordinate_type CoordT;
-  CoordT** p_coords_;
-  std::vector<GsTLPoint> locs_;
-  std::vector<unsigned int> node_ids_;
-  int* neigh_ids_ ;
-  float* dists_ ;
-
-  void select_informed_pset_locations();
-#endif
-
-#ifdef USE_KDTREE2
 public:
   virtual void search_neighborhood_filter(Search_filter *filter) { 
     delete neigh_filter_;
@@ -181,7 +148,7 @@ protected:
 
   bool use_n_closest_;
 
-#endif
+
 
 };     
  

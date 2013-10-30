@@ -81,7 +81,8 @@ bool Postsim_categorical::initialize( const Parameters_handler* parameters,
 		return false;
 
   std::string region_name = parameters->value( "grid_name.region" );
-  gridTempRegionSelector_.set_temporary_region(region_name,grid_);
+  region_ = grid_->region(region_name);
+
 
   std::string prop_str = parameters->value( "props.value" );
   if(prop_str.empty()) {
@@ -136,7 +137,7 @@ bool Postsim_categorical::initialize( const Parameters_handler* parameters,
     ncat_ = cat_code.size();
 	}
 
-  GsTLGridPropertyGroup* group = geostat_utils::add_group_to_grid( grid_, output_name_prefix,"CategoricalProbability");
+  Grid_property_group* group = geostat_utils::add_group_to_grid( grid_, output_name_prefix,"CategoricalProbability");
   CategoricalProbabilityPropertyGroup* cgroup = 
     dynamic_cast<CategoricalProbabilityPropertyGroup*>(group);
   cgroup->set_categorical_definition(defname);
@@ -160,9 +161,8 @@ int Postsim_categorical::execute( GsTL_project* ) {
 	std::vector< Grid_continuous_property* >::const_iterator it_prop;;
 	int nprop = props_.size();
 
-  Geostat_grid::iterator it = grid_->begin();
-	for( ; it != grid_->end(); ++it ) {
-    int node_id = it->node_id();
+	for(int node_id = 0 ; node_id < grid_->size(); ++node_id ) {
+    if(region_ && !region_->is_inside_region(node_id)) continue;
 		all_informed=true;
 		for(int k = 0; k < props_.size(); ++k ) {
       if( !props_[k]->is_informed( node_id ) ) {
@@ -187,8 +187,7 @@ int Postsim_categorical::execute( GsTL_project* ) {
 }
 
 
-Postsim_categorical::Postsim_categorical() {
-	grid_ = 0;
+Postsim_categorical::Postsim_categorical() : grid_(0), region_(0) {
 }
 
 

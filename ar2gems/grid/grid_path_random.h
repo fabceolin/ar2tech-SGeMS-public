@@ -30,11 +30,13 @@
 #include <grid/common.h>
 #include <math/gstlvector.h> 
 #include <grid/geovalue.h>  
-#include <vector> 
-#include <grid/rgrid.h>
+#include <grid/geostat_grid.h>
+#include <grid/grid_path.h>
+#include <grid/gval_iterator.h>
+#include <grid/grid_property.h>
+#include <grid/grid_region.h>
 
-#include "grid_path.h"
- 
+#include <vector> 
  
 
 /**
@@ -63,14 +65,18 @@ public:
   // get the Geovalue associated with a node on the path. The argument _path_index is the index on the path
   Geovalue geovalue( GsTLInt _path_index ) const;
 
+  virtual bool set_property(std::string prop_name);
+
 
 protected:
   std::vector<GsTLInt> grid_path_;
-  Geostat_grid * grid_;
+  Geostat_grid* grid_;
   Grid_continuous_property * prop_;
   
 
 public:
+  Grid_random_path(Geostat_grid * _grid, Grid_continuous_property * _prop, Grid_region* region = 0);
+  Grid_random_path(Geostat_grid * _grid, Grid_region* region=0);
   Grid_random_path(Geostat_grid * _grid, Grid_continuous_property * _prop);
   virtual ~Grid_random_path(void);
 };

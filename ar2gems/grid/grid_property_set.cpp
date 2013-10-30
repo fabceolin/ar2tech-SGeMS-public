@@ -31,9 +31,9 @@
 #include <utils/manager_repository.h> 
 //#include <QtXml/QDomElement>
 
-GsTLGridPropertyGroup*
+Grid_property_group*
 Create_new_property_group(const std::string& name, const std::string& type) {
-	if(type == "" || type == "General") return new GsTLGridPropertyGroup(name);
+	if(type == "" || type == "General") return new Grid_property_group(name);
 	else if(type == "Simulation") return new SimulationPropertyGroup(name);
   else if(type == "Categorical") return new CategoricalPropertyGroup(name);
 	else if(type == "CategoricalIndicator") return new IndicatorCategoricalPropertyGroup(name);
@@ -44,17 +44,17 @@ Create_new_property_group(const std::string& name, const std::string& type) {
 }
 
 /*
-Named_interface* GsTLGridPropertyGroup::create_new_interface( std::string& name) {
-  return new GsTLGridPropertyGroup(name);
+Named_interface* Grid_property_group::create_new_interface( std::string& name) {
+  return new Grid_property_group(name);
 }
 */
 
-GsTLGridPropertyGroup::GsTLGridPropertyGroup(){
+Grid_property_group::Grid_property_group(){
     item_name_ = "";
   item_type_ = "Group";
 }
 
-GsTLGridPropertyGroup::GsTLGridPropertyGroup(std::string name){
+Grid_property_group::Grid_property_group(std::string name){
   name_ = name;
   type_ = "General";
   model_ = dynamic_cast<Root_model*>(Root::instance()->model());
@@ -68,23 +68,23 @@ GsTLGridPropertyGroup::GsTLGridPropertyGroup(std::string name){
 }
 
 
-bool GsTLGridPropertyGroup::is_member_property(std::string prop_name) const {
+bool Grid_property_group::is_member_property(std::string prop_name) const {
   return( properties_.find( prop_name) != properties_.end() );
 }
 
-Grid_continuous_property* GsTLGridPropertyGroup::get_property(std::string prop_name) {
+Grid_continuous_property* Grid_property_group::get_property(std::string prop_name) {
   property_map::iterator it = properties_.find( prop_name);
   if( it == properties_.end() ) return 0;
   return it->second;
 }
 
-const Grid_continuous_property* GsTLGridPropertyGroup::get_property(std::string prop_name) const {
+const Grid_continuous_property* Grid_property_group::get_property(std::string prop_name) const {
   property_map::const_iterator it = properties_.find( prop_name);
   if( it == properties_.end() ) return 0;
   return it->second;
 }
 
-Grid_continuous_property* GsTLGridPropertyGroup::get_property(int id) {
+Grid_continuous_property* Grid_property_group::get_property(int id) {
   if( id >= properties_.size() ) return 0;
   property_map::iterator it = properties_.begin();
   std::advance(it,id);
@@ -93,7 +93,7 @@ Grid_continuous_property* GsTLGridPropertyGroup::get_property(int id) {
 }
 
 
-const Grid_continuous_property* GsTLGridPropertyGroup::get_property(int id) const {
+const Grid_continuous_property* Grid_property_group::get_property(int id) const {
   if( id >= properties_.size() ) return 0;
   property_map::const_iterator it = properties_.begin();
   std::advance(it,id);
@@ -101,7 +101,7 @@ const Grid_continuous_property* GsTLGridPropertyGroup::get_property(int id) cons
   return it->second;
 }
 
-bool GsTLGridPropertyGroup::add_property(Grid_continuous_property* prop) {
+bool Grid_property_group::add_property(Grid_continuous_property* prop) {
   if(prop == 0) return false;
   if(model_) {
 	  property_map::iterator it =properties_.lower_bound(prop->name());
@@ -118,7 +118,7 @@ bool GsTLGridPropertyGroup::add_property(Grid_continuous_property* prop) {
   return true;
 }
 
-bool GsTLGridPropertyGroup::remove_property(Grid_continuous_property* prop){
+bool Grid_property_group::remove_property(Grid_continuous_property* prop){
   unsigned int ok = properties_.erase( prop->name() );
   if(ok) {
 	  if(model_) {
@@ -132,7 +132,7 @@ bool GsTLGridPropertyGroup::remove_property(Grid_continuous_property* prop){
   return ok != 0;
 }
 
-std::vector<std::string> GsTLGridPropertyGroup::property_names() const{
+std::vector<std::string> Grid_property_group::property_names() const{
   std::vector<std::string> names;
   names.reserve(properties_.size());
   property_map::const_iterator  it = properties_.begin();
@@ -143,7 +143,7 @@ std::vector<std::string> GsTLGridPropertyGroup::property_names() const{
 }
 
 std::vector<Grid_continuous_property::property_type> 
-GsTLGridPropertyGroup::get_vector_data( int node_id ) const{
+Grid_property_group::get_vector_data( int node_id ) const{
   property_map::const_iterator it = properties_.begin();
   std::vector<Grid_continuous_property::property_type> values;
   values.reserve(properties_.size() );
@@ -154,7 +154,7 @@ GsTLGridPropertyGroup::get_vector_data( int node_id ) const{
 }
 
 
-void GsTLGridPropertyGroup::set_group_info(const std::string& info_str) {
+void Grid_property_group::set_group_info(const std::string& info_str) {
   info_["Info"] = info_str;
 //  QDomElement ele = meta_data_.createElement("Info");
 //  root_.appendChild(ele);
@@ -162,7 +162,7 @@ void GsTLGridPropertyGroup::set_group_info(const std::string& info_str) {
 }
 
 
-std::string GsTLGridPropertyGroup::get_group_info() const{
+std::string Grid_property_group::get_group_info() const{
   std::map<std::string, std::string>::const_iterator it = info_.find("Info");
   if(it == info_.end()) return "";
   return it->second;
@@ -171,27 +171,27 @@ std::string GsTLGridPropertyGroup::get_group_info() const{
 //  return ele.attribute("text").toStdString();
 }
 
-QString GsTLGridPropertyGroup::item_name() const{
+QString Grid_property_group::item_name() const{
 	return QString(name_.c_str());
 }
 
-QString GsTLGridPropertyGroup::item_type() const{
+QString Grid_property_group::item_type() const{
 	return QString("Group:%1").arg(type_.c_str());
 }
 
-GsTL_object_item *GsTLGridPropertyGroup::child(int row){
+GsTL_object_item *Grid_property_group::child(int row){
 	 std::map<std::string, GsTL_object_property_item>::iterator it = property_item_map_.begin();
 	for(int i=0; i< row; ++i, ++it ){}
 	return &(it->second);
 }
-int GsTLGridPropertyGroup::childCount() const {
+int Grid_property_group::childCount() const {
 	return property_item_map_.size();
 }
 
-int GsTLGridPropertyGroup::columnCount() const {
+int Grid_property_group::columnCount() const {
 	return 2;
 }
-QVariant GsTLGridPropertyGroup::item_data(int column) const{
+QVariant Grid_property_group::item_data(int column) const{
 	if(column == 0) return QString(name_.c_str());
 	else if (column == 1) return item_type();
 
@@ -211,12 +211,12 @@ Grid_property_group_manager::Grid_property_group_manager()
 }
 
 
-GsTLGridPropertyGroup* Grid_property_group_manager::add_group(const std::string& name, const std::string& type) {
+Grid_property_group* Grid_property_group_manager::add_group(const std::string& name, const std::string& type) {
   group_map::iterator it_group = groups_.find(name);
   if(it_group != groups_.end()) return 0;
   // The group does not already exist
-  GsTLGridPropertyGroup* group = Create_new_property_group(name, type);
- // GsTLGridPropertyGroup* group = new GsTLGridPropertyGroup(name);  // Need to get it from the manager
+  Grid_property_group* group = Create_new_property_group(name, type);
+ // Grid_property_group* group = new Grid_property_group(name);  // Need to get it from the manager
   if(group == 0) return 0; //failed to initialize maybe unknown type
   group->set_parent_item(parent_);
   if(model_) {
@@ -238,7 +238,7 @@ GsTLGridPropertyGroup* Grid_property_group_manager::add_group(const std::string&
 void Grid_property_group_manager::remove_group(const std::string& name) {
   group_map::iterator it_group = groups_.find(name);
   if(it_group == groups_.end()) return;
-  GsTLGridPropertyGroup* group = it_group->second;
+  Grid_property_group* group = it_group->second;
 
 // remove the group type to the list (or to the decrease the count is type already present)
   std::string type = group->type();
@@ -249,7 +249,7 @@ void Grid_property_group_manager::remove_group(const std::string& name) {
     group_type_[type]--;
 
 // remove property membership from group
-  GsTLGridPropertyGroup::property_map::iterator it = group->begin_property();
+  Grid_property_group::property_map::iterator it = group->begin_property();
   std::vector<Grid_continuous_property*> props;
   for( ; it != group->end_property(); ++it) {
   	props.push_back(it->second);
@@ -270,7 +270,7 @@ void Grid_property_group_manager::remove_group(const std::string& name) {
 
 }
 
-GsTLGridPropertyGroup* Grid_property_group_manager::get_group(const std::string& name) {
+Grid_property_group* Grid_property_group_manager::get_group(const std::string& name) {
   group_map::iterator it = groups_.find(name);
   if(it != groups_.end()) 
     return it->second;
@@ -279,7 +279,7 @@ GsTLGridPropertyGroup* Grid_property_group_manager::get_group(const std::string&
 }
 
 
-const GsTLGridPropertyGroup* 
+const Grid_property_group* 
 Grid_property_group_manager::get_group(const std::string& name) const{
   group_map::const_iterator it = groups_.find(name);
   if(it != groups_.end()) 
@@ -329,20 +329,20 @@ unsigned int Grid_property_group_manager::size() const{
 }
 
 
-std::map<std::string, GsTLGridPropertyGroup*>::iterator  Grid_property_group_manager::begin_group(){
+std::map<std::string, Grid_property_group*>::iterator  Grid_property_group_manager::begin_group(){
 	return groups_.begin();
 }
 
-std::map<std::string, GsTLGridPropertyGroup*>::iterator Grid_property_group_manager::end_group(){
+std::map<std::string, Grid_property_group*>::iterator Grid_property_group_manager::end_group(){
 	return groups_.end();
 }
 
 
-std::map<std::string, GsTLGridPropertyGroup*>::const_iterator  Grid_property_group_manager::begin_group() const{
+std::map<std::string, Grid_property_group*>::const_iterator  Grid_property_group_manager::begin_group() const{
 	return groups_.begin();
 }
 
-std::map<std::string, GsTLGridPropertyGroup*>::const_iterator Grid_property_group_manager::end_group() const{
+std::map<std::string, Grid_property_group*>::const_iterator Grid_property_group_manager::end_group() const{
 	return groups_.end();
 }
 

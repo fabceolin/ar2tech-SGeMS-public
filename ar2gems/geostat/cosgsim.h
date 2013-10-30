@@ -112,7 +112,7 @@ class GEOSTAT_DECL Cosgsim : public Geostat_algo {
   Geostat_grid* sec_harddata_grid_;
   Grid_continuous_property* primary_variable_;
   Grid_continuous_property* secondary_variable_;
-  GsTLGridPropertyGroup* secondary_variable_group_;
+  Grid_property_group* secondary_variable_group_;
 
   //Grid_initializer* initializer_; 
   SmartPtr<Property_copier> property_copier_;
@@ -135,9 +135,9 @@ class GEOSTAT_DECL Cosgsim : public Geostat_algo {
   
   bool clean_primary_var_, clean_secondary_var_;
 
-  Temporary_gridRegion_Selector grid_region_;
-  Temporary_gridRegion_Selector prim_hd_grid_region_;
-  Temporary_gridRegion_Selector sec_hd_grid_region_;
+  Grid_region* target_grid_region_;
+  Grid_region* prim_hd_grid_region_;
+  Grid_region* sec_hd_grid_region_;
 
  protected:
 
