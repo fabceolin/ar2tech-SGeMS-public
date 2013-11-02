@@ -148,9 +148,9 @@ public:
    */ 
   Rgrid_ellips_neighborhood( RGrid* grid, 
 			     Grid_continuous_property* property, 
-			     GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius, 
-			     double x_angle, double y_angle, double z_angle, 
-			     int max_neighbors = 20, 
+			     double radius1, double radius2, double radius3, 
+			     double angle1, double angle2, double angle3, 
+			     int max_neighbors = 40, 
 			     const Covariance<GsTLPoint>* cov = 0,
            const Grid_region* region = 0); 
  
@@ -192,9 +192,9 @@ public:
  public: 
   Rgrid_ellips_neighborhood_hd( RGrid* grid, 
 				Grid_continuous_property* property, 
-				GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius, 
-				double x_angle, double y_angle, double z_angle, 
-				int max_neighbors = 20, 
+			     double radius1, double radius2, double radius3, 
+			     double angle1, double angle2, double angle3,
+				int max_neighbors = 40, 
 				const Covariance<GsTLPoint>* cov = 0,
         const Grid_region* region = 0); 
   ~Rgrid_ellips_neighborhood_hd() {}; 
@@ -209,6 +209,45 @@ public:
 //    Some utilities 
 //===================================== 
  
+class Ellipsoid_rasterizer { 
+ public: 
+
+   typedef GsTLVector<int> EuclideanVector;
+ 
+  Ellipsoid_rasterizer( 
+    double xyz_rad1, double xyz_rad2, double xyz_rad3,
+    double xyz_angle1, double xyz_angle2, double xyz_angle3,
+    double block_size_x, double block_size_y, double block_size_z,
+    int max_size_i, int max_size_j, int max_size_k);
+
+  ~Ellipsoid_rasterizer(){}
+
+  // this function shoud be const
+  std::vector<EuclideanVector>& rasterize() {return ellipsoid_nodes_;}
+  //const std::vector<EuclideanVector>& rasterize() const {return ellipsoid_nodes_;}
+   
+ 
+ private: 
+  void check_node( const GsTLGridNode& loc ); 
+  void rasterize_ellipsoid();
+ 
+ private: 
+
+    double block_size_x_; 
+    double block_size_y_;
+    double block_size_z_;
+    SGrid_cursor cursor_;
+  std::vector<EuclideanVector> ellipsoid_nodes_; 
+  std::vector<bool> already_visited_; 
+  std::stack<GsTLInt> s_; 
+  Anisotropic_norm_3d<EuclideanVector> norm_; 
+  double reference_radius_; 
+  GsTLGridNode center_; 
+
+ 
+}; 
+
+/*
 class GRID_DECL Ellipsoid_rasterizer { 
  public: 
   typedef GsTLGridNode::difference_type EuclideanVector; 
@@ -232,7 +271,7 @@ class GRID_DECL Ellipsoid_rasterizer {
   GsTLInt max_radius_; 
   GsTLGridNode center_; 
 }; 
- 
+ */
  
 //=========================================== 
 // Comparison of two euclidean vectors based on covariance value 
@@ -257,4 +296,26 @@ class GRID_DECL Evector_greater_than {
 }; 
  
  
+//=========================================== 
+// Comparison of two euclidean vectors based on covariance value 
+// v1 > v2  iif  cov(v1) > cov(v2) 
+ 
+class GRID_DECL Evector_indexed_greater_than { 
+ public: 
+  typedef GsTLGridNode::difference_type EuclideanVector; 
+ 
+  Evector_indexed_greater_than( const Covariance<GsTLPoint>& cov ) 
+    : cov_( &cov ) { }; 
+ 
+  bool operator()(const std::pair<EuclideanVector,int>& v1, const std::pair<EuclideanVector,int>& v2) { 
+    GsTLVector<GsTLCoord> vv1(v1.first); 
+    GsTLVector<GsTLCoord> vv2(v2.first); 
+ 
+    return cov_->compute( vv1 ) > cov_->compute( vv2 ); 
+  } 
+ 
+ private: 
+  const Covariance<GsTLPoint>* cov_; 
+}; 
+
 #endif 

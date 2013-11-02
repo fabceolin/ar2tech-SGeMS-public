@@ -133,7 +133,7 @@ Grid_continuous_property* RGrid::select_property(const std::string& prop_name) {
   return prop;
 }
 
-Neighborhood* RGrid::neighborhood( double x, double y, double z,
+Neighborhood* RGrid::neighborhood( double rad1, double rad2, double rad3,
 				   double ang1, double ang2, double ang3,
 				   const Covariance<location_type>* cov,
 				   bool only_harddata, const Grid_region* region,
@@ -143,9 +143,12 @@ Neighborhood* RGrid::neighborhood( double x, double y, double z,
   // of the search ellipsoid to be in "number of cells", and the covariance
   // ranges to be expressed in term of "number of cells".
 
-  int nx = GsTL::round( x /geom_->cell_dims()[0] );
-  int ny = GsTL::round( y /geom_->cell_dims()[1] );
-  int nz = GsTL::round( z /geom_->cell_dims()[2] );
+  
+
+
+ // int nx = GsTL::round( x /geom_->cell_dims()[0] );
+ // int ny = GsTL::round( y /geom_->cell_dims()[1] );
+ // int nz = GsTL::round( z /geom_->cell_dims()[2] );
 
   // The ranges of the covariance of a Neighborhood must be expressed
   // in "number of cells", while they are supplied to the rgrid in 
@@ -167,13 +170,13 @@ Neighborhood* RGrid::neighborhood( double x, double y, double z,
   if( only_harddata )
     return new Rgrid_ellips_neighborhood_hd( this, 
 					     property_manager_.selected_property(),
-					     nx,ny,nz, ang1,ang2,ang3,
-					     nx*ny*nz, cov_copy, region );
+					     rad1,rad2,rad3, ang1,ang2,ang3,
+					     this->size(), cov_copy, region );
   else
     return new Rgrid_ellips_neighborhood( this, 
 					  property_manager_.selected_property(),
-					  nx,ny,nz, ang1,ang2,ang3,
-					  nx*ny*nz, cov_copy, region  );
+					  rad1,rad2,rad3, ang1,ang2,ang3,
+					  this->size(), cov_copy, region  );
 
   delete cov_copy;
 }

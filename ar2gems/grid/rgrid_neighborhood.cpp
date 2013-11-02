@@ -357,8 +357,8 @@ int Rgrid_window_neighborhood::size() const {
 Rgrid_ellips_neighborhood::
 Rgrid_ellips_neighborhood( RGrid* grid,
 			   Grid_continuous_property* property,
-			   GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius,
-			   double x_angle, double y_angle, double z_angle,
+			   double radius1, double radius2, double radius3, 
+			   double angle1, double angle2, double angle3,
 			   int max_neighbors, 
 			   const Covariance<GsTLPoint>* cov,
          const Grid_region* region) 
@@ -372,16 +372,28 @@ Rgrid_ellips_neighborhood( RGrid* grid,
   appli_assert( grid_ );
 
   cursor_ = *( grid_->cursor() );
+  double cell_dim_x = grid->geometry()->cell_dims().x();
+  double cell_dim_y = grid->geometry()->cell_dims().y();
+  double cell_dim_z = grid->geometry()->cell_dims().z();
+
 
   // use a geobody approach to find all the cells inside the ellipsoid.
   // Then sort them according to covariance.
-  Ellipsoid_rasterizer initializer( 2*grid->nx()+1, 2*grid->ny()+1, 2*grid->nz()+1, 
-			                              max_radius, mid_radius, min_radius,
-			                              x_angle, y_angle, z_angle );
+  Ellipsoid_rasterizer ellipsoid( radius1, radius2, radius3,
+			                            angle1, angle2, angle3,
+                                  cell_dim_x,cell_dim_y,cell_dim_z,
+                                  grid->nx(), grid->ny(), grid->nz());
 
-  std::vector< Ellipsoid_rasterizer::EuclideanVector >& templ = 
-    initializer.rasterize();
+  const std::vector<Ellipsoid_rasterizer::EuclideanVector >& templ = ellipsoid.rasterize();
 
+  //rebuilt the vector in euclidean space
+  typedef std::pair<Ellipsoid_rasterizer::EuclideanVector,int> pair_templ_indexT;
+  std::vector< pair_templ_indexT > xyz_templ;
+  xyz_templ.reserve(templ.size());
+  for(int i=0; i< templ.size(); ++i) {
+    Ellipsoid_rasterizer::EuclideanVector dijk =  templ[i];
+    xyz_templ.push_back(  std::make_pair( Ellipsoid_rasterizer::EuclideanVector(dijk.x()*cell_dim_x, dijk.y()*cell_dim_y, dijk.z()*cell_dim_z)  ,i  ) );
+  }
 
   // We now sort the template according to covariance cov.
   // If no covariance was specified, create a default one
@@ -390,15 +402,22 @@ Rgrid_ellips_neighborhood( RGrid* grid,
     int id = covar.add_structure( "Spherical" );
     
     covar.set_geometry( id, 
-			max_radius, mid_radius, min_radius,
-			x_angle, y_angle, z_angle );
+			radius1, radius2, radius3,
+			angle1, angle2, angle3 );
 
-    std::sort( templ.begin(), templ.end(), Evector_greater_than( covar ) );
+    std::sort( xyz_templ.begin(), xyz_templ.end(), Evector_indexed_greater_than( covar ) );
   }
   else
-    std::sort( templ.begin(), templ.end(), Evector_greater_than( *cov ) );
+    std::sort( xyz_templ.begin(), xyz_templ.end(), Evector_indexed_greater_than( *cov ) );
+
+  // set templ in the same order than 
+  std::vector<Ellipsoid_rasterizer::EuclideanVector > sorted_templ;
+  sorted_templ.reserve(templ.size());
+  for(int i=0; i<xyz_templ.size(); ++i ) {
+    sorted_templ.push_back(templ[ xyz_templ[i].second ]);
+  }
   
-  geom_.init( templ.begin(), templ.end() );
+  geom_.init( sorted_templ.begin(), sorted_templ.end() );
 
 }
 
@@ -646,14 +665,14 @@ set_neighbors( const_iterator begin, const_iterator end ) {
 Rgrid_ellips_neighborhood_hd::
 Rgrid_ellips_neighborhood_hd( RGrid* grid,
 			      Grid_continuous_property* property,
-			      GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius,
-			      double x_angle, double y_angle, double z_angle,
+			      double radius1, double radius2, double radius3, 
+			      double angle1, double angle2, double angle3,
 			      int max_neighbors,
 			      const Covariance<GsTLPoint>* cov,
             const Grid_region* region) 
   : Rgrid_ellips_neighborhood( grid, property,
-			       max_radius, mid_radius, min_radius,
-			       x_angle, y_angle, z_angle,
+			       radius1, radius2, radius3,
+			       angle1, angle2, angle3,
 			       max_neighbors, cov, region ) {
 }
 
@@ -809,6 +828,88 @@ Rgrid_ellips_neighborhood_hd::find_neighbors( const Geovalue& center , Neighbors
 //    Ellipsoid_rasterizer
 //=================================
 
+Ellipsoid_rasterizer::Ellipsoid_rasterizer(
+  double xyz_rad1, double xyz_rad2, double xyz_rad3,
+  double xyz_angle1, double xyz_angle2, double xyz_angle3,
+  double block_size_x, double block_size_y, double block_size_z,
+  int max_size_i, int max_size_j, int max_size_k)
+  : block_size_x_(block_size_x),block_size_y_(block_size_y),block_size_z_(block_size_z),
+    cursor_(max_size_i,max_size_j,max_size_k),
+    norm_( xyz_rad1, xyz_rad2, xyz_rad3,xyz_angle1, xyz_angle2, xyz_angle3 ),
+    center_(int(max_size_i/2), int(max_size_j/2), int(max_size_k/2)),
+    already_visited_( max_size_i*max_size_j*max_size_k, false ),
+    reference_radius_(xyz_rad1)
+
+{
+  this->rasterize_ellipsoid();
+
+  already_visited_.resize(0);
+
+}
+
+
+void Ellipsoid_rasterizer::rasterize_ellipsoid() {
+  GsTLInt center_id = 
+    cursor_.node_id( center_[0], center_[1], center_[2] );
+//  appli_assert( center_id >= 0 && center_id < int(already_visited_.size()) );
+
+  already_visited_[ center_id ] = true;
+  s_.push( center_id );
+
+  EuclideanVector west(-1,0,0);
+  EuclideanVector east(1,0,0);
+  EuclideanVector south(0,-1,0);
+  EuclideanVector north(0,1,0);
+  EuclideanVector down(0,0,-1);
+  EuclideanVector up(0,0,1);
+
+
+  // move away from center, until we reach the border of the ellipsoid
+  while( ! s_.empty() ) {
+    GsTLInt id = s_.top();
+    s_.pop();
+    GsTLGridNode loc;
+    cursor_.coords( id, loc[0], loc[1], loc[2] );
+    
+    check_node( loc+west );
+    check_node( loc+east );
+    check_node( loc+north );
+    check_node( loc+south );
+    check_node( loc+up );
+    check_node( loc+down );
+        
+  }
+
+  //return ellipsoid_nodes_;
+}
+
+
+void Ellipsoid_rasterizer::check_node( const GsTLGridNode& loc ) {
+  // check if loc belongs to the grid
+  if ( !cursor_.check_triplet( loc[0], loc[1], loc[2] ) ) return;
+  
+  int id = cursor_.node_id( loc[0], loc[1], loc[2] );
+  //appli_assert( id >= 0 && id < int(already_visited_.size()) );
+
+  if ( already_visited_[id] ) return;
+
+  // vector in ijk to be transfomed into x,y,z
+  EuclideanVector vec_ijk = loc - center_;
+  EuclideanVector vec_xyz;
+  vec_xyz.x() = vec_ijk.x() * block_size_x_;
+  vec_xyz.y() = vec_ijk.y() * block_size_y_;
+  vec_xyz.z() = vec_ijk.z() * block_size_z_;
+
+  if( norm_( vec_xyz ) <= reference_radius_ ) {
+    // loc is inside the ellipsoid
+
+    ellipsoid_nodes_.push_back( vec_ijk );
+    s_.push( id );
+    already_visited_[id] = true;
+  }
+}
+
+/*
 Ellipsoid_rasterizer::
 Ellipsoid_rasterizer( GsTLInt nx, GsTLInt ny, GsTLInt nz,
 		      GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius,
@@ -883,3 +984,4 @@ void Ellipsoid_rasterizer::check_node( const GsTLGridNode& loc ) {
   }
 }
 
+*/

@@ -304,12 +304,14 @@ class GRID_DECL Grid_template {
    
  
   Grid_template(); 
-  Grid_template( iterator begin, iterator end ); 
+  Grid_template( const_iterator begin, const_iterator end ); 
+  Grid_template( iterator begin, iterator end );
   Grid_template( const Grid_template& rhs ); 
  
   Grid_template& operator = ( const Grid_template& rhs ); 
  
   void init( iterator begin, iterator end ); 
+  void init( const_iterator begin, const_iterator end ); 
  
   /** Adds an euclidean vector to the template. \c pos indicates the position
   * in the template definition where the new euclidean vector should be 

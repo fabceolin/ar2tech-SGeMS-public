@@ -1112,10 +1112,18 @@ void Snesim_Std::create_window_geom( int rdmax1,int rdmax2,int
 									int max_prevcond ) 
 {
 	training_image_->select_property( training_property_name_ );
+//	Ellipsoid_rasterizer 
+//		ell_ras(training_image_->nx(),training_image_->ny(),training_image_->nz(),
+//		rdmax1,rdmax2,rdmax3,ang1,ang2,ang3);
+
+  //the dimension has already been normalized by the block size
+  //this may not works if there is a rotation in a plane where
+  // the blocks are not equilateral
 	Ellipsoid_rasterizer 
-		ell_ras(training_image_->nx(),training_image_->ny(),training_image_->nz(),
-		rdmax1,rdmax2,rdmax3,ang1,ang2,ang3);
-	std::vector< Ellipsoid_rasterizer::EuclideanVector >& templ =
+		ell_ras(rdmax1,rdmax2,rdmax3,ang1,ang2,ang3,1,1,1,
+    training_image_->nx(),training_image_->ny(),training_image_->nz());
+
+	const std::vector< Ellipsoid_rasterizer::EuclideanVector >& templ =
 		ell_ras.rasterize();
 	Covariance<GsTLPoint> covar;
 	int id = covar.add_structure( "Spherical" );
