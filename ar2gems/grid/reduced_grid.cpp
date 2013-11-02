@@ -92,20 +92,13 @@ Reduced_grid::~Reduced_grid(){
   grid_cursor_ = 0;
 }
 
-Neighborhood* Reduced_grid::neighborhood( double x, double y, double z,
+Neighborhood* Reduced_grid::neighborhood( double rad1, double rad2, double rad3,
 				   double ang1, double ang2, double ang3,
 				   const Covariance<location_type>* cov,
 				   bool only_harddata,
            const Grid_region* region,
            Coordinate_mapper* coord_mapper) {
 
-  // The constructor of Rgrid_ellips_neighborhood expects the dimensions
-  // of the search ellipsoid to be in "number of cells", and the covariance
-  // ranges to be expressed in term of "number of cells".
-
-  int nx = GsTL::round( x /geometry_->cell_dims()[0] );
-  int ny = GsTL::round( y /geometry_->cell_dims()[1] );
-  int nz = GsTL::round( z /geometry_->cell_dims()[2] );
 
   // The ranges of the covariance of a Neighborhood must be expressed
   // in "number of cells", while they are supplied to the rgrid in 
@@ -118,22 +111,25 @@ Neighborhood* Reduced_grid::neighborhood( double x, double y, double z,
       double R1,R2,R3;
       cov_copy->get_ranges( i, R1,R2,R3 );
       cov_copy->set_ranges( i,
-		       R1/geometry_->cell_dims()[0],
-		       R2/geometry_->cell_dims()[1],
-		       R3/geometry_->cell_dims()[2] );
+		       R1/geom_->cell_dims()[0],
+		       R2/geom_->cell_dims()[1],
+		       R3/geom_->cell_dims()[2] );
     }
   }
 
   if( only_harddata )
     return new MgridNeighborhood_hd( this, 
 					     property_manager_.selected_property(),
-					     nx,ny,nz, ang1,ang2,ang3,
-					     nx*ny*nz, cov_copy );
+					     rad1,rad2,rad3, ang1,ang2,ang3,
+               this->size(), cov_copy, region );
   else
     return new MgridNeighborhood( this, 
 					  property_manager_.selected_property(),
-					  nx,ny,nz, ang1,ang2,ang3,
-					  nx*ny*nz, cov_copy );
+					  rad1,rad2,rad3, ang1,ang2,ang3,
+					  this->size(), cov_copy, region  );
+
+  delete cov_copy;
+
 
   delete cov_copy;
 }
@@ -145,37 +141,10 @@ Neighborhood* Reduced_grid::neighborhood( const GsTLTripletTmpl<double>& dim,
 				   const Covariance<location_type>* cov,
 				   bool only_harddata,
            const Grid_region* region,
-           Coordinate_mapper* coord_mapper) {
-  int nx = GsTL::round( dim[0] /geometry_->cell_dims()[0] );
-  int ny = GsTL::round( dim[1] /geometry_->cell_dims()[1] );
-  int nz = GsTL::round( dim[2] /geometry_->cell_dims()[2] );
-
-  Covariance<location_type>* cov_copy = 0;
-
-  if( cov ) {
-    cov_copy = new Covariance<location_type>( *cov );
-    for( int i=0; i < cov_copy->structures_count() ; i++ ) {
-      double R1,R2,R3;
-      cov_copy->get_ranges( i, R1,R2,R3 );
-      cov_copy->set_ranges( i,
-		       R1/geometry_->cell_dims()[0],
-		       R2/geometry_->cell_dims()[1],
-		       R3/geometry_->cell_dims()[2] );
-    }
-  }
-
-  if( only_harddata )
-    return new MgridNeighborhood_hd( this, 
-					     property_manager_.selected_property(),
-					     nx,ny,nz,
-					     angles[0], angles[1], angles[2],
-					     nx*ny*nz, cov_copy );
-  else
-    return new MgridNeighborhood( this, 
-					  property_manager_.selected_property(),
-					  nx,ny,nz,
-					  angles[0], angles[1], angles[2],
-					  nx*ny*nz, cov_copy );
+           Coordinate_mapper* coord_mapper) 
+{
+    return  this->neighborhood(dim.x(),dim.y(), dim.z(), angles.x(), angles.y(), angles.z(), 
+                                cov, only_harddata, region, coord_mapper);
 }
 
 Window_neighborhood* Reduced_grid::window_neighborhood( const Grid_template& templ) {

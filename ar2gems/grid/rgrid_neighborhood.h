@@ -209,7 +209,7 @@ public:
 //    Some utilities 
 //===================================== 
  
-class Ellipsoid_rasterizer { 
+class GRID_DECL Ellipsoid_rasterizer { 
  public: 
 
    typedef GsTLVector<int> EuclideanVector;

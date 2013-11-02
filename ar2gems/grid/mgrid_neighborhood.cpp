@@ -62,12 +62,12 @@
 
 MgridNeighborhood::MgridNeighborhood( RGrid* grid, 
 		Grid_continuous_property* property, 
-		GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius, 
+		double radius1, double radius2, double radius3, 
 		double x_angle, double y_angle, double z_angle, 
 		int max_neighbors , 
 		const Covariance<GsTLPoint>* cov,
     const Grid_region* region) :
-	Rgrid_ellips_neighborhood(  grid,  property,  max_radius,  mid_radius,  min_radius, 
+	Rgrid_ellips_neighborhood(  grid,  property,  radius1,  radius2,  radius3, 
 								x_angle,  y_angle, z_angle,  max_neighbors,cov, region )
 	{}
 

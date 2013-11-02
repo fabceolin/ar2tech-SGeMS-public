@@ -64,7 +64,7 @@ class GRID_DECL MgridNeighborhood : public Rgrid_ellips_neighborhood
 public:
 	MgridNeighborhood( RGrid* grid, 
 		Grid_continuous_property* property, 
-		GsTLInt max_radius, GsTLInt mid_radius, GsTLInt min_radius, 
+		double radius1, double radius2, double radius3,
 		double x_angle, double y_angle, double z_angle, 
 		int max_neighbors = 20, 
 		const Covariance<GsTLPoint>* cov = 0,
