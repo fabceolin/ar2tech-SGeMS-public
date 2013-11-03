@@ -78,7 +78,7 @@
 #include <QAbstractProxyModel>
 #include <QStringList>
 
-#include <vtkGenericCell.h>
+//#include <vtkGenericCell.h>
 
 #include <typeinfo> 
 #include <list> 
