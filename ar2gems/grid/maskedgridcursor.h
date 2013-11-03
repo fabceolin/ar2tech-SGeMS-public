@@ -191,6 +191,10 @@ public:
 		return *this;
 	}
 
+  virtual SGrid_cursor* clone() const {
+    return new MaskedGridCursor(*this);
+  }
+
 	void set_multigrid_level( GsTLInt level) 
 	{ 
 		int i, max; 

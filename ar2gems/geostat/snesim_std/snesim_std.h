@@ -188,7 +188,7 @@ private:
 	void init_random_path(int level);
     void init_random_path_normal(int level);
     void init_random_path_use_region(int level);
-	void create_window_geom(int rdmax1,int rdmax2,int rdmax3,double ang1,
+	void create_window_geom(double rdmax1,double rdmax2,double rdmax3,double ang1,
 		                                     double ang2,double ang3,int max_prevcond);
 	void rotate_templates(double theta);
 	int Nint(double x);
