@@ -196,6 +196,9 @@ inline void Non_param_cdf<lower_tail_interp, middle_interp,
     z_values_[i++] = *it;
   
   range = z_values_.back() - z_values_.front();
+
+  is_mean_computed_ = false;
+  is_variance_computed_ = false;
 }
 
 
@@ -210,6 +213,9 @@ inline void Non_param_cdf<lower_tail_interp, middle_interp,
   int i=0;
   for(forward_iterator it = p_begin; it!=p_end; it++)
     p_values_[i++] = *it;
+
+  is_mean_computed_ = false;
+  is_variance_computed_ = false;
     
 }
 
