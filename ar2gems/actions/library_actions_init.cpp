@@ -217,6 +217,8 @@ bool library_actions_init::bind_action_factories(Manager* dir)
 
   dir->factory("AddPropertyToGridFromBinaryFile", Add_property_to_grid_from_binary_file::create_new_interface);
   dir->factory("AddPropertyToGridFromTextFile", Add_property_to_grid_from_text_file::create_new_interface);
+  dir->factory("AddPropertyToGridWthNodeidFromTextFile", Add_property_to_grid_with_nodeid_from_text_file::create_new_interface);
+
 
 	// algorithm related actions
 	dir->factory("RunGeostatAlgorithm", Run_geostat_algo::create_new_interface);

@@ -77,4 +77,19 @@ class ACTIONS_DECL Add_property_to_grid_from_text_file : public Action {
 
 };
 
+class ACTIONS_DECL Add_property_to_grid_with_nodeid_from_text_file : public Action {
+ public:
+  static Named_interface* create_new_interface( std::string& );
+
+ public:
+  Add_property_to_grid_with_nodeid_from_text_file() {}
+  virtual ~Add_property_to_grid_with_nodeid_from_text_file() {}
+
+  virtual bool init( std::string& parameters, GsTL_project* proj,
+                     Error_messages_handler* errors );
+  virtual bool exec();
+
+
+};
+
 #endif 

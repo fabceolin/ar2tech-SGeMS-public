@@ -164,13 +164,13 @@ bool Add_property_to_grid_from_text_file::init( std::string& parameters, GsTL_pr
     return false;
   }
 
-  std::string filename = params[1];
+  std::string filename = params[2];
   bool is_categorical;
   if( params.size() == 3) {
       is_categorical = false;
   }
   else {
-      is_categorical = params[1] == "1";
+      is_categorical = params[3] == "1";
   }
 
   std::ifstream infile(filename);
@@ -219,4 +219,96 @@ bool Add_property_to_grid_from_text_file::exec() {
 
 Named_interface* Add_property_to_grid_from_text_file::create_new_interface( std::string& ) {
   return new Add_property_to_grid_from_text_file;
+}
+
+
+
+//================================================
+/* AddPropertyToGridWthNodeidFromTextFile grid_name::propName::filename
+*/
+bool Add_property_to_grid_with_nodeid_from_text_file::init( std::string& parameters, GsTL_project* proj,
+                              Error_messages_handler* errors ) {
+  std::vector< std::string > params =
+    String_Op::decompose_string( parameters, Actions::separator,
+                                                   Actions::unique );
+
+  if( params.size() < 3 ) return true;
+
+  SmartPtr<Named_interface> grid_ni =
+    Root::instance()->interface( gridModels_manager + "/" + params[0] );
+  Geostat_grid* grid = dynamic_cast<Geostat_grid*>( grid_ni.raw_ptr() );
+  if( !grid ) {
+    std::ostringstream message;
+    message << "No grid called " << params[0] << " was found";
+    errors->report( message.str() );
+    return false;
+  }
+
+  std::string prop_name = params[1];
+  if( grid->property(prop_name) != 0 ) {
+    errors->report( "The grid already contains a property named "+prop_name);
+    return false;
+  }
+
+  std::string filename = params[2];
+
+
+  std::ifstream infile(filename);
+  if(!infile.is_open()) {
+      errors->report( "Error openining file "+filename);
+      return false;
+  }
+  std::vector<int> nodeids;
+  std::vector<float> values;
+  values.reserve(grid->size());
+  bool success = true;
+  bool ok_nodeid_range = true;
+  while (true) {
+      std::string line;
+      infile >> line;
+      if( infile.eof() ) break;
+      QString qstr(line.c_str());
+      QStringList id_vals_list = qstr.split(",");
+      if(id_vals_list.size() != 2) {
+          success = false;
+          break;
+      }
+      int nodeid = id_vals_list.at(0).toInt(&success);
+      if(!success) break;
+      if(nodeid < 0 || nodeid > grid->size()-1) {
+          ok_nodeid_range = false;
+          break;
+      }
+      float v = id_vals_list.at(1).toFloat(&success);
+      if(!success) break;
+      nodeids.push_back(nodeid);
+      values.push_back(v);
+  }
+  if(!success) {
+      errors->report( "Error parsing the file  "+ filename );
+      return false;
+  }
+  if(!success) {
+      std::ostringstream message;
+      message << "Nodeid outside the range " << 0<<" - "<<grid->size()  << " was found";
+      errors->report( message.str() );
+      return false;
+  }
+  Grid_continuous_property* prop = grid->add_property(prop_name);
+  for( int i=0; i< nodeids.size(); ++i) {
+    prop->set_value(values[i], nodeids[i]);
+  }
+
+
+  return true;
+}
+
+
+bool Add_property_to_grid_with_nodeid_from_text_file::exec() {
+  return true;
+}
+
+
+Named_interface* Add_property_to_grid_with_nodeid_from_text_file::create_new_interface( std::string& ) {
+  return new Add_property_to_grid_with_nodeid_from_text_file;
 }
