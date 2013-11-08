@@ -99,7 +99,7 @@ Grid_path::Grid_path(Geostat_grid * _grid, Grid_continuous_property * _prop, Gri
   }
 }
 
-
+/*
 Grid_path::Grid_path(Geostat_grid * _grid,  Grid_region * _region)
 {
   if ( !_grid  ) return;
@@ -120,7 +120,7 @@ Grid_path::Grid_path(Geostat_grid * _grid,  Grid_region * _region)
     }
   }
 }
-
+*/
 Grid_path::~Grid_path(void)
 {
   this->grid_ = NULL;
@@ -199,7 +199,7 @@ Grid_path_const::Grid_path_const(const Geostat_grid * _grid, const Grid_continuo
   }
 }
 
-
+/*
 Grid_path_const::Grid_path_const(const Geostat_grid * _grid, const Grid_region * _region)
 {
   if ( !_grid  ) return;
@@ -220,7 +220,7 @@ Grid_path_const::Grid_path_const(const Geostat_grid * _grid, const Grid_region *
     }
   }
 }
-
+*/
 Grid_path_const::~Grid_path_const(void)
 {
   this->grid_ = NULL;

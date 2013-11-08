@@ -308,7 +308,7 @@ int Snesim_Std::execute( GsTL_project* proj )
     bool not_success;
 
     // loop on all realizations
-    Grid_path simul_path(simul_grid_, grid_region_ );
+    Grid_path simul_path(simul_grid_, simul_grid_->selected_property(),grid_region_ );
     for( int nreal = 1; nreal <= nb_reals_; nreal++ ) 
     {
         progress_notifier->message() << "working on realization " << nreal << gstlIO::end;

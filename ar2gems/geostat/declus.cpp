@@ -152,7 +152,7 @@ int Declus::execute( GsTL_project* ) {
 //
                   int npoints = 0;
   
-                  Grid_path path(grid_, region_);
+                  Grid_path path(grid_, grid_->selected_property(),region_);
                   Grid_path::iterator it = path.begin();
                   for( ; it!= path.end(); ++it) {
                     if(region_ && !region_->is_inside_region(it->node_id()) ) continue;

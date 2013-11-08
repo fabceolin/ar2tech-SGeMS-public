@@ -138,7 +138,7 @@ int Sisim::median_ik( Progress_notifier* progress_notifier ) {
   Random_number_generator gen;
   Monte_carlo_sampler_t< Random_number_generator > sampler( gen );
   
-  Grid_path path(simul_grid_, target_grid_region_);
+  Grid_path path(simul_grid_, simul_grid_->selected_property(), target_grid_region_);
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
     // update the progress notifier
@@ -201,7 +201,7 @@ int Sisim::full_ik( Progress_notifier* progress_notifier ) {
   Random_number_generator gen;
   Monte_carlo_sampler_t< Random_number_generator > sampler( gen );
   
-   Grid_path path(simul_grid_, target_grid_region_);
+   Grid_path path(simul_grid_, simul_grid_->selected_property(), target_grid_region_);
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
     // update the progress notifier
