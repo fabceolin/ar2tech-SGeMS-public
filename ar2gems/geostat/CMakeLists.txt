@@ -106,7 +106,7 @@ target_link_libraries(ar2gems_geostat
 )
 
 if (WIN32)
-  add_definitions(-DGEOSTAT_EXPORTS)
+  add_definitions(-DGEOSTAT_EXPORTS -DGSTLAPPLI_SILENT)
 endif()
 
 INSTALL(TARGETS ar2gems_geostat DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

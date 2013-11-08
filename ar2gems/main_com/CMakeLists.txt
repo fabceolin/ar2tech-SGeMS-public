@@ -42,6 +42,8 @@ if (WIN32)
   if(RELEASE_PYTHON_IN_DEBUG)
     add_definitions(-DRELEASE_PYTHON_IN_DEBUG)
   endif()  
+  add_definitions(-DGSTLAPPLI_SILENT)
+  
 endif()
 
 INSTALL(TARGETS ar2gems_com DESTINATION "${INSTALL_DIR_BIN}")

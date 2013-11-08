@@ -23,7 +23,7 @@ target_link_libraries(ar2gems_appli
 )
 
 if (WIN32)
-  add_definitions(-DAPPLI_EXPORTS)
+  add_definitions(-DAPPLI_EXPORTS -DGSTLAPPLI_SILENT)
 endif()
 
 INSTALL(TARGETS ar2gems_appli DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
