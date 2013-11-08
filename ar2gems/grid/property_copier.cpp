@@ -72,6 +72,11 @@ std::string propertyCopier_manager = gridObject_manager + "/PropertyCopier";
 SmartPtr<Property_copier> 
 Property_copier_factory::get_copier( const Geostat_grid* server, 
                                      const Geostat_grid* client ) {
+
+  if(server == client) {
+     return SmartPtr<Property_copier>( new Identical_grid_copier() );
+  }
+
   std::string type = create_type_name( server->classname(),
                                        client->classname() );
  
@@ -783,3 +788,64 @@ bool Pset_to_structured_grid_copier::undo_copy(){
   }
   return true;
 }
+
+
+
+
+
+//=========================================
+
+Identical_grid_copier::Identical_grid_copier()
+  : Property_copier() {
+  grid_ = 0;
+  client_property_ = 0;
+
+  unset_harddata_flag_ = true;
+
+}
+
+
+
+bool Identical_grid_copier::copy( const Geostat_grid* server,
+                                  const Grid_continuous_property* server_prop,
+                                  Geostat_grid* client,
+                                  Grid_continuous_property* client_prop ) {
+
+  if( server != client ) return false;
+  grid_ = server;
+
+  copy_categorical_definition(server_prop,client_prop);
+
+    appli_assert( server_prop->size() == client_prop->size() );
+    for(int nodeid=0; nodeid<server->size();++nodeid) {
+      if( server_prop->is_informed(nodeid) ) {
+
+            //client_prop->set_value( server_prop->get_value( i ), i );
+        client_prop->set_value( server_prop->get_value(nodeid), nodeid );
+            if( mark_as_hard_ )   //added by Yongshe
+                client_prop->set_harddata( true, nodeid); //added by Yongshe
+          }
+        else if(overwrite_)
+            client_prop->set_not_informed( nodeid );
+    }
+    return true;
+
+
+}
+
+
+
+
+bool Identical_grid_copier::undo_copy() {
+  for( unsigned int i = 0 ; i < backup_.size() ; i++ ) {
+    client_property_->set_value( backup_[i].second, backup_[i].first );
+    if( unset_harddata_flag_ )
+      client_property_->set_harddata( false, backup_[i].first );
+  }
+
+  return true;
+}
+
+
+
+
