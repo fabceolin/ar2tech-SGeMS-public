@@ -24,14 +24,7 @@ QT4_WRAP_CPP(qwt_MOC
   qwt_legend_item.h
 )
 
-if (CMAKE_BUILD_TYPE MATCHES "Release")
-    set(LIB_NAME ar2gems_qwt)
-elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
-    set(LIB_NAME ar2gems_qwt_d)
-endif ()
-
-
-add_library(${LIB_NAME}
+add_library(ar2gems_qwt
   qwt_abstract_scale.cpp
   qwt_abstract_scale_draw.cpp
   qwt_abstract_slider.cpp
@@ -102,7 +95,7 @@ add_library(${LIB_NAME}
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
-target_link_libraries(${LIB_NAME}
+target_link_libraries(ar2gems_qwt
   ${QT_LIBRARIES}
 )
 set_target_properties( ar2gems_qwt PROPERTIES OUTPUT_NAME_RELEASE ar2gems_qwt )
@@ -112,4 +105,4 @@ if (WIN32)
   add_definitions(-DQWT_DLL -DQWT_MAKEDLL)
 endif()
 
-INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ar2gems_qwt DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

@@ -33,13 +33,7 @@ QT4_WRAP_UI(charts_FORMS
   chart_display_control.ui
 )
 
-if (CMAKE_BUILD_TYPE MATCHES  "Release")
-    set(LIB_NAME ar2gems_charts)
-elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
-    set(LIB_NAME ar2gems_charts_d)
-endif ()
-
-add_library(${LIB_NAME}
+add_library(ar2gems_charts
   categorical_histogram_creator.cpp
   categorical_histogram_model_item.cpp
   categorical_histogram_proxy_model.cpp
@@ -111,12 +105,7 @@ add_library(${LIB_NAME}
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
-<<<<<<< HEAD
 target_link_libraries(ar2gems_charts
-=======
-if (CMAKE_BUILD_TYPE MATCHES  "Release")
-    target_link_libraries(${LIB_NAME}
->>>>>>> dev-cmake-debug-release-key
       ${QT_LIBRARIES}
       ${VTK_LIBRARIES}
       ar2gems_appli
@@ -125,22 +114,8 @@ if (CMAKE_BUILD_TYPE MATCHES  "Release")
       ar2gems_widgets
       ar2gems_utils
 )
-<<<<<<< HEAD
 set_target_properties( ar2gems_charts PROPERTIES OUTPUT_NAME_RELEASE ar2gems_charts )
 set_target_properties( ar2gems_charts PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_charts_d )
-=======
-elseif (CMAKE_BUILD_TYPE MATCHES  "Debug")
-    target_link_libraries(${LIB_NAME}
-      ${QT_LIBRARIES}
-      ${VTK_LIBRARIES}
-      ar2gems_appli_d
-      ar2gems_grid_d
-      ar2gems_math_d
-      ar2gems_widgets_d
-      ar2gems_utils_d
-    )
-endif ()
->>>>>>> dev-cmake-debug-release-key
 
 
 
@@ -149,8 +124,4 @@ if (WIN32)
 endif()
 
          
-<<<<<<< HEAD
 INSTALL(TARGETS ar2gems_charts DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
-=======
-INSTALL(TARGETS ${LIB_NAME} DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
->>>>>>> dev-cmake-debug-release-key

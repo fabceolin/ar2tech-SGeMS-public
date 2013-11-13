@@ -213,7 +213,7 @@ class GRID_DECL Geovalue {
  
   Geovalue(); 
   Geovalue( const Geovalue& rhs ); 
-  Geovalue::Geovalue( Geostat_grid* grid, int node_id );
+  Geovalue( Geostat_grid* grid, int node_id );
   Geovalue( Geostat_grid* grid, Grid_continuous_property* prop,  
 	    int node_id ); 
  
