@@ -74,6 +74,7 @@
 
 #include <GsTL/utils/smartptr.h>
 #include <string>
+#include <QString>
 
 
 

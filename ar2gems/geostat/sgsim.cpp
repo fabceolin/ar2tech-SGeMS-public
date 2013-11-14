@@ -124,7 +124,7 @@ int Sgsim::execute( GsTL_project* ) {
 
   bool from_scratch = true;
   // loop on all realizations
-  Grid_path path(simul_grid_, target_grid_region_);
+  Grid_path path(simul_grid_, simul_grid_->selected_property(), target_grid_region_);
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {
 
     // update the progress notifier

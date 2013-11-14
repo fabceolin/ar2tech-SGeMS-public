@@ -138,6 +138,37 @@ private:
 
 };
 
+//=====================================
+
+class GRID_DECL Identical_grid_copier : public Property_copier {
+public:
+  static Named_interface* create_new_interface( std::string& ) {
+    return new Identical_grid_copier;
+  }
+
+  Identical_grid_copier();
+
+  virtual bool copy( const Geostat_grid* server,
+                     const Grid_continuous_property* server_prop,
+                     Geostat_grid* client,
+                     Grid_continuous_property* client_prop );
+
+  virtual bool undo_copy();
+
+
+protected:
+  const Geostat_grid* grid_;
+  const Grid_continuous_property* server_prop_;
+
+  std::vector< std::pair<GsTLInt,GsTLInt> > last_assignement_;
+
+  Grid_continuous_property* client_property_;
+  std::vector< std::pair< GsTLInt, Grid_continuous_property::property_type > > backup_;
+  bool unset_harddata_flag_;
+
+};
+
+
 //TL modified 
 class GRID_DECL Mask_to_mask_copier : public Property_copier 
 {

@@ -248,4 +248,3 @@ if (ALLOW_BUILD_PACKAGE)
     endif (ALLOW_BUILD_HEADERS)  
         
 endif (ALLOW_BUILD_PACKAGE)    
-  

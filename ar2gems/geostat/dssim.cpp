@@ -119,7 +119,7 @@ int dssim::execute( GsTL_project* ) {
   Monte_carlo_sampler_t< Random_number_generator > sampler( gen );
   
   // compute the random path
-  Grid_path path(simul_grid_, target_grid_region_);
+  Grid_path path(simul_grid_, simul_grid_->selected_property(), target_grid_region_);
   //simul_grid_->init_random_path();
 
   // loop on all realizations

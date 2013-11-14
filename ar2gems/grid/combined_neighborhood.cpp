@@ -199,10 +199,10 @@ void Combined_neighborhood::find_neighbors( const Geovalue& center ) {
   // ask both neighborhoods to search neighbors
   first_->find_neighbors( center );
   second_->find_neighbors( center );
-//  if( cov_ ) {
-//    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-//    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
-//  }
+  if( cov_ ) {
+    std::sort(first_->begin(), first_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+    std::sort(second_->begin(), second_->end(),Geovalue_covariance_comparator(center.location(), *cov_));
+  }
   
 
   std::vector<Geovalue> neighbors_temp;

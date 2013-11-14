@@ -1860,7 +1860,7 @@ bool Upscale_properties::exec() {
   const SGrid_cursor* source_cursor = source_grid_->cursor();
   const SGrid_cursor* target_cursor = target_grid_->cursor();
 
-  Grid_path_ordered_const path_source(source_grid_);
+  Grid_path_ordered_const path_source(source_grid_,source_grid_->selected_property());
   Grid_path_ordered_const::const_iterator it = path_source.begin();
 
   const RGrid_geometry* target_geom = target_grid_->geometry();

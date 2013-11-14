@@ -149,6 +149,11 @@ Grid_template::Grid_template( iterator begin, iterator end )
   max_size_ = int( templ_.size() );
 }
 
+Grid_template::Grid_template( const_iterator begin, const_iterator end ) 
+  : templ_(begin, end) {  
+  max_size_ = int( templ_.size() );
+}
+
 Grid_template::Grid_template( const Grid_template& rhs ) 
   : templ_( rhs.templ_ ), original_( rhs.original_ ), 
     max_size_( rhs.max_size_ ) {
@@ -163,7 +168,19 @@ Grid_template& Grid_template::operator = ( const Grid_template& rhs ) {
   return *this;
 }
 
+
 void Grid_template::init( iterator begin, iterator end ) {
+  templ_.clear();
+  std::copy( begin, end, std::back_inserter( templ_ ) );
+  max_size_ = int( templ_.size() );
+
+  if( !original_.empty() ) {
+    original_.clear();
+    std::copy( begin, end, std::back_inserter( original_ ) );
+  }
+}
+
+void Grid_template::init( const_iterator begin, const_iterator end ) {
   templ_.clear();
   std::copy( begin, end, std::back_inserter( templ_ ) );
   max_size_ = int( templ_.size() );

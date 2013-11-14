@@ -169,7 +169,7 @@ namespace String_Op {
 
   bool is_number( const std::string& str ) {
     for( std::string::const_iterator it = str.begin() ; it != str.end() ; ++it ) {
-      if( !isdigit( *it ) && *it != '.' ) return false;
+      if( !isdigit( *it ) && *it != '.' && *it != '-') return false;
     }
 //    for( int i=0; i < std::string::npos; i++ ) {
 //      if( !isdigit( str[i] ) ) return false;
@@ -177,7 +177,15 @@ namespace String_Op {
     return true;
   }
 
-
+  bool is_positive_number( const std::string& str ) {
+    for( std::string::const_iterator it = str.begin() ; it != str.end() ; ++it ) {
+      if( !isdigit( *it ) && *it != '.') return false;
+    }
+//    for( int i=0; i < std::string::npos; i++ ) {
+//      if( !isdigit( str[i] ) ) return false;
+//    }
+    return true;
+  }
   std::string simplify_white_space( std::string str ) 
   { 
       char const* separator = " \t\r\n";

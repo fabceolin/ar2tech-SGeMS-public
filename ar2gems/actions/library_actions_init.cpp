@@ -68,6 +68,7 @@
 #include <actions/property_group_actions.h>
 #include <actions/distribution_action.h>
 #include <actions/property_transformer_actions.h>
+#include <actions/add_property_to_grid.h>
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
   #undef _DEBUG
@@ -213,6 +214,10 @@ bool library_actions_init::bind_action_factories(Manager* dir)
   dir->factory("Multivariate_forward_transform", Multivariate_forward_transform::create_new_interface);
   dir->factory("Multivariate_back_transform", Multivariate_back_transform::create_new_interface);
   dir->factory("Delete_multivariate_transforms", Delete_multivariate_transforms::create_new_interface);
+
+  dir->factory("AddPropertyToGridFromBinaryFile", Add_property_to_grid_from_binary_file::create_new_interface);
+  dir->factory("AddPropertyToGridFromTextFile", Add_property_to_grid_from_text_file::create_new_interface);
+  dir->factory("AddPropertyToGridWthNodeidFromTextFile", Add_property_to_grid_with_nodeid_from_text_file::create_new_interface);
 
 
 	// algorithm related actions

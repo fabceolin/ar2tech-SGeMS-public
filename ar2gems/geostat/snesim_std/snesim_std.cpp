@@ -308,7 +308,7 @@ int Snesim_Std::execute( GsTL_project* proj )
     bool not_success;
 
     // loop on all realizations
-    Grid_path simul_path(simul_grid_, grid_region_ );
+    Grid_path simul_path(simul_grid_, simul_grid_->selected_property(),grid_region_ );
     for( int nreal = 1; nreal <= nb_reals_; nreal++ ) 
     {
         progress_notifier->message() << "working on realization " << nreal << gstlIO::end;
@@ -1107,16 +1107,27 @@ void Snesim_Std::init_random_path_normal(int level)
 	}
 }
 
-void Snesim_Std::create_window_geom( int rdmax1,int rdmax2,int 
+void Snesim_Std::create_window_geom( double rdmax1,double rdmax2,double 
 									rdmax3,double ang1,double ang2,double ang3,
 									int max_prevcond ) 
 {
 	training_image_->select_property( training_property_name_ );
+//	Ellipsoid_rasterizer 
+//		ell_ras(training_image_->nx(),training_image_->ny(),training_image_->nz(),
+//		rdmax1,rdmax2,rdmax3,ang1,ang2,ang3);
+
+  //the dimension has already been normalized by the block size
+  //this may not works if there is a rotation in a plane where
+  // the blocks are not equilateral
+  const GsTLCoordVector& cell_dims = simul_grid_->geometry()->cell_dims();
 	Ellipsoid_rasterizer 
-		ell_ras(training_image_->nx(),training_image_->ny(),training_image_->nz(),
-		rdmax1,rdmax2,rdmax3,ang1,ang2,ang3);
-	std::vector< Ellipsoid_rasterizer::EuclideanVector >& templ =
+		ell_ras((double)rdmax1,(double)rdmax2,(double)rdmax3,ang1,ang2,ang3,
+    cell_dims[0],cell_dims[1],cell_dims[2],
+    training_image_->nx(),training_image_->ny(),training_image_->nz());
+
+  const std::vector< Ellipsoid_rasterizer::EuclideanVector >& const_templ =
 		ell_ras.rasterize();
+  std::vector< Ellipsoid_rasterizer::EuclideanVector > templ(const_templ);
 	Covariance<GsTLPoint> covar;
 	int id = covar.add_structure( "Spherical" );
 	
@@ -1157,7 +1168,7 @@ void Snesim_Std::create_window_geom( int rdmax1,int rdmax2,int
 	// also initializing coarse grid template
 	window_geom_sg_[NUM_SG] = new Grid_template;
 
-	for(int iw =0;iw <max_prevcond;iw++)
+	for(int iw =0;iw <templ.size();iw++)
 		window_geom_sg_[NUM_SG]->add_vector( templ[iw] );
 
 }
@@ -1890,7 +1901,9 @@ bool Snesim_Std::get_search_ellipsoid( const Parameters_handler* parameters,
         cell_ranges[2] = floor( cell_ranges[2]/factor );
     }
 	
-	create_window_geom( cell_ranges[0], cell_ranges[1], cell_ranges[2],
+//	create_window_geom( cell_ranges[0], cell_ranges[1], cell_ranges[2],
+//		                angles[0], angles[1], angles[2], max_prevcond_ );
+	create_window_geom( ranges[0], ranges[1], ranges[2],
 		                angles[0], angles[1], angles[2], max_prevcond_ );
 
     tmpl_nz_ = cell_ranges[2] ;   // added to use 2D template for 3D TI

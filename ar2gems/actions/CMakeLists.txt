@@ -1,4 +1,5 @@
 add_library(ar2gems_actions
+  add_property_to_grid.cpp
   algorithms_actions.cpp
   categorical_definition_actions.cpp
   categorical_property_actions.cpp
@@ -15,6 +16,7 @@ add_library(ar2gems_actions
   python_wrapper.cpp
   unary_action.cpp
   
+  add_property_to_grid.h
   algorithms_actions.h
   categorical_definition_actions.h
   categorical_property_actions.h

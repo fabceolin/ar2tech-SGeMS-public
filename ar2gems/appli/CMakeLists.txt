@@ -25,7 +25,7 @@ set_target_properties( ar2gems_appli PROPERTIES OUTPUT_NAME_RELEASE ar2gems_appl
 set_target_properties( ar2gems_appli PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_appli_d )
 
 if (WIN32)
-  add_definitions(-DAPPLI_EXPORTS)
+  add_definitions(-DAPPLI_EXPORTS -DGSTLAPPLI_SILENT)
 endif()
 
          

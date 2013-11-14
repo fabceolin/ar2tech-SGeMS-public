@@ -484,7 +484,12 @@ Chart_scatter_matrix_widget::Chart_scatter_matrix_widget( QWidget *parent)
 
 
   context_view_->GetScene()->RemoveItem( chart_matrix_ );
-	chart_matrix_ = vtkSmartPointer<vtkScatterPlotMatrix>::New();
+  vtkSmartPointer<vtkScatterPlotMatrix> scatter_matrix = vtkSmartPointer<vtkScatterPlotMatrix>::New();
+  scatter_matrix->SetNumberOfBins(50);
+	chart_matrix_ = scatter_matrix;// vtkSmartPointer<vtkScatterPlotMatrix>::New();
+
+  
+
 	context_view_->GetScene()->AddItem(chart_matrix_);  
 
 }

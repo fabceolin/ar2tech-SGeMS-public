@@ -84,7 +84,7 @@ protected:
 
 public:
   Grid_path();
-  Grid_path(Geostat_grid * _grid, Grid_region * _region = 0);
+//  Grid_path(Geostat_grid * _grid, Grid_region * _region = 0);
   Grid_path(Geostat_grid * _grid, Grid_continuous_property * _prop, Grid_region * _region =0);
   virtual ~Grid_path(void);
 };
@@ -127,7 +127,7 @@ protected:
 
 public:
   Grid_path_const();
-  Grid_path_const(const Geostat_grid * _grid, const Grid_region * _region = 0);
+//  Grid_path_const(const Geostat_grid * _grid, const Grid_region * _region = 0);
   Grid_path_const(const Geostat_grid * _grid, const Grid_continuous_property * _prop, const Grid_region * _region =0);
   virtual ~Grid_path_const(void);
 };

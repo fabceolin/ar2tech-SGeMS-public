@@ -85,7 +85,7 @@ int Cosisim::execute( GsTL_project* ) {
     utils::create_notifier( "Running CoSisim", 
 			    total_steps, frequency );
 
-  Grid_path path(simul_grid_,target_grid_region_);
+  Grid_path path(simul_grid_,simul_grid_->selected_property(),target_grid_region_);
 
   // loop on all realizations
   for( int nreal = 0; nreal < nb_of_realizations_ ; nreal ++ ) {

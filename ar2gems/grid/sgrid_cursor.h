@@ -96,6 +96,8 @@ public:
 		set_multigrid_level(1); 
 	} 
 
+
+
 	virtual void setDims( GsTLInt nx, GsTLInt ny, GsTLInt nz ) 
 	{ 
 		max_dim_[0] = nx; 
@@ -162,6 +164,9 @@ public:
 	virtual ~SGrid_cursor() { 
 	} 
 	
+  virtual SGrid_cursor* clone() const {
+    return new SGrid_cursor(*this);
+  }
 	
 	virtual SGrid_cursor& operator = (const SGrid_cursor& gc ) 
 	{ 

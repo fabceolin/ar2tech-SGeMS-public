@@ -108,7 +108,7 @@ set_target_properties( ar2gems_geostat PROPERTIES OUTPUT_NAME_RELEASE ar2gems_ge
 set_target_properties( ar2gems_geostat PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_geostat_d )
 
 if (WIN32)
-  add_definitions(-DGEOSTAT_EXPORTS)
+  add_definitions(-DGEOSTAT_EXPORTS -DGSTLAPPLI_SILENT)
 endif()
 
          
