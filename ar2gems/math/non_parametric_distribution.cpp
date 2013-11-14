@@ -69,6 +69,7 @@ double Non_parametric_distribution::pdf(double z) const{
   return (this->cdf(high) - this->cdf(low))/2/delta;
   */
 
+//}
 
 bool Non_parametric_distribution::copy(const Continuous_distribution* dist){
 

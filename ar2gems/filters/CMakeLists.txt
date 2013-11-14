@@ -46,16 +46,18 @@ SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 target_link_libraries(ar2gems_filters
-  ${QT_LIBRARIES}
-  ar2gems_appli
-  ar2gems_grid
-  ar2gems_math
-  ar2gems_utils
-)
+      ${QT_LIBRARIES}
+      ar2gems_appli
+      ar2gems_grid
+      ar2gems_math
+      ar2gems_utils
+    )
+set_target_properties( ar2gems_filters PROPERTIES OUTPUT_NAME_RELEASE ar2gems_filters )
+set_target_properties( ar2gems_filters PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_filters_d )
 
 if (WIN32)
   add_definitions(-DFILTERS_EXPORTS)
 endif()
 
+        
 INSTALL(TARGETS ar2gems_filters DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
-

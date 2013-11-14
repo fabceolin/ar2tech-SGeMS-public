@@ -98,7 +98,8 @@ SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 target_link_libraries(ar2gems_qwt
   ${QT_LIBRARIES}
 )
-
+set_target_properties( ar2gems_qwt PROPERTIES OUTPUT_NAME_RELEASE ar2gems_qwt )
+set_target_properties( ar2gems_qwt PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_qwt_d )
 
 if (WIN32)
   add_definitions(-DQWT_DLL -DQWT_MAKEDLL)

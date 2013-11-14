@@ -95,18 +95,21 @@ if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 endif(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)
 
 target_link_libraries(ar2gems_geostat
-  ${QT_LIBRARIES}
-  ${VTK_LIBRARIES}
-  optimized ${PYTHON_LIBRARIES}
-  debug ${PYTHON_DEBUG_LIBRARIES} 
-  ar2gems_appli
-  ar2gems_grid
-  ar2gems_math
-  ar2gems_utils
-)
+      ${QT_LIBRARIES}
+      ${VTK_LIBRARIES}
+      optimized ${PYTHON_LIBRARIES}
+      debug ${PYTHON_DEBUG_LIBRARIES} 
+      ar2gems_appli
+      ar2gems_grid
+      ar2gems_math
+      ar2gems_utils
+    )
+set_target_properties( ar2gems_geostat PROPERTIES OUTPUT_NAME_RELEASE ar2gems_geostat )
+set_target_properties( ar2gems_geostat PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_geostat_d )
 
 if (WIN32)
   add_definitions(-DGEOSTAT_EXPORTS -DGSTLAPPLI_SILENT)
 endif()
 
+         
 INSTALL(TARGETS ar2gems_geostat DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

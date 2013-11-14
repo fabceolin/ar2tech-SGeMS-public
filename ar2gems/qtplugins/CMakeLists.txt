@@ -115,12 +115,16 @@ target_link_libraries(ar2gems_widgets
   ar2gems_math
   ar2gems_utils
 )
+set_target_properties( ar2gems_widgets PROPERTIES OUTPUT_NAME_RELEASE ar2gems_widgets )
+set_target_properties( ar2gems_widgets PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_widgets_d )
 
 if (WIN32)
   add_definitions(-DQTPLUGINS_EXPORTS)
 endif()
 
 INSTALL(TARGETS ar2gems_widgets DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
+INSTALL(TARGETS ar2gems_widgets DESTINATION "${INSTALL_DIR_PLUGINS}/plugins/designer" COMPONENT application)
+
 
 #COMMAND ${CMAKE_COMMAND} -E copy
 #${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ar2gems_qtplugins.dll

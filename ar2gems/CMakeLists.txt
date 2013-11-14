@@ -6,6 +6,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3 -march=native")
   set(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -ggdb -march=native")
 elseif(MSVC)
+  set(CMAKE_CXX_FLAGS_RELEASE "/MP4")
   # customize flags for Visual Studio
 endif()
 
@@ -29,7 +30,6 @@ else(WIN32)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/lib")
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/bin")
 endif(WIN32)
-
 
 ### Enabling Boost ###################################################
 find_package(Boost REQUIRED)

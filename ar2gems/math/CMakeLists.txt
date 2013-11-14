@@ -31,9 +31,14 @@ add_library(ar2gems_math
   scatterplot.h  
 )
 
+
 target_link_libraries(ar2gems_math
-  ar2gems_utils
-)
+        ar2gems_utils
+    )
+set_target_properties( ar2gems_math PROPERTIES OUTPUT_NAME_RELEASE ar2gems_math )
+set_target_properties( ar2gems_math PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_math_d )
+      
+
 
 if (WIN32)
   add_definitions(-DMATH_EXPORTS)

@@ -19,11 +19,14 @@ SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
 target_link_libraries(ar2gems_appli
-  ar2gems_utils
-)
+      ar2gems_utils
+    )
+set_target_properties( ar2gems_appli PROPERTIES OUTPUT_NAME_RELEASE ar2gems_appli )
+set_target_properties( ar2gems_appli PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_appli_d )
 
 if (WIN32)
   add_definitions(-DAPPLI_EXPORTS -DGSTLAPPLI_SILENT)
 endif()
 
+         
 INSTALL(TARGETS ar2gems_appli DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)

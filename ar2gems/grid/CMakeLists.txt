@@ -10,13 +10,13 @@ add_library(ar2gems_grid
   grid_categorical_property.cpp
   grid_downscaler.cpp
   grid_filter.cpp
+  grid_path.cpp
+  grid_path_multigrid.cpp
   grid_property.cpp
   grid_property_manager.cpp
   grid_property_set.cpp
   grid_region_manager.cpp
   grid_weight_property.cpp
-  grid_path.cpp
-  grid_path_multigrid.cpp
   gstl_kdtree2.cpp
   library_grid_init.cpp
   log_data_grid.cpp
@@ -46,13 +46,13 @@ add_library(ar2gems_grid
   grid_categorical_property.h
   grid_downscaler.h
   grid_filter.h
+  grid_path.h
+  grid_path_multigrid.h
   grid_property.h
   grid_property_manager.h
   grid_property_set.h
   grid_region_manager.h
   grid_weight_property.h
-  grid_path.h
-  grid_path_multigrid.h
   gstl_kdtree2.h
   log_data_grid.h
   mgrid_neighborhood.h
@@ -67,22 +67,24 @@ add_library(ar2gems_grid
   rgrid_geometry.h
   rgrid_gval_accessor.h
   rgrid_neighborhood.h
-  sgrid_cursor.h
   structured_grid.h
   utilities.h  
 )
 
 target_link_libraries(ar2gems_grid
-  ${VTK_LIBRARIES}
-  ${QT_LIBRARIES}
-  ar2gems_appli
-  ar2gems_math
-  ar2gems_utils
-)
+      ${VTK_LIBRARIES}
+      ${QT_LIBRARIES}
+      ar2gems_appli
+      ar2gems_math
+      ar2gems_utils
+    )
+set_target_properties( ar2gems_grid PROPERTIES OUTPUT_NAME_RELEASE ar2gems_grid )
+set_target_properties( ar2gems_grid PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_grid_d )
+
 
 if (WIN32)
   add_definitions(-DGRID_EXPORTS)
 endif()
 
+         
 INSTALL(TARGETS ar2gems_grid DESTINATION "${INSTALL_DIR_LIB}" COMPONENT application)
-

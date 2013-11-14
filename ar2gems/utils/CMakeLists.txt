@@ -3,8 +3,6 @@ QT4_WRAP_CPP(utils_MOC
   gstl_item_model.h
 )
 
-
-
 add_library(ar2gems_utils
   error_messages_handler.cpp
   gstl_messages_private.cpp
@@ -27,10 +25,13 @@ add_library(ar2gems_utils
 SOURCE_GROUP("Moc Files" REGULAR_EXPRESSION moc_.*cxx$)
 SOURCE_GROUP("Uic Files" REGULAR_EXPRESSION ui_.*h)
 
+
 target_link_libraries(ar2gems_utils
-  ${QT_LIBRARIES}
-  ar2gems_qwt
-)
+      ${QT_LIBRARIES}
+      ar2gems_qwt
+    )
+set_target_properties( ar2gems_utils PROPERTIES OUTPUT_NAME_RELEASE ar2gems_utils )
+set_target_properties( ar2gems_utils PROPERTIES OUTPUT_NAME_DEBUG   ar2gems_utils_d )
 
 if (WIN32)
  add_definitions(-DUTILS_EXPORTS)
