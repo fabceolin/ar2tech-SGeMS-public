@@ -184,6 +184,7 @@ bool library_actions_init::bind_action_factories(Manager* dir)
 	dir->factory("SetRegionFromCategoricalPropertyIf", Set_region_from_categorical_property::create_new_interface);
 	dir->factory("ClearPropertyValueFromProperty", Clear_property_value_from_property::create_new_interface);
 	dir->factory("CreateTrend", Create_trend::create_new_interface);
+  dir->factory("ScaleProperty", Scale_property::create_new_interface);
 	dir->factory("CreateMgridFromCgrid", Create_mgrid_from_cgrid::create_new_interface);
 	dir->factory("IndicatorCoding", Create_indicator_properties::create_new_interface);
   dir->factory("CapProperty", Cap_property::create_new_interface);

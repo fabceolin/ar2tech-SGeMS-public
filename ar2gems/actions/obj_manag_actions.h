@@ -523,6 +523,26 @@ class ACTIONS_DECL Create_trend : public Action {
                            Error_messages_handler* errors);
 }; 
 
+class ACTIONS_DECL Scale_property : public Action { 
+ public: 
+   static Named_interface* create_new_interface( std::string& );
+ 
+ public: 
+  Scale_property();
+  virtual ~Scale_property() {}
+ 
+  virtual bool init( std::string& parameters, GsTL_project* proj,
+                     Error_messages_handler* errors ); 
+  virtual bool exec(); 
+
+ protected: 
+   Geostat_grid* grid_;
+   Grid_continuous_property* input_prop_;
+   Grid_continuous_property* output_prop_;
+   float target_min_;
+   float target_max_;
+   
+};
 
 class ACTIONS_DECL Create_indicator_properties : public Action {
  public:

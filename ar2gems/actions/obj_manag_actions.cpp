@@ -1392,12 +1392,19 @@ Named_interface* Clear_property_outside_region::create_new_interface( std::strin
 */
 
 Create_trend::Create_trend(){
-  directions_.insert("X");
-  directions_.insert("Y");
-  directions_.insert("Z");
-  directions_.insert("-X");
-  directions_.insert("-Y");
-  directions_.insert("-Z");
+  directions_.insert("<X");
+  directions_.insert("<Y");
+  directions_.insert("<Z");
+  directions_.insert("X>");
+  directions_.insert("Y>");
+  directions_.insert("Z>");
+  directions_.insert("<X>");
+  directions_.insert("<Y>");
+  directions_.insert("<Z>");
+  directions_.insert("<XY>");
+  directions_.insert("<XZ>");
+  directions_.insert("<YZ>");
+  directions_.insert("<XYZ>");
 }
 
 bool Create_trend::init( std::string& parameters, GsTL_project* proj,
@@ -1406,13 +1413,13 @@ bool Create_trend::init( std::string& parameters, GsTL_project* proj,
     String_Op::decompose_string( parameters, Actions::separator,
                                                    Actions::unique );
 
-  if( params.size() < 2 ) return true;
+  if( params.size() < 2 ) return false;
   if( !is_direction_valid(params[1], errors ) ) return false;
 
   direction_id_ = params[1];
   std::string prop_name;
   if(params.size() == 3) prop_name = params[2];
-  else prop_name = "trend_"+params[1];
+  else prop_name = "trend "+params[1];
 
   grid_name_ = params[0];
   SmartPtr<Named_interface> grid_ni =
@@ -1443,30 +1450,142 @@ bool Create_trend::exec() {
 
   Grid_path_ordered path(grid_, trend_);
 
+  double minx = 9e99;
+  double maxx = -9e99;
+  double miny = 9e99;
+  double maxy = -9e99;
+  double minz = 9e99;
+  double maxz = -9e99;
+  for(Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+    double t = it->location()[0];
+    if(t < minx) minx = t;
+    if(t > maxx) maxx = t;
+
+    t = it->location()[1];
+    if(t < miny) miny = t;
+    if(t > maxy) maxy = t;
+
+    t = it->location()[2];
+    if(t < minz) minz = t;
+    if(t > maxz) maxz = t;
+
+  }
+
+
 // This is hard coded and should be replaced
 // with a more flexible structure
   int id;
   float s = 1;
-  if(direction_id_ == "X" || direction_id_ == "-X" )
-    id = 0;
-  if(direction_id_ == "Y" || direction_id_ == "-Y" )
-    id = 1;
-  if(direction_id_ == "Z" || direction_id_ == "-Z" )
-    id = 2;
+  if(direction_id_ == "<X"  ) {
+    double rangex = maxx-minx;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[0];
+      it->set_property_value((t-minx)/rangex);
+    }
+  }
+  if( direction_id_ == "X>" ) {
+    double rangex = maxx-minx;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[0];
+      it->set_property_value(1.0-(t-minx)/rangex);
+    }
+  }
+  if(direction_id_ == "<Y"  ) {
+    double rangey = maxy-miny;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[1];
+      it->set_property_value((t-miny)/rangey);
+    }
+  }
+  if( direction_id_ == "Y>" ) {
+    double rangey = maxy-miny;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[1];
+      it->set_property_value(1.0-(t-miny)/rangey);
+    }
+  }
+  if(direction_id_ == "<Z"  ) {
+    double rangez = maxz-minz;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[2];
+      it->set_property_value((t-minz)/rangez);
+    }
+  }
+  if( direction_id_ == "Z>" ) {
+    double rangez = maxz-minz;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[2];
+      it->set_property_value(1.0-(t-minz)/rangez);
+    }
+  }
+  if(direction_id_ == "<X>" ) {
+    double rangex = (maxx-minx)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[0];
+      it->set_property_value(1.0-std::abs((t-minx - rangex))/rangex);
+    }
+  }
+  else if (direction_id_ == "<Y>" ) {
+    double rangey = (maxy-miny)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[1];
+      it->set_property_value(1.0-std::abs((t-minx - rangey))/rangey);
+    }
+  }
+  else if(direction_id_ == "<Z>"  ) {
+    double rangez = (maxz-minz)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      double t = it->location()[2];
+      it->set_property_value(1.0-std::abs((t-minx - rangez))/rangez);
+    }
+  }
+  if(direction_id_ == "<XY>" ) {
+    double rangex = (maxx-minx)/2;
+    double rangey = (maxy-miny)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      // compute distance from border
+      double dx = 1.0-std::abs((it->location()[0]-minx - rangex))/rangex;
+      double dy = 1.0-std::abs((it->location()[1]-miny - rangey))/rangey;
 
-  if(direction_id_.size() == 2) s = -1;
-  Geovalue::property_type min = 9e99;
-  Geovalue::property_type max = -9e99;
-  for(Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
-    float t = s*(it->location()[id]);
-    it->set_property_value(t);
-    if(t < min) min = t;
-    if(t > max) max = t;
+      it->set_property_value(dx*dy);
+    }
   }
-  for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
-    Geovalue::property_type t = it->property_value();
-    it->set_property_value((t-min)/(max-min));
+  else if (direction_id_ == "<XZ>" ) {
+    double rangex = (maxx-minx)/2;
+    double rangez = (maxz-minz)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      // compute distance from border
+      double dx = 1.0-std::abs((it->location()[0]-minx - rangex))/rangex;
+      double dz = 1.0-std::abs((it->location()[2]-miny - rangez))/rangez;
+
+      it->set_property_value(dx*dz);
+    }
   }
+  else if(direction_id_ == "<YZ>"  ) {
+    double rangey = (maxy-miny)/2;
+    double rangez = (maxz-minz)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      // compute distance from border
+      double dy = 1.0-std::abs((it->location()[1]-miny - rangey))/rangey;
+      double dz = 1.0-std::abs((it->location()[2]-minz - rangez))/rangez;
+
+      it->set_property_value(dy*dz);
+    }
+  }
+  else if(direction_id_ == "<XYZ>"  ) {
+    double rangex = (maxx-minx)/2;
+    double rangey = (maxy-miny)/2;
+    double rangez = (maxz-minz)/2;
+    for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+      // compute distance from border
+      double dx = 1.0-std::abs((it->location()[0]-minx - rangex))/rangex;
+      double dy = 1.0-std::abs((it->location()[1]-miny - rangey))/rangey;
+      double dz = 1.0-std::abs((it->location()[2]-minz - rangez))/rangez;
+
+      it->set_property_value(dx*dy*dz);
+    }
+  }
+
 
 //  proj_->update( grid_name_ );
   return true;
@@ -1496,6 +1615,93 @@ Named_interface* Create_trend::create_new_interface( std::string& ) {
   return new Create_trend();
 }
 
+
+//================================================
+/* Scale an existing property between min and max grid_name::prop_name::min::max[::output_prop]
+*  if no new_prop_name is provided then the change is in place
+*  depending of the deirection
+*/
+
+Scale_property::Scale_property(){}
+
+bool Scale_property::init( std::string& parameters, GsTL_project* proj,
+                              Error_messages_handler* errors ) {
+  std::vector< std::string > params =
+    String_Op::decompose_string( parameters, Actions::separator,
+                                                   Actions::unique );
+
+  if( params.size() < 4 ) return false;
+
+  std::string prop_name;
+  if(params.size() == 3) prop_name = params[2];
+  else prop_name = "trend "+params[1];
+
+  SmartPtr<Named_interface> grid_ni =
+    Root::instance()->interface( gridModels_manager + "/" + params[0] );
+  grid_ = dynamic_cast<Geostat_grid*>( grid_ni.raw_ptr() );
+  if( !grid_ ) {
+    std::ostringstream message;
+    message << "No grid called \"" << params[0] << "\" was found";
+    errors->report( message.str() );
+    return false;
+  }
+
+  input_prop_ = grid_->property(params[1]);
+  if(!input_prop_ ) {
+    errors->report(  "No property called "+ params[1] +" was found" );
+    return false;
+  }
+
+  target_min_ = String_Op::to_number<float>( params[2] );
+  target_max_ = String_Op::to_number<float>( params[3] );
+  if(params.size() == 5) {
+    output_prop_ = grid_->add_property(params[4]);
+    if(!output_prop_) {
+      errors->report( "Could not create property "+params[4]);
+      return false;
+    }
+  }
+  else {
+    output_prop_ = input_prop_;
+  }
+
+  return true;
+}
+
+
+bool Scale_property::exec() {
+
+  Grid_path_ordered path(grid_, input_prop_);
+
+  double min = 9e99;
+  double max = -9e99;
+
+  for(Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+    if( !it->is_informed() ) continue;
+    float  v = it->property_value();
+    if(v < min) min = v;
+    if(v > max) max = v;
+  }
+  float range = max-min;
+  float target_range = target_max_ - target_min_;
+  if(range ==0 ) return false;
+
+  for(Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
+    if( !it->is_informed() ) continue;
+    float  v = it->property_value();
+
+    float scaled_v = (v -min)/range*target_range + target_min_;
+    output_prop_->set_value( scaled_v, it->node_id() );
+  }
+
+  return true;
+}
+
+
+
+Named_interface* Scale_property::create_new_interface( std::string& ) {
+  return new Scale_property();
+}
 
 /** The parameters for this function are:
  * - the name of the grid

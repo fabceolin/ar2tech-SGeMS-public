@@ -37,6 +37,7 @@
 
 #include <appli/action.h>
 #include <actions/action_no_parameter.h>
+#include <actions/obj_manag_actions.h>
 #include <actions/unary_action.h>
 
 #include <gui/models/context_menu_interface.h>
@@ -131,13 +132,24 @@ Context_menu_grid::Context_menu_grid()
 	menu_->addAction(action);
 	actions_.append(action);
 
+  Create_trend trend;
+  std::vector<std::string> trend_options = trend.get_trend_functions();
+
 	QMenu* submenu = menu_->addMenu("Trend");
-	submenus_.append(submenu);
-	action = new Grid_trend_item_action("X",menu_);
+  submenus_.append(submenu);
+
+  for(int i=0; i<trend_options.size(); ++i) {
+	  action = new Grid_trend_item_action(trend_options[i].c_str(),menu_);
+	  actions_.append(action);
+	  submenu->addAction(action);
+  }
+
+	/*
+	action = new Grid_trend_item_action("<X",menu_);
 	actions_.append(action);
 	submenu->addAction(action);
 
-	action = new Grid_trend_item_action("-X",menu_);
+	action = new Grid_trend_item_action("X",menu_);
 	actions_.append(action);
 	submenu->addAction(action);
 
@@ -156,6 +168,7 @@ Context_menu_grid::Context_menu_grid()
 	action = new Grid_trend_item_action("-Z",menu_);
 	actions_.append(action);
 	submenu->addAction(action);
+  */
 }
 Context_menu_grid::~Context_menu_grid(){}
 

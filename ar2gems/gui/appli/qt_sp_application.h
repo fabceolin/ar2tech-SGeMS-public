@@ -162,6 +162,7 @@ class GUI_DECL QSP_application : public QMainWindow {
   void upscale_properties();
 
   void set_not_informed_property();
+  void scale_property();
 
   void show_categorical_definition();
   void new_categorical_definition();

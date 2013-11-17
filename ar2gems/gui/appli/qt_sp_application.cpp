@@ -98,7 +98,7 @@
 #include <gui/utils/new_region_from_grid_filter_dialog.h>
 #include <gui/utils/categorical_property_dialog.h>
 #include <gui/utils/set_not_informed_dialog.h>
-
+#include <gui/utils/scale_property_dialog.h>
 #include <gui/appli/about_sgems.h>
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
@@ -311,6 +311,7 @@ void QSP_application::init_menu_bar() {
     property_menu->addAction( "Create Indicator Properties", this, SLOT( create_indicator_properties() ),Qt::CTRL+Qt::Key_I  );
     property_menu->addAction( "Delete Properties", this, SLOT( delete_object_properties() ) , Qt::CTRL+Qt::Key_D);
     property_menu->addAction( "Set Not Informed", this, SLOT( set_not_informed_property() ) );
+    property_menu->addAction( "Scale Property", this, SLOT( scale_property() ) );
     property_menu->addSeparator();
     property_menu->addAction( "Upscale properties (block average)", this, SLOT( upscale_properties() ) );
     property_menu->addSeparator();
@@ -1552,6 +1553,15 @@ void QSP_application::set_not_informed_property(){
   Set_not_informed_dialog* dialog = 
     new Set_not_informed_dialog( project_, this, "Create region from property" );
   dialog->setWindowTitle( "Set values as NaN" );
+  dialog->exec();
+  delete dialog;
+
+}
+
+void QSP_application::scale_property(){
+  Scale_property_dialog* dialog = 
+    new Scale_property_dialog( project_, this, "Scale a property" );
+  dialog->setWindowTitle( "Scale the value between min and max" );
   dialog->exec();
   delete dialog;
 

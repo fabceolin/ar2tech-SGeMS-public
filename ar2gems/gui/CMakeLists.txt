@@ -36,6 +36,7 @@ QT4_WRAP_CPP(gui_MOC
   utils/new_region_from_property_dialog.h
   utils/qdirdialog.h
   utils/save_grid_dialog.h
+  utils/scale_property_dialog.h
   utils/script_editor.h
   utils/set_not_informed_dialog.h
   utils/upscale_property_dialog.h
@@ -147,6 +148,7 @@ add_library(ar2gems_gui
   utils/qwidget_value_accessor.cpp
   utils/qwidget_value_collector.cpp
   utils/save_grid_dialog.cpp
+  utils/scale_property_dialog.cpp
   utils/script_editor.cpp
   utils/script_syntax_highlighter.cpp
   utils/set_not_informed_dialog.cpp
@@ -247,6 +249,7 @@ add_library(ar2gems_gui
   utils/qwidget_value_accessor.h
   utils/qwidget_value_collector.h
   utils/save_grid_dialog.h
+  utils/scale_property_dialog.h
   utils/script_editor.h
   utils/script_syntax_highlighter.h
   utils/set_not_informed_dialog.h
