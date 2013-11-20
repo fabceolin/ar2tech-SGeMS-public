@@ -73,7 +73,7 @@ Multi_grid_path::Multi_grid_path(RGrid * _rgrid, int level, Grid_continuous_prop
   this->grid_ = _rgrid;
   this->prop_ = _prop;
 
-  if ( !_rgrid && !_prop  ) return;
+  //if ( !_rgrid && !_prop  ) return;
   this->cursor_ = _rgrid->cursor()->clone(); //  new SGrid_cursor( *_rgrid->cursor() );
   multigrid_level_ = level; // initially
   cursor_->set_multigrid_level(multigrid_level_);

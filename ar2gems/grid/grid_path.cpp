@@ -80,7 +80,7 @@ Grid_path::Grid_path() : grid_(0),prop_(0)  {}
 
 Grid_path::Grid_path(Geostat_grid * _grid, Grid_continuous_property * _prop, Grid_region * _region)
 {
-  if ( !_grid || !_prop ) return;
+  //if ( !_grid || !_prop ) return;
   this->grid_ = _grid;
   this->prop_ = _prop;
   
@@ -294,7 +294,7 @@ Grid_path_ordered::Grid_path_ordered() : grid_(0),prop_(0)  {}
 
 Grid_path_ordered::Grid_path_ordered(Geostat_grid * _grid, Grid_continuous_property * _prop)
 {
-  if ( !_grid || !_prop ) return;
+  //if ( !_grid || !_prop ) return;
   this->grid_ = _grid;
   this->prop_ = _prop;
 }
@@ -302,7 +302,7 @@ Grid_path_ordered::Grid_path_ordered(Geostat_grid * _grid, Grid_continuous_prope
 
 Grid_path_ordered::Grid_path_ordered(Geostat_grid * _grid)
 {
-  if ( !_grid  ) return;
+  //if ( !_grid  ) return;
   this->grid_ = _grid;
   this->prop_ = 0;
 }
@@ -361,7 +361,7 @@ Grid_path_ordered_const::Grid_path_ordered_const() : grid_(0),prop_(0)  {}
 
 Grid_path_ordered_const::Grid_path_ordered_const(const Geostat_grid * _grid, const Grid_continuous_property * _prop)
 {
-  if ( !_grid || !_prop ) return;
+  //if ( !_grid || !_prop ) return;
   this->grid_ = _grid;
   this->prop_ = _prop;
 }
@@ -369,7 +369,7 @@ Grid_path_ordered_const::Grid_path_ordered_const(const Geostat_grid * _grid, con
 
 Grid_path_ordered_const::Grid_path_ordered_const(const Geostat_grid * _grid)
 {
-  if ( !_grid  ) return;
+  //if ( !_grid  ) return;
   this->grid_ = _grid;
   this->prop_ = 0;
 }
