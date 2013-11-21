@@ -279,7 +279,7 @@ int main(int argc, char** argv) {
 QString path_to_plugins() {
 	QDir pluginsdir; //points to current directory
 
-	char* env = getenv("GSTLAPPLIHOME");
+	char* env = getenv("AR2GEMS_PLUGINS_DIR");
 	if (env) {
 		QString envpath(env);
 		pluginsdir.setPath(envpath);
