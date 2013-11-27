@@ -1097,7 +1097,8 @@ void Snesim_Std::init_random_path_normal(int level)
 		for( int i=0; i < sg_cursor->max_index(); i++ ) {
       int node_id = sg_cursor->node_id( i);
       if( grid_region_ &&  !grid_region_->is_inside_region(node_id ) ) continue;
-			grid_paths_[3].push_back(i);
+			//grid_paths_[3].push_back(i);
+      grid_paths_[3].push_back(node_id);
     }
 
         //GsTLcout << "nb nodes is "  << sg_cursor->max_index() << gstlIO::end;
