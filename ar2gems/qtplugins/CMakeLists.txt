@@ -28,6 +28,7 @@ QT4_WRAP_CPP(ar2gems_widgets_MOC
   variogram_input.h
   weight_property_proxy_model.h
   weight_property_selector.h
+  OPTIONS -DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED
 )
 
 QT4_WRAP_UI(ar2gems_widgets_FORMS

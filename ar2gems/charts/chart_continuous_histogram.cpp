@@ -31,6 +31,7 @@
 #include <charts/region_weight_delegate.h>
 #include <charts/histogram_style_delegate.h>
 #include <charts/histogram_item_tree_view.h>
+#include <math/continuous_distribution.h>
 
 #include <vtkDescriptiveStatistics.h> 
 #include <vtkOrderStatistics.h>

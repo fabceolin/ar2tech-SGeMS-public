@@ -34,7 +34,7 @@
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_weight_property.h>
 #include <grid/grid_property_set.h>
-#include <math/categorical_distribution.h>
+//#include <math/categorical_distribution.h>
 
 #include <QModelIndex>
 #include <QVariant>
@@ -42,6 +42,8 @@
 #include <QAbstractProxyModel>
 #include <QWidget>
 #include <QHash>
+
+class Categorical_distribution;
 
 class CHARTS_DECL Categorical_histogram_item : public Chart_item{
 public :
@@ -131,7 +133,7 @@ public :
 
   virtual int children_count() const {return 0;}
   virtual Categorical_histogram_item* children(int row) {return 0;}
-  virtual Categorical_histogram_item* parent() {return parent_;};  
+  virtual Categorical_histogram_item* parent() {return parent_;}
 
   /*
   virtual bool operator==(const Categorical_histogram_property_item& rhs ) const {
@@ -202,7 +204,7 @@ public :
 
   
   Grid_categorical_property* prop() {return 0;}
-  virtual GsTL_object_item* object_item() {return dist_;}
+  virtual GsTL_object_item* object_item(); // {return dist_;}
 
   virtual Grid_weight_property* weights() {return 0;}
   virtual Grid_region* region() {return 0;}

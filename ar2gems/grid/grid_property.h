@@ -445,7 +445,7 @@ class GRID_DECL PropertyValueProxy {
   friend class Grid_continuous_property::iterator; 
    
  public: 
-   operator float() { return prop_->accessor_->get_property_value(id_); }// return prop_->get_value( id_ ); } 
+   operator float() const { return prop_->accessor_->get_property_value(id_); }// return prop_->get_value( id_ ); }
   PropertyValueProxy& operator = ( float val ) {  
     prop_->set_value( val, id_ ); return *this; 
   } 

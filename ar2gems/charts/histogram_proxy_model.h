@@ -35,7 +35,7 @@
 #include <grid/grid_property.h>
 #include <grid/grid_weight_property.h>
 #include <grid/grid_property_set.h>
-#include <math/continuous_distribution.h>
+//#include <math/continuous_distribution.h>
 
 #include <QModelIndex>
 #include <QVariant>
@@ -44,6 +44,8 @@
 #include <QWidget>
 #include <QHash>
 #include <QModelIndexList>
+
+class Continuous_distribution;
 
 class CHARTS_DECL Histogram_proxy_model : public QAbstractItemModel
 {

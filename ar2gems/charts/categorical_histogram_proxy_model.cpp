@@ -28,6 +28,7 @@
 #include <charts/categorical_histogram_proxy_model.h>
 #include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
+#include <math/categorical_distribution.h>
 
 #include <QStringList>
 #include <QMimeData>

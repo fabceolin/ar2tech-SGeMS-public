@@ -109,7 +109,7 @@ inline Gaussian_cdf::value_type
   gstl_assert(var_ >= 0);
 
   static const double lim=1.0e-12;
-  static const double INFINITY=GsTL::INFINITY;
+  //static const double INFINITY=GsTL::INFINITY;
 
   //  static const double P0 = -0.322232431088;
   static const double Pconst[5]= {-0.322232431088,-1.0,-0.342242088547,

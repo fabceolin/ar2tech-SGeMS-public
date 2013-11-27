@@ -279,7 +279,8 @@ void QSP_application::dropEvent ( QDropEvent * ) {
 void QSP_application::init_menu_bar() {
 
   QMenu* file = menuBar()->addMenu(tr("&File"));
-  file->addAction( "Open Project", this, SLOT( load_project() ), Qt::CTRL+Qt::Key_O );
+  QAction* action = file->addAction( "Open Project", this, SLOT( load_project() ), Qt::CTRL+Qt::Key_O );
+  action->setMenuRole(QAction::ApplicationSpecificRole);
   file->addAction( "Close Project", this, SLOT( close_project() ), Qt::CTRL+Qt::Key_W );
   file->addSeparator();
   file->addAction( "Save Project", this, SLOT( save_project() ), Qt::CTRL+Qt::Key_S );

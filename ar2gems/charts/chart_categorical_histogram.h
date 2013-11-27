@@ -27,7 +27,7 @@
 #define CHART_CATEGORICAL_HISTOGRAM_H
 
 #include <charts/common.h>
-#include <math/categorical_distribution.h>
+//#include <math/categorical_distribution.h>
 #include <charts/chart_base.h>
 #include <grid/grid_property.h>
 #include <grid/grid_categorical_property.h>
@@ -40,6 +40,8 @@
 #include <QTabWidget>
 
 #include <vtkPlotBar.h>
+
+class Categorical_distribution;
 
 class CHARTS_DECL Chart_categorical_histogram : public Chart_base
 {

@@ -30,11 +30,10 @@
 #include <charts/chart_base.h>
 #include <charts/common.h>
 
-#include <math/continuous_distribution.h>
 #include <grid/grid_property.h>
 #include <grid/grid_weight_property.h>
 #include <grid/grid_region.h>
-#include <math/continuous_distribution.h>
+//#include <math/continuous_distribution.h>
 
 #include <charts/histogram_proxy_model.h>
 #include <charts/chart_widget.h>
@@ -57,6 +56,7 @@
 #include <QModelIndexList>
 #include <QDropEvent>
 
+class Continuous_distribution;
 
 class CHARTS_DECL Chart_continuous_histogram : public Chart_base
 {

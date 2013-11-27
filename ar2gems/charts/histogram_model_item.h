@@ -35,7 +35,7 @@
 #include <grid/grid_property.h>
 #include <grid/grid_weight_property.h>
 #include <grid/grid_property_set.h>
-#include <math/continuous_distribution.h>
+//#include <math/continuous_distribution.h>
 
 #include <QModelIndex>
 #include <QVariant>
@@ -43,6 +43,8 @@
 #include <QAbstractProxyModel>
 #include <QWidget>
 #include <QHash>
+
+class Continuous_distribution;
 
 class CHARTS_DECL Histogram_item :public Chart_item{
 public :
@@ -222,7 +224,7 @@ public :
 
   
   Grid_continuous_property* prop() {return 0;}
-  virtual GsTL_object_item* object_item() {return dist_;}
+  virtual GsTL_object_item* object_item(); //{return dist_;}
 
   virtual Grid_weight_property* weights() {return 0;}
   virtual Grid_region* region() {return 0;}

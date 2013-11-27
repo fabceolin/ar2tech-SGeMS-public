@@ -34,7 +34,7 @@
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_weight_property.h>
 #include <grid/grid_property_set.h>
-#include <math/categorical_distribution.h>
+//#include <math/categorical_distribution.h>
 
 #include <QModelIndex>
 #include <QVariant>
@@ -42,6 +42,8 @@
 #include <QAbstractItemModel>
 #include <QWidget>
 #include <QHash>
+
+class Categorical_distribution;
 
 class CHARTS_DECL Categorical_histogram_proxy_model : public QAbstractItemModel
 {
