@@ -1390,21 +1390,20 @@ Named_interface* Clear_property_outside_region::create_new_interface( std::strin
 *  if no new_prop_name is provided then it is called trend_{X,Y,Z}
 *  depending of the deirection
 */
-
 Create_trend::Create_trend(){
-  directions_.insert("<X");
-  directions_.insert("<Y");
-  directions_.insert("<Z");
-  directions_.insert("X>");
-  directions_.insert("Y>");
-  directions_.insert("Z>");
-  directions_.insert("<X>");
-  directions_.insert("<Y>");
-  directions_.insert("<Z>");
-  directions_.insert("<XY>");
-  directions_.insert("<XZ>");
-  directions_.insert("<YZ>");
-  directions_.insert("<XYZ>");
+  directions_.insert("-X+");
+  directions_.insert("-Y+");
+  directions_.insert("-Z+");
+  directions_.insert("+X-");
+  directions_.insert("+Y-");
+  directions_.insert("+Z-");
+  directions_.insert("-+X+-");
+  directions_.insert("-+Y+-");
+  directions_.insert("-+Z+-");
+  directions_.insert("-+XY+-");
+  directions_.insert("-+XZ+-");
+  directions_.insert("-+YZ+-");
+  directions_.insert("-+XYZ+-");
 }
 
 bool Create_trend::init( std::string& parameters, GsTL_project* proj,
@@ -1476,70 +1475,70 @@ bool Create_trend::exec() {
 // with a more flexible structure
   int id;
   float s = 1;
-  if(direction_id_ == "<X"  ) {
+  if(direction_id_ == "-X+"  ) {
     double rangex = maxx-minx;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[0];
       it->set_property_value((t-minx)/rangex);
     }
   }
-  if( direction_id_ == "X>" ) {
+  if( direction_id_ == "+X-" ) {
     double rangex = maxx-minx;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[0];
       it->set_property_value(1.0-(t-minx)/rangex);
     }
   }
-  if(direction_id_ == "<Y"  ) {
+  if(direction_id_ == "-Y+"  ) {
     double rangey = maxy-miny;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[1];
       it->set_property_value((t-miny)/rangey);
     }
   }
-  if( direction_id_ == "Y>" ) {
+  if( direction_id_ == "+Y-" ) {
     double rangey = maxy-miny;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[1];
       it->set_property_value(1.0-(t-miny)/rangey);
     }
   }
-  if(direction_id_ == "<Z"  ) {
+  if(direction_id_ == "-Z+"  ) {
     double rangez = maxz-minz;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[2];
       it->set_property_value((t-minz)/rangez);
     }
   }
-  if( direction_id_ == "Z>" ) {
+  if( direction_id_ == "+Z-" ) {
     double rangez = maxz-minz;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[2];
       it->set_property_value(1.0-(t-minz)/rangez);
     }
   }
-  if(direction_id_ == "<X>" ) {
+  if(direction_id_ == "-+X+-" ) {
     double rangex = (maxx-minx)/2;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[0];
       it->set_property_value(1.0-std::abs((t-minx - rangex))/rangex);
     }
   }
-  else if (direction_id_ == "<Y>" ) {
+  else if (direction_id_ == "-+Y+-" ) {
     double rangey = (maxy-miny)/2;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[1];
       it->set_property_value(1.0-std::abs((t-minx - rangey))/rangey);
     }
   }
-  else if(direction_id_ == "<Z>"  ) {
+  else if(direction_id_ == "-+Z+-"  ) {
     double rangez = (maxz-minz)/2;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
       double t = it->location()[2];
       it->set_property_value(1.0-std::abs((t-minx - rangez))/rangez);
     }
   }
-  if(direction_id_ == "<XY>" ) {
+  if(direction_id_ == "-+XY+-" ) {
     double rangex = (maxx-minx)/2;
     double rangey = (maxy-miny)/2;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
@@ -1550,7 +1549,7 @@ bool Create_trend::exec() {
       it->set_property_value(dx*dy);
     }
   }
-  else if (direction_id_ == "<XZ>" ) {
+  else if (direction_id_ == "-+XZ+-" ) {
     double rangex = (maxx-minx)/2;
     double rangez = (maxz-minz)/2;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
@@ -1561,7 +1560,7 @@ bool Create_trend::exec() {
       it->set_property_value(dx*dz);
     }
   }
-  else if(direction_id_ == "<YZ>"  ) {
+  else if(direction_id_ == "-+YZ+-"  ) {
     double rangey = (maxy-miny)/2;
     double rangez = (maxz-minz)/2;
     for( Grid_path_ordered::iterator it = path.begin() ; it!= path.end(); it++ ) {
@@ -1572,7 +1571,7 @@ bool Create_trend::exec() {
       it->set_property_value(dy*dz);
     }
   }
-  else if(direction_id_ == "<XYZ>"  ) {
+  else if(direction_id_ == "-+XYZ+-"  ) {
     double rangex = (maxx-minx)/2;
     double rangey = (maxy-miny)/2;
     double rangez = (maxz-minz)/2;
