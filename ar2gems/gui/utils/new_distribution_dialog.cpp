@@ -29,7 +29,8 @@
 #include <appli/root_model.h>
 #include <utils/manager.h>
 #include <utils/manager_repository.h>
-
+#include <math/continuous_distribution.h>
+#include <math/non_parametric_distribution.h>
 #include <QAbstractProxyModel>
 
 New_distribution_dialog::New_distribution_dialog(QWidget *parent)

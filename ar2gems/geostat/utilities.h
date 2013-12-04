@@ -707,7 +707,7 @@ public:
 	  f_ = rhs.f_->clone();
   }
 
-  ~Trend_functor(){delete f_;}
+  virtual ~Trend_functor(){delete f_;}
 
   inline double operator()( const Geovalue& gval) const {
     return (*f_)(gval);

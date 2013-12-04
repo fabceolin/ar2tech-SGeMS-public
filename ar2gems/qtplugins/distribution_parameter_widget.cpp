@@ -25,7 +25,8 @@
 
 
 #include "distribution_parameter_widget.h"
-
+#include <math/continuous_distribution.h>
+#include <math/non_parametric_distribution.h>
 #include <utils/manager.h>
 #include <utils/manager_repository.h>
 #include <grid/distribution_utilities.h>

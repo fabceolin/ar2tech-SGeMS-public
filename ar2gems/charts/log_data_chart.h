@@ -31,7 +31,6 @@
 
 #include <charts/chart_base_display_controls.h>
 #include <charts/chart_display_control.h>
-#include <math/continuous_distribution.h>
 #include <grid/grid_filter.h>
 #include <grid/log_data_grid.h>
 

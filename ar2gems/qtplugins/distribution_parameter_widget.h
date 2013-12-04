@@ -28,8 +28,8 @@
 #define DISTRIBUTION_PARAMETER_WIDGET_H
 
 #include <QWidget>
-#include <math/continuous_distribution.h>
-#include <math/non_parametric_distribution.h>
+//#include <math/continuous_distribution.h>
+//#include <math/non_parametric_distribution.h>
 #include <grid/grid_property.h>
 #include <grid/grid_weight_property.h>
 #include <grid/grid_region.h>
@@ -48,6 +48,8 @@
 #include <QGroupBox>
 #include <QHash>
 
+class Continuous_distribution;
+class Non_parametric_distribution;
 
 class QTPLUGINS_DECL Non_parameter_distribution_widget :public QGroupBox
   

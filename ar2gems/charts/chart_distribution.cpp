@@ -25,6 +25,7 @@
 
 
 #include "chart_distribution.h"
+#include <math/continuous_distribution.h>
 
 #include <vtkContextScene.h>
 #include <vtkDoubleArray.h>

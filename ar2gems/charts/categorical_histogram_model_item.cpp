@@ -28,6 +28,7 @@
 #include <charts/categorical_histogram_model_item.h>
 #include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
+#include <math/categorical_distribution.h>
 
 #include <QStringList>
 #include <QMimeData>
@@ -56,6 +57,10 @@ Categorical_histogram_distribution_item::Categorical_histogram_distribution_item
 {
   item_name_  = QString::fromStdString(dist_->name());
 
+}
+
+GsTL_object_item* Categorical_histogram_distribution_item::object_item() {
+    return dist_;
 }
 
 

@@ -28,6 +28,7 @@
 #include <charts/histogram_proxy_model.h>
 #include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
+#include <math/continuous_distribution.h>
 
 #include <QStringList>
 #include <QMimeData>

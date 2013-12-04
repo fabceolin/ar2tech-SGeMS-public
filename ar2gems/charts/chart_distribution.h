@@ -28,7 +28,7 @@
 #define CHART_DISTRIBUTION_H
 
 #include <charts/common.h>
-#include <math/continuous_distribution.h>
+//#include <math/continuous_distribution.h>
 #include <QWidget>
 #include <QVTKWidget.h>
 #include <vtkSmartPointer.h>
@@ -36,6 +36,8 @@
 #include <vtkContextView.h>
 #include <vtkTable.h>
 #include <vtkPlot.h>
+
+class Continuous_distribution;
 
 class CHARTS_DECL Chart_distribution : public QWidget
 {

@@ -28,6 +28,7 @@
 #include <charts/histogram_model_item.h>
 #include <utils/manager_repository.h>
 #include <grid/geostat_grid.h>
+#include <math/continuous_distribution.h>
 
 #include <QStringList>
 #include <QMimeData>
@@ -61,6 +62,10 @@ Histogram_distribution_item::Histogram_distribution_item( Continuous_distributio
 }
 
 
+GsTL_object_item* Histogram_distribution_item::object_item() {
+    return dist_;
+}
+
 Histogram_group_item::Histogram_group_item( Grid_property_group* group, int& id)
   : Histogram_item(id), group_(group), weights_(0), region_(0) 
 {
@@ -78,6 +83,7 @@ Histogram_group_item::Histogram_group_item( Grid_property_group* group, int& id)
   this->display_format("Lines");
   
 }
+
 
 Histogram_group_item::~Histogram_group_item() {
 
