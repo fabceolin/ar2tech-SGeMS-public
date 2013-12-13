@@ -64,7 +64,8 @@
 #include <grid/sgrid_cursor.h> 
 #include <grid/rgrid_gval_accessor.h> 
 #include <grid/gval_iterator.h> 
-#include <grid/strati_grid.h> 
+#include <grid/rgrid_neighborhood.h>
+//#include <grid/strati_grid.h> 
 #include <math/gstlpoint.h> 
 #include <math/random_numbers.h> 
  

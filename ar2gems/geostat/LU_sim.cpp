@@ -101,11 +101,6 @@ int LU_sim::execute( GsTL_project* ) {
   // with mean 0 and variance 1.
   Gaussian_cdf marginal( 0.0, 1.0 );
 
-  // work on the fine grid
-  if( dynamic_cast<Strati_grid*>( simul_grid_ ) ) {
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>( simul_grid_ );
-    sgrid->set_level( 1 );
-  }
   //typedef Geostat_grid::random_path_iterator iterator;
   typedef Gval_iterator< TabularMapIndex > iterator;
 

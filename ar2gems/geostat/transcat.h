@@ -73,7 +73,7 @@
 #include <geostat/filtersim_std/is_categorical.h>
 #include <geostat/filtersim_std/filters.h>
 
-class Strati_grid;
+//class Strati_grid;
 class Grid_template;
 class Geostat_grid;
 class RGrid;

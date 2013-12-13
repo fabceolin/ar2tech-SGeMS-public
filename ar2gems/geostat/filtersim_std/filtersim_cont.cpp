@@ -55,7 +55,6 @@
 **********************************************************************/
 
 
-#include <grid/strati_grid.h>
 #include <grid/geostat_grid.h>
 #include <grid/rgrid.h>
 #include <grid/rgrid_neighborhood.h>

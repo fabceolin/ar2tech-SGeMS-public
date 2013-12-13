@@ -58,7 +58,7 @@
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
 #include <grid/geostat_grid.h>
-#include <grid/strati_grid.h>
+//#include <grid/strati_grid.h>
 #include <grid/point_set.h>
 #include <grid/grid_property.h>
 #include <grid/grid_property_manager.h>
@@ -102,12 +102,6 @@ int Cosgsim::execute( GsTL_project* ) {
   // with mean 0 and variance 1.
   Gaussian_cdf marginal( 0.0, 1.0 );
   Gaussian_cdf ccdf;
-
-  // work on the fine grid
-  if( dynamic_cast<Strati_grid*>( simul_grid_ ) ) {
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>( simul_grid_ );
-    sgrid->set_level( 1 );
-  }
 
   // set up the cdf-estimator
   typedef Gaussian_cdf_coKestimator< CovarianceSet,

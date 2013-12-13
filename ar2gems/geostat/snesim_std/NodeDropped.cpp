@@ -81,7 +81,8 @@ void NodeDropped::setDNProp( RGrid* grid, Grid_continuous_property* prop )
 
     for (int i=0; i<path_size; i++)
     {
-        node_id = cursor.node_id( nodes[i].first );
-        prop->set_value( nodes[i].second, node_id );
+		prop->set_value( nodes[i].second, nodes[i].first );
+      //  node_id = cursor.node_id( nodes[i].first );
+      //  prop->set_value( nodes[i].second, node_id );
     }
 }

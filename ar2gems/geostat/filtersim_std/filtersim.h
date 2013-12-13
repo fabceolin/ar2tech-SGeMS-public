@@ -91,7 +91,7 @@
 using namespace std;
 using namespace geostat_utils;
 
-class Strati_grid;
+//class Strati_grid;
 class Grid_template;
 class Geostat_grid;
 class RGrid;

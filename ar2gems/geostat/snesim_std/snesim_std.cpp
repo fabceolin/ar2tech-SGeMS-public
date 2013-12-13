@@ -54,7 +54,6 @@
 ** Modified by Jianbing Wu, SCRF, Stanford University, June 2004
 **********************************************************************/
 
-#include <grid/strati_grid.h>
 #include <grid/rgrid.h>
 #include <grid/gval_iterator.h>
 #include <grid/grid_path.h>
@@ -1587,6 +1586,8 @@ bool Snesim_Std::get_training_image( const Parameters_handler* parameters,
 	error_mesgs->report( training_property_name_.empty(), 
 		"PropertySelector_Training", "No training property selected" );
 
+	if(!error_mesgs->empty()) return false;
+
 	// Get the training image from the grid manager
 	// and select the training property
 	if( !training_image_name_.empty() ) 
@@ -1812,7 +1813,7 @@ bool Snesim_Std::get_vert_prob_data( const Parameters_handler* parameters,
     
     if( !vertical_grid_name.empty() )
     {
-        vertical_curve_grid_ = dynamic_cast<Strati_grid*>( 
+        vertical_curve_grid_ = dynamic_cast<RGrid*>( 
                                 Root::instance()->interface( gridModels_manager + "/" + 
                                 vertical_grid_name).raw_ptr() );
         
@@ -2110,7 +2111,7 @@ bool Snesim_Std::simulate_one_realization( SmartPtr<Progress_notifier>& progress
             Grid_continuous_property* prop2;
             prop2 = simul_grid_->select_property(previous_prop);
             if ( !prop2)
-                prop2 = geostat_utils::add_property_to_grid(simul_grid_,previous_prop);
+                prop2 = geostat_utils::add_categorical_property_to_grid(simul_grid_,previous_prop );
 
             Grid_continuous_property* prop1 = simul_grid_->select_property(prop->name());
 

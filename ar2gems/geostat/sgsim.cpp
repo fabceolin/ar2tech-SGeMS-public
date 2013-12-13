@@ -103,9 +103,9 @@ int Sgsim::execute( GsTL_project* ) {
   Gaussian_cdf ccdf;
 
   // work on the fine grid
-  if( dynamic_cast<Strati_grid*>( simul_grid_ ) ) {
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>( simul_grid_ );
-    sgrid->set_level( 1 );
+  if( dynamic_cast<RGrid*>( simul_grid_ ) ) {
+    RGrid* rgrid = dynamic_cast<RGrid*>( simul_grid_ );
+    rgrid->set_level( 1 );
   }
 
   // set up the cdf-estimator

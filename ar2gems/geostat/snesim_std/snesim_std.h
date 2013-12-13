@@ -77,7 +77,7 @@ using namespace std;
 
 #define NUM_SG  3
 
-class Strati_grid;
+//class Strati_grid;
 class Grid_template;
 class RGrid;
 class Geostat_grid;
@@ -289,7 +289,7 @@ private:
 	SmartPtr<Property_copier> property_copier_;
 	
 	//  vertical proportion curve
-	Strati_grid* vertical_curve_grid_;
+	RGrid* vertical_curve_grid_;
 	std::vector<Grid_continuous_property*> vertical_properties_;
 	std::string vertical_properties_names_;
 

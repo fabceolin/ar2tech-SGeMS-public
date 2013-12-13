@@ -99,11 +99,6 @@ int dssim::execute( GsTL_project* ) {
  // LogNormal_cdf marginal( 0.1, 1.0 );
  // LogNormal_cdf ccdf;
 
-  // work on the fine grid
-  if( dynamic_cast<Strati_grid*>( simul_grid_ ) ) {
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>( simul_grid_ );
-    sgrid->set_level( 1 );
-  }
 
   // set up the cdf-estimator
   typedef First2_moments_cdf_Kestimator< Covariance<Location>,

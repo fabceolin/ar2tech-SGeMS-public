@@ -116,7 +116,7 @@ bool Moving_window::initialize( const Parameters_handler* parameters,
 
     Grid_template* window_tpl = user_def_filters.get_geometry();
 
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>(grid_);
+    RGrid* sgrid = dynamic_cast<RGrid*>(grid_);
     neigh_ = sgrid->window_neighborhood(*window_tpl);
     neigh_->select_property(prop_input->name());
 
@@ -140,7 +140,7 @@ bool Moving_window::initialize( const Parameters_handler* parameters,
 
     Grid_template* window_tpl = default_Filtersim_filters.get_geometry();
 
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>(grid_);
+    RGrid* sgrid = dynamic_cast<RGrid*>(grid_);
     neigh_ = sgrid->window_neighborhood(*window_tpl);
     neigh_->select_property(prop_input->name());
 
@@ -164,7 +164,7 @@ bool Moving_window::initialize( const Parameters_handler* parameters,
 
     else errors->report("Sobel_orientation","An orientation must be selected");
 
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>(grid_);
+    RGrid* sgrid = dynamic_cast<RGrid*>(grid_);
     neigh_ = sgrid->window_neighborhood(tpl);
     neigh_->select_property(prop_input->name());
 
@@ -196,7 +196,7 @@ bool Moving_window::initialize( const Parameters_handler* parameters,
 
       Grid_template tpl = create_neigh_template(nx,ny,nz);
 
-      Strati_grid* sgrid = dynamic_cast<Strati_grid*>(grid_);
+      RGrid* sgrid = dynamic_cast<RGrid*>(grid_);
       neigh_ = sgrid->window_neighborhood(tpl);
       neigh_->select_property(prop_input->name());
 

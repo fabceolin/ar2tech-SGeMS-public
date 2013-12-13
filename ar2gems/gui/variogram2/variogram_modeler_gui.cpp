@@ -293,7 +293,7 @@ void Variogram_modeler_gui::prompt_for_parameters() {
     _stack->setCurrentWidget( pset_params_screen_ );
     return;
   }
-  if ( dynamic_cast< Strati_grid* >( grid_ ) ) {
+  if ( dynamic_cast< RGrid* >( grid_ ) ) {
     _stack->setCurrentWidget( rgrid_params_screen_ );
     return;
   }

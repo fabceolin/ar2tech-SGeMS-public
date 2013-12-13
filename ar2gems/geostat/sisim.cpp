@@ -117,11 +117,6 @@ int Sisim::execute( GsTL_project* ) {
     utils::create_notifier( "Running Sisim", 
 			    total_steps, frequency );
 
-  // work on the fine grid
-  if( dynamic_cast<Strati_grid*>( simul_grid_ ) ) {
-    Strati_grid* sgrid = dynamic_cast<Strati_grid*>( simul_grid_ );
-    sgrid->set_level( 1 );
-  }
 
   if( do_median_ik_ ) {
     return median_ik( progress_notifier.raw_ptr() );
