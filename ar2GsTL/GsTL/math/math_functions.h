@@ -42,7 +42,7 @@ namespace GsTL
   // Definition of some useful constants
   
   static const double EPSILON = 0.00000001;
-  static const double INFINITY = 1.e16;
+  static const double GSTL_INFINITY = 1.e16;
   static const double PI = 3.1415926535897932;
 
 

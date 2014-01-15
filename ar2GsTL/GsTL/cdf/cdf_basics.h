@@ -1,7 +1,7 @@
 #ifndef __GSTL_CDF_BASICS_H__
 #define __GSTL_CDF_BASICS_H__
 
-
+#include <cmath>
 #include <vector>
 
 namespace GsTL {
