@@ -31,6 +31,7 @@
 #include <charts/region_weight_delegate.h>
 #include <charts/histogram_style_delegate.h>
 #include <charts/histogram_item_tree_view.h>
+#include <charts/histogram_statistics.h>
 #include <math/continuous_distribution.h>
 
 #include <vtkDescriptiveStatistics.h> 
@@ -82,23 +83,12 @@ Chart_continuous_histogram::Chart_continuous_histogram(int nbins, QWidget *paren
   //Add the vtk rendering window
   chart_widget_ = new Chart_widget( chartSplitter );
 
-  //chart_widget_ = new QVTKWidget(this);
-  //context_view_ = vtkSmartPointer<vtkContextView>::New();
-  //context_view_->SetInteractor(chart_widget_->GetInteractor());
-  //chart_widget_->SetRenderWindow(context_view_->GetRenderWindow());
-	//chart_widget_->chart() = vtkSmartPointer<vtkChartXY>::New();
-	//context_view_->GetScene()->AddItem(chart_widget_->chart()); 
-
   chart_widget_->chart()->GetAxis(0)->SetNumberOfTicks(10);
   chart_widget_->chart()->GetAxis(1)->SetNumberOfTicks(10);
 
   chartSplitter->addWidget(chart_widget_);
 
   mainSplitter->addWidget(chartSplitter);
-
-
-  //Add the vtk table view for the stats
-//	mainSplitter->addWidget(tableView_->GetWidget());
 
   descriptive_stats_view_ = vtkSmartPointer<vtkQtTableView>::New();
   ordered_stats_view_ = vtkSmartPointer<vtkQtTableView>::New();
@@ -138,39 +128,9 @@ Chart_continuous_histogram::Chart_continuous_histogram(int nbins, QWidget *paren
   connect( model_, SIGNAL(data_color_changed(Histogram_item*)), this, SLOT(set_color(Histogram_item*)) );
   connect( model_, SIGNAL(data_visibility_changed(Histogram_item*)), this, SLOT(set_visibility(Histogram_item*)) );
   connect( model_, SIGNAL(display_format_changed(Histogram_item*)), this, SLOT(set_data_display_style(Histogram_item*)) );
-/*
-  connect( chart_control_, SIGNAL(xaxis_label_changed(const QString&)), this, SLOT(set_x_axis_label(const QString&)) );
-  connect( chart_control_, SIGNAL(yaxis_label_changed(const QString&)), this, SLOT(set_y_axis_label(const QString&)) );
-  connect( chart_control_, SIGNAL(title_changed(const QString&)), this, SLOT(set_title(const QString&)) );
-  connect( chart_control_, SIGNAL(legend_display_changed(bool)), this, SLOT(set_legend(bool)) );
-  connect( chart_control_, SIGNAL(grid_display_changed(bool)), this, SLOT(set_grid(bool)) );
-  connect( chart_control_, SIGNAL(x_grid_display_changed(bool)), this, SLOT(set_x_grid(bool)) );
-  connect( chart_control_, SIGNAL(y_grid_display_changed(bool)), this, SLOT(set_y_grid(bool)) );
 
-  bool ok = connect( chart_control_, SIGNAL(x_axis_font_size(int)), this, SLOT(set_x_axis_font_size(int)) );
-  ok = connect( chart_control_, SIGNAL(y_axis_font_size(int)), this, SLOT(set_y_axis_font_size(int)) );
-  ok = connect( chart_control_, SIGNAL(x_label_font_size(int)), this, SLOT(set_x_label_font_size(int)) );
-  ok = connect( chart_control_, SIGNAL(y_label_font_size(int)), this, SLOT(set_y_label_font_size(int)) );
-  ok = connect( chart_control_, SIGNAL(legend_font_size(int)), this, SLOT(set_legend_font_size(int)) );
-  ok = connect( chart_control_, SIGNAL(title_font_size(int)), this, SLOT(set_title_font_size(int)) );
-
-  connect( chart_control_, SIGNAL(xaxis_min_changed(double)), this, SLOT(set_xaxis_min(double)) );
-  connect( chart_control_, SIGNAL(xaxis_max_changed(double)), this, SLOT(set_xaxis_max(double)) );
-  connect( chart_control_, SIGNAL(xaxis_precision_changed(int)), this, SLOT(set_xaxis_precision(int)) );
-  connect( chart_control_, SIGNAL(xaxis_nticks_changed(int)), this, SLOT(set_xaxis_nticks(int)) );
-  connect( chart_control_, SIGNAL(xaxis_logscale_changed(bool)), this, SLOT(set_xaxis_logscale(bool)) );
-  connect( chart_control_, SIGNAL(xaxis_autoscale_changed()), this, SLOT(set_xaxis_autoscale()) );
-
-  connect( chart_control_, SIGNAL(yaxis_min_changed(double)), this, SLOT(set_yaxis_min(double)) );
-  connect( chart_control_, SIGNAL(yaxis_max_changed(double)), this, SLOT(set_yaxis_max(double)) );
-  connect( chart_control_, SIGNAL(yaxis_precision_changed(int)), this, SLOT(set_yaxis_precision(int)) );
-  connect( chart_control_, SIGNAL(yaxis_nticks_changed(int)), this, SLOT(set_yaxis_nticks(int)) );
-  connect( chart_control_, SIGNAL(yaxis_logscale_changed(bool)), this, SLOT(set_yaxis_logscale(bool)) );
-  connect( chart_control_, SIGNAL(yaxis_autoscale_changed()), this, SLOT(set_yaxis_autoscale()) );
-  */
   chart_control_->send_axis_signals();
 
-  //QObject::connect( tree, SIGNAL(doubleClicked ( const QModelIndex&)), tree, SLOT(show_color_editor(const QModelIndex&)) );
 }
 
 
@@ -293,23 +253,7 @@ void Chart_continuous_histogram::initialize_default_colors(){
 
   default_color_id_ = 0;
   max_index_default_colors_ = default_colors_.size()-1;
-  /*
-  default_colors_.append(QColor(141,211,199));
-  default_colors_.append(QColor(255, 255, 179));
-  default_colors_.append(QColor(190, 186, 218));
-  default_colors_.append(QColor(251, 128, 114));
-  default_colors_.append(QColor(128, 177, 211));
-  default_colors_.append(QColor(253, 180, 98));
-  default_colors_.append(QColor(179, 222, 105));
-  default_colors_.append(QColor(252, 205, 229));
-  default_colors_.append(QColor(217, 217, 217));
-  default_colors_.append(QColor(188, 128, 189));
-  default_colors_.append(QColor(204, 235, 197));
-  default_colors_.append(QColor(255, 237, 111));
-
-  default_color_id_ = 0;
-  max_index_default_colors_ = default_colors_.size()-1;
-  */
+ 
 
 }
 
@@ -433,6 +377,7 @@ void Chart_continuous_histogram::add_data(Histogram_item* item){
         this->add_data(prop_item);
       }
     }
+    /*
     else if(item->type() == "ContinuousDistribution") {
       Histogram_distribution_item* dist_item = dynamic_cast<Histogram_distribution_item*>(item);
       this->initialize_data(dist_item);
@@ -443,6 +388,7 @@ void Chart_continuous_histogram::add_data(Histogram_item* item){
       it->second.plot_line->SetColor( dist_item->color().red(),dist_item->color().green(),dist_item->color().blue(), dist_item->color().alpha());
 
     }
+    */
 }
 
 
@@ -474,24 +420,13 @@ void Chart_continuous_histogram::update_data_display(Histogram_item* item){
     }
     chart_widget_->update();
 }
-
+/*
 void Chart_continuous_histogram::initialize_data(Histogram_distribution_item* item){
 
   std::map<int, histo_data>::iterator it = data_stats_.find(item->id());
 
   histo_data data;
   data.name = item->item_name().toStdString();
-  data.order_table = vtkSmartPointer<vtkTable>::New();
-  data.histo_table = vtkSmartPointer<vtkTable>::New();
-  data.histo_line_table = vtkSmartPointer<vtkTable>::New();
-
-  data.desc_stats_array = vtkSmartPointer<vtkVariantArray>::New();
-  data.desc_stats_array->SetName("Descriptive Statistics");
-  data.desc_stats_array->SetNumberOfValues(9);
-
-  data.ord_stats_array = vtkSmartPointer<vtkVariantArray>::New();
-  data.ord_stats_array->SetName("Ordered Statistics");
-  data.ord_stats_array->SetNumberOfValues(12);
 
   if(it == data_stats_.end()) {
     data.id = -1;
@@ -505,7 +440,7 @@ void Chart_continuous_histogram::initialize_data(Histogram_distribution_item* it
   this->add_data_to_stats_table(it->second);
 
 }
-
+*/
 
 void Chart_continuous_histogram::initialize_data(Histogram_property_item* item){
   
@@ -514,17 +449,6 @@ void Chart_continuous_histogram::initialize_data(Histogram_property_item* item){
   histo_data data;
   data.name = item->prop()->name();
   data.grid = static_cast<Geostat_grid*>(item->prop()->parent()->parent());
-  data.order_table = vtkSmartPointer<vtkTable>::New();
-  data.histo_table = vtkSmartPointer<vtkTable>::New();
-  data.histo_line_table = vtkSmartPointer<vtkTable>::New();
-
-  data.desc_stats_array = vtkSmartPointer<vtkVariantArray>::New();
-  data.desc_stats_array->SetName("Descriptive Statistics");
-  data.desc_stats_array->SetNumberOfValues(10);
-
-  data.ord_stats_array = vtkSmartPointer<vtkVariantArray>::New();
-  data.ord_stats_array->SetName("Ordered Statistics");
-  data.ord_stats_array->SetNumberOfValues(13);
 
   if(it == data_stats_.end()) {
     data.prop = item->prop();
@@ -570,8 +494,8 @@ void Chart_continuous_histogram::initialize_plot(Histogram_item* item){
 
 //  this->manage_plot_display(it->second, item->display_format());
 
-  it->second.plot_bar->SetInputData(it->second.histo_table, 0, 2);
-  it->second.plot_line->SetInputData(it->second.histo_line_table, 0, 1);
+  it->second.plot_bar->SetInputData(it->second.stats->get_histogram_table(), 0, 1);
+  it->second.plot_line->SetInputData(it->second.stats->get_histogram_width_table(), 0, 1);
   QColor color = default_colors_.at( default_color_id_%max_index_default_colors_ );
   it->second.plot_bar->SetColor(color.redF(), color.greenF(), color.blueF());
   it->second.plot_line->SetColor(color.redF(), color.greenF(), color.blueF());
@@ -599,429 +523,24 @@ void Chart_continuous_histogram::process_data(histo_data& data){
 
 void Chart_continuous_histogram::compute_stats(histo_data& data){
 
-  vtkSmartPointer<vtkFloatArray> x = vtkSmartPointer<vtkFloatArray>::New();
+  delete data.stats;
+  data.stats = build_histogram_table(50,data.prop,data.region,0,0,0);
 
-  
-  Grid_continuous_property* prop = data.prop;
-  
-  bool need_memory_swap = !prop->is_in_memory();
-  if(need_memory_swap) {
-    prop->swap_to_memory();
-  }
-  
-  int ndata=0;
-  // always build the array manually since vtk 
-  // output nan if nay data is a nan
-
-  if(data.region == 0) { 
- //   x->SetArray(prop->data(),prop->size(),1);
-    Grid_continuous_property::const_iterator it = data.prop->begin();
-    for( ; it != data.prop->end(); ++it, ++ndata) {}
-    x->Allocate(ndata);
-    for(it = data.prop->begin() ; it != prop->end(); ++it) {
-      x->InsertNextValue(*it);
-    }
-  }
-  else {
-    Temporary_propRegion_Selector temp_region(data.region, prop);
-    Grid_continuous_property::const_iterator it = prop->begin();
-    for( ; it != data.prop->end(); ++it, ++ndata) {}
-    x->Allocate(ndata);
-    for(it = prop->begin() ; it != prop->end(); ++it) {
-      x->InsertNextValue(*it);
-    }
-  }
-
-
-  x->SetName(prop->name().c_str());
-
-  vtkSmartPointer<vtkTable> table = vtkSmartPointer<vtkTable>::New(); 
-  table->AddColumn(x);
-
-  //Compute statistics
-
-  vtkSmartPointer<vtkDescriptiveStatistics> descriptive_stats  = vtkSmartPointer<vtkDescriptiveStatistics>::New();
-  descriptive_stats->SetInputData(0, table );
-  descriptive_stats->AddColumn( prop->name().c_str() );
-  descriptive_stats->SetColumnStatus( prop->name().c_str(), 1 );
-  descriptive_stats->RequestSelectedColumns();
-  descriptive_stats->SetDeriveOption(true);
-  descriptive_stats->SetAssessOption( false );
-  descriptive_stats->Update();
-
-  vtkSmartPointer<vtkMultiBlockDataSet> mblock_descriptive = vtkMultiBlockDataSet::SafeDownCast( descriptive_stats->GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );
-  vtkSmartPointer<vtkTable> dtable_primary = vtkTable::SafeDownCast( mblock_descriptive->GetBlock( 0 ) );
-  vtkSmartPointer<vtkTable> dtable_derived = vtkTable::SafeDownCast( mblock_descriptive->GetBlock( 1 ) );
-
-
-  data.desc_stats_array->SetValue(DATA, data.name.c_str());
-  data.desc_stats_array->SetValue(GRID, data.prop->parent()->parent()->item_name().toStdString().c_str());
-//  data.desc_stats_array->SetValue(FILTER, data.name.c_str());
-  data.desc_stats_array->SetValue(N, vtkVariant(ndata));
-  data.desc_stats_array->SetValue(MEAN, dtable_primary->GetValueByName(0,"Mean"));
-  data.desc_stats_array->SetValue(VARIANCE, dtable_derived->GetValueByName(0,"Variance"));
-  data.desc_stats_array->SetValue(MIN, dtable_primary->GetValueByName(0,"Minimum"));
-  data.desc_stats_array->SetValue(MAX, dtable_primary->GetValueByName(0,"Maximum"));
-  data.desc_stats_array->SetValue(SUM, data.desc_stats_array->GetValue(MEAN).ToFloat()*ndata);
-  data.desc_stats_array->SetValue(SKEWNESS, dtable_derived->GetValueByName(0,"Skewness"));
-  data.desc_stats_array->SetValue(KURTOSIS, dtable_derived->GetValueByName(0,"Kurtosis"));
-
-  std::cout<<"Computing Order Statistics"<<std::endl;
-  vtkSmartPointer<vtkOrderStatistics> decile_stats = vtkSmartPointer<vtkOrderStatistics>::New();
-  decile_stats->SetInputData( 0, table );
-  decile_stats->AddColumn( prop->name().c_str() );
-  decile_stats->SetColumnStatus( prop->name().c_str(), 1 );
-  decile_stats->RequestSelectedColumns();
-  decile_stats->SetQuantileDefinition( vtkOrderStatistics::InverseCDFAveragedSteps );
-  decile_stats->SetNumberOfIntervals(10);
-//  decile_stats->SetNumberOfIntervals(nbins_);
-//  decile_stats->SetMaximumHistogramSize(nbins_);
-  decile_stats->SetQuantize(false);
-  decile_stats->SetDeriveOption(true);
-  decile_stats->SetAssessOption( false );
-  decile_stats->Update();
-
-  std::cout<<"Retrieving block"<<std::endl;
-  vtkSmartPointer<vtkMultiBlockDataSet> mblock_ordered = vtkMultiBlockDataSet::SafeDownCast( decile_stats->GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );
-  unsigned nbq = mblock_ordered->GetNumberOfBlocks() - 1;
-
-  vtkSmartPointer<vtkTable> ordered_stats_table = vtkTable::SafeDownCast( mblock_ordered->GetBlock( nbq ) );
-  vtkAbstractArray* quantiles = ordered_stats_table->GetColumn(1);
-  data.ord_stats_array->SetValue(0, data.name.c_str());
-  data.ord_stats_array->SetValue(1, data.grid->item_name().toStdString().c_str());
-  for(int i=0;i<11;++i) {
-    data.ord_stats_array->SetValue(i+2, quantiles->GetVariantValue(i));
-  }
-
-  // Compute the histogram with n bins
-  vtkSmartPointer<vtkFloatArray> histo_p = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmid = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmean = vtkSmartPointer<vtkFloatArray>::New();
-  histo_p->SetName(data.name.c_str());
-  histo_vmid->SetName("Mid binning");
-  histo_vmean->SetName("Mean binning");
-  histo_p->SetNumberOfValues(nbins_);
-  histo_vmid->SetNumberOfValues(nbins_);
-  histo_vmean->SetNumberOfValues(nbins_);
-
-  //Find the max for each range
-  float  min = data.desc_stats_array->GetValue(MIN).ToFloat();
-  float  max = data.desc_stats_array->GetValue(MAX).ToFloat();
-  float range= max-min;
-  float bin_width = range/nbins_;
-
-  std::cout<<"Computing histo"<<std::endl;
-  vtkTable* full_histo = vtkTable::SafeDownCast( mblock_ordered->GetBlock( nbq - 2 ));
-  vtkDoubleArray* d = vtkDoubleArray::SafeDownCast(full_histo->GetColumn(0));
-  vtkDoubleArray* p = vtkDoubleArray::SafeDownCast( full_histo->GetColumn(2));
-  int histo_bin_id=0;
-  float bin_value=0;
-  float bin_p=0;
-  int count=0;
-  for(int i=0; i<d->GetNumberOfTuples(); ++i) {
-    float val = d->GetValue(i);
-    if( val <= min+bin_width  ) {
-      bin_value += val;
-      bin_p += p->GetValue(i);
-      count++;
-    } else {  //Reached the next bin
-      histo_p->SetValue( histo_bin_id, bin_p );
-      histo_vmid->SetValue( histo_bin_id, min+bin_width/2 );
-      histo_vmean->SetValue( histo_bin_id, bin_value/count );
-  
-
-      //Initialize the variables for the next bin
-      bin_value = val;
-      bin_p = p->GetValue(i);
-      count=1;
-      //Find the next bin
-      while( val > min+bin_width ) {
-        histo_bin_id++;
-        min+=bin_width;
-        histo_p->SetValue(histo_bin_id,0);
-        histo_vmid->SetValue( histo_bin_id, min+bin_width/2 );
-        histo_vmean->SetValue( histo_bin_id, min+static_cast<float>(bin_width)/2 );
-      }
-
-    }
-  
-  }
-  vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
-  histo_table->AddColumn(histo_vmid);
-  histo_table->AddColumn(histo_vmean);
-  histo_table->AddColumn(histo_p);
-
-
-  //Set the table for the line plot
-  // same as histo_p but with min and max prepended and appended
-  vtkSmartPointer<vtkFloatArray> histo_line_p = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_line_bin = vtkSmartPointer<vtkFloatArray>::New();
-  histo_line_p->SetName(data.name.c_str());
-  histo_line_bin->SetName("Mean binning");
-  histo_line_p->SetNumberOfValues(nbins_+2);
-  histo_line_bin->SetNumberOfValues(nbins_+2);
-  histo_line_p->SetValue(0,0);
-  histo_line_bin->SetValue(0,data.desc_stats_array->GetValue(MIN).ToFloat());
-  histo_line_p->SetValue(nbins_+1,0);
-  histo_line_bin->SetValue(nbins_+1,data.desc_stats_array->GetValue(MAX).ToFloat());
-  for(int i=0; i<nbins_; ++i) {
-    histo_line_p->SetValue(i+1,histo_p->GetValue(i));
-    histo_line_bin->SetValue(i+1,histo_vmean->GetValue(i));
-  }
-  vtkSmartPointer<vtkTable> histo_line_table =  vtkSmartPointer<vtkTable>::New();
-  histo_line_table->AddColumn(histo_line_bin);
-  histo_line_table->AddColumn(histo_line_p);
-
-
-  data.histo_table->ShallowCopy(histo_table);
-  data.histo_line_table->ShallowCopy(histo_line_table);
-
-
-  if(need_memory_swap) {
-    prop->swap_to_disk();
-  }
 }
 
 
 void Chart_continuous_histogram::compute_stats_with_weights(histo_data& data){
   
-
-  //Compute the first pass
-  // Mean, min, max
-
-  std::vector< std::pair<float, float> > data_weights;
-
-  Grid_continuous_property* prop = data.prop;
-  bool need_memory_swap = !prop->is_in_memory();
-  if(need_memory_swap) {
-    prop->swap_to_memory();
-  }
-
-
-  Grid_weight_property* weights = data.weight;
-  if(weights == 0) {
-    this->compute_stats(data);
-    return;
-  }
-  float mean = 0.0;
-  float min = 9e20; 
-  float max = -9e20;
-  float sum=0;
-  int n=0;
-  for(int i=0; i<prop->size(); ++i) {
-    if( !weights->is_informed(i) || !prop->is_informed(i) ) continue;
-    float v = prop->get_value(i);
-    float w = weights->get_value(i);
-    mean += w*v;
-    sum += v;
-    if(v<min) min = v;
-    if(v>max) max = v;
-    n++;
-    data_weights.push_back( std::make_pair(v,w) );
-  }
-  if(need_memory_swap) {
-    prop->swap_to_disk();
-  }
-
-  //Second pass compute
-  double var = 0.0;
-  double skew = 0.0; 
-  double kurt = 0.0;
-  for(int i=0; i<prop->size(); ++i) {
-    if( !weights->is_informed(i) || !prop->is_informed(i) ) continue;
-    float v = prop->get_value(i);
-    float res = v - mean;
-    float w = weights->get_value(i);
-    var += w*res*res;
-    skew += w*res*res*res;
-    kurt += w*res*res*res*res;
-  }
-  skew /= std::pow((double)var,1.5);
-  kurt = kurt/std::pow((double)var,2) -3;
-
-  data.desc_stats_array->SetValue(DATA, data.name.c_str());
-  data.desc_stats_array->SetValue(GRID, data.grid->item_name().toStdString().c_str());
-  data.desc_stats_array->SetValue(N, vtkVariant(n));
-  data.desc_stats_array->SetValue(MEAN, mean);
-  data.desc_stats_array->SetValue(VARIANCE, var);
-  data.desc_stats_array->SetValue(MIN, min);
-  data.desc_stats_array->SetValue(MAX, max);
-  data.desc_stats_array->SetValue(SUM, sum);
-  data.desc_stats_array->SetValue(SKEWNESS, skew);
-  data.desc_stats_array->SetValue(KURTOSIS, kurt);
-
-
-  // Compute the order stats
-  std::sort(data_weights.begin(), data_weights.end());
-  //Loop over to compute the cumulative weight
-  float w_cumul = 0;
-  std::vector<float> cweights;
-  cweights.reserve(data_weights.size());
-  std::vector< std::pair<float, float> >::iterator it =  data_weights.begin();
-  for( ; it != data_weights.end(); ++it ) {
-//    it->second += w_cumul;
-//    w_cumul = it->second;
-    w_cumul += it->second;
-    cweights.push_back(w_cumul );
-  }
-
-  //Find the decile
-  vtkSmartPointer<vtkTable> ordered_table = vtkSmartPointer<vtkTable>::New();
-  data.ord_stats_array->SetValue(DATA, data.name.c_str());
-  data.ord_stats_array->SetValue(GRID, data.grid->item_name().toStdString().c_str());
-  int ip = 3;
-  for(float p = 0.1; p<1.0; p+=0.1, ++ip) {
-    std::vector<float>::iterator it = std::lower_bound(cweights.begin(),cweights.end(), p );
-    int i = std::distance(cweights.begin(), it);
-    float low_v = (i==0) ?  min : data_weights[i-1].first;
-    float up_v = (it==cweights.end()) ?  max : data_weights[i].first;
-    float low_p = (i==0) ?  0.0 : cweights[i-1];
-    float up_p = (it==cweights.end()) ?  1.0 : cweights[i];
-    float perc = (p-low_p)/(up_p - low_p)*(up_v-low_v) + low_v;
-    
-    data.ord_stats_array->SetValue(ip,perc);
-  }
-  data.ord_stats_array->SetValue(2,min);
-  data.ord_stats_array->SetValue(12,max);
-
-  // Compute the histogram with n bins
-  vtkSmartPointer<vtkFloatArray> histo_p = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmid = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmean = vtkSmartPointer<vtkFloatArray>::New();
-  histo_p->SetName(data.name.c_str());
-  histo_vmid->SetName("Mid binning");
-  histo_vmean->SetName("Mean binning");
-  histo_p->SetNumberOfValues(nbins_);
-  histo_vmid->SetNumberOfValues(nbins_);
-  histo_vmean->SetNumberOfValues(nbins_);
-
-  //Find the max for each range
-  float range= max-min;
-  float bin_width = range/nbins_;
-
-  //Get the first bin
-
-  std::vector<std::pair<float,float> >::iterator low_it_cw = data_weights.begin();
-  std::vector<std::pair<float,float> >::iterator up_it_cw;
-  int low_index = 0;
-  int up_index;
-  
-  for( int b = 0; b<nbins_; ++b ) {
-    float lower_v = (float)(b+1)*bin_width + min;
-    //up_it_cw = std::lower_bound(data_weights.begin(),data_weights.end(), std::make_pair(lower_v,(float)0.0));
-    up_it_cw = std::lower_bound(low_it_cw,data_weights.end(), std::make_pair(lower_v,(float)0.0));
-
-    //The itertator is one pass the last item in the bin
-    up_index = std::distance(data_weights.begin(),up_it_cw);
-    up_index = up_index <= low_index ? low_index : up_index-1;
-    histo_p->SetValue( b, (up_index==0) ? 0 : cweights[up_index]-cweights[low_index] );
-    histo_vmid->SetValue( b, (float)(b+0.5)*bin_width + min );
-    int n_v = std::distance(low_it_cw,up_it_cw);
-    if(n_v == 0)
-      histo_vmean->SetValue( b, lower_v );
-    else
-      histo_vmean->SetValue( b, std::accumulate(low_it_cw,up_it_cw, 0.0, accumulate_pairs() )/n_v );
-
-    low_it_cw = up_it_cw;
-    low_index = up_index;
-  }
-  
-  vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
-  histo_table->AddColumn(histo_vmid);
-  histo_table->AddColumn(histo_vmean);
-  histo_table->AddColumn(histo_p);
-
-
-  //Set the table for the line plot
-  // same as histo_p but with min and max prepended and appended
-  vtkSmartPointer<vtkFloatArray> histo_line_p = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_line_bin = vtkSmartPointer<vtkFloatArray>::New();
-  histo_line_p->SetName(data.name.c_str());
-  histo_line_bin->SetName("Mean binning");
-  histo_line_p->SetNumberOfValues(nbins_+2);
-  histo_line_bin->SetNumberOfValues(nbins_+2);
-  histo_line_p->SetValue(0,0);
-  histo_line_bin->SetValue(0,min);
-  histo_line_p->SetValue(nbins_+1,0);
-  histo_line_bin->SetValue(nbins_+1,max);
-  for(int i=0; i<nbins_; ++i) {
-    histo_line_p->SetValue(i+1,histo_p->GetValue(i));
-    histo_line_bin->SetValue(i+1,histo_vmean->GetValue(i));
-  }
-  vtkSmartPointer<vtkTable> histo_line_table =  vtkSmartPointer<vtkTable>::New();
-  histo_line_table->AddColumn(histo_line_bin);
-  histo_line_table->AddColumn(histo_line_p);
-
-
-  data.histo_table->ShallowCopy(histo_table);
-  data.histo_line_table->ShallowCopy(histo_line_table);
+  delete data.stats;
+  data.stats = build_histogram_table(50,data.prop,data.weight,data.region,0,false,0,0);
 
 }
 
-
+/*
 void Chart_continuous_histogram::compute_stats_from_distribution(histo_data& data){
 
-  float min = data.dist->quantile(0.0000001);
-  float max = data.dist->quantile(0.9999999);
-
-  data.desc_stats_array->SetValue(DATA, data.name.c_str());
-  data.desc_stats_array->SetValue(N, vtkVariant(""));
-  data.desc_stats_array->SetValue(MEAN, data.dist->mean());
-  data.desc_stats_array->SetValue(VARIANCE, data.dist->variance());
-  data.desc_stats_array->SetValue(MIN, min);
-  data.desc_stats_array->SetValue(MAX, max);
-  data.desc_stats_array->SetValue(SUM, vtkVariant(""));
-  data.desc_stats_array->SetValue(SKEWNESS, data.dist->skewness());
-  data.desc_stats_array->SetValue(KURTOSIS, data.dist->kurtosis());
-
-
-  int ip = 2;
-  for(float p = 0.1; p<1.0; p+=0.1, ++ip) {
-    data.ord_stats_array->SetValue(ip,data.dist->quantile(p));
-  }
-  data.ord_stats_array->SetValue(0, data.name.c_str());
-  data.ord_stats_array->SetValue(1,min);
-  data.ord_stats_array->SetValue(11,max);
-
-
-// Get the array for the histogram plotting
-  vtkSmartPointer<vtkFloatArray> histo_p = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmid = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_vmean = vtkSmartPointer<vtkFloatArray>::New();
-  histo_p->SetName(data.name.c_str());
-  histo_vmid->SetName("Mid binning");
-  histo_vmean->SetName("Mean binning");  
-
-  vtkSmartPointer<vtkFloatArray> histo_line_p = vtkSmartPointer<vtkFloatArray>::New();
-  vtkSmartPointer<vtkFloatArray> histo_line_bin = vtkSmartPointer<vtkFloatArray>::New();
-  histo_line_p->SetName(data.name.c_str());
-  histo_line_bin->SetName("Mean binning");
-
-  for(double p=0.001; p<1.0; p+=0.001) {
-    double q = data.dist->quantile(p);
-    histo_vmid->InsertNextValue(q);
-    histo_vmean->InsertNextValue(q);
-    histo_p->InsertNextValue(p);
-
-    histo_line_bin->InsertNextValue(q);
-    histo_line_p->InsertNextValue(p);
-  }
-
-
-
-  vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
-  histo_table->AddColumn(histo_vmid);
-  histo_table->AddColumn(histo_vmean);
-  histo_table->AddColumn(histo_p);
-
-  vtkSmartPointer<vtkTable> histo_line_table =  vtkSmartPointer<vtkTable>::New();
-  histo_line_table->AddColumn(histo_line_bin);
-  histo_line_table->AddColumn(histo_line_p);
-
-  data.histo_table->ShallowCopy(histo_table);
-  data.histo_line_table->ShallowCopy(histo_line_table);
 }
-
+*/
 void Chart_continuous_histogram::add_data_to_stats_table(histo_data& data){
 
   //check if the entry already exist in the table
@@ -1032,7 +551,7 @@ void Chart_continuous_histogram::add_data_to_stats_table(histo_data& data){
       data.id= irow;
       create_row = true;
   }
-  descriptive_stats_table_->SetRow(irow, data.desc_stats_array);
+  descriptive_stats_table_->SetRow(irow, data.stats->get_descriptive_statistics());
   descriptive_stats_table_->Modified();
 
 
@@ -1040,7 +559,7 @@ void Chart_continuous_histogram::add_data_to_stats_table(histo_data& data){
   if(create_row) {
       ordered_stats_table_->InsertNextBlankRow();
   }
-  ordered_stats_table_->SetRow(irow, data.ord_stats_array);
+  ordered_stats_table_->SetRow(irow, data.stats->get_quantile_statistics());
   ordered_stats_table_->Modified();
 
   // Does not update by iteslf;  have to reset the Representation, something strange here
@@ -1139,9 +658,9 @@ void Chart_continuous_histogram::set_data_filter(Histogram_item* item){
     }
     this->add_data_to_stats_table(it->second);
 
-    it->second.plot_bar->SetInputData(it->second.histo_table, 1, 2);
+    it->second.plot_bar->SetInputData(it->second.stats->get_histogram_table(), 0, 1);
     it->second.plot_bar->Update();
-    it->second.plot_line->SetInputData(it->second.histo_line_table, 0, 1);
+    it->second.plot_line->SetInputData(it->second.stats->get_histogram_width_table(), 0, 1);
     it->second.plot_line->Update();
     chart_widget_->update();
 
@@ -1216,168 +735,6 @@ void Chart_continuous_histogram::update_chart_display_control(){
   chart_control_->set_yaxis_nticks(yaxis->GetNumberOfTicks());
 }
 
-/*
-void Chart_continuous_histogram::set_x_axis_label(const QString& text){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetTitle(text.toStdString());
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_y_axis_label(const QString& text){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetTitle(text.toStdString());
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_title(const QString& text){
-  chart_widget_->chart()->SetTitle(text.toStdString().c_str());
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_legend(bool on){
-  chart_widget_->chart()->SetShowLegend(on);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::set_grid(bool on){
-  chart_widget_->chart()->GetAxis(0)->SetGridVisible(on);
-  chart_widget_->chart()->GetAxis(1)->SetGridVisible(on);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::set_x_grid(bool on){
-  chart_widget_->chart()->GetAxis(0)->SetGridVisible(on);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::set_y_grid(bool on){
-  chart_widget_->chart()->GetAxis(1)->SetGridVisible(on);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::set_xaxis_min(double min){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_xaxis_max(double max){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_xaxis_precision(int digits){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetPrecision(digits);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_xaxis_nticks(int nticks){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetNumberOfTicks(nticks);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_xaxis_logscale(bool on){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetLogScale(on);
-  chart_widget_->update();
-  this->update_chart_display_control();
-}
-void Chart_continuous_histogram::set_xaxis_autoscale(){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->AutoScale();
-  chart_widget_->chart()->Update();
-  chart_widget_->update();
-  this->update_chart_display_control();
-}
-
-
-void Chart_continuous_histogram::set_yaxis_min(double min){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMinimum(min);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_yaxis_max(double max){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(max);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_yaxis_precision(int digits){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetPrecision(digits);
-  chart_widget_->chart()->Update();
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_yaxis_nticks(int nticks){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetNumberOfTicks(nticks);
-  chart_widget_->chart()->Update();
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_yaxis_logscale(bool on){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetLogScale(on);
-  chart_widget_->chart()->Update();
-  chart_widget_->update();
-  this->update_chart_display_control();
-}
-void Chart_continuous_histogram::set_yaxis_autoscale(){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->AutoScale();
-  chart_widget_->chart()->Update();
-  chart_widget_->update();
-  this->update_chart_display_control();
-}
-
-void Chart_continuous_histogram::set_x_axis_font_size(int size){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->GetLabelProperties()->SetFontSize(size);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_y_axis_font_size(int size){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->GetLabelProperties()->SetFontSize(size);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_x_label_font_size(int size){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->GetTitleProperties()->SetFontSize(size);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_y_label_font_size(int size){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->GetTitleProperties()->SetFontSize(size);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_legend_font_size(int size){
-  chart_widget_->chart()->GetLegend()->SetLabelSize(size);
-  chart_widget_->update();
-}
-void Chart_continuous_histogram::set_title_font_size(int size){
-  chart_widget_->chart()->GetTitleProperties()->SetFontSize(size);
-  chart_widget_->update();
-}
-
-
-
-
-void Chart_continuous_histogram::set_axis(float min_x, float min_y, float max_x, float max_y){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min_x);
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max_x);
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(min_y);
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(max_y);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::set_x_axis(float min_x, float max_x){
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMinimum(min_x);
-  chart_widget_->chart()->GetAxis(vtkAxis::BOTTOM)->SetMaximum(max_x);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::set_y_axis(float min_y, float max_y){
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(min_y);
-  chart_widget_->chart()->GetAxis(vtkAxis::LEFT)->SetMaximum(max_y);
-  chart_widget_->update();
-}
-
-void Chart_continuous_histogram::reset_axis(){
-
-}
-
-void Chart_continuous_histogram::set_clipping_values(float min_x, float min_y, float max_x, float max_y){
-
-}
-
-void Chart_continuous_histogram::set_x_clipping_values(float min_x, float max_x){
-
-}
-
-void Chart_continuous_histogram::set_y_clipping_values(float min_y, float max_y){
-
-}
-
-void Chart_continuous_histogram::reset_clipping_values(){
-
-}
-*/
 void Chart_continuous_histogram::set_numbers_of_bins(int nbins){
 
 }

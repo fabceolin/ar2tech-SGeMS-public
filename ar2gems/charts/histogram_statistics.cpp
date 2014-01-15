@@ -160,7 +160,7 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
     float val = d->GetValue(i);
     float prob = p->GetValue(i);
     int bin_id = (val - min)/bin_width;
-    if(bin_id >= number_bins) bin_id  = number_bins-1;
+    if(bin_id >= number_bins) bin_id  = number_bins-1; // if the max value in data is the max range
     histo_p->SetValue( bin_id, histo_p->GetValue(bin_id) + prob );
   }
 

@@ -50,7 +50,9 @@ Chart_widget::Chart_widget( QWidget *parent)
 	context_view_->SetInteractor(this->GetInteractor());
 	this->SetRenderWindow(context_view_->GetRenderWindow());
 	chart_ = vtkSmartPointer<vtkChartXY>::New();
-	context_view_->GetScene()->AddItem(chart_);  
+	context_view_->GetScene()->AddItem(chart_);
+  chart_->GetAxis(vtkAxis::LEFT)->SetLogScale(false);
+  chart_->GetAxis(vtkAxis::BOTTOM)->SetLogScale(false);
 
 }
 
@@ -201,10 +203,18 @@ void Chart_widget::set_xaxis_nticks(int nticks){
   this->update();
 }
 void Chart_widget::set_xaxis_logscale(bool on){
-  chart_->GetAxis(vtkAxis::BOTTOM)->SetLogScale(on);
-  chart_control_->send_axis_signals();
+
+  vtkAxis* xaxis = chart_->GetAxis(vtkAxis::BOTTOM);
+  double ymin = xaxis->GetMinimum();
+  if(ymin <= 0) {
+    this->set_xaxis_min(0.0001);
+    if(chart_control_ ) {
+      chart_control_->set_xaxis_min(0.0001);
+    }
+  }
+  xaxis->SetLogScale(on);
   this->update();
-  //this->update_chart_axis_display_control();
+
 }
 void Chart_widget::set_xaxis_autoscale(){
   chart_->GetAxis(vtkAxis::BOTTOM)->AutoScale();
@@ -248,11 +258,20 @@ void Chart_widget::set_yaxis_nticks(int nticks){
   this->update();
 }
 void Chart_widget::set_yaxis_logscale(bool on){
-  chart_->GetAxis(vtkAxis::LEFT)->SetLogScale(on);
-  chart_control_->send_axis_signals();
-  chart_->Update();
+
+  vtkAxis* yaxis = chart_->GetAxis(vtkAxis::LEFT);
+  double ymin = yaxis->GetMinimum();
+  if(ymin <= 0) {
+    this->set_yaxis_min(0.0001);
+    if(chart_control_ ) {
+      chart_control_->set_yaxis_min(0.0001);
+    }
+  }
+
+  yaxis->SetLogScale(on);
+  //chart_->Update();
   this->update();
-//  this->update_chart_axis_display_control();
+
 }
 void Chart_widget::set_yaxis_autoscale(){
   chart_->GetAxis(vtkAxis::LEFT)->AutoScale();

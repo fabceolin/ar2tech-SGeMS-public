@@ -29,6 +29,7 @@
 
 #include <charts/chart_base.h>
 #include <charts/common.h>
+#include <charts/histogram_statistics.h>
 
 #include <grid/grid_property.h>
 #include <grid/grid_weight_property.h>
@@ -74,8 +75,6 @@ public slots :
   void add_data(Histogram_item* prop_item);
   void update_data_display(Histogram_item* item);
 
-//  void add_data( Grid_continuous_property* prop, Grid_region* region=0, Grid_continuous_property* weigths=0);
-
   //Add the data to the model first which then send it to the chart
   void add_data( Grid_continuous_property* prop);
   void add_data( Grid_continuous_property* prop, Grid_weight_property* weigths);
@@ -90,46 +89,6 @@ public slots :
   void set_color(Histogram_item* item);
   void set_data_filter(Histogram_item* item);
   void set_data_display_style(Histogram_item* item);
-/*
-  void set_axis(float min_x, float min_y, float max_x, float max_y);
-  void set_x_axis(float min_x, float max_x);
-  void set_y_axis(float min_y, float max_y);
-  void reset_axis();
-
-  void set_x_axis_label(const QString& text);
-  void set_y_axis_label(const QString& text);
-  void set_title(const QString& text);
-  void set_legend(bool);
-  void set_grid(bool);
-  void set_x_grid(bool);
-  void set_y_grid(bool);
-
-  void set_xaxis_min(double min);
-  void set_xaxis_max(double max);
-  void set_xaxis_precision(int digits);
-  void set_xaxis_nticks(int nticks);
-  void set_xaxis_logscale(bool on);
-  void set_xaxis_autoscale();
-
-  void set_yaxis_min(double min);
-  void set_yaxis_max(double max);
-  void set_yaxis_precision(int digits);
-  void set_yaxis_nticks(int nticks);
-  void set_yaxis_logscale(bool on);
-  void set_yaxis_autoscale();
-
-  void set_clipping_values(float min_x, float min_y, float max_x, float max_y);
-  void set_x_clipping_values(float min_x, float max_x);
-  void set_y_clipping_values(float min_y, float max_y);
-  void reset_clipping_values();
-
-  void set_x_axis_font_size(int size);
-  void set_y_axis_font_size(int size);
-  void set_x_label_font_size(int size);
-  void set_y_label_font_size(int size);
-  void set_legend_font_size(int size);
-  void set_title_font_size(int size);
-  */
   void set_numbers_of_bins(int nbins);
 
 
@@ -142,6 +101,15 @@ private:
 
 
   struct histo_data {
+
+    histo_data() {
+      stats = 0;
+    }
+
+    ~histo_data() {
+      delete stats;
+    }
+
     std::string name;
     Grid_continuous_property* prop;
     Grid_weight_property* weight;
@@ -154,29 +122,21 @@ private:
     float median;
     float p10;
     float p90;
-    //vtkTable* descriptive_table;
-    //vtkTable* order_table;
-    //vtkPlot* plot;
-    vtkSmartPointer<vtkVariantArray> desc_stats_array;
-    vtkSmartPointer<vtkVariantArray> ord_stats_array;
-    vtkSmartPointer<vtkTable> order_table;
-    vtkSmartPointer<vtkTable> histo_table;
-    vtkSmartPointer<vtkTable> histo_line_table;
-//    vtkSmartPointer<vtkTable> oder_cardinality_table;
+    Continuous_statistics* stats; 
     vtkSmartPointer<vtkPlot> plot_bar;
     vtkSmartPointer<vtkPlot> plot_line;
     int id;
   };
 
   void initialize_data(Histogram_property_item* item);
-  void initialize_data(Histogram_distribution_item* item);
+  //void initialize_data(Histogram_distribution_item* item);
   void initialize_plot(Histogram_item* item);
 
 
   void process_data(histo_data& data);
   void compute_stats(histo_data& data);
   void compute_stats_with_weights(histo_data& data);
-  void compute_stats_from_distribution(histo_data& data);
+  //void compute_stats_from_distribution(histo_data& data);
 
   void intialize_stats_tables();
   void add_data_to_stats_table(histo_data& data);
@@ -197,7 +157,6 @@ private:
   float min_values_;
   float max_values_;
 
-  //std::map<Grid_continuous_property*, histo_data> data_stats_;
   std::map<int, histo_data> data_stats_;
 
   vtkSmartPointer<vtkTable> histo_table_;
@@ -209,7 +168,6 @@ private:
 
   Chart_widget* chart_widget_;
 
-  //QToolBox* stats_view_;
   QTabWidget* information_view_;
   Chart_display_control* chart_control_;
 
@@ -217,15 +175,6 @@ private:
   int default_color_id_;
   int max_index_default_colors_;
     
-};
-
-
-class accumulate_pairs {
-public:
-  template<typename T>
-  float operator()(float sum, const std::pair<T,T>& pair) {
-    return sum + pair.first;
-  }
 };
 
 
