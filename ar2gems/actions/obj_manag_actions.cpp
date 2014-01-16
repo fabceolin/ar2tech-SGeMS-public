@@ -2395,3 +2395,63 @@ Cap_property::create_new_interface( std::string& ) {
 }
 
 
+
+
+//================================================
+/* Cap_property grid_name::prop::capped_value[::output_prop_name]
+* will set values greater than capped_value at capped_value
+* if the ouput property is not specified the change is in place
+*/
+bool Extract_cell_volume::
+init( std::string& parameters, GsTL_project* proj,
+      Error_messages_handler* errors ) {
+
+  std::vector< std::string > params =
+    String_Op::decompose_string( parameters, Actions::separator,
+                                                   Actions::unique );
+
+  if( params.size() != 1 ) {
+    errors->report( "Need the name of the grid" );
+    return false;
+  }
+
+  SmartPtr<Named_interface> grid_ni =
+    Root::instance()->interface( gridModels_manager + "/" + params[0] );
+  Geostat_grid* grid = dynamic_cast<Geostat_grid*>( grid_ni.raw_ptr() );
+  if( !grid ) {
+    std::ostringstream message;
+    message << "No grid called \"" << params[0] << "\" was found";
+    errors->report( message.str() );
+    return false;
+  }
+
+  Grid_continuous_property* prop = grid->property( "cell_volume" );
+  if( prop ) {
+    std::ostringstream message;
+    message << "Grid \"" << params[0] << "\" has already a property called cell_volume";
+    errors->report( message.str() );
+    return false;
+  }
+
+  prop = grid->add_property( "cell_volume" );
+  for(int i=0; i< grid->size(); ++i) {
+    prop->set_value(grid->get_support(i), i);
+  }
+
+
+  proj->update( params[0] );
+  return true;
+}
+
+
+bool Extract_cell_volume::exec() {
+  return true;
+}
+
+
+Named_interface* 
+Extract_cell_volume::create_new_interface( std::string& ) {
+  return new Extract_cell_volume; 
+}
+
+

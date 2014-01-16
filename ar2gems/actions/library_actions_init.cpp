@@ -188,6 +188,8 @@ bool library_actions_init::bind_action_factories(Manager* dir)
 	dir->factory("CreateMgridFromCgrid", Create_mgrid_from_cgrid::create_new_interface);
 	dir->factory("IndicatorCoding", Create_indicator_properties::create_new_interface);
   dir->factory("CapProperty", Cap_property::create_new_interface);
+  dir->factory("ExtractCellVolume", Extract_cell_volume::create_new_interface);
+  
 
   dir->factory("ConvertPropertyInDefinitionToSequential", Convert_definition_to_sequential_coding::create_new_interface);
   dir->factory("ConvertCategoricalPropertyToSequential", Convert_categorical_property_to_sequential_coding::create_new_interface);

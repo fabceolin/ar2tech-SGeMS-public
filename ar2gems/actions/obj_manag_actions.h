@@ -679,4 +679,21 @@ class ACTIONS_DECL Cap_property: public Action {
   virtual bool exec(); 
 };
 
+
+class ACTIONS_DECL Extract_cell_volume : public Action { 
+ public: 
+  static Named_interface* create_new_interface( std::string& ); 
+ 
+ public: 
+  Extract_cell_volume() {} 
+  virtual ~Extract_cell_volume() {}
+ 
+  virtual bool init( std::string& parameters, GsTL_project* proj,
+                     Error_messages_handler* errors ); 
+  virtual bool exec(); 
+
+ protected: 
+
+};
+
 #endif 
