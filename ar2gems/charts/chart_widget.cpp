@@ -72,6 +72,7 @@ void Chart_widget::set_controler(Chart_display_control* controler){
 
   connect( chart_control_, SIGNAL(xaxis_label_changed(const QString&)), this, SLOT(set_x_axis_label(const QString&)) );
   connect( chart_control_, SIGNAL(yaxis_label_changed(const QString&)), this, SLOT(set_y_axis_label(const QString&)) );
+  connect( chart_control_, SIGNAL(yaxis_right_label_changed(const QString&)), this, SLOT(set_y_right_axis_label(const QString&)) );
   connect( chart_control_, SIGNAL(title_changed(const QString&)), this, SLOT(set_title(const QString&)) );
   connect( chart_control_, SIGNAL(legend_display_changed(bool)), this, SLOT(set_legend(bool)) );
   connect( chart_control_, SIGNAL(grid_display_changed(bool)), this, SLOT(set_grid(bool)) );
@@ -80,8 +81,10 @@ void Chart_widget::set_controler(Chart_display_control* controler){
 
   bool ok = connect( chart_control_, SIGNAL(x_axis_font_size(int)), this, SLOT(set_x_axis_font_size(int)) );
   ok = connect( chart_control_, SIGNAL(y_axis_font_size(int)), this, SLOT(set_y_axis_font_size(int)) );
+  ok = connect( chart_control_, SIGNAL(y_right_axis_font_size(int)), this, SLOT(set_y_right_axis_font_size(int)) );
   ok = connect( chart_control_, SIGNAL(x_label_font_size(int)), this, SLOT(set_x_label_font_size(int)) );
   ok = connect( chart_control_, SIGNAL(y_label_font_size(int)), this, SLOT(set_y_label_font_size(int)) );
+  ok = connect( chart_control_, SIGNAL(y_right_label_font_size(int)), this, SLOT(set_y_right_label_font_size(int)) );
   ok = connect( chart_control_, SIGNAL(legend_font_size(int)), this, SLOT(set_legend_font_size(int)) );
   ok = connect( chart_control_, SIGNAL(title_font_size(int)), this, SLOT(set_title_font_size(int)) );
 
@@ -98,6 +101,13 @@ void Chart_widget::set_controler(Chart_display_control* controler){
   connect( chart_control_, SIGNAL(yaxis_nticks_changed(int)), this, SLOT(set_yaxis_nticks(int)) );
   connect( chart_control_, SIGNAL(yaxis_logscale_changed(bool)), this, SLOT(set_yaxis_logscale(bool)) );
   connect( chart_control_, SIGNAL(yaxis_autoscale_changed()), this, SLOT(set_yaxis_autoscale()) );
+
+  connect( chart_control_, SIGNAL(yaxis_right_min_changed(double)), this, SLOT(set_yaxis_right_min(double)) );
+  connect( chart_control_, SIGNAL(yaxis_right_max_changed(double)), this, SLOT(set_yaxis_right_max(double)) );
+  connect( chart_control_, SIGNAL(yaxis_right_precision_changed(int)), this, SLOT(set_yaxis_right_precision(int)) );
+  connect( chart_control_, SIGNAL(yaxis_right_nticks_changed(int)), this, SLOT(set_yaxis_right_nticks(int)) );
+  connect( chart_control_, SIGNAL(yaxis_right_logscale_changed(bool)), this, SLOT(set_yaxis_right_logscale(bool)) );
+  connect( chart_control_, SIGNAL(yaxis_right_autoscale_changed()), this, SLOT(set_yaxis_right_autoscale()) );
 
 }
 
@@ -143,6 +153,10 @@ void Chart_widget::set_x_axis_label(const QString& text){
 }
 void Chart_widget::set_y_axis_label(const QString& text){
   chart_->GetAxis(vtkAxis::LEFT)->SetTitle(text.toStdString());
+  this->update();
+}
+void Chart_widget::set_y_right_axis_label(const QString& text){
+  chart_->GetAxis(vtkAxis::RIGHT)->SetTitle(text.toStdString());
   this->update();
 }
 void Chart_widget::set_title(const QString& text){
@@ -280,12 +294,66 @@ void Chart_widget::set_yaxis_autoscale(){
   this->update_chart_axis_display_control();
 }
 
+
+
+void Chart_widget::set_yaxis_right_min(double min){
+
+  chart_->GetAxis(vtkAxis::RIGHT)->SetUnscaledMinimum(min);
+  //chart_->GetAxis(vtkAxis::LEFT)->SetUnscaledMinimumLimit(min);
+  chart_->Update();
+  this->update();
+}
+void Chart_widget::set_yaxis_right_max(double max){
+
+  chart_->GetAxis(vtkAxis::RIGHT)->SetUnscaledMaximum(max);
+  //chart_->GetAxis(vtkAxis::LEFT)->SetUnscaledMaximumLimit(max);
+  chart_->Update();
+  this->update();
+}
+void Chart_widget::set_yaxis_right_precision(int digits){
+  chart_->GetAxis(vtkAxis::RIGHT)->SetPrecision(digits);
+  chart_->Update();
+  this->update();
+}
+void Chart_widget::set_yaxis_right_nticks(int nticks){
+  chart_->GetAxis(vtkAxis::RIGHT)->SetNumberOfTicks(nticks);
+  chart_->Update();
+  this->update();
+}
+void Chart_widget::set_yaxis_right_logscale(bool on){
+
+  vtkAxis* yaxis = chart_->GetAxis(vtkAxis::RIGHT);
+  double ymin = yaxis->GetMinimum();
+  if(ymin <= 0) {
+    this->set_yaxis_right_min(0.0001);
+    if(chart_control_ ) {
+      chart_control_->set_yaxis_right_min(0.0001);
+    }
+  }
+
+  yaxis->SetLogScale(on);
+  //chart_->Update();
+  this->update();
+
+}
+void Chart_widget::set_yaxis_right_autoscale(){
+  chart_->GetAxis(vtkAxis::RIGHT)->AutoScale();
+  chart_->Update();
+  this->update();
+  this->update_chart_axis_display_control();
+}
+
+
 void Chart_widget::set_x_axis_font_size(int size){
   chart_->GetAxis(vtkAxis::BOTTOM)->GetLabelProperties()->SetFontSize(size);
   this->update();
 }
 void Chart_widget::set_y_axis_font_size(int size){
   chart_->GetAxis(vtkAxis::LEFT)->GetLabelProperties()->SetFontSize(size);
+  this->update();
+}
+void Chart_widget::set_y_right_axis_font_size(int size){
+  chart_->GetAxis(vtkAxis::RIGHT)->GetLabelProperties()->SetFontSize(size);
   this->update();
 }
 void Chart_widget::set_x_label_font_size(int size){
@@ -296,6 +364,11 @@ void Chart_widget::set_y_label_font_size(int size){
   chart_->GetAxis(vtkAxis::LEFT)->GetTitleProperties()->SetFontSize(size);
   this->update();
 }
+void Chart_widget::set_y_right_label_font_size(int size){
+  chart_->GetAxis(vtkAxis::RIGHT)->GetTitleProperties()->SetFontSize(size);
+  this->update();
+}
+
 void Chart_widget::set_legend_font_size(int size){
   chart_->GetLegend()->SetLabelSize(size);
   this->update();

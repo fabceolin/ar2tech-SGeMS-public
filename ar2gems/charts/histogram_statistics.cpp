@@ -65,6 +65,10 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
     if(*it) ndata++;
   }
 
+  if(ndata == 0 ) {
+    return 0;
+  }
+
   vtkSmartPointer<vtkFloatArray> x = vtkSmartPointer<vtkFloatArray>::New();
   x->Allocate(ndata);
   for(int i=0; i< prop->size(); ++i) {

@@ -72,6 +72,7 @@ public slots :
   void reset_axis();
   void set_x_axis_label(const QString& text);
   void set_y_axis_label(const QString& text);
+  void set_y_right_axis_label(const QString& text);
   void set_title(const QString& text);
   void set_legend(bool);
   void set_grid(bool);
@@ -92,10 +93,19 @@ public slots :
   void set_yaxis_logscale(bool on);
   void set_yaxis_autoscale();
 
+  void set_yaxis_right_min(double min);
+  void set_yaxis_right_max(double max);
+  void set_yaxis_right_precision(int digits);
+  void set_yaxis_right_nticks(int nticks);
+  void set_yaxis_right_logscale(bool on);
+  void set_yaxis_right_autoscale();
+
   void set_x_axis_font_size(int size);
   void set_y_axis_font_size(int size);
+  void set_y_right_axis_font_size(int size);
   void set_x_label_font_size(int size);
   void set_y_label_font_size(int size);
+  void set_y_right_label_font_size(int size);
   void set_legend_font_size(int size);
   void set_title_font_size(int size);
 

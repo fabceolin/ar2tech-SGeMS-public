@@ -45,10 +45,12 @@ public:
 
     bool is_x_axis_log_scale();
     bool is_y_axis_log_scale();
+    bool is_y_right_axis_log_scale();
 
     QGroupBox* get_label_box() {return ui.labelbox;}
     QGroupBox* get_xbox() {return ui.xbox;}
     QGroupBox* get_ybox() {return ui.ybox;}
+    QGroupBox* get_ybox_right() {return ui.ybox_right;}
 
     QString get_title() const { return this->ui.title_label_edit->text(); }
 
@@ -65,11 +67,18 @@ public slots:
   void set_yaxis_nticks(int nticks);
   void set_yaxis_label(const QString& label);
 
+  void set_yaxis_right_min(double min);
+  void set_yaxis_right_max(double max);
+  void set_yaxis_right_precision(int precision);
+  void set_yaxis_right_nticks(int nticks);
+  void set_yaxis_right_label(const QString& label);
+
   void hide_x_log_scale(bool ok);
   void hide_y_log_scale(bool ok);
 
   void hide_x_controls(bool ok);
   void hide_y_controls(bool ok);
+  void hide_y_right_controls(bool ok);
   void hide_label_controls(bool ok);
 
   void set_title(const QString& label);
@@ -79,6 +88,7 @@ public slots:
 signals :
     void xaxis_label_changed(const QString& axis);
     void yaxis_label_changed(const QString& axis);
+    void yaxis_right_label_changed(const QString& axis);
     void title_changed(const QString& axis);
     void legend_display_changed(bool on);
     void grid_display_changed(bool);
@@ -99,10 +109,19 @@ signals :
     void yaxis_logscale_changed(bool);
     void yaxis_autoscale_changed();
 
+    void yaxis_right_min_changed(double);
+    void yaxis_right_max_changed(double);
+    void yaxis_right_precision_changed(int);
+    void yaxis_right_nticks_changed(int);
+    void yaxis_right_logscale_changed(bool);
+    void yaxis_right_autoscale_changed();
+
     void x_axis_font_size(int);
     void y_axis_font_size(int);
+    void y_right_axis_font_size(int);
     void x_label_font_size(int);
     void y_label_font_size(int);
+    void y_right_label_font_size(int);
     void legend_font_size(int);
     void title_font_size(int);
 
@@ -114,6 +133,8 @@ private slots:
   void forward_x_max_changed();
   void forward_y_min_changed();
   void forward_y_max_changed();
+  void forward_y_right_min_changed();
+  void forward_y_right_max_changed();
 };
 
 #endif // CHART_DISPLAY_CONTROL_H

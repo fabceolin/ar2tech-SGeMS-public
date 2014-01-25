@@ -32,9 +32,12 @@ Chart_display_control::Chart_display_control(QWidget *parent)
 {
   ui.setupUi(this);
 
+  this->hide_y_right_controls(true);
+
   connect(ui.title_label_edit, SIGNAL(textChanged(const QString &)), this, SIGNAL(title_changed(const QString &)));
   connect( ui.x_label_edit, SIGNAL(textChanged(const QString &)), this, SIGNAL(xaxis_label_changed(const QString &)));
   connect( ui.y_label_edit, SIGNAL(textChanged(const QString &)), this, SIGNAL(yaxis_label_changed(const QString &)));
+  connect( ui.y_right_label_edit, SIGNAL(textChanged(const QString &)), this, SIGNAL(yaxis_right_label_changed(const QString &)));
   connect(ui.legend_display, SIGNAL(	toggled(bool)), this, SIGNAL(legend_display_changed(bool)));
   //connect(ui.grid_display, SIGNAL(	toggled(bool)), this, SIGNAL(grid_display_changed(bool)));
   connect(ui.x_grid_display, SIGNAL(	toggled(bool)), this, SIGNAL(x_grid_display_changed(bool)));
@@ -42,8 +45,10 @@ Chart_display_control::Chart_display_control(QWidget *parent)
 
   bool ok = connect(ui.x_axis_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( x_axis_font_size(int)) );
   ok = connect(ui.y_axis_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( y_axis_font_size(int)) );
+  ok = connect(ui.y_right_axis_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( y_right_axis_font_size(int)) );
   ok = connect(ui.x_label_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( x_label_font_size(int)) );
   ok = connect(ui.y_label_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( y_label_font_size(int)) );
+  ok = connect(ui.y_right_label_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( y_right_label_font_size(int)) );
   ok = connect(ui.legend_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( legend_font_size(int)) );
   ok = connect(ui.title_font_size, SIGNAL(	valueChanged (int)), this, SIGNAL( title_font_size(int)) );
 
@@ -62,7 +67,12 @@ Chart_display_control::Chart_display_control(QWidget *parent)
   connect(ui.y_logscale, SIGNAL(	toggled(bool)), this,  SIGNAL( yaxis_logscale_changed(bool) ) );
   connect(ui.y_autoscale, SIGNAL(	clicked (bool)), this,  SIGNAL( yaxis_autoscale_changed() ) );
 
-
+  connect(ui.y_right_min, SIGNAL(editingFinished()), this,  SLOT( forward_y_right_min_changed() ) );
+  connect(ui.y_right_max, SIGNAL(editingFinished()), this,  SLOT( forward_y_right_max_changed() ) );
+  connect(ui.y_right_precision, SIGNAL(	valueChanged ( int )), this,  SIGNAL( yaxis_right_precision_changed(int) ) );
+  connect(ui.y_right_nticks, SIGNAL(	valueChanged ( int )), this,  SIGNAL( yaxis_right_nticks_changed(int) ) );
+  connect(ui.y_right_logscale, SIGNAL(	toggled(bool)), this,  SIGNAL( yaxis_right_logscale_changed(bool) ) );
+  connect(ui.y_right_autoscale, SIGNAL(	clicked (bool)), this,  SIGNAL( yaxis_right_autoscale_changed() ) );
 
 }
 
@@ -133,6 +143,21 @@ void Chart_display_control::forward_y_max_changed(){
 
 }
 
+void Chart_display_control::forward_y_right_min_changed(){
+  double v = ui.y_right_min->value();
+  double vmax = ui.y_right_max->value();
+  ui.y_right_min->setValue(v >  vmax? vmax:v );
+  emit this->yaxis_right_min_changed(ui.y_right_min->value());
+
+}
+void Chart_display_control::forward_y_right_max_changed(){
+  double v = ui.y_right_max->value();
+  double vmin = ui.y_right_min->value();
+  ui.y_right_max->setValue(v <  vmin? vmin:v );
+  emit this->yaxis_right_max_changed(ui.y_right_max->value());
+
+}
+
 void Chart_display_control::set_title(const QString& label){
   ui.title_label_edit->setText( label );
 }
@@ -171,6 +196,25 @@ void Chart_display_control::set_yaxis_label(const QString& label) {
   ui.y_label_edit->setText( label );
 }
 
+void Chart_display_control::set_yaxis_right_min(double min){
+  ui.y_right_min->setValue(min);
+}
+void Chart_display_control::set_yaxis_right_max(double max){
+  ui.y_right_max->setValue(max);
+}
+void Chart_display_control::set_yaxis_right_precision(int precision){
+  ui.y_right_precision->setValue(precision);
+}
+void Chart_display_control::set_yaxis_right_nticks(int nticks){
+  ui.y_right_nticks->setValue(nticks);
+}
+
+void Chart_display_control::set_yaxis_right_label(const QString& label) {
+  ui.y_right_label_edit->setText( label );
+}
+
+
+
 void Chart_display_control::set_legend_visibility(bool ok){
   ui.legend_display->setChecked(true);
 }
@@ -190,6 +234,13 @@ void Chart_display_control::hide_y_controls(bool ok){
   ui.ybox->setHidden(ok);
 }
 
+void Chart_display_control::hide_y_right_controls(bool ok){
+  ui.ybox_right->setHidden(ok);
+  ui.y_right_label->setHidden(ok);
+  ui.y_right_label_edit->setHidden(ok);
+  ui.y_right_label_font_size->setHidden(ok);
+}
+
 void Chart_display_control::hide_label_controls(bool ok){
   ui.labelbox->setHidden(ok);
 }
@@ -201,3 +252,6 @@ bool Chart_display_control::is_y_axis_log_scale(){
   return ui.y_logscale->isChecked();
 }
 
+bool Chart_display_control::is_y_right_axis_log_scale(){
+  return ui.y_right_logscale->isChecked();
+}

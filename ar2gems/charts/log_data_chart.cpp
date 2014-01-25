@@ -95,7 +95,7 @@ Log_data_chart::Log_data_chart( const Log_data* log_data, Grid_continuous_proper
   main_splitter->addWidget(data_table_view_->GetWidget() );
 
   chart_control_->hide_x_log_scale(true);
-  chart_control_->set_xaxis_label("Distance from top");
+  chart_control_->set_xaxis_label("Distance from collar");
   QString yaxis_name = QString::fromStdString(value_prop->name().c_str());
   chart_control_->set_yaxis_label(yaxis_name);
   chart_control_->set_title(title);
