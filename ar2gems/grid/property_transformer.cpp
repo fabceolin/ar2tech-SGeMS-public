@@ -82,16 +82,30 @@ bool PCA_transformer::initialize( std::vector<const Grid_continuous_property*> p
    
   // compute the eigenvalue on the Cov Matrix
   Eigen::EigenSolver<Eigen::MatrixXf> eig_solver(cov_matrix);
-  eigenvalues_ = eig_solver.eigenvalues().real();
+  Eigen::VectorXf eigenvalues_temp = eig_solver.eigenvalues().real();
 
-  sum_eigenvalues_ = eigenvalues_.sum();
+  sum_eigenvalues_ = eigenvalues_temp.sum();
   
-  eigenvectors_ = eig_solver.eigenvectors().real();	
+  Eigen::MatrixXf eigenvectors_temp = eig_solver.eigenvectors().real();	
+
+  eigenvalues_.resize(eigenvalues_temp.rows() );
+  eigenvectors_.resize(eigenvectors_temp.rows(),eigenvectors_temp.cols() );
+
 
   // sort and get the permutation indices
-//  Eigen::PermutationIndices pi;
-//  for (int i = 0 ; i < m; i++)
-//	  pi.push_back(std::make_pair(eigenvalues(i), i));
+  std::vector<std::pair<double,int> > permutation_indices;
+
+  for (int i = 0 ; i < eigenvalues_.rows(); i++)
+	  permutation_indices.push_back(std::make_pair(-1*eigenvalues_temp(i), i));  //-1 to sort in descending order
+
+  std::sort(permutation_indices.begin(), permutation_indices.end());
+
+  for(int i=0; i<permutation_indices.size(); ++i) {
+    eigenvalues_[i] = eigenvalues_temp[permutation_indices[i].second];
+    eigenvectors_.col(i) = eigenvectors_temp.col(permutation_indices[i].second);
+  }
+
+
   return true;
 }
 
