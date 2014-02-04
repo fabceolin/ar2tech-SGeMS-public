@@ -46,18 +46,24 @@ Non_parametric_distribution*
     if(dist == 0) return 0;
   }
 
-  std::vector<float> values(prop->begin(), prop->end());
-  std::sort(values.begin(), values.end());
+  std::vector<float> z(prop->begin(), prop->end());;
+  int number_of_values = z.size();
 
-  int n = values.size();
-  std::vector<float> cdf;
-  cdf.reserve(n);
-  n += 1;
-  for(int i=1; i<=values.size(); ++i) {
-    cdf.push_back( float(i)/n );
+  // No weights are given, we assume equiprobability
+  std::vector< std::pair<float, double> > values,clean_values;
+  values.reserve(number_of_values);
+  clean_values.reserve(number_of_values);
+  double equiprobable_weight=1.0/(number_of_values+1);
+
+  // Construct pairs
+  for(int i=0;i<number_of_values;++i){
+    values.push_back( std::make_pair(z[i],equiprobable_weight));
   }
 
-  dist->initialize(values.begin(),values.end(),cdf.begin(), low_interp, mid_interp, up_interp);
+  // Clean values: sort, remove multiples, add weights to 1
+  initialize_data_for_distribution(values,clean_values);
+  dist->initialize(clean_values, low_interp, mid_interp, up_interp);
+  bool ok = dist->is_valid_distribution();
 
   return dist;
 
@@ -71,7 +77,6 @@ Non_parametric_distribution*
 	const Linear_interpol mid_interp,
 	const Tail_interpolator up_interp	)  
 {
-
   Non_parametric_distribution* dist;
   if( name.empty() ) {
     dist = new Non_parametric_distribution();
@@ -82,25 +87,29 @@ Non_parametric_distribution*
     if(dist == 0) return 0;
   }
 
-  std::vector<float> values;
- 
-  values.reserve(region->active_size());
-  double p = 0.0; 
+  std::vector<float> z;
   for(int i=0; i<prop->size(); ++i) {
     if( prop->is_informed(i) &&  region->is_inside_region(i)) {
-      values.push_back( prop->get_value(i) );
+      z.push_back( prop->get_value(i) );
     }
   }
-  std::sort(values.begin(), values.end());
-  int n = values.size();
-  std::vector<float> cdf;
-  cdf.reserve(n);
-  n += 1;
-  for(int i=1; i<=values.size(); ++i) {
-    cdf.push_back( float(i)/n );
+  int number_of_values = z.size();
+
+  // No weights are given, we assume equiprobability
+  std::vector< std::pair<float, double> > values,clean_values;
+  values.reserve(number_of_values);
+  clean_values.reserve(number_of_values);
+  double equiprobable_weight=1.0/(number_of_values+1);
+
+  // Construct pairs
+  for(int i=0;i<number_of_values;++i){
+    values.push_back( std::make_pair(z[i],equiprobable_weight));
   }
 
-  dist->initialize(values.begin(),values.end(),cdf.begin(), low_interp, mid_interp, up_interp);
+  // Clean values: sort, remove multiples, add weights to 1
+  initialize_data_for_distribution(values,clean_values);
+  dist->initialize(clean_values, low_interp, mid_interp, up_interp);
+  bool ok = dist->is_valid_distribution();
 
   return dist;
 };
@@ -112,7 +121,6 @@ Non_parametric_distribution*
 	const Linear_interpol mid_interp,
 	const Tail_interpolator up_interp	)  
 {
-
   Non_parametric_distribution* dist;
   if( name.empty() ) {
     dist = new Non_parametric_distribution();
@@ -132,11 +140,9 @@ Non_parametric_distribution*
     values.push_back(  std::make_pair(prop->get_value(i), w) );
   }
 
-
+  // clean values: sort, remove multiples, add weights to 1
   initialize_data_for_distribution(values,clean_values);
-
   dist->initialize(clean_values, low_interp, mid_interp, up_interp);
-
   bool ok = dist->is_valid_distribution();
 
   return dist;
