@@ -27,30 +27,24 @@
 #ifndef __GSTLAPPLI_MATH_NONPARAM_DISTRIBUTION_H__
 #define __GSTLAPPLI_MATH_NONPARAM_DISTRIBUTION_H__
 
-
 #include <math/continuous_distribution.h>
 #include <math/common.h>
-
-
 #include <boost/math/distributions.hpp>
-
 #include <GsTL/cdf/non_param_cdf.h>
 #include <GsTL/cdf/interpolators.h>
 #include <GsTL/univariate_stats/build_cdf.h>
-
 #include <vector>
 #include <algorithm>
-
 #include <cstdlib>
 
-
 class MATH_DECL  Non_parametric_distribution : public Continuous_distribution {
+
 public:
 
   typedef std::vector<float>::iterator        z_iterator;
-  typedef std::vector<double>::iterator            p_iterator;
+  typedef std::vector<double>::iterator       p_iterator;
   typedef std::vector<float>::const_iterator  const_z_iterator;
-  typedef std::vector<double>::const_iterator      const_p_iterator;
+  typedef std::vector<double>::const_iterator const_p_iterator;
 
 public :
     static Named_interface* create_new_interface( std::string& params){
@@ -69,6 +63,34 @@ public :
     return dist; 
   }
 
+
+  template<typename z_type,typename p_type>
+  void initialize(std::vector< std::pair<z_type,p_type> > zp_data,
+    const Tail_interpolator low_interp = Tail_interpolator( new No_TI() ),
+		const Linear_interpol mid_interp  = Linear_interpol(),
+		const Tail_interpolator up_interp  = Tail_interpolator( new No_TI() )
+		)
+  {
+      delete dist_;
+      std::vector<z_type> z;
+      std::vector<p_type> p;
+      std::vector<z_type>::iterator z_begin,z_end;
+      std::vector<p_type>::iterator p_begin;
+      z.reserve(zp_data.size());
+      p.reserve(zp_data.size());
+      std::vector< std::pair<z_type,p_type> >::const_iterator it = zp_data.begin();
+      for( ; it!=zp_data.end(); ++it) {
+        z.push_back(it->first);
+        p.push_back(it->second);
+      }
+      z_begin=z.begin();
+      z_end=z.end();
+      p_begin=p.begin();
+
+      dist_ = new  Non_param_cdf<>(z_begin, z_end, p_begin,low_interp, mid_interp, up_interp);
+  }
+
+
   template<class Z_iterator>
   void initialize(Z_iterator z_begin, Z_iterator z_end, 
     const Tail_interpolator low_interp = Tail_interpolator( new No_TI() ),
@@ -77,7 +99,6 @@ public :
 		)  {
       delete dist_;
       dist_ = new  Non_param_cdf<>(z_begin,z_end,low_interp, mid_interp, up_interp);
-
   }
 
   template<class Z_iterator, class P_iterator>
@@ -157,12 +178,9 @@ public :
   virtual std::string type() const {return "Non-parametric";}
   virtual bool is_parametric() const {return false;}
 
-
-
 private :
   Non_param_cdf<>* dist_;
 
 };
-
 
 #endif

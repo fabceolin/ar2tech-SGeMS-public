@@ -124,34 +124,18 @@ Non_parametric_distribution*
   }
 
   typedef std::pair<float, double> z_p_pair_type;
-  std::vector<z_p_pair_type> values;
+  std::vector<z_p_pair_type> values,clean_values;
   for(int i=0; i<prop->size(); ++i) {
     if( !prop->is_informed(i) || !weight->is_informed(i) ) continue;
     double w = weight->get_value(i);
     if(w == 0) continue;
     values.push_back(  std::make_pair(prop->get_value(i), w) );
   }
-  std::sort(values.begin(), values.end()); // Sorting on pairs works on the first element
 
-  std::vector<float> z;
-  std::vector<double> p;
-  std::vector<z_p_pair_type>::iterator low,up,it;
-  it=values.begin();
-  while(it != values.end()) {
-    z_p_pair_type last_z_p(it->first,1.0);
-    up  = std::lower_bound(it,values.end(),last_z_p); // up is the last position of the value we look for (here: last_z_p)
-    z.push_back(it->first);
-    double sum_p_for_this_z = p.back();
-    for (  ; it != up ; ++it ){
-      sum_p_for_this_z +=  it->second;
-    }
-    p.push_back(sum_p_for_this_z);
-    it = up;
-  }
 
-  if(p.back() > 1.00 ) p.back() = 1.00;
+  initialize_data_for_distribution(values,clean_values);
 
-  dist->initialize(z.begin(),z.end(),p.begin(), low_interp, mid_interp, up_interp);
+  dist->initialize(clean_values, low_interp, mid_interp, up_interp);
 
   bool ok = dist->is_valid_distribution();
 
@@ -192,6 +176,7 @@ template <
   }
   
   // Impose 1.00 as last cumulative sum value of weights/probabilities:
+  // (should maybe be rewritten for a division by max, instead of plateau at 1)
   if(output_pair.back().second > 1.00 ) output_pair.back().second = 1.00;
 
 

@@ -66,5 +66,12 @@ GRID_DECL Non_parametric_distribution*
 		);
 
 
+template <
+  typename z_type,
+  typename p_type 
+>
+GRID_DECL void initialize_data_for_distribution ( std::vector<std::pair<z_type,p_type> >& input_pair, std::vector<std::pair<z_type,p_type> >& output_pair);
+
+
 #endif
 

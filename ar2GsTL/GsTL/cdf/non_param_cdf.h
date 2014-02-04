@@ -27,8 +27,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
- 
-
 #ifndef __GSTL_CDF_NON_PARAM_CDF_H___
 #define __GSTL_CDF_NON_PARAM_CDF_H___
 #ifdef __GNUC__
@@ -45,8 +43,6 @@
 
 #include <cstdlib>
 
-
-
 template<
   class LowerTailInterp = Tail_interpolator, 
   class MiddleInterp    = Linear_interpol,
@@ -61,7 +57,6 @@ private:
 public:
   typedef typename Non_parametric_cdf< float >::value_type value_type;
   typedef GsTL::continuous_variable_tag variable_category;
-  
 
   //-----------------
   // constructors 
@@ -71,9 +66,9 @@ public:
 		const MI& mid_interp  = Linear_interpol(),
 		const UTI& up_interp  = Tail_interpolator( new Hyperbolic_UTI() )
 		) 
-  : low_interp_(low_interp),
-    mid_interp_(mid_interp),
-    up_interp_(up_interp) {
+    : low_interp_(low_interp),
+      mid_interp_(mid_interp),
+      up_interp_(up_interp) {
   };
   
 
@@ -85,25 +80,18 @@ public:
 		) 
   : low_interp_(low_interp),
     mid_interp_(mid_interp),
-    up_interp_(up_interp)  {
-
-
+    up_interp_(up_interp)
+  {
     z_values_.clear();
     z_values_.insert(z_values_.begin(),z_begin, z_end);
-//    for(Z_iterator it=z_begin; it != z_end ; it++) {
-//      z_values_.push_back(*it);
-//    }
-    
     //Assume that the z are equiprobable
     p_values_.clear();
     p_values_.reserve(z_values_.size());
+    ////// SHOULD WE DIVIDE BY N+1 and start at 1 (not 0)?
     double dp = 1.0/z_values_.size();
     for(int i=0; i<z_values_.size(); ++i) {
       p_values_.push_back( (double)i*dp );
     }
- //   p_values_.insert( p_values_.begin(), z_values_.size(), 1.0/z_values_.size() );
-    //p_values_.resize(z_values_.size());
-
     range = z_values_.back() - z_values_.front();
   };
 
@@ -117,14 +105,13 @@ public:
 		)
   : low_interp_(low_interp),
     mid_interp_(mid_interp),
-    up_interp_(up_interp)  {
-
+    up_interp_(up_interp)
+  {
     P_iterator p_it = p_begin;
     for(Z_iterator it=z_begin; it != z_end ; ++it, ++p_it) {
       z_values_.push_back(*it);
       p_values_.push_back(*p_it);
     }
-
     range = z_values_.back() - z_values_.front();
   };
 
@@ -158,7 +145,6 @@ public:
  
   template<class ForwardIterator>
   inline void p_set(ForwardIterator p_begin, ForwardIterator p_end);
-
  
   virtual bool make_valid() { return make_cdf_valid( *this); } 
   virtual double prob(value_type z) const ;
