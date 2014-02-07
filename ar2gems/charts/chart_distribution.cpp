@@ -25,7 +25,12 @@
 
 
 #include "chart_distribution.h"
+
+#include <charts/histogram_statistics.h>
+
+
 #include <math/continuous_distribution.h>
+#include <math/non_parametric_distribution.h>
 
 #include <vtkContextScene.h>
 #include <vtkDoubleArray.h>
@@ -79,7 +84,23 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
   vtkSmartPointer<vtkDoubleArray> quantiles = vtkSmartPointer<vtkDoubleArray>::New();
   quantiles->SetName("z");
 
+  Continuous_statistics* stats=0;
 
+  if(!distribution->is_parametric()) {
+    Non_parametric_distribution* non_param_dist = dynamic_cast<Non_parametric_distribution*>(distribution);
+    float dist_min  = non_param_dist->quantile(0.0);
+    float dist_max  = non_param_dist->quantile(1.0);
+
+    stats = build_histogram_table(non_param_dist,dist_min,dist_max,2);
+
+    //Non_parametric_distribution::const_z_iterator z_it = non_param_dist->z_begin();
+    std::vector<Non_parametric_distribution::z_iterator::value_type> z_values(non_param_dist->z_begin(),non_param_dist->z_end());
+    std::vector<Non_parametric_distribution::p_iterator::value_type> p_values(non_param_dist->p_begin(),non_param_dist->p_end());
+
+
+  }
+
+  /*
   double q = distribution->quantile(0.001);
   double f_max = -1;
   if( boost::math::isfinite(q)) {
@@ -107,6 +128,8 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
     if(f > f_max) f_max = f;
     pdf->InsertNextValue( f );
   }
+
+  */
 
   table_->AddColumn(quantiles);
   table_->AddColumn(pdf);  

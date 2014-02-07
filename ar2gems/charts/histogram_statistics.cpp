@@ -459,3 +459,105 @@ Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::
 }
 
 
+Continuous_statistics* build_histogram_table(Non_parametric_distribution* distribution,  float min, float max, int number_of_points_interpolation ){
+
+  // Compute number of points in the histogram (ie. bin limits)
+  std::vector<Non_parametric_distribution::z_iterator::value_type> z_values(distribution->z_begin(),distribution->z_end());
+  vtkSmartPointer<vtkVariantArray> desc_stats_array = vtkSmartPointer<vtkVariantArray>::New();
+  desc_stats_array->Allocate(10);
+  desc_stats_array->SetValue(charts::DATA, "DATA");
+  desc_stats_array->SetValue(charts::GRID, "GRID");
+  desc_stats_array->SetValue(charts::N, vtkVariant(z_values.size()));
+  desc_stats_array->SetValue(charts::MEAN, distribution->mean());
+  desc_stats_array->SetValue(charts::VARIANCE, distribution->variance());
+  desc_stats_array->SetValue(charts::MIN, min);
+  desc_stats_array->SetValue(charts::MAX, max);
+  desc_stats_array->SetValue(charts::SUM, 1.0);
+  desc_stats_array->SetValue(charts::SKEWNESS, distribution->skewness());
+  desc_stats_array->SetValue(charts::KURTOSIS, distribution->kurtosis());
+
+  //Find the decile
+  vtkSmartPointer<vtkVariantArray> quantile_stats_array = vtkSmartPointer<vtkVariantArray>::New();
+  quantile_stats_array->Allocate(13);
+  quantile_stats_array->SetValue(charts::DATA, "DATA");
+  quantile_stats_array->SetValue(charts::GRID, "GRID");
+  int ip = 3;
+  for(float p = 0.1; p<1.0; p+=0.1, ++ip) {
+    quantile_stats_array->SetValue(ip,distribution->quantile(p) );
+  }
+  quantile_stats_array->SetValue(2,min);
+  quantile_stats_array->SetValue(12,max);
+
+  // Compute the histogram with n bins
+  vtkSmartPointer<vtkFloatArray> histo_p = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_vmid = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_vmean = vtkSmartPointer<vtkFloatArray>::New();
+  histo_p->SetName("DATA");
+  histo_vmid->SetName("Mid binning");
+  histo_vmean->SetName("Mean binning");
+
+  // the number of points is a function of the data spread
+  double max_step = (max-min)/1000;
+  std::vector<Non_parametric_distribution::z_iterator::value_type  > resampled_z_values;
+  std::vector<Non_parametric_distribution::p_iterator::value_type  > resampled_p_values;
+  for (int ii=1; ii<z_values.size();++ii){
+    Non_parametric_distribution::z_iterator::value_type spread = z_values[ii]-z_values[ii-1];
+    if (spread>max_step){
+      int number_of_entire_steps_fitting_in_the_initial_spread = spread/max_step;
+      Non_parametric_distribution::z_iterator::value_type new_spread=spread/(number_of_entire_steps_fitting_in_the_initial_spread+1.0);
+      for (int jj=0; jj<number_of_entire_steps_fitting_in_the_initial_spread; ++jj){
+        Non_parametric_distribution::z_iterator::value_type z = z_values[ii-1]+(float)jj*new_spread;
+        resampled_z_values.push_back(z);
+        resampled_p_values.push_back(distribution->cdf(z));
+      }
+    }else{
+      resampled_z_values.push_back(z_values[ii-1]);
+      resampled_p_values.push_back(distribution->cdf(z_values[ii-1]));
+    }
+  }
+  // insert last value
+  resampled_z_values.push_back(z_values[z_values.size()]);
+  resampled_p_values.push_back(1.0);
+
+  int n_values = resampled_z_values.size();
+
+  histo_p->SetNumberOfValues(n_values);
+  histo_vmid->SetNumberOfValues(n_values);
+  histo_vmean->SetNumberOfValues(n_values);
+
+  for (int ii=0; ii < n_values; ++ii){
+    histo_p->SetValue(ii,resampled_p_values[ii]);
+    histo_vmean->SetValue(ii,resampled_z_values[ii]);
+    histo_vmid->SetValue(ii,resampled_z_values[ii]);
+  }
+
+  vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
+  histo_table->AddColumn(histo_vmid);
+  histo_table->AddColumn(histo_vmean);
+  histo_table->AddColumn(histo_p);
+
+  // Set the table for the line plot
+  // same as histo_p but with min and max prepended and appended
+  vtkSmartPointer<vtkFloatArray> histo_line_p = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_line_bin = vtkSmartPointer<vtkFloatArray>::New();
+  histo_line_p->SetName("DATA");
+  histo_line_bin->SetName("Mean binning");
+  histo_line_bin->SetName("Mean binning");
+  histo_line_p->SetNumberOfValues(2*n_values);
+  histo_line_bin->SetNumberOfValues(2*n_values);
+
+  for(int i=0; i<n_values; ++i) {
+    float mid_point  = histo_vmid->GetValue( i );
+    float bin_width = ( histo_vmid->GetValue( i+1 ) - histo_vmid->GetValue( i ));
+    histo_line_bin->SetValue(2*i,mid_point - bin_width/2);
+    histo_line_bin->SetValue(2*i+1,mid_point + bin_width/2);
+    histo_line_p->SetValue(2*i,histo_p->GetValue(i));
+    histo_line_p->SetValue(2*i+1,histo_p->GetValue(i));
+  }
+  vtkSmartPointer<vtkTable> histo_line_table =  vtkSmartPointer<vtkTable>::New();
+  histo_line_table->AddColumn(histo_line_bin);
+  histo_line_table->AddColumn(histo_line_p);
+
+  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+
+}

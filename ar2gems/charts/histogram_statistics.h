@@ -29,6 +29,10 @@
 
 #include <charts/common.h>
 
+#include <math/non_parametric_distribution.h>
+#include <math/continuous_distribution.h>
+
+
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_weight_property.h>
@@ -163,6 +167,11 @@ CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, vtkFlo
 
 CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::pair<float, float> >& data_weights , std::string prop_name, std::string grid_name, float min, float max );
 
+//CHARTS_DECL Continuous_statistics* build_histogram_table(Continuous_distribution* distribution,  float min, float max,... );
+
+CHARTS_DECL Continuous_statistics* build_histogram_table(Non_parametric_distribution* distribution,  float min, float max, int number_of_points_interpolation );
+
+CHARTS_DECL Continuous_statistics* build_histogram_table(int number_bins, Continuous_distribution* distribution,  float min, float max );
 
 class CHARTS_DECL accumulate_pairs {
 public:
