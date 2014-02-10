@@ -84,7 +84,8 @@ public:
 	Reduced_grid();   
   virtual ~Reduced_grid();
 
-	virtual std::string classname() const { return "Masked_grid"; } 
+  virtual std::string type() const { return "Masked_grid"; } 
+	virtual std::string classname() const { return this->type(); } 
 
 	//====================================
 	// new methods

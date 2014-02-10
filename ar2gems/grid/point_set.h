@@ -96,7 +96,8 @@ class GRID_DECL Point_set : public Geostat_grid {
   virtual std::pair<Geostat_grid::location_type, Geostat_grid::location_type> bounding_box() const {return bbox_;}
 
   // Returns the most specific name of the current class 
-  virtual std::string classname() const { return "Point_set"; } 
+  virtual std::string type() const { return "Point_set"; } 
+  virtual std::string classname() const { return this->type(); } 
 
   
   

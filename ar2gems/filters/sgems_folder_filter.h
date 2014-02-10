@@ -44,7 +44,7 @@ class Geostat_grid;
 class Log_data;
 class CategoricalPropertyDefinitionName;
 
-class Sgems_folder_input_filter: public Input_filter {
+class FILTERS_DECL Sgems_folder_input_filter: public Input_filter {
 public:
   static Named_interface* create_new_interface( std::string& );
 public:
@@ -74,7 +74,7 @@ protected :
   bool create_categorial_definition( QString& name, QStringList& cat_names, QList<int>& codes);
 };
 
-class Sgems_folder_output_filter: public Output_filter {
+class FILTERS_DECL Sgems_folder_output_filter: public Output_filter {
 public:
   static Named_interface* create_new_interface( std::string& );
 public:

@@ -282,10 +282,44 @@ bool library_filters_init::bind_project_output(Manager* dir){
 
     Save_project_objects* project_filter = dynamic_cast<Save_project_objects*>(project_filter_ni.raw_ptr());
 
-    project_filter->add_directory(gridModels_manager,
-      std::make_pair(Sgems_folder_output_filter().filter_name(),outfilters_manager+"/")) ;
-    project_filter->add_directory(continuous_distributions_manager,
-      std::make_pair(Distribution_output_filter().filter_name(),outfilters_manager+"/") );
+    project_filter->add_object_filter(gridModels_manager, Cartesian_grid().type(), 
+                                      Save_project_objects::Output_filter_param(Sgems_folder_output_filter().filter_name(),outfilters_manager+"/") );
+    project_filter->add_object_filter(gridModels_manager, Point_set().type(), 
+                                      Save_project_objects::Output_filter_param(Sgems_folder_output_filter().filter_name(),outfilters_manager+"/") );
+    project_filter->add_object_filter(gridModels_manager, Reduced_grid().type(), 
+                                      Save_project_objects::Output_filter_param(Sgems_folder_output_filter().filter_name(),outfilters_manager+"/") );
+    project_filter->add_object_filter(gridModels_manager, Log_data_grid().type(), 
+                                      Save_project_objects::Output_filter_param(Sgems_folder_output_filter().filter_name(),outfilters_manager+"/") );
+    project_filter->add_object_filter(gridModels_manager, Structured_grid().type(), 
+                                      Save_project_objects::Output_filter_param(Sgems_folder_output_filter().filter_name(),outfilters_manager+"/") );
+
+  project_filter->add_object_filter(continuous_distributions_manager, Beta_distribution().type(), 
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Exponential_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Extreme_value_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Gamma_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Logistic_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, LogNormal_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Gaussian_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Pareto_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Rayleigh_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Triangular_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Uniform_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Weibull_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+  project_filter->add_object_filter(continuous_distributions_manager, Non_parametric_distribution().type(),  
+                                    Save_project_objects::Output_filter_param(Distribution_output_filter().filter_name(),outfilters_manager+"/"));
+
 
     return true;
 

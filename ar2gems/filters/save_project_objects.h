@@ -37,18 +37,29 @@ class FILTERS_DECL Save_project_objects :  public Named_interface
 {
 public:
 
+  struct Output_filter_param {
+    std::string filter_param;
+    std::string filter_name;
+
+    Output_filter_param() : filter_param(""), filter_name(""){}
+    Output_filter_param( std::string _filter_param, std::string _filter_name ) : filter_param(_filter_param), filter_name(_filter_name){}
+
+  };
+
+  typedef std::map<std::string, Output_filter_param>  object_to_parameters_mapT;
+
   static Named_interface* create_new_interface(std::string&);
 
   Save_project_objects(void);
   virtual ~Save_project_objects(void);
 
-  void add_directory(std::string directory_path, std::pair<std::string, std::string> filter_param_name);
-  std::pair<std::string, std::string> filter_path(std::string directory_path);
+  void add_object_filter(std::string directory_path, std::string object_classname,  Output_filter_param filter_parameter);
+  Output_filter_param filter_path(std::string directory_path, std::string classname);
 
-    const std::map<std::string, std::pair<std::string, std::string> >& directory_to_save() const {return directory_to_save_;}
+  const std::map<std::string, object_to_parameters_mapT >& directory_to_save() const {return directory_to_save_;}
 
 private:  
-  std::map<std::string, std::pair<std::string, std::string> > directory_to_save_;
+  std::map<std::string, object_to_parameters_mapT > directory_to_save_;
 
 };
 

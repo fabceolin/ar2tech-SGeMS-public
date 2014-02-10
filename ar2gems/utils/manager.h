@@ -245,6 +245,8 @@ class UTILS_DECL Manager : public Directory {
 
 	// TL modified
 	std::string finish(std::string &);
+
+  virtual std::string type() { return "Manager"; }
  
 // GsTL_object_item redefinition
     virtual QString item_type()const;

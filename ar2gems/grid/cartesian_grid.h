@@ -90,7 +90,8 @@ class GRID_DECL Cartesian_grid : public RGrid {
   void origin( const GsTLPoint& origin ) { geometry_->set_origin( origin ); } 
   virtual GsTLPoint origin() const { return geometry_->origin(); } 
    
-  virtual std::string classname() const { return "Cgrid"; } 
+  virtual std::string type() const { return "Cgrid"; }
+  virtual std::string classname() const { return this->type(); } 
   
   virtual GsTLInt closest_node( const location_type& P ) const; 
  

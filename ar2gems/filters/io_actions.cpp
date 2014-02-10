@@ -390,8 +390,7 @@ bool Save_project::init( std::string& parameters, GsTL_project* proj,
     return false;
   }
 
-  typedef const std::map<std::string, std::pair<std::string, std::string> > dir_to_paramsT;
-  dir_to_paramsT::const_iterator it_dir  = project_filter->directory_to_save().begin();
+  std::map<std::string, Save_project_objects::object_to_parameters_mapT >::const_iterator it_dir = project_filter->directory_to_save().begin();
 
   // Loop over all the directory to save
   for( ; it_dir!= project_filter->directory_to_save().end(); ++it_dir) {
@@ -403,7 +402,9 @@ bool Save_project::init( std::string& parameters, GsTL_project* proj,
     Manager::interface_iterator it_object = dir_object->begin_interfaces();
     for( ; it_object != dir_object->end_interfaces(); ++it_object ) {
 
-      SmartPtr<Named_interface> out_filter_ni = Root::instance()->new_interface( it_dir->second.first , it_dir->second.second);
+      Save_project_objects::Output_filter_param out_param = project_filter->filter_path(it_dir->first, (*it_object)->type() );
+
+      SmartPtr<Named_interface> out_filter_ni = Root::instance()->new_interface( out_param.filter_param , out_param.filter_name);
 
       Output_filter* out_filter = dynamic_cast<Output_filter*>(out_filter_ni.raw_ptr());
       if(out_filter==0) continue;

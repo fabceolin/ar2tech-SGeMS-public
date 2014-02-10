@@ -40,15 +40,39 @@ Save_project_objects::~Save_project_objects(void)
 }
 
 
+
+void Save_project_objects::add_object_filter(std::string directory_path, std::string object_classname,  
+                       Output_filter_param filter_parameter)
+{
+
+  std::map<std::string, object_to_parameters_mapT >::iterator it = directory_to_save_.find(directory_path);
+  if( it == directory_to_save_.end()) {
+    it = directory_to_save_.insert(std::make_pair(directory_path, object_to_parameters_mapT() ) ).first;
+  }
+
+  it->second[object_classname] = filter_parameter;
+}
+
+/*
 void Save_project_objects::add_directory(std::string directory_path, 
                                          std::pair<std::string, std::string> filter_param_name)
 {
   directory_to_save_[directory_path] = filter_param_name;
 }
+*/
 
-std::pair<std::string, std::string> Save_project_objects::filter_path(std::string directory_path){
-  std::map<std::string, std::pair<std::string, std::string> >::iterator it = directory_to_save_.find(directory_path);
-  if(it == directory_to_save_.end()) return std::make_pair("","");
+Save_project_objects::Output_filter_param Save_project_objects::filter_path(std::string directory_path, std::string classname){
 
-  return it->second;
+  std::map<std::string, object_to_parameters_mapT >::iterator it = directory_to_save_.find(directory_path);
+  if(it == directory_to_save_.end()) {
+    return Output_filter_param("","");
+  }
+
+  object_to_parameters_mapT::iterator it_object = it->second.find(classname);
+  if( it_object == it->second.end() ) {
+    return Output_filter_param("","");
+  }
+
+  return it_object->second;
+
 }

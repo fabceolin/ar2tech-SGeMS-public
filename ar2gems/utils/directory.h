@@ -82,6 +82,9 @@ class UTILS_DECL Directory : public Named_interface {
     } 
      
     virtual std::string name(Named_interface* ) { return ""; } 
+
+    virtual std::string type() { return "Directory"; } 
+
  
 }; 
  

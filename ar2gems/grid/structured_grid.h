@@ -51,7 +51,8 @@ public:
 
   virtual ~Structured_grid();
 
-  virtual std::string classname() const { return "Structured_grid"; } 
+  virtual std::string type() const { return "Structured_grid"; } 
+  virtual std::string classname() const { return this->type(); } 
 
   virtual GsTLPoint origin() const {return origin_;}
 

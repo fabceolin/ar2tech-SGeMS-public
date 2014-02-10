@@ -170,7 +170,8 @@ public:
   void set_log_geometry( std::map<std::string, std::vector< Log_data::Segment_geometry> >&  log_geometry );
 
  // Returns the most specific name of the current class
- virtual std::string classname() const { return "Log_data_grid"; }
+ virtual std::string type() const { return "Log_data_grid"; }
+ virtual std::string classname() const { return this->type(); }
 
  int number_of_segment_inside_region(std::string name_id, const Grid_region* region=0) const;
  int number_of_segment_inside_region(int id, const Grid_region* region=0) const;

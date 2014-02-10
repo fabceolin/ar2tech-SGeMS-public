@@ -105,11 +105,13 @@ class UTILS_DECL Named_interface : public GsTL_object_item {
     	parent_ = parent;
     }
 
-    std::string name()const{return name_;}
+    virtual std::string name()const{return name_;}
     void name(std::string& name) {
       item_name_ = name.c_str();
       name_ = name;
     }
+
+    virtual std::string type()const{return "";}
  
 
     virtual QVariant item_data(int column) const{
