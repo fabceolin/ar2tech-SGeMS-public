@@ -75,6 +75,7 @@ Chart_distribution::~Chart_distribution()
 
 void Chart_distribution::set_distribution( Continuous_distribution* distribution ){
 
+  vtkSmartPointer<vtkTable> stattable = vtkSmartPointer<vtkTable>::New();
   table_ = vtkSmartPointer<vtkTable>::New();
 
   vtkSmartPointer<vtkDoubleArray> cdf = vtkSmartPointer<vtkDoubleArray>::New();
@@ -85,6 +86,8 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
   quantiles->SetName("z");
 
   Continuous_statistics* stats=0;
+  double f_max = -1;
+
 
   if(!distribution->is_parametric()) {
     Non_parametric_distribution* non_param_dist = dynamic_cast<Non_parametric_distribution*>(distribution);
@@ -93,47 +96,45 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
 
     stats = build_histogram_table(non_param_dist,dist_min,dist_max,2);
 
-    //Non_parametric_distribution::const_z_iterator z_it = non_param_dist->z_begin();
-    std::vector<Non_parametric_distribution::z_iterator::value_type> z_values(non_param_dist->z_begin(),non_param_dist->z_end());
-    std::vector<Non_parametric_distribution::p_iterator::value_type> p_values(non_param_dist->p_begin(),non_param_dist->p_end());
+    int numcol = stattable->GetNumberOfColumns();
+    stattable = stats->get_histogram_table();
 
+    vtkSmartPointer<vtkDoubleArray> tcol = vtkSmartPointer<vtkDoubleArray>::New();
+    tcol = stattable->GetColumnByName("DATA");
+    
 
+  }else{
+
+    double q = distribution->quantile(0.001);
+    if( boost::math::isfinite(q)) {
+      cdf->InsertNextValue(0.001);
+      quantiles->InsertNextValue(q);
+      double f = distribution->pdf(q);
+      if(f > f_max) f_max = f;
+      pdf->InsertNextValue( f );
+    }
+
+    for(double p=0.005; p<1.0; p+=0.005 ) {
+      q = distribution->quantile(p);
+      cdf->InsertNextValue(p);
+      quantiles->InsertNextValue(q);
+      double f = distribution->pdf(q);
+      if(f > f_max) f_max = f;
+      pdf->InsertNextValue( f );
+    }
+
+    q = distribution->quantile(0.999);
+    if( boost::math::isfinite(q)) {
+      cdf->InsertNextValue(0.999);
+      quantiles->InsertNextValue(q);
+      double f = distribution->pdf(q);
+      if(f > f_max) f_max = f;
+      pdf->InsertNextValue( f );
+    }
+    table_->AddColumn(quantiles);
+    table_->AddColumn(pdf);  
+    table_->AddColumn(cdf); 
   }
-
-  /*
-  double q = distribution->quantile(0.001);
-  double f_max = -1;
-  if( boost::math::isfinite(q)) {
-    cdf->InsertNextValue(0.001);
-    quantiles->InsertNextValue(q);
-    double f = distribution->pdf(q);
-    if(f > f_max) f_max = f;
-    pdf->InsertNextValue( f );
-  }
-
-  for(double p=0.005; p<1.0; p+=0.005 ) {
-    q = distribution->quantile(p);
-    cdf->InsertNextValue(p);
-    quantiles->InsertNextValue(q);
-    double f = distribution->pdf(q);
-    if(f > f_max) f_max = f;
-    pdf->InsertNextValue( f );
-  }
-
-  q = distribution->quantile(0.999);
-  if( boost::math::isfinite(q)) {
-    cdf->InsertNextValue(0.999);
-    quantiles->InsertNextValue(q);
-    double f = distribution->pdf(q);
-    if(f > f_max) f_max = f;
-    pdf->InsertNextValue( f );
-  }
-
-  */
-
-  table_->AddColumn(quantiles);
-  table_->AddColumn(pdf);  
-  table_->AddColumn(cdf); 
 
   chart_->ClearPlots();
   vtkPlot* plot_cdf = chart_->AddPlot(vtkChartXY::LINE);

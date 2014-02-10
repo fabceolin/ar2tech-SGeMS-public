@@ -516,7 +516,7 @@ Continuous_statistics* build_histogram_table(Non_parametric_distribution* distri
     }
   }
   // insert last value
-  resampled_z_values.push_back(z_values[z_values.size()]);
+  resampled_z_values.push_back(z_values.back());
   resampled_p_values.push_back(1.0);
 
   int n_values = resampled_z_values.size();
@@ -546,7 +546,7 @@ Continuous_statistics* build_histogram_table(Non_parametric_distribution* distri
   histo_line_p->SetNumberOfValues(2*n_values);
   histo_line_bin->SetNumberOfValues(2*n_values);
 
-  for(int i=0; i<n_values; ++i) {
+  for(int i=0; i<n_values-1; ++i) {
     float mid_point  = histo_vmid->GetValue( i );
     float bin_width = ( histo_vmid->GetValue( i+1 ) - histo_vmid->GetValue( i ));
     histo_line_bin->SetValue(2*i,mid_point - bin_width/2);
@@ -559,5 +559,5 @@ Continuous_statistics* build_histogram_table(Non_parametric_distribution* distri
   histo_line_table->AddColumn(histo_line_p);
 
   return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
-
+   
 }
