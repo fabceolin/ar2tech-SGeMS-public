@@ -158,8 +158,14 @@ int Nearest_neighbor_estimator::execute( GsTL_project* proj ){
 
   // create the property
   appli_message("creating new property: " << property_name_ << "..." );
-  Grid_continuous_property* prop = 
-    geostat_utils::add_categorical_property_to_grid( grid_, property_name_ );
+  Grid_continuous_property* prop;
+  if(hd_prop_->classname() == "Grid_categorical_property") {
+	  const Grid_categorical_property* cprop = dynamic_cast<const Grid_categorical_property*>(hd_prop_);
+	  prop = geostat_utils::add_categorical_property_to_grid( grid_, property_name_,cprop->get_category_definition()->name() );
+  }
+  else {
+	 prop = geostat_utils::add_property_to_grid( grid_, property_name_ );
+  }
   prop->set_parameters(parameters_);
   grid_->select_property( prop->name() );
   
