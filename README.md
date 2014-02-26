@@ -43,7 +43,7 @@ Dependencies
 Build instructions
 ------------------
 
-SGeMS uses cmake (http://www.cmake.org/) for the build process.  
+AR2GeMS uses cmake (http://www.cmake.org/) for the build process.  
 
 
 Building the dependencies on Windows
@@ -54,7 +54,7 @@ Required external libraries: Qt, VTK, Boost and Python.
 
 Boost
 --------------------
-Install precompiled Boost library from http://boost.teeks99.com/ (checked with boost_1_49_0-vc64-bin.exe)
+Download boost library from the online repository (tested with 1.53 and 1.54)
 
 Qt 64 bits
 --------------------
@@ -77,8 +77,8 @@ VTK
 -------------
 Compile:
 1. Download and install [CMake][3]
-2. Get the VTK 6.0 source code either from Git or from the [website](http://vtk.org/VTK/resources/software.html).
-   From git be sure to checkout the tag vtk6.0.0 
+2. Get the VTK 6.1 source code either from Git or from the [website](http://vtk.org/VTK/resources/software.html).
+   From git be sure to checkout the tag vtk6.1.0 
 3. Build the project files with with cmake or cmake-gui.  
    * With cmake-gui: Check the box "Grouped" and "Advanced"
    * Select the group: VTK_Group_Qt, VTK_Group_Rendering, VTK_Group_Views, VTK_Group_StandAlone
@@ -90,12 +90,9 @@ Compile:
 Python 64 bits
 ------------------------
 
-Installing Python 2.x from the installer only provide the release dll.  To get the
-debug version, download the source code, open the project and build the debug version.
-You can ignore all the errors.  Copy the debug .dll and .lib to the main Python
-directory along the release version.
+Installing Python 2.x from the installer may provide the release dll.  If the dll is not present, download the code and build the release dll (the debug version is not necessary).
 
-Note(WIN only): python 2.7.5 installs python27.dll into windows system path, this dll is needed at NSIS package creation. It expects to find it in python27/Libs/python27.dll, so if it's not there, then manual copying is requred
+Note(WIN only): python 2.7.5 installs python27.dll into windows system path, this dll is needed at NSIS package creation. It expects to find it in python27/Libs/python27.dll, so if it's not there, then manual copying is required
 
 Building AR2GEMS
 ----------------

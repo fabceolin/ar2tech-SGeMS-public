@@ -8,4 +8,30 @@ PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
 OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
 TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
-PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING.
+
+
+--- 
+This product includes software developed by The Stanford Center for Reservoir Forecasting, Stanford University. This version is a branch of that software and has been sublicensed according to the original XFREE license (See the LICENSE.XFREE for further information.)
+---
+
+
+If you would like to contribute code to this project you can either:
+
+1. License the new code with a [BSD license][2]
+2. Transfer the copyright to AR2Tech
+
+If you are interested into another option please contact AR2Tech.
+
+- Academic research:
+
+There are no restrictions for academic purposes.  Note that only the plugins can be
+distributed by third-party, the software itself can only be distributed by AR2Tech.
+This is done to reduce fragmentation of the software.
+
+- Commercial plugins:
+
+You are free to build proprietary plugins for commercial purposes within an organization
+(no distribution) or to be freely distributed (no requirement to release the source code).
+Please contact AR2Tech for licensing agreement if you intend to sell or distribute the
+plugins with a fee.
