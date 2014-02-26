@@ -58,8 +58,8 @@
 #include <geostat/common.h>
 #include <grid/geostat_grid.h> 
 #include <math/gstlpoint.h> 
-#include <math/non_parametric_distribution.h> 
-#include <math/continuous_distribution.h>
+//#include <math/non_parametric_distribution.h> 
+//#include <math/continuous_distribution.h>
 #include <grid/neighborhood.h> 
 #include <utils/progress_notifier.h>
  
@@ -80,7 +80,8 @@ class Parameters_handler;
 class Error_messages_handler; 
 template<class T> class Covariance; 
  
- 
+class Continuous_distribution;
+class Non_parametric_distribution; 
 
 namespace geostat_utils {
  

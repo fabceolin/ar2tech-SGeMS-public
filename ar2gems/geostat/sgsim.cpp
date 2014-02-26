@@ -67,6 +67,8 @@
 #include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
+#include <math/continuous_distribution.h>
+#include <math/non_parametric_distribution.h>
 
 #include <GsTL/cdf/gaussian_cdf.h>
 #include <GsTL/sampler/monte_carlo_sampler.h>

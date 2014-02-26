@@ -69,6 +69,8 @@
 #include <utils/manager_repository.h>
 #include <math/random_numbers.h>
 #include <appli/utilities.h>
+#include <math/continuous_distribution.h>
+#include <math/non_parametric_distribution.h>
 
 #include <GsTL/kriging/cokriging_weights.h>
 #include <GsTL/kriging/LMC_covariance.h>

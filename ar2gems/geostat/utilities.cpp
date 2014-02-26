@@ -76,7 +76,8 @@
 #include <string>
 #include <QString>
 
-
+#include <math/non_parametric_distribution.h> 
+#include <math/continuous_distribution.h>
 
 namespace geostat_utils {
 

@@ -35,7 +35,7 @@
 
 #include <algorithm>
 #include <numeric>
-
+#include <functional>
 
 
 bool NuTauModel::initialize( const Parameters_handler* parameters,

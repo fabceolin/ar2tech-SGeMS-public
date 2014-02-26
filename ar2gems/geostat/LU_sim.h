@@ -61,7 +61,8 @@
 #include <geostat/utilities.h> 
 #include <grid/geostat_grid.h> 
 #include <grid/property_copier.h> 
- 
+#include <math/continuous_distribution.h>
+#include <math/non_parametric_distribution.h>
 #include <GsTL/geometry/covariance.h> 
 #include <GsTL/cdf/non_param_cdf.h> 
 #include <GsTL/kriging/kriging_constraints.h> 
