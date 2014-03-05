@@ -75,7 +75,6 @@ Chart_distribution::~Chart_distribution()
 
 void Chart_distribution::set_distribution( Continuous_distribution* distribution ){
 
-  vtkSmartPointer<vtkTable> stattable = vtkSmartPointer<vtkTable>::New();
   table_ = vtkSmartPointer<vtkTable>::New();
 
   vtkSmartPointer<vtkDoubleArray> cdf = vtkSmartPointer<vtkDoubleArray>::New();
@@ -91,17 +90,42 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
 
   if(!distribution->is_parametric()) {
     Non_parametric_distribution* non_param_dist = dynamic_cast<Non_parametric_distribution*>(distribution);
-    float dist_min  = non_param_dist->quantile(0.0);
-    float dist_max  = non_param_dist->quantile(1.0);
+//    float dist_min  = non_param_dist->quantile(0.0);
+//    float dist_max  = non_param_dist->quantile(1.0);
 
-    stats = build_histogram_table(non_param_dist,dist_min,dist_max,2);
+    stats = build_histogram_table(non_param_dist);
 
-    int numcol = stattable->GetNumberOfColumns();
-    stattable = stats->get_histogram_table();
+    vtkSmartPointer<vtkTable> stat_histo_table = stats->get_histogram_table();
+    pdf->DeepCopy(stat_histo_table->GetColumnByName("FREQUENCY"));
+    pdf->SetName("PDF");
+    quantiles->DeepCopy(stat_histo_table->GetColumnByName("DATA"));
+    quantiles->SetName("z");
 
-    vtkSmartPointer<vtkDoubleArray> tcol = vtkSmartPointer<vtkDoubleArray>::New();
-    tcol = stattable->GetColumnByName("DATA");
-    
+    // here the assumption is that we have the same # of samples in the histo and cumul histo
+    vtkSmartPointer<vtkTable> stat_cumulative_histo_table = stats->get_cumulative_histogram_table();
+    cdf->DeepCopy(stat_cumulative_histo_table->GetColumnByName("CUMULATIVE_FREQUENCY"));
+    cdf->SetName("CDF");
+
+    // Find f_max
+    for(int ii=0;ii<pdf->GetNumberOfTuples();++ii){
+      double p = pdf->GetValue(ii);
+      if (p>f_max) f_max=p;
+    }
+
+/*
+    cdf->DeepCopy( stattable->GetColumnByName("DATA"));
+    cdf->SetName("CDF");
+    quantiles->DeepCopy( stattable->GetColumnByName("Mid binning") );
+    quantiles->SetName("z");
+
+    pdf->SetNumberOfValues( quantiles->GetNumberOfTuples() );
+    //Compute pdf
+    for(int i=0;i<quantiles->GetNumberOfTuples(); ++i) {
+      double p = distribution->pdf( quantiles->GetValue(i) ) ;
+      if(p > f_max) f_max = p;
+      pdf->SetValue(i, p);
+    }
+*/
 
   }else{
 
@@ -131,10 +155,12 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
       if(f > f_max) f_max = f;
       pdf->InsertNextValue( f );
     }
-    table_->AddColumn(quantiles);
-    table_->AddColumn(pdf);  
-    table_->AddColumn(cdf); 
+
   }
+
+  table_->AddColumn(quantiles);
+  table_->AddColumn(pdf);  
+  table_->AddColumn(cdf);
 
   chart_->ClearPlots();
   vtkPlot* plot_cdf = chart_->AddPlot(vtkChartXY::LINE);
@@ -147,6 +173,7 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
 
   plot_pdf->SetInputData(table_, 0,1);
   plot_pdf->SetColor(150,150,120,100);
+//  plot_pdf->SetColor(140,21,21,100);
   plot_cdf->SetInputData(table_, 0,2);
   plot_cdf->SetWidth(2);
 
@@ -168,3 +195,4 @@ void Chart_distribution::set_distribution( Continuous_distribution* distribution
 
   
 }
+

@@ -63,6 +63,19 @@ Non_parametric_distribution*
   // Clean values: sort, remove multiples, add weights to 1
   initialize_data_for_distribution(values,clean_values);
   dist->initialize(clean_values, low_interp, mid_interp, up_interp);
+
+
+  // Temporary code, to check means
+  Non_parametric_distribution* dirtydist;
+  dirtydist = new Non_parametric_distribution;
+  dirtydist->initialize(z.begin(),z.end(), low_interp,mid_interp,up_interp);
+
+  float dirtymean = dirtydist->mean();
+  float cleanmean = dist->mean();
+
+
+
+
   bool ok = dist->is_valid_distribution();
 
   return dist;

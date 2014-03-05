@@ -261,7 +261,7 @@ Non_param_cdf<lower_tail_interp,
               upper_tail_interp>::
 pdf(typename Non_param_cdf::value_type z) const {
 
-  double delta = range/1000;
+  double delta = range/50;
   double p_low = this->prob(z - delta);
   double p_high = this->prob(z + delta);
   return (p_high - p_low)/2/delta;
