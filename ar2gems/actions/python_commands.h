@@ -294,7 +294,7 @@ static PyObject* sgems_get_cell_property( PyObject *self, PyObject *args)
   for ( int i = 0; i < size; i++) {
 	  int nodeid;
     PyArg_Parse( PyList_GET_ITEM( tuple, i ), "i", &nodeid );
-    float val = prop->get_value(nodeid);
+    float val = prop->get_value_no_check(nodeid);
 	  PyObject* item = Py_BuildValue("f", val);
 	  if (!item) {
 		  Py_DECREF(outlist);
