@@ -22,8 +22,6 @@
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
-
-
 /**********************************************************************
 ** Author: Nicolas Remy
 ** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
@@ -55,7 +53,6 @@
 #ifndef __GSTLAPPLI_ACTIONS_PYTHON_COMMANDS_H__ 
 #define __GSTLAPPLI_ACTIONS_PYTHON_COMMANDS_H__ 
  
-
 #include <actions/common.h>
 #include <actions/python_wrapper.h>
 #include <appli/action.h>
@@ -70,6 +67,8 @@
 #include <grid/point_set.h>
 #include <grid/grid_property.h>
 #include <grid/grid_categorical_property.h>
+
+#include <math/non_parametric_distribution.h>
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
   #undef _DEBUG
@@ -112,7 +111,6 @@ static PyObject* sgems_execute(PyObject *self, PyObject *args)
   return success;
 }
 
-
 static Grid_continuous_property* get_coordinates( Geostat_grid* grid, int coord ) {
   Grid_continuous_property* prop = new Grid_continuous_property(grid->size(), "coord" );
   for( int i=0; i < grid->size() ; i++ ) {
@@ -121,7 +119,6 @@ static Grid_continuous_property* get_coordinates( Geostat_grid* grid, int coord 
   }
   return prop;
 }
-
 
 static PyObject* sgems_get_property( PyObject *self, PyObject *args)
 {
@@ -189,8 +186,6 @@ static PyObject* sgems_get_property( PyObject *self, PyObject *args)
   return list;  
 }
 
-
-
 static PyObject* sgems_set_property( PyObject *self, PyObject *args)
 {
   char* obj_str;
@@ -241,6 +236,143 @@ static PyObject* sgems_set_property( PyObject *self, PyObject *args)
   return Py_None;
 }
 
+static PyObject* sgems_get_cell_property( PyObject *self, PyObject *args)
+{
+  char* obj_str;
+  char* prop_str;
+  PyObject* tuple;
+ 
+  if( !PyArg_ParseTuple(args, "ssO", &obj_str, &prop_str,&tuple) )
+    return NULL;
+
+  if( !PyList_Check( tuple ) ) return NULL;
+
+  std::string object( obj_str );
+  std::string prop_name( prop_str );
+
+  
+  SmartPtr<Named_interface> grid_ni =
+    Root::instance()->interface( gridModels_manager + "/" + object );
+  Geostat_grid* grid = dynamic_cast<Geostat_grid*>( grid_ni.raw_ptr() );
+  if( !grid ) {
+    *GsTLAppli_Python_cerr::instance() << "No grid called \"" << object
+                << "\" was found" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+  bool delete_prop = false;
+  Grid_continuous_property* prop = 0;
+  if( prop_name == "_X_" ) {
+    prop = get_coordinates( grid, 0 );
+    delete_prop = true;
+  } else if (prop_name == "_Y_" ) {
+    prop = get_coordinates( grid, 1 );
+    delete_prop = true;
+  } else if (prop_name == "_Z_" ) {
+    prop = get_coordinates( grid, 2 );
+    delete_prop = true;
+  } else {
+    prop = grid->property( prop_name );
+  }
+
+
+  if( !prop ) {
+    *GsTLAppli_Python_cerr::instance() << "Grid \"" << object 
+                << "\" does not have a property "
+                << "called \"" << prop_name << "\"" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+  int numPyItems  = PyList_Size( tuple );
+  int size = std::min( prop->size(), numPyItems );
+
+  PyObject *outlist = PyList_New(size);
+  
+
+  for ( int i = 0; i < size; i++) {
+	  int nodeid;
+    PyArg_Parse( PyList_GET_ITEM( tuple, i ), "i", &nodeid );
+    float val = prop->get_value(nodeid);
+	  PyObject* item = Py_BuildValue("f", val);
+	  if (!item) {
+		  Py_DECREF(outlist);
+		  outlist = NULL;
+		  break;
+	  }
+	  PyList_SetItem(outlist, i, item);
+  }
+
+  return outlist;  
+
+}
+
+static PyObject* sgems_set_cell_property( PyObject *self, PyObject *args)
+{
+
+    char* obj_str;
+  char* prop_str;
+  PyObject* tuple_id;
+  PyObject* tuple_val;
+ 
+  if( !PyArg_ParseTuple(args, "ssOO", &obj_str, &prop_str,&tuple_id,&tuple_val) )
+    return NULL;
+
+  if( !PyList_Check( tuple_id ) ) return NULL;
+  if( !PyList_Check( tuple_val ) ) return NULL;
+
+  std::string object( obj_str );
+  std::string prop_name( prop_str );
+
+  SmartPtr<Named_interface> grid_ni =
+    Root::instance()->interface( gridModels_manager + "/" + object );
+  Geostat_grid* grid = dynamic_cast<Geostat_grid*>( grid_ni.raw_ptr() );
+  if( !grid ) {
+    *GsTLAppli_Python_cerr::instance() << "No grid called \"" << object
+                << "\" was found" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+  bool delete_prop = false;
+  Grid_continuous_property* prop = 0;
+  if( prop_name == "_X_" ) {
+    prop = get_coordinates( grid, 0 );
+    delete_prop = true;
+  } else if (prop_name == "_Y_" ) {
+    prop = get_coordinates( grid, 1 );
+    delete_prop = true;
+  } else if (prop_name == "_Z_" ) {
+    prop = get_coordinates( grid, 2 );
+    delete_prop = true;
+  } else {
+    prop = grid->property( prop_name );
+  }
+
+  if( !prop ) {
+    *GsTLAppli_Python_cerr::instance() << "Grid \"" << object 
+                << "\" does not have a property "
+                << "called \"" << prop_name << "\"" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+  int numPyItems  = PyList_Size( tuple_id );
+  int size = std::min( prop->size(), numPyItems );
+
+  for ( int i = 0; i < size; i++) {
+	  int nodeid;
+    float val;
+    PyArg_Parse( PyList_GET_ITEM( tuple_id, i ), "i", &nodeid );
+    PyArg_Parse( PyList_GET_ITEM( tuple_val, i ), "f", &val );
+    prop->set_value(val,nodeid);
+  }
+
+  Py_INCREF(Py_None);
+  return Py_None;
+
+}
 
 static PyObject* sgems_set_weight_property( PyObject *self, PyObject *args)
 {
@@ -291,7 +423,6 @@ static PyObject* sgems_set_weight_property( PyObject *self, PyObject *args)
   Py_INCREF(Py_None);
   return Py_None;
 }
-
 
 static PyObject* sgems_get_weight_property( PyObject *self, PyObject *args)
 {
@@ -345,8 +476,6 @@ static PyObject* sgems_get_weight_property( PyObject *self, PyObject *args)
   if( delete_prop ) delete prop;
   return list;  
 }
-
-
 
 static PyObject* sgems_set_categorical_property_alpha( PyObject *self, PyObject *args)
 {
@@ -431,8 +560,6 @@ static PyObject* sgems_set_categorical_property_alpha( PyObject *self, PyObject 
   return Py_None;
 }
 
-
-
 static PyObject* sgems_set_categorical_property_integer( PyObject *self, PyObject *args)
 {
   char* obj_str;
@@ -512,7 +639,6 @@ static PyObject* sgems_set_categorical_property_integer( PyObject *self, PyObjec
   return Py_None;
 }
 
-
 static PyObject* sgems_get_categorical_definition( PyObject *self, PyObject *args)
 {
   char* obj_str;
@@ -568,10 +694,6 @@ static PyObject* sgems_get_categorical_definition( PyObject *self, PyObject *arg
   return list;
 }
 
-
-
-
-
 static PyObject* sgems_get_region( PyObject *self, PyObject *args)
 {
   char* obj_str;
@@ -617,9 +739,6 @@ static PyObject* sgems_get_region( PyObject *self, PyObject *args)
 
   return list;
 }
-
-
-
 
 static PyObject* sgems_set_region( PyObject *self, PyObject *args)
 {
@@ -676,7 +795,6 @@ static PyObject* sgems_set_region( PyObject *self, PyObject *args)
   return Py_None;
 }
 
-
 static PyObject* sgems_set_active_region( PyObject *self, PyObject *args)
 {
 	Geostat_grid * grid;
@@ -714,7 +832,6 @@ static PyObject* get_nan_value( PyObject *self, PyObject *args)
 	return nan;
 }
 
-
 static PyObject* sgems_get_dims( PyObject *self, PyObject *args)
 {
 	RGrid * grid;
@@ -742,7 +859,6 @@ static PyObject* sgems_get_dims( PyObject *self, PyObject *args)
 	return list;
 }
 
-
 static PyObject* sgems_get_grid_size( PyObject *self, PyObject *args)
 {
 	Geostat_grid * grid;
@@ -765,7 +881,6 @@ static PyObject* sgems_get_grid_size( PyObject *self, PyObject *args)
 	return Py_BuildValue("i", grid->size());
 
 }
-
 
 static PyObject* sgems_get_property_list( PyObject *self, PyObject *args)
 {
@@ -796,7 +911,6 @@ static PyObject* sgems_get_property_list( PyObject *self, PyObject *args)
 
 	return list;
 }
-
 
 static PyObject* sgems_get_property_in_group( PyObject *self, PyObject *args)
 {
@@ -837,7 +951,6 @@ static PyObject* sgems_get_property_in_group( PyObject *self, PyObject *args)
 	return list;
 }
 
-
 static PyObject* sgems_get_location( PyObject *self, PyObject *args)
 {
 	Geostat_grid *grid;
@@ -858,7 +971,7 @@ static PyObject* sgems_get_location( PyObject *self, PyObject *args)
 		return Py_BuildValue("[]");
 	}
   if(nodeid <0 || nodeid >= grid->size())	{
-    *GsTLAppli_Python_cerr::instance() << "The nodeid must be betwee 0 and "<<grid->size() << gstlIO::end;
+    *GsTLAppli_Python_cerr::instance() << "The nodeid must be between 0 and "<<grid->size() << gstlIO::end;
 		Py_INCREF(Py_None);
 		return Py_BuildValue("[]");
 	}
@@ -871,7 +984,6 @@ static PyObject* sgems_get_location( PyObject *self, PyObject *args)
 
 	return list;
 }
-
 
 static PyObject* sgems_get_nodeid( PyObject *self, PyObject *args)
 {
@@ -931,7 +1043,6 @@ static PyObject* sgems_get_nodeid( PyObject *self, PyObject *args)
 	return Py_BuildValue("i",nodeid);
 }
 
-
 static PyObject* sgems_get_closest_nodeid( PyObject *self, PyObject *args)
 {
 	Geostat_grid *grid;
@@ -962,8 +1073,6 @@ static PyObject* sgems_get_closest_nodeid( PyObject *self, PyObject *args)
 */
 	return Py_BuildValue("i",nodeid);
 }
-
-
 
 static PyObject* sgems_new_point_set( PyObject *self, PyObject *args)
 {
@@ -1050,49 +1159,184 @@ static PyObject* sgems_new_point_set( PyObject *self, PyObject *args)
 
 
 
+//==============================================================
+//========================== HERVE =============================
+//==============================================================
+
+static PyObject* sgems_get_quantile( PyObject *self, PyObject *args)
+{
+
+  char* obj_str;
+  PyObject* tuple;
+
+  if( !PyArg_ParseTuple(args, "sO", &obj_str,  &tuple) )
+    return NULL;
+
+  if( !PyList_Check( tuple ) ) return NULL;
+
+  std::string distr_name( obj_str );
+  
+  SmartPtr<Named_interface> dist_ni = Root::instance()->interface( continuous_distributions_manager + "/" + distr_name );
+
+  Continuous_distribution* dist = dynamic_cast<Continuous_distribution*>( dist_ni.raw_ptr() );
+  if( !dist ) {
+    *GsTLAppli_Python_cerr::instance() << "No distribution called \"" << distr_name << "\" was found" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+
+  int n_requestedquantiles  = PyList_Size( tuple );
+  PyObject *list_quantiles = PyList_New(n_requestedquantiles);
+
+  for( int i=0 ; i < n_requestedquantiles ; i++ ) {
+	  double double_val;
+    PyArg_Parse( PyList_GET_ITEM( tuple, i ), "d", &double_val );
+    float q_val = dist->quantile( double_val );
+	  PyObject* item = Py_BuildValue("f", q_val);
+	  if (!item) {
+		  Py_DECREF(list_quantiles);
+		  list_quantiles = NULL;
+		  break;
+	  }
+	  PyList_SetItem(list_quantiles, i, item);
+  }
+
+  return list_quantiles;
+}
+
+static PyObject* sgems_get_cdf( PyObject *self, PyObject *args)
+{
+
+  char* obj_str;
+  PyObject* tuple;
+
+  if( !PyArg_ParseTuple(args, "sO", &obj_str,  &tuple) )
+    return NULL;
+
+  if( !PyList_Check( tuple ) ) return NULL;
+
+  std::string distr_name( obj_str );
+  
+  SmartPtr<Named_interface> dist_ni = Root::instance()->interface( continuous_distributions_manager + "/" + distr_name );
+
+  Continuous_distribution* dist = dynamic_cast<Continuous_distribution*>( dist_ni.raw_ptr() );
+  if( !dist ) {
+    *GsTLAppli_Python_cerr::instance() << "No distribution called \"" << distr_name << "\" was found" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+
+  int n_requestedquantiles  = PyList_Size( tuple );
+  PyObject *outlist = PyList_New(n_requestedquantiles);
+
+  for( int i=0 ; i < n_requestedquantiles ; i++ ) {
+	  float float_val;
+    PyArg_Parse( PyList_GET_ITEM( tuple, i ), "f", &float_val );
+    double d_val = dist->cdf( float_val );
+	  PyObject* item = Py_BuildValue("d", d_val);
+	  if (!item) {
+		  Py_DECREF(outlist);
+		  outlist = NULL;
+		  break;
+	  }
+	  PyList_SetItem(outlist, i, item);
+  }
+
+  return outlist;
+}
+
+static PyObject* sgems_get_pdf( PyObject *self, PyObject *args)
+{
+
+  char* obj_str;
+  PyObject* tuple;
+
+  if( !PyArg_ParseTuple(args, "sO", &obj_str,  &tuple) )
+    return NULL;
+
+  if( !PyList_Check( tuple ) ) return NULL;
+
+  std::string distr_name( obj_str );
+  
+  SmartPtr<Named_interface> dist_ni = Root::instance()->interface( continuous_distributions_manager + "/" + distr_name );
+
+  Continuous_distribution* dist = dynamic_cast<Continuous_distribution*>( dist_ni.raw_ptr() );
+  if( !dist ) {
+    *GsTLAppli_Python_cerr::instance() << "No distribution called \"" << distr_name << "\" was found" << gstlIO::end;
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+
+  int n_requestedquantiles  = PyList_Size( tuple );
+  PyObject *outlist = PyList_New(n_requestedquantiles);
+
+  for( int i=0 ; i < n_requestedquantiles ; i++ ) {
+	  double d_val;
+    PyArg_Parse( PyList_GET_ITEM( tuple, i ), "d", &d_val );
+    double p_val = dist->pdf( d_val );
+	  PyObject* item = Py_BuildValue("d", p_val);
+	  if (!item) {
+		  Py_DECREF(outlist);
+		  outlist = NULL;
+		  break;
+	  }
+	  PyList_SetItem(outlist, i, item);
+  }
+
+  return outlist;
+}
+
 static PyMethodDef SGemsMethods[] = {
     {"execute", sgems_execute, METH_VARARGS,
-     "Return the number of arguments received by the process."},
+     "Return the number of arguments received by the process."}, // ?????
     {"get_property", sgems_get_property, METH_VARARGS,
-     "Return a vector."},
+     "Return a vector with property values if informed.\nUSAGE: [value_vector] = sgems.get_property(\"grid_name\",\"property_name\").\n Use _X_ or _Y_ or _Z_ for x,y,z."},
     {"set_property", sgems_set_property, METH_VARARGS,
-     "Change or create a property of a grid."},
-    {"get_dims", sgems_get_dims, METH_VARARGS, "Get dimension of a regular grid"},
-		{"get_grid_size", sgems_get_grid_size, METH_VARARGS, "Get the size of a property of a grid"},
+     "Change or create a property of a grid.\nUSAGE: sgems.set_property(\"grid_name\",\"property_name\",vector of values populated in nodeid order)."},
+    {"get_cell_property", sgems_get_cell_property, METH_VARARGS,
+     "Return a vector with property values at specific nodeids, if informed.\nUSAGE: [value_vector] = sgems.get_cell_property(\"grid_name\",\"property_name\",[node1,node2,node3...]).\n Use _X_ or _Y_ or _Z_ for x,y,z."},
+    {"set_cell_property", sgems_set_cell_property, METH_VARARGS,
+     "Change or create a property of a grid at specific nodeid.\nUSAGE: sgems.set_cell_property(\"grid_name\",\"property_name\",[node1,node2,node3...],[val1,val2,val3...])."},
+    {"get_dims", sgems_get_dims, METH_VARARGS, "Get dimension of a regular grid.\nUSAGE: [nx,ny,nz]=sgems.sgems_get_dims(\"grid_name\")"},
+		{"get_grid_size", sgems_get_grid_size, METH_VARARGS, "Get the number of cells (nodes) of a grid.\nUSAGE: [n_cells]=sgems.sgems_get_grid_size(\"grid_name\")"},
     {"set_region", sgems_set_region, METH_VARARGS,
-     "Import a region to a grid."},
+     "Import a region to a grid.\nUSAGE: sgems.sgems_set_region(\"grid_name\",\"region_name\",[v1,v2,v3...]"},
      {"get_region", sgems_get_region, METH_VARARGS,
-      "Export a region from a grid."},
+      "Export a region from a grid.\nUSAGE: [v1,v2,v3...] = sgems.sgems_set_region(\"grid_name\",\"region_name\""},
     {"set_active_region", sgems_set_active_region, METH_VARARGS,
-    "Select an active region on a grid (NONE unselect region)."},
+    "Select an active region on a grid (NONE unselect region).\nUSAGE: sgems.sgems_set_active_region(\"grid_name\",\"region_name\")"},
     {"nan", get_nan_value, METH_VARARGS,
-    "Return the SGeMS value for NAN."},
+    "Return the SGeMS value for NAN.\nUSAGE: [nanval] = get_nan_value()"},
     {"get_property_list", sgems_get_property_list, METH_VARARGS,
-    "Return the list of property name in a grid."},
+    "Return the list of property name in a grid.\nUSAGE: [prop_list]=sgems.sgems_get_property_list(\"grid_name\")"},
     {"get_location", sgems_get_location, METH_VARARGS,
-    "Return the x,y,z location of a grid based on the nodeid."},
+    "Return the x,y,z location of a grid based on the nodeid.\nUSAGE: [x,y,z]=sgems.sgems_get_location(nodeid)."},
     {"get_nodeid", sgems_get_nodeid, METH_VARARGS,
-    "Return the nodeid from a x,y,z location."},
+    "Return the nodeid from a x,y,z location.\nUSAGE: [nodeid]=sgems.sgems_get_nodeid(x,y,z)."},
     {"get_closest_nodeid", sgems_get_closest_nodeid, METH_VARARGS,
-    "Return the closest nodeid from a x,y,z location."},
+    "Return the closest nodeid from a x,y,z location.\nUSAGE: [nodeid]=sgems.sgems_get_nodeid(x,y,z)."},
     {"set_categorical_property_int", sgems_set_categorical_property_integer, METH_VARARGS,
     "Set a categorical property from a list of integer"},
     {"set_categorical_property_alpha", sgems_set_categorical_property_alpha, METH_VARARGS,
-    "Set a categorical property from a list of aplhanumeric entries (string)"},
+    "Set a categorical property from a list of alphanumeric entries (string)"},
     {"get_categorical_definition", sgems_get_categorical_definition, METH_VARARGS,
     "Get the categorical definition from a categorical property"},
     {"get_properties_in_group", sgems_get_property_in_group, METH_VARARGS,
-    "Get the name of the member property for a group"},
+    "Get the name of the member property for a group.\nUSAGE: [list of strings]=sgems.sgems_get_property_in_group(\"grid_name\",\"group_name\")"},
     {"new_point_set", sgems_new_point_set, METH_VARARGS,
-    "Create a new point set given a set of ,y,z coordinates"},
+    "Create a new point set or append to existing point set, given a set of x,y,z coordinates.\nUSAGE: sgems.sgems_new_point_set(\"point_set_name\",x,y,z)"},
+    {"quantile", sgems_get_quantile, METH_VARARGS,
+    "Get the inverse cdf values (quantiles) from a list of probabilities.\nUSAGE: [quantile values list] = sgems.quantile(\"dist_name\",[.1, .2, .5,...])"},
+    {"cdf", sgems_get_cdf, METH_VARARGS,
+    "Get the cdf values (probability below) from a list of quantiles.\nUSAGE: [probability_below values list (doubles between 0 and 1)] = sgems.cdf(\"dist_name\",[value_1, value_2, value_3,...])"},
+    {"pdf", sgems_get_pdf, METH_VARARGS,
+    "Get the pdf values (probability) from a list of quantiles.\nUSAGE: [probability values list (doubles between 0 and 1)] = sgems.pdf(\"dist_name\",[value_1, value_2, value_3,...])"},
     {NULL, NULL, 0, NULL}
 };
 
 //TODO: add get categorical property in alpha mode
-
-
-
-
 
 //==============================================================
 
@@ -1108,7 +1352,6 @@ static PyObject *sgems_cout(PyObject *self, PyObject *args) {
   Py_INCREF(Py_None);
   return Py_None;
 }
-
 
 static PyObject *sgems_cerr(PyObject *self, PyObject *args) {
   char *s_line;
@@ -1130,7 +1373,6 @@ static PyMethodDef RedirectMethods[] = {
   "sgems_cerr(line) writes a message to GsTLAppli_Python_cerr"},
  {NULL, NULL, 0, NULL}
 };
-
 
 
 #endif 
