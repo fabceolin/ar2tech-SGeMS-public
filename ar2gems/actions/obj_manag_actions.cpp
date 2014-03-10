@@ -2531,7 +2531,11 @@ bool Break_ties_random::exec(  ) {
   z_randomly_perturbed_pairs.reserve(numcells);
 
   // Machine precision epsilon
-  float epsilon = numeric_limits<float>::epsilon();
+  //------------------------------------------------------------------------
+    // WARNING : CHECK FOR RANK PRESERVATION
+    //------------------------------------------------------------------------
+
+  float epsilon = 100*numeric_limits<float>::epsilon();
 
   Global_random_number_generator::instance()->seed( 12127317 );
   STL_generator gen;
