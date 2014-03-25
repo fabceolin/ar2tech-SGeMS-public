@@ -39,8 +39,7 @@
 #include <GsTL/cdf/non_param_cdf.h>
 #include <GsTL/cdf/gaussian_cdf.h>
 #include <GsTL/utils/gstl_error_messages.h>
-#include <math/continuous_distribution.h>
-#include <math/non_parametric_distribution.h>
+
 
 #include <vector>
 #include <iterator>
