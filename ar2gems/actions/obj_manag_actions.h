@@ -696,4 +696,62 @@ class ACTIONS_DECL Extract_cell_volume : public Action {
 
 };
 
+
+
+class ACTIONS_DECL Break_ties_random : public Action { 
+ public: 
+   static Named_interface* create_new_interface( std::string& );
+ 
+ public: 
+  Break_ties_random(): grid_(0),region_(0),initial_property_(0),tiebroken_property_(0) {}
+  virtual ~Break_ties_random() {}
+  virtual bool init( std::string& parameters, GsTL_project* proj,Error_messages_handler* errors ); 
+  virtual bool exec(); 
+
+protected: 
+   Geostat_grid* grid_;
+   Grid_region* region_;
+   Grid_continuous_property* initial_property_;
+   Grid_continuous_property* tiebroken_property_;
+}; 
+
+class ACTIONS_DECL Break_ties_spatial : public Action { 
+ public: 
+   static Named_interface* create_new_interface( std::string& );
+ 
+ public: 
+  Break_ties_spatial(): grid_(0),region_(0),initial_property_(0),tiebroken_property_(0) {}
+  virtual ~Break_ties_spatial() {}
+  virtual bool init( std::string& parameters, GsTL_project* proj,Error_messages_handler* errors ); 
+  virtual bool exec(); 
+
+protected: 
+   Geostat_grid* grid_;
+   Grid_region* region_;
+   Grid_continuous_property* initial_property_;
+   Grid_continuous_property* tiebroken_property_;
+   float radius_;
+   int max_neighbors_;
+}; 
+
+
+class ACTIONS_DECL Break_ties_with_secondary_property : public Action { 
+ public: 
+   static Named_interface* create_new_interface( std::string& );
+ 
+ public: 
+  Break_ties_with_secondary_property(): grid_(0),region_(0),initial_property_(0),secondary_property_(0),tiebroken_property_(0) {}
+  virtual ~Break_ties_with_secondary_property() {}
+  virtual bool init( std::string& parameters, GsTL_project* proj,Error_messages_handler* errors ); 
+  virtual bool exec(); 
+
+protected: 
+   Geostat_grid* grid_;
+   Grid_region* region_;
+   Grid_continuous_property* initial_property_;
+   Grid_continuous_property* secondary_property_;
+   Grid_continuous_property* tiebroken_property_;
+}; 
+
+
 #endif 
