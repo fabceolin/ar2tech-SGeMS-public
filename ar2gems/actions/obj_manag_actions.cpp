@@ -2627,7 +2627,7 @@ bool Break_ties_spatial::init( std::string& parameters, GsTL_project* proj,Error
   if(params.size() >= 5) {
     out_name = params[4];
   } else {
-    out_name = initial_property_->name() + "-tie-broken-spatial-radius" + params[2] + "-maxneigh" + params[3];
+    out_name = initial_property_->name() + "-tie-broken-spatial-radius" + params[2] + "-maxneigh" + std::to_string( max_neighbors_ );
   }
   tiebroken_property_ = grid_->add_property( out_name );
   while(!tiebroken_property_) {
