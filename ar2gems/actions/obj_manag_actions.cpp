@@ -22,8 +22,6 @@
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
-
-
 /**********************************************************************
 ** Author: Nicolas Remy
 ** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
@@ -52,8 +50,6 @@
 **
 **********************************************************************/
 
-
-
 #include <actions/obj_manag_actions.h>
 #include <appli/action.h>
 #include <math/random_numbers.h>
@@ -70,7 +66,6 @@
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_downscaler.h>
 #include <grid/grid_path.h>
-
 #include <geostat/utilities.h>
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
@@ -83,17 +78,13 @@
 
 
 #include <GsTL/math/math_functions.h>
-
 // these 3 Qt files are needed by Load_project
 #include <qdir.h>
 #include <qfileinfo.h>
 #include <qstring.h>
 #include <QByteArray>
-
-
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <memory.h>
 #include <list>
 
@@ -102,7 +93,6 @@
 #include <grid/reduced_grid.h>
 #include <qapplication.h>
 
-
 Named_interface* New_rgrid::create_new_interface( std::string& ) {
   return new New_rgrid();
 }
@@ -110,9 +100,6 @@ Named_interface* New_rgrid::create_new_interface( std::string& ) {
 Named_interface* New_cartesian_grid_action::create_new_interface( std::string& ) {
   return new New_cartesian_grid_action();
 }
-
-
-
 
 // AB
 Named_interface* Set_active_region::create_new_interface( std::string& ) {
@@ -133,14 +120,9 @@ Named_interface* RunScript::create_new_interface( std::string& ) {
   return new RunScript();
 }
 
-
-
-
 // name of the python module for parsing Eclipse PRT file
 //const std::string Load_sim::parser = "readprt";
-
 //=============================================
-
 
 bool
 New_rgrid::init( std::string& parameters, GsTL_project* proj,
@@ -181,7 +163,6 @@ New_rgrid::exec() {
   proj_->new_object( name_ );
   return true;
 }
-
 
 //=============================================
 
@@ -2514,28 +2495,43 @@ bool Break_ties_random::init( std::string& parameters, GsTL_project* proj,Error_
 bool Break_ties_random::exec(  ) {
 
   std::vector<std::pair<float, int> > z_nodeid;
-  z_nodeid.reserve(initial_property_->size());
+  int ncells = initial_property_->size();
+  z_nodeid.reserve(ncells);
+  
+  std::vector<float> z_value_diff;
+  z_value_diff.reserve(ncells);
 
   // Create pair with all valid grid block property values and their cell index
   for(int i=0; i<initial_property_->size(); ++i) {
     if(region_  && !region_->is_inside_region(i)) continue;
     if(!initial_property_->is_informed(i)) continue;
-    z_nodeid.push_back(  std::make_pair(initial_property_->get_value_no_check(i),i) );
+    z_nodeid.push_back(  std::make_pair( initial_property_->get_value_no_check(i) ,i) );
   }
   
   std::sort(z_nodeid.begin(),z_nodeid.end());
+  int ninformedcells=z_nodeid.size();
 
+  // Find the most appropriate epsilon value
+  bool allvaluesareequal=true;
+  for (int ii=1;ii<ninformedcells;++ii){
+    float diff = z_nodeid[ii].first-z_nodeid[ii-1].first;
+    if (diff>0)
+    {
+      z_value_diff.push_back(diff);
+      allvaluesareequal=false;
+    }
+  }
+  float epsilon(100*numeric_limits<float>::epsilon()); // Machine precision epsilon;
+  if (!allvaluesareequal){
+    // in the frequent case where values are not equal
+    std::vector<float>::iterator minpos;
+    minpos = std::min_element(z_value_diff.begin(),z_value_diff.end());
+    epsilon = std::max(100*numeric_limits<float>::epsilon(),(float)(*minpos)/(ncells+1)); // divided by ncells+1 : this ensures rank preservation
+  }
+  
   // Create the new pair with randomly perturbed z values
   std::vector<std::pair<float, int> > z_randomly_perturbed_pairs;
-  int numcells=z_nodeid.size();
-  z_randomly_perturbed_pairs.reserve(numcells);
-
-  // Machine precision epsilon
-  //------------------------------------------------------------------------
-    // WARNING : CHECK FOR RANK PRESERVATION
-    //------------------------------------------------------------------------
-
-  float epsilon = 100*numeric_limits<float>::epsilon();
+  z_randomly_perturbed_pairs.reserve(ninformedcells);
 
   Global_random_number_generator::instance()->seed( 12127317 );
   STL_generator gen;
@@ -2544,9 +2540,8 @@ bool Break_ties_random::exec(  ) {
   std::vector<std::pair<float,int> >::iterator up,it;
   it=z_nodeid.begin();
   while(it != z_nodeid.end()) {
-    std::pair<float,int> last_pair(it->first,numcells);
+    std::pair<float,int> last_pair(it->first,ncells);
     up  = std::lower_bound(it,z_nodeid.end(),last_pair); // up is the last position of the value we look for (here: last_pair)
-//    if (it==up) continue;
     if (it==up){
       // No multiplets
       z_randomly_perturbed_pairs.push_back( std::make_pair( it->first, it->second ) );
@@ -2555,28 +2550,23 @@ bool Break_ties_random::exec(  ) {
       float z = it->first;
 
       // Create a randomly shuffled array of integers that will be multiplied by epsilon and added to z
-      //----------------
       std::vector<int> random_integers;
       int number_of_ties = up-it;
       random_integers.reserve(number_of_ties);
       for (int i=0; i<number_of_ties; ++i) random_integers.push_back(i); //  0 1 2 3 ... number_of_ties
       // using a std built-in random generator (CHECK IF THIS IS OK OR IF WE WANT TO USE A SEED)
-     
       std::random_shuffle ( random_integers.begin(), random_integers.end(),gen );
-
       // Now build the tie-broken z_nodeid pairs
       for (int i=0  ; it != up ; ++it, ++i ){
         // reconstruct pair
         z_randomly_perturbed_pairs.push_back( std::make_pair( z+random_integers[i]*epsilon, it->second ) );
       }
-
       // move on to the next unique value:
       it = up;
     }
   }
 
   // Now add the new pair as a new property on the indicated grid region:
-  
   for (it=z_randomly_perturbed_pairs.begin();it!=z_randomly_perturbed_pairs.end();++it){
     tiebroken_property_->set_value(it->first,it->second);
   }
@@ -2661,24 +2651,25 @@ bool Break_ties_spatial::init( std::string& parameters, GsTL_project* proj,Error
 bool Break_ties_spatial::exec(  ) {
 
   std::vector<std::pair<float, int> > z_nodeid;
-  z_nodeid.reserve(initial_property_->size());
-
+  int ncells = initial_property_->size();
+  z_nodeid.reserve(ncells);
+  
   Neighborhood* neigh = grid_->neighborhood(radius_,radius_,radius_,0,0,0,0,false,region_);
   neigh->select_property(initial_property_->name());
   neigh->max_size(max_neighbors_);
 
   // Create pair with all valid grid block property values and their cell index
-  for(int i=0; i<initial_property_->size(); ++i) {
+  for(int i=0; i<ncells; ++i) {
     if(region_  && !region_->is_inside_region(i)) continue;
     if(!initial_property_->is_informed(i)) continue;
     z_nodeid.push_back( std::make_pair(initial_property_->get_value_no_check(i),i) );
   }
   
   std::sort(z_nodeid.begin(),z_nodeid.end());
-  int numcells=z_nodeid.size();
+  int ninformedcells=z_nodeid.size();
 
   // Machine precision epsilon
-  float epsilon = numeric_limits<float>::epsilon();
+  float epsilon = 100*numeric_limits<float>::epsilon();
 
   Global_random_number_generator::instance()->seed( 12127317 );
   STL_generator gen;
@@ -2689,7 +2680,7 @@ bool Break_ties_spatial::exec(  ) {
   int n_multiplets(0);
   
   while(it != z_nodeid.end()) {
-    std::pair<float,int> last_pair(it->first,numcells);
+    std::pair<float,int> last_pair(it->first,ncells);
     up  = std::lower_bound(it,z_nodeid.end(),last_pair); // up is the last position of the value we look for (here: last_pair)
     if (it==up){
       tiebroken_property_->set_value(it->first,it->second);
@@ -2807,11 +2798,11 @@ bool Break_ties_with_secondary_property::init( std::string& parameters, GsTL_pro
 bool Break_ties_with_secondary_property::exec(  ) {
 
   std::vector<std::pair<float, int> > z_nodeid;
-  int numcells=initial_property_->size();
-  z_nodeid.reserve(numcells);
+  int ncells = initial_property_->size();
+  z_nodeid.reserve(ncells);
 
   // Create pair with all valid grid block property values and their cell index
-  for(int i=0; i < numcells; ++i) {
+  for(int i=0; i < ncells; ++i) {
     if(region_  && !region_->is_inside_region(i)) continue;
     if(!initial_property_->is_informed(i)) continue;
     z_nodeid.push_back( std::make_pair(initial_property_->get_value_no_check(i),i) );
@@ -2820,7 +2811,7 @@ bool Break_ties_with_secondary_property::exec(  ) {
   std::sort(z_nodeid.begin(),z_nodeid.end());
 
   // Machine precision epsilon
-  float epsilon = numeric_limits<float>::epsilon();
+  float epsilon = 100*numeric_limits<float>::epsilon();
 
   Global_random_number_generator::instance()->seed( 12127317 );
   STL_generator gen;
@@ -2831,7 +2822,7 @@ bool Break_ties_with_secondary_property::exec(  ) {
   int n_multiplets(0);
   
   while(it != z_nodeid.end()) {
-    std::pair<float,int> last_pair(it->first,numcells);
+    std::pair<float,int> last_pair(it->first,ncells);
     up  = std::lower_bound(it,z_nodeid.end(),last_pair); // up is the last position of the value we look for (here: last_pair)
     if (it==up){
       tiebroken_property_->set_value(it->first,it->second);
@@ -2870,7 +2861,6 @@ bool Break_ties_with_secondary_property::exec(  ) {
 
   float fraction_sorted_through_spatial_differences = 100.0*(float)(n_unique)/n_multiplets;
   GsTLcout <<"Using neighboring values as a sorting key, we resolved " << fraction_sorted_through_spatial_differences << "% of the ties. The other ties were resolved randomly." << gstlIO::end;
-
   return true;
 
 }
@@ -2879,6 +2869,7 @@ Named_interface*
 Break_ties_with_secondary_property::create_new_interface( std::string& ) {
   return new Break_ties_with_secondary_property; 
 }
+
 
 /*
 bool Create_trend::is_coproperty_valid(std::string coproperty,Error_messages_handler* errors){
