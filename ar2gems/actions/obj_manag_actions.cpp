@@ -2465,7 +2465,9 @@ bool Break_ties_random::init( std::string& parameters, GsTL_project* proj,Error_
   std::string out_name;
   if(params.size() >= 3) {
     out_name = params[2];
-  } else {
+  };
+  
+  if(out_name.empty()){
     out_name = initial_property_->name() + "-tie-broken-random";
   }
   tiebroken_property_ = grid_->add_property( out_name );

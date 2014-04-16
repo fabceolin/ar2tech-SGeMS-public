@@ -40,6 +40,7 @@ QT4_WRAP_CPP(gui_MOC
   utils/script_editor.h
   utils/set_not_informed_dialog.h
   utils/upscale_property_dialog.h
+  utils/tie_breaking_dialog.h
   variogram2/first_scr.h
   variogram2/plot_settings_dialog.h
   variogram2/print_plots_dialog.h
@@ -155,6 +156,7 @@ add_library(ar2gems_gui
   utils/std_output_redirect.cpp
   utils/upscale_property_dialog.cpp
   utils/visualization_profile.cpp
+  utils/tie_breaking_dialog.cpp
   variogram2/first_scr.cpp
   variogram2/plot_settings_dialog.cpp
   variogram2/print_plots_dialog.cpp
@@ -256,6 +258,7 @@ add_library(ar2gems_gui
   utils/std_output_redirect.h
   utils/upscale_property_dialog.h
   utils/visualization_profile.h
+  utils/tie_breaking_dialog.h
   variogram2/first_scr.h
   variogram2/plot_settings_dialog.h
   variogram2/print_plots_dialog.h
