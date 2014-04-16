@@ -2544,7 +2544,8 @@ bool Break_ties_random::exec(  ) {
   while(it != z_nodeid.end()) {
     std::pair<float,int> last_pair(it->first,ncells);
     up  = std::lower_bound(it,z_nodeid.end(),last_pair); // up is the last position of the value we look for (here: last_pair)
-    if (it==up){
+    int number_of_ties = up-it;
+    if (number_of_ties==1){
       // No multiplets
       z_randomly_perturbed_pairs.push_back( std::make_pair( it->first, it->second ) );
     }else{
@@ -2553,7 +2554,7 @@ bool Break_ties_random::exec(  ) {
 
       // Create a randomly shuffled array of integers that will be multiplied by epsilon and added to z
       std::vector<int> random_integers;
-      int number_of_ties = up-it;
+      
       random_integers.reserve(number_of_ties);
       for (int i=0; i<number_of_ties; ++i) random_integers.push_back(i); //  0 1 2 3 ... number_of_ties
       // using a std built-in random generator (CHECK IF THIS IS OK OR IF WE WANT TO USE A SEED)
@@ -2564,8 +2565,8 @@ bool Break_ties_random::exec(  ) {
         z_randomly_perturbed_pairs.push_back( std::make_pair( z+random_integers[i]*epsilon, it->second ) );
       }
       // move on to the next unique value:
-      it = up;
     }
+    it = up;
   }
 
   // Now add the new pair as a new property on the indicated grid region:
@@ -2684,7 +2685,8 @@ bool Break_ties_spatial::exec(  ) {
   while(it != z_nodeid.end()) {
     std::pair<float,int> last_pair(it->first,ncells);
     up  = std::lower_bound(it,z_nodeid.end(),last_pair); // up is the last position of the value we look for (here: last_pair)
-    if (it==up){
+    int number_of_ties = up-it;
+    if (number_of_ties==1){
       tiebroken_property_->set_value(it->first,it->second);
       // No multiplets
     }else{
@@ -2826,7 +2828,8 @@ bool Break_ties_with_secondary_property::exec(  ) {
   while(it != z_nodeid.end()) {
     std::pair<float,int> last_pair(it->first,ncells);
     up  = std::lower_bound(it,z_nodeid.end(),last_pair); // up is the last position of the value we look for (here: last_pair)
-    if (it==up){
+    int number_of_ties = up-it;
+    if (number_of_ties==1){
       tiebroken_property_->set_value(it->first,it->second);
       // No multiplets
     }else{
