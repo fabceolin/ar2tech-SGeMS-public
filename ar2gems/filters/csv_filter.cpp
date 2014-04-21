@@ -34,6 +34,8 @@
 #include <grid/reduced_grid.h>
 #include <grid/log_data_grid.h>
 #include <grid/structured_grid.h>
+#include <math/angle_convention.h>
+
 
 #include <qdialog.h>
 #include <qapplication.h>
@@ -722,9 +724,9 @@ Geostat_grid* Csv_grid_infilter::read( std::ifstream& infile ) {
   float x_size = dialog_->x_size();
   float y_size = dialog_->y_size();
   float z_size = dialog_->z_size();
-  float Ox = dialog_->Ox();
-  float Oy = dialog_->Oy();
-  float Oz = dialog_->Oz();
+  double ox = dialog_->Ox();
+  double oy = dialog_->Oy();
+  double oz = dialog_->Oz();
   float rotation_z_angle = dialog_->rotation_z();
 
   bool use_no_data_value = dialog_->use_no_data_value();
@@ -756,10 +758,28 @@ Geostat_grid* Csv_grid_infilter::read( std::ifstream& infile ) {
   Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
   appli_assert( grid != 0 );
 
-  grid->set_dimensions( nx, ny, nz,
-			x_size, y_size, z_size);
-  grid->origin( GsTLPoint( Ox,Oy,Oz) );
-  grid->set_rotation_z(rotation_z_angle);
+  if( rotation_z_angle == 0 ) {
+    grid->set_dimensions( nx, ny, nz,
+			  x_size, y_size, z_size, ox,oy,oz );
+  }
+  else if(  dialog_->is_rot_origin_centroid->isChecked() ) {
+    grid->set_dimensions( nx, ny, nz,
+			  x_size, y_size, z_size, ox,oy,oz,rotation_z_angle, ox,oy,oz );
+  }
+  else if(  dialog_->is_rot_origin_corner->isChecked() ) {
+    grid->set_dimensions( nx, ny, nz,
+			  x_size, y_size, z_size, ox,oy,oz,rotation_z_angle, ox-x_size/2,oy-y_size/2,oz-z_size/2 );
+  }
+  else {
+    double rot_ox = dialog_->rot_ox();
+    double rot_oy = dialog_->rot_oy();
+    double rot_oz = dialog_->rot_oz();
+    grid->set_dimensions( nx, ny, nz,
+			  x_size, y_size, z_size, ox,oy,oz,rotation_z_angle, rot_ox, rot_oy, rot_oz );
+  }
+
+
+
   appli_message( "grid resized to " << nx << "x" << ny << "x" << nz
 		<< "  total=: " << grid->size() );
 
@@ -880,27 +900,32 @@ QWidget* Csv_mgrid_infilter::init_dialog( std::ifstream& infile) {
   return dialog_;
 }
 
-
 bool Csv_mgrid_infilter::get_mgrid_xyz_dimensions(
-    std::ifstream& infile, Reduced_grid* grid, 
-    int X_col_id, int Y_col_id, int Z_col_id,
-    float x_size, float y_size, float z_size,
-    float rotation_z_angle)
+                          std::ifstream& infile, Reduced_grid* grid, 
+                          int X_col_id, int Y_col_id, int Z_col_id,
+                          float x_size, float y_size, float z_size,
+                          float azimuth_angle,
+                          double rot_ox, double rot_oy, double rot_oz)
 {
+
+  // set the proper angle convention
+  // need to do a counter-clockwise rotation to back-rotate the model
+  double rotation_z_angle = azimuth_angle;
 
   // Read the first line with property name
   std::string buffer;
   std::getline( infile, buffer, '\n');
 
-  // need to back rotate the coordinate into ijk
+  // need to back rotate the coordinate into ijk 
   double sin_rot_z = std::sin((double)rotation_z_angle*GsTL::PI/180.00);
   double cos_rot_z = std::cos((double)rotation_z_angle*GsTL::PI/180.00);
 
   std::vector<Geostat_grid::location_type> xyz;
   Geostat_grid::location_type max_xyz(-1e20,-1e20,-1e20);
+  Geostat_grid::location_type min_xyz_rotated(1e20,1e20,1e20);
   Geostat_grid::location_type max_xyz_rotated(-1e20,-1e20,-1e20);
-  Geostat_grid::location_type origin(9e20,9e20,9e20);
-  Geostat_grid::location_type origin_rotated(9e20,9e20,9e20);
+  Geostat_grid::location_type rotation_origin(rot_ox,rot_oy,rot_oz);
+
   while( infile ) {
 		std::getline( infile, buffer, '\n');
     if (buffer.empty()) break;
@@ -913,8 +938,12 @@ bool Csv_mgrid_infilter::get_mgrid_xyz_dimensions(
 		loc[0] = String_Op::to_number<double>(buf[X_col_id]);
 		loc[1] = String_Op::to_number<double>(buf[Y_col_id]);
 		loc[2] = String_Op::to_number<double>(buf[Z_col_id]);
-    loc_rotated[0] = cos_rot_z*loc[0] - sin_rot_z*loc[1];
-    loc_rotated[1] = sin_rot_z*loc[0] + cos_rot_z*loc[1];
+    Geostat_grid::location_type loc_centered(loc[0] - rot_ox, loc[1] - rot_oy , loc[2] - rot_oz );
+
+    
+    loc_rotated[0] = cos_rot_z*loc_centered.x()   - sin_rot_z*loc_centered.y();
+    loc_rotated[1] = sin_rot_z*loc_centered.x() + cos_rot_z*loc_centered.y();
+    loc_rotated[2] = loc_centered.z();
     xyz.push_back(loc);
 
     //need to find the lower left corner given the rotated space
@@ -926,35 +955,112 @@ bool Csv_mgrid_infilter::get_mgrid_xyz_dimensions(
       //max_xyz[1] = loc[1];
       max_xyz_rotated[1] = loc_rotated[1];
     }
-    if(loc[2] > max_xyz_rotated[2]){
-      max_xyz_rotated[2] = loc[2];
+    if(loc_rotated[2] > max_xyz_rotated[2]){
+      max_xyz_rotated[2] = loc_rotated[2];
     }
 
-    if(loc_rotated[0] < origin_rotated[0]){
-//      origin[0] = loc[0];
-      origin_rotated[0] = loc_rotated[0];
+    if(loc_rotated[0] < min_xyz_rotated[0]){
+      min_xyz_rotated[0] = loc_rotated[0];
     }
-    if(loc_rotated[1] < origin_rotated[1]){
-  //    origin[1] = loc[1];
-      origin_rotated[1] = loc_rotated[1];
+    if(loc_rotated[1] < min_xyz_rotated[1]){
+      min_xyz_rotated[1] = loc_rotated[1];
     }
-    if(loc[2] < origin_rotated[2]){
-      origin_rotated[2] = loc[2];
+    if(loc[2] < min_xyz_rotated[2]){
+      min_xyz_rotated[2] = loc_rotated[2];
     }
 
   }
-  GsTLGridNode nxyz(int((max_xyz_rotated[0]-origin_rotated[0])/x_size)+1,
-                    int((max_xyz_rotated[1]-origin_rotated[1])/y_size)+1,
-                    int((max_xyz_rotated[2]-origin_rotated[2])/z_size)+1);
 
-  // Get the origin in the real space
-    origin[0] = cos_rot_z*origin_rotated[0] + sin_rot_z*origin_rotated[1];
-    origin[1] = -1*sin_rot_z*origin_rotated[0] + cos_rot_z*origin_rotated[1];
-    origin[2] = origin_rotated[2];
+
+      //forward rotation with min_xyz_rotated
+    // to get the origin
+    Geostat_grid::location_type origin;
+   origin.x() = cos_rot_z*min_xyz_rotated.x()   + sin_rot_z*min_xyz_rotated.y() + rot_ox;
+   origin.y() = -sin_rot_z*min_xyz_rotated.x() + cos_rot_z*min_xyz_rotated.y() + rot_oy;
+   origin.z() = min_xyz_rotated.z() + rot_oz;
+
+  GsTLGridNode nxyz(int((max_xyz_rotated.x()-min_xyz_rotated.x())/x_size)+1,
+                    int((max_xyz_rotated.y()-min_xyz_rotated.y())/y_size)+1,
+                    int((max_xyz_rotated.z() - min_xyz_rotated.z())/z_size)+1);
 
 
   grid->set_dimensions(nxyz[0],nxyz[1],nxyz[2],
-      x_size, y_size, z_size, xyz, origin, rotation_z_angle);
+                       x_size, y_size, z_size, 
+                       origin.x(), origin.y(), origin.z(), 
+                       azimuth_angle, rotation_origin.x(), rotation_origin.y(), rotation_origin.z(),
+                       xyz);
+  
+
+  return true;
+
+
+}
+
+
+
+
+bool Csv_mgrid_infilter::get_mgrid_xyz_dimensions(
+    std::ifstream& infile, Reduced_grid* grid, 
+    int X_col_id, int Y_col_id, int Z_col_id,
+    float x_size, float y_size, float z_size)
+{
+
+  // Read the first line with property name
+  std::string buffer;
+  std::getline( infile, buffer, '\n');
+
+
+  std::vector<Geostat_grid::location_type> xyz;
+  Geostat_grid::location_type max_xyz(-1e20,-1e20,-1e20);
+  Geostat_grid::location_type origin(9e20,9e20,9e20);
+
+  while( infile ) {
+		std::getline( infile, buffer, '\n');
+    if (buffer.empty()) break;
+		std::vector<std::string> buf = String_Op::decompose_string( buffer, ",", false );
+		if (buf.empty()) break;
+
+		Geostat_grid::location_type loc;
+
+
+		loc[0] = String_Op::to_number<double>(buf[X_col_id]);
+		loc[1] = String_Op::to_number<double>(buf[Y_col_id]);
+		loc[2] = String_Op::to_number<double>(buf[Z_col_id]);
+    xyz.push_back(loc);
+
+    //need to find the lower left corner given the rotated space
+    if(loc[0] > max_xyz[0]) {
+      //max_xyz[0] = loc[0];
+      max_xyz[0] = loc[0];
+    }
+    if(loc[1] > max_xyz[1]){
+      //max_xyz[1] = loc[1];
+      max_xyz[1] = loc[1];
+    }
+    if(loc[2] > max_xyz[2]){
+      max_xyz[2] = loc[2];
+    }
+
+    if(loc[0] < origin[0]){
+//      origin[0] = loc[0];
+      origin[0] = loc[0];
+    }
+    if(loc[1] < origin[1]){
+  //    origin[1] = loc[1];
+      origin[1] = loc[1];
+    }
+    if(loc[2] < origin[2]){
+      origin[2] = loc[2];
+    }
+
+  }
+  GsTLGridNode nxyz(int((max_xyz[0]-origin[0])/x_size)+1,
+                    int((max_xyz[1]-origin[1])/y_size)+1,
+                    int((max_xyz[2]-origin[2])/z_size)+1);
+
+
+  grid->set_dimensions(nxyz[0],nxyz[1],nxyz[2],
+      x_size, y_size, z_size, origin.x(), origin.y(),origin.z(), xyz );
   
 
 
@@ -975,15 +1081,25 @@ Geostat_grid* Csv_mgrid_infilter::readRegularGridFormat(std::ifstream& infile,Re
 	float x_size = dialog_->x_size();
 	float y_size = dialog_->y_size();
 	float z_size = dialog_->z_size();
-	float Ox = dialog_->Ox();
-	float Oy = dialog_->Oy();
-	float Oz = dialog_->Oz();
+	double ox = dialog_->Ox();
+	double oy = dialog_->Oy();
+	double oz = dialog_->Oz();
   float rotation_z_angle = dialog_->rotation_z();
+	double rot_ox = dialog_->rot_ox();
+	double rot_oy = dialog_->rot_oy();
+	double rot_oz = dialog_->rot_oz();
 
-	grid->set_dimensions( nx, ny, nz,
-		x_size, y_size, z_size);
-	grid->origin( GsTLPoint( Ox,Oy,Oz) );
-  grid->set_rotation_z(rotation_z_angle);
+  if(rotation_z_angle == 0) {
+	  grid->set_dimensions( nx, ny, nz,
+		                      x_size, y_size, z_size, 
+                          ox,oy,oz);
+  }
+  else {
+	  grid->set_dimensions( nx, ny, nz,
+		                      x_size, y_size, z_size,  
+                          ox,oy,oz, 
+                          rotation_z_angle, rot_ox, rot_oy, rot_oz);
+  }
 
 	std::string buffer;
 
@@ -1144,8 +1260,19 @@ Geostat_grid* Csv_mgrid_infilter::readPointsetFormat(std::ifstream& infile, Redu
 
   infile.clear();
   infile.seekg(0, ios::beg);
+
+  if(rotation_z_angle == 0) {
   get_mgrid_xyz_dimensions(infile,grid,X_col_id,Y_col_id,Z_col_id,
-                             x_size,y_size,z_size,rotation_z_angle);
+                             x_size,y_size,z_size);
+  }
+  else {
+    double rot_ox = dialog_->rot_ox();
+    double rot_oy = dialog_->rot_oy();
+    double rot_oz = dialog_->rot_oz();
+    get_mgrid_xyz_dimensions(infile,grid,X_col_id,Y_col_id,Z_col_id,
+                            x_size,y_size,z_size,  rotation_z_angle, rot_ox, rot_oy, rot_oz);
+
+  }
 
   infile.clear();
   infile.seekg(0, ios::beg);

@@ -33,7 +33,7 @@
 #include <QLineEdit>
 
 class PropertySelector;
-
+class EllipsoidInput;
 class GsTL_project;
 
 
@@ -58,9 +58,30 @@ protected:
   PropertySelector* prop_selector_;
 
   QLineEdit *output_name_;
+};
 
 
+class Tie_breaking_spatial_dialog : public QDialog {
+  Q_OBJECT
 
+public:
+  Tie_breaking_spatial_dialog( GsTL_project* proj, QWidget* parent = 0  );
+  QString selected_grid() const;
+  QString selected_property() const ;
+  QString selected_region() const ;
+  QString new_property_name() const;
+
+
+protected slots:
+  bool create_property();
+  void create_property_and_close();
+
+protected:
+  GsTL_project* project_;
+  PropertySelector* prop_selector_;
+  EllipsoidInput* ellipsoid_widget_;
+
+  QLineEdit *output_name_;
 };
 
  

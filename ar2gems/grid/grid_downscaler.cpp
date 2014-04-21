@@ -77,15 +77,13 @@ Geostat_grid* CGrid_downscaler::downscale(const Geostat_grid* src_grid, std::str
   Cartesian_grid* down_grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
   appli_assert( down_grid != 0 );
 
-  down_grid->set_dimensions( geom->dim(0)*factor_x,
-                             geom->dim(1)*factor_y,
-                             geom->dim(2)*factor_z,
-                             down_cell_dims.x(),
-                             down_cell_dims.y(),
-                             down_cell_dims.z() );
+  GsTLPoint rotation_point = grid->rotation_point();
 
-  down_grid->origin( down_origin );
-  down_grid->set_rotation_z( grid->rotation_z() );
+  down_grid->set_dimensions( geom->dim(0)*factor_x, geom->dim(1)*factor_y,geom->dim(2)*factor_z,
+                             down_cell_dims.x(), down_cell_dims.y(),down_cell_dims.z(),
+                             down_origin.x(),down_origin.y(),down_origin.z(), 
+                             grid->rotation_z(),rotation_point.x(),rotation_point.y(),rotation_point.z() );
+
 
   return down_grid;
 
@@ -150,10 +148,14 @@ Geostat_grid* MGrid_downscaler::downscale(const Geostat_grid* src_grid, std::str
     }
   }
 
+  GsTLPoint rotation_point = grid->rotation_point();
+
   down_grid->set_dimensions( down_nx, down_ny, down_nz,
                         down_cell_dims.x(), down_cell_dims.y(), down_cell_dims.z(), 
-                        mask, grid->rotation_z());
-	down_grid->origin( down_origin );
+                        down_origin.x(),down_origin.y(),down_origin.z(), 
+                        grid->rotation_z(),rotation_point.x(),rotation_point.y(),rotation_point.z(),
+                        mask);
+
 
   return down_grid;
   

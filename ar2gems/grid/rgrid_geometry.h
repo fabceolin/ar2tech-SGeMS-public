@@ -62,19 +62,20 @@
 /*****************************************************************/ 
 class GRID_DECL RGrid_geometry { 
 public: 
-    virtual ~RGrid_geometry(); 
+
+    RGrid_geometry(int nx, int ny, int nz ) : ncells_(nx,ny,nz) {}
+
+    virtual ~RGrid_geometry(){}
      
     virtual RGrid_geometry* clone() const = 0; 
  
-    GsTLInt dim( GsTLInt i ) const { return n_[i];} 
-    GsTLInt ni() const { return n_[0];} 
-    GsTLInt nj() const { return n_[1];} 
-    GsTLInt nk() const { return n_[2];} 
+    GsTLInt dim( GsTLInt i ) const { return ncells_[i];} 
+    GsTLInt ni() const { return ncells_.x();} 
+    GsTLInt nj() const { return ncells_.y();} 
+    GsTLInt nk() const { return ncells_.z();} 
 
-    GsTLInt size() const { return ( n_[0]*n_[1]*n_[2] ); } 
-    void set_size( GsTLInt i, GsTLInt n ) {  
-        n_[i] = n ; 
-    } 
+    GsTLInt size() const { return ( ncells_[0]*ncells_[1]*ncells_[2] ); } 
+
  
     /** Returns the location of node (i,j,k). For an Rgrid, the location 
      * is expressed in stratigraphic coordinates (x and y are the real coordinates 
@@ -96,85 +97,18 @@ public:
     virtual bool 
       grid_coordinates( GsTLGridNode& ijk, const GsTLPoint& p ) const = 0;
  
-   virtual void set_rotation_z(double z_angle)=0;
    virtual double rotation_z() const =0;
+   virtual GsTLPoint rotation_point() const =0;
 
 
     /** The dimensions of a grid cell (in stratigraphic coordinates) 
      */ 
-    virtual void set_cell_dims( const GsTLCoordVector& v ) { 
-        cell_dims_ = v; 
-    } 
-    virtual const GsTLCoordVector& cell_dims() const  { 
-        return cell_dims_; 
-    } 
+    virtual const GsTLCoordVector& cell_dims() const=0;
 
- 
-protected: 
-    RGrid_geometry() 
-      : cell_dims_(1,1,1) { 
-        n_[0] = 0; n_[1] = 0; n_[2] = 0; 
-    } 
-protected: 
-    GsTLInt n_[3]; 
- 
-    GsTLCoordVector cell_dims_;
+protected :
+  GsTLVector<int> ncells_;
 
 }; 
- 
- 
-/*****************************************************************/ 
- 
-class GRID_DECL Simple_RGrid_geometry : public RGrid_geometry { 
-public: 
-    Simple_RGrid_geometry(); 
-    ~Simple_RGrid_geometry(); 
- 
-    virtual RGrid_geometry* clone() const; 
- 
- 
-    /** The origin is the leftmost, bottom NODE of the grid 
-     */ 
-    void set_origin(const GsTLPoint& o) { 
-        origin_ = o; 
-    } 
-   const GsTLPoint& origin() const { 
-        return origin_; 
-    } 
-
-    virtual void set_cell_dims( const GsTLCoordVector& v ) { 
-        cell_dims_ = v; 
-        volume_ = cell_dims_[0]*cell_dims_[1]*cell_dims_[2];
-    } 
-
-    double get_volume() const {return volume_;}
-
-    /** The zrotation defined the azimuth of the j axis
-     */ 
-   virtual void set_rotation_z(double z_angle); 
-   virtual double rotation_z() const { 
-        return z_rot_; 
-    } 
-
-    /** Find the actual coordinates of a grid node given its (i,j,k)  
-     * coordinates. 
-     */ 
-    virtual GsTLPoint coordinates(GsTLInt i, GsTLInt j, GsTLInt k) const;
- 
-    virtual bool grid_coordinates( GsTLGridNode& ijk, const GsTLPoint& p ) const;
- 
-protected: 
-    GsTLPoint origin_;
-    double z_rot_;
-    double z_cos_angle_;
-    double z_sin_angle_;
-
-    double volume_;
- 
- //   double z_cos_back_angle_;
- //   double z_sin_back_angle_;
-}; 
- 
  
 #endif 
  

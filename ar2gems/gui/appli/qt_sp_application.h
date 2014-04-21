@@ -162,6 +162,7 @@ class GUI_DECL QSP_application : public QMainWindow {
   void upscale_properties();
 
   void break_tie_random();
+  void break_tie_spatial();
 
   void set_not_informed_property();
   void scale_property();

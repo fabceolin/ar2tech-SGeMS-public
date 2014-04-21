@@ -96,9 +96,7 @@ public:
 		active_coords_.push_back(loc);
 	}
 
-	void copyStructure(const Reduced_grid *);
-
-
+	
 	// returns nx*ny*nz
 	GsTLInt rgrid_size() const;
 
@@ -140,27 +138,56 @@ public:
   void mask(const std::vector<location_type>& xyzCoords);
 
 
-//  void set_dimensions( int nx, int ny, int nz);
+
 
   void set_dimensions( int nx, int ny, int nz, 
 		       double xsize, double ysize, double zsize,
-           float rotation_angle_z=0);
+           double origin_x, double origin_y, double origin_z); 
 
   void set_dimensions( int nx, int ny, int nz, 
-		       double xsize, double ysize, double zsize, 
-           std::vector<bool> mask, 
-           float rotation_angle_z=0 ); 
-
-  void set_dimensions( int nx, int ny, int nz,
-    double xsize, double ysize, double zsize,
-    const std::vector<GsTLGridNode>& ijkCoords,
-    float rotation_angle_z=0);
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           double rotation_angle_z, 
+           double rot_pivot_x, double rot_pivot_y, double rot_pivot_z); 
 
   void set_dimensions( int nx, int ny, int nz, 
-    double xsize, double ysize, double zsize,
-    const std::vector<location_type>& xyzCoords,
-    Geostat_grid::location_type origin,
-    float rotation_angle_z=0);
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           const std::vector<bool>& mask ); 
+
+  void set_dimensions( int nx, int ny, int nz, 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           double rotation_angle_z, 
+           double rot_pivot_x, double rot_pivot_y, double rot_pivot_z,
+           const std::vector<bool>& mask ); 
+
+
+
+  void set_dimensions( int nx, int ny, int nz, 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           const std::vector<GsTLGridNode>& ijkCoords );
+
+  void set_dimensions( int nx, int ny, int nz, 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           double rotation_angle_z, 
+           double rot_pivot_x, double rot_pivot_y, double rot_pivot_z,
+           const std::vector<GsTLGridNode>& ijkCoords ); 
+
+  void set_dimensions( int nx, int ny, int nz, 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           const std::vector<location_type>& xyzCoords );
+
+  void set_dimensions( int nx, int ny, int nz, 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           double rotation_angle_z, 
+           double rot_pivot_x, double rot_pivot_y, double rot_pivot_z,
+           const std::vector<location_type>& xyzCoords ); 
+
 
 
 	//==============================================

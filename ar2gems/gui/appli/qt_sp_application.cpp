@@ -319,6 +319,7 @@ void QSP_application::init_menu_bar() {
     property_menu->addSeparator();
     QMenu* tie_break_menu = property_menu->addMenu(tr("&Tie break Property"));
     tie_break_menu->addAction("Random tie breaking", this, SLOT( break_tie_random() ) );
+    tie_break_menu->addAction("Spatial tie breaking", this, SLOT( break_tie_spatial() ) );
     QMenu* cat_prop_menu = property_menu->addMenu(tr("&Categorical Property"));
     cat_prop_menu->addAction( "Convert to Categorical Property", this, SLOT( convert_continuous_to_categorical_property() ) );
     cat_prop_menu->addAction( "Sequentialize Categorical Property", this, SLOT( sequentialize_categorical_property() ) );
@@ -1730,6 +1731,11 @@ void QSP_application::upscale_properties(){
 
 void QSP_application::break_tie_random() {
   Tie_breaking_random_dialog dialog(project_, this);
+  dialog.exec();
+}
+
+void QSP_application::break_tie_spatial() {
+  Tie_breaking_spatial_dialog dialog(project_, this);
   dialog.exec();
 }
 

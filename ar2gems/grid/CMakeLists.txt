@@ -29,7 +29,7 @@ add_library(ar2gems_grid
   property_transformer.cpp
   reduced_grid.cpp
   rgrid.cpp
-  rgrid_geometry.cpp
+  cartesian_grid_geometry.cpp
   rgrid_gval_accessor.cpp
   rgrid_neighborhood.cpp
   structured_grid.cpp
@@ -65,6 +65,7 @@ add_library(ar2gems_grid
   reduced_grid.h
   rgrid.h
   rgrid_geometry.h
+  cartesian_grid_geometry.h
   rgrid_gval_accessor.h
   rgrid_neighborhood.h
   structured_grid.h

@@ -5,7 +5,7 @@
 #include <vtkGenericCell.h>
 
 Named_interface* Structured_grid::create_new_interface(std::string& name){
-  return new Structured_grid(name, 1,1,1);
+  return new Structured_grid(name);
 }
 
 
@@ -30,8 +30,9 @@ Structured_grid::Structured_grid(std::string name) : Cartesian_grid(name)
 }
 
 Structured_grid::Structured_grid(std::string name, int nx, int ny, int nz) :
-  Cartesian_grid(name, nx, ny, nz, (double)1.0/nx, (double)1.0/ny, (double)1.0/nz)
+  Cartesian_grid(name)
 {
+  Cartesian_grid::set_dimensions( nx, ny, nz, (double)1.0/nx, (double)1.0/ny, (double)1.0/nz,0,0,0);
   sgrid_geom_ = vtkSmartPointer<vtkStructuredGrid>::New();
   cell_centers_filter_ = vtkSmartPointer<vtkCellCenters>::New();
   cell_centers_filter_->SetInputData(sgrid_geom_);
@@ -59,14 +60,6 @@ void Structured_grid::set_structured_points( std::vector<GsTLPoint>& corner_poin
 
   cell_centers_filter_->Update();
 
-  GsTLCoordVector dims( 1.0/this->nx(), 1.0/this->ny(), 1.0/this->nz());
-  geometry_->set_cell_dims( dims );
-
-  // The uvw coordinates should start at (0,0,0) and finish at (1,1,1)
-  //double origin_coord[3];
-  //sgrid_geom_->GetPoint(0,origin_coord);
-  //origin_ = GsTLPoint(origin_coord[0],origin_coord[1],origin_coord[2]); 
-  origin_ = GsTLPoint(0,0,0); 
   coord_mapper_ = new Structured_grid_coord_mapper(this);
   
 }

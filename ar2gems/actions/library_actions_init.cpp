@@ -69,6 +69,7 @@
 #include <actions/distribution_action.h>
 #include <actions/property_transformer_actions.h>
 #include <actions/add_property_to_grid.h>
+#include <actions/tie_breaking_actions.h>
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
   #undef _DEBUG

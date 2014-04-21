@@ -59,11 +59,6 @@ public:
                               std::string* errors = 0 );
 
 protected :
-  Geostat_grid* read_cartesian_grid(QDir dir,const QDomElement& elem, std::string* errors);
-  Geostat_grid* read_masked_grid(QDir dir,const QDomElement& elem, std::string* errors);
-  Geostat_grid* read_point_set(QDir dir,const QDomElement& elem, std::string* errors);
-  Geostat_grid* read_log_data_grid(QDir dir,const QDomElement& elem, std::string* errors);
-  Geostat_grid* read_structured_grid(QDir dir,const QDomElement& elem, std::string* errors);
 
   bool read_properties(QDir dir,const QDomElement& dom, Geostat_grid* grid, std::string* errors);
   bool read_regions(QDir dir,const QDomElement& dom, Geostat_grid* grid, std::string* errors);
