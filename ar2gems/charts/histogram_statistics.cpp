@@ -23,6 +23,8 @@
 ** ----------------------------------------------------------------------------*/
 
 #include <charts/histogram_statistics.h>
+#include <math/non_parametric_distribution.h>
+#include <math/continuous_distribution.h>
 #include <vtkMultiBlockDataSet.h>
 #include <vtkDataArrayIteratorMacro.h>
 

@@ -89,7 +89,7 @@ public :
     if(this->grid_name_ < rhs.grid_name()) return true;
     else if(this->grid_name() > rhs.grid_name()) return false;
     else if( this->item_name_x_ <  rhs.item_name_x() ) return true;
-    else this->item_name_y_ <  rhs.item_name_y();
+    else return this->item_name_y_ <  rhs.item_name_y();
 
   }
 

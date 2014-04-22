@@ -26,8 +26,6 @@
 #define __HISTOGRAM_STATISTICS__
 
 #include <charts/common.h>
-#include <math/non_parametric_distribution.h>
-#include <math/continuous_distribution.h>
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_weight_property.h>
@@ -43,6 +41,9 @@
 #include <vtkFloatArray.h>
 #include <vtkVariantArray.h>
 #include <vtkSmartPointer.h>
+
+class Continuous_distribution;
+class Non_parametric_distribution;
 
 namespace charts {
   enum DescriptiveStats { DATA, GRID, N, MEAN, VARIANCE, MIN, MAX, SUM, SKEWNESS, KURTOSIS };
