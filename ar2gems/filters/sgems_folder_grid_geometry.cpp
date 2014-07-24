@@ -54,6 +54,15 @@ QDomElement Cartesian_grid_geometry_xml_io::
 	 elemGeom.setAttribute("dz",cgrid->cell_dimensions().z());
    elemGeom.setAttribute("rotation_z_angle",cgrid->rotation_z());
 
+
+  if(cgrid->rotation_z() != 0) {
+    GsTLPoint rotation_origin = cgrid->rotation_point();
+    elemGeom.setAttribute("rotation_ox", rotation_origin.x() );
+    elemGeom.setAttribute("rotation_oy", rotation_origin.x() );
+    elemGeom.setAttribute("rotation_oz", rotation_origin.y() );
+  }
+
+
 	 return elemGeom;
 }
 
@@ -85,9 +94,19 @@ Geostat_grid* Cartesian_grid_geometry_xml_io::
   double oz = elemGeom.attribute("oz").toDouble();
   float rotation_z_angle = elemGeom.attribute("rotation_z_angle").toFloat();
 
-  grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize );
-  grid->origin( Cartesian_grid::location_type( ox,oy,oz ) );
-  grid->set_rotation_z(rotation_z_angle);
+  // for backward compatibility
+  if(rotation_z_angle == 0) {
+     grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz  );
+  }
+  else if( elemGeom.hasAttribute("rotation_ox")  && elemGeom.hasAttribute("rotation_oy") && elemGeom.hasAttribute("rotation_oz") ) {
+    double rot_ox = elemGeom.attribute("rotation_ox").toDouble();
+    double rot_oy = elemGeom.attribute("rotation_oy").toDouble();
+    double rot_oz = elemGeom.attribute("rotation_oz").toDouble();
+    grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz, rotation_z_angle, rot_ox, rot_oy, rot_oz  );
+  }
+  else {  // // for backward compatibility angle set but no pivot point.  we assume that the rotation is from the origin
+    grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz, rotation_z_angle, ox,oy,oz );
+  }
 
   return grid;
 
@@ -287,8 +306,19 @@ Geostat_grid* Masked_grid_geometry_xml_io::
 		return 0;
 	}
 
-  grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, mask, rotation_z_angle );
-	grid->origin( Cartesian_grid::location_type( ox,oy,oz ) );
+  if(rotation_z_angle == 0) {
+     grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz, mask  );
+  }
+  else if( elemGeom.hasAttribute("rotation_ox")  && elemGeom.hasAttribute("rotation_oy") && elemGeom.hasAttribute("rotation_oz") ) {
+    double rot_ox = elemGeom.attribute("rotation_ox").toDouble();
+    double rot_oy = elemGeom.attribute("rotation_oy").toDouble();
+    double rot_oz = elemGeom.attribute("rotation_oz").toDouble();
+    grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz, rotation_z_angle, rot_ox, rot_oy, rot_oz, mask  );
+  }
+  else {  // // for backward compatibility angle set but no pivot point.  we assume that the rotation is from the origin
+    grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz, rotation_z_angle, ox,oy,oz, mask );
+  }
+
 
 	return grid;
 

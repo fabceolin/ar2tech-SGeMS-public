@@ -58,7 +58,7 @@
  
 #include <grid/common.h>
 #include <grid/rgrid.h> 
-#include <grid/rgrid_geometry.h> 
+#include <grid/cartesian_grid_geometry.h>
 #include <math/box.h> 
  
  
@@ -74,21 +74,30 @@ class GRID_DECL Cartesian_grid : public RGrid {
   Cartesian_grid(std::string name)
     : RGrid(name) {
   }
-
+/*
   Cartesian_grid(std::string name, int nx, int ny, int nz) ;
 
   Cartesian_grid(std::string name, int nx, int ny, int nz,
                             double xsize, double ysize, double zsize);
-   
+*/   
   virtual void set_geometry( RGrid_geometry* geom ); 
-  void set_dimensions( int nx, int ny, int nz ); 
    
+  void set_dimensions( int nx, int ny, int nz );
+
   void set_dimensions( int nx, int ny, int nz, 
-		       double xsize, double ysize, double zsize ); 
-  GsTLCoordVector cell_dimensions() const { return geometry_->cell_dims(); } 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z); 
+
+  void set_dimensions( int nx, int ny, int nz, 
+		       double xsize, double ysize, double zsize,
+           double origin_x, double origin_y, double origin_z,
+           double rotation_angle_z, 
+           double rot_pivot_x, double rot_pivot_y, double rot_pivot_z); 
+
+  GsTLCoordVector cell_dimensions() const { return cgrid_geometry_->cell_dims(); } 
  
-  void origin( const GsTLPoint& origin ) { geometry_->set_origin( origin ); } 
-  virtual GsTLPoint origin() const { return geometry_->origin(); } 
+
+  virtual GsTLPoint origin() const { return cgrid_geometry_->origin(); } 
    
   virtual std::string type() const { return "Cgrid"; }
   virtual std::string classname() const { return this->type(); } 
@@ -97,11 +106,11 @@ class GRID_DECL Cartesian_grid : public RGrid {
  
   GsTL_cube bounding_box() const; 
 
-  virtual double get_support(int nodeid) const {return geometry_->get_volume();}
+  virtual double get_support(int nodeid) const {return cgrid_geometry_->get_volume();}
  
  
  protected: 
-  Simple_RGrid_geometry* geometry_; 
+   Cartesian_grid_geometry* cgrid_geometry_; 
 }; 
  
  

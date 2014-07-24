@@ -209,8 +209,14 @@ class FILTERS_DECL Csv_mgrid_infilter : public Csv_specialized_infilter {
   bool get_mgrid_xyz_dimensions(
     std::ifstream& infile, Reduced_grid* grid, 
     int X_col_id, int Y_col_id, int Z_col_id,
+    float x_size, float y_size, float z_size);
+
+  bool get_mgrid_xyz_dimensions(
+    std::ifstream& infile, Reduced_grid* grid, 
+    int X_col_id, int Y_col_id, int Z_col_id,
     float x_size, float y_size, float z_size,
-    float rotation_z_angle = 0.0);
+    float rotation_z_angle,
+    double rot_ox, double rot_oy, double rot_oz);
 
   bool get_mgrid_ijk_dimensions(
     std::ifstream& infile, Reduced_grid* grid, 

@@ -69,6 +69,7 @@
 #include <actions/distribution_action.h>
 #include <actions/property_transformer_actions.h>
 #include <actions/add_property_to_grid.h>
+#include <actions/tie_breaking_actions.h>
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
   #undef _DEBUG
@@ -222,6 +223,9 @@ bool library_actions_init::bind_action_factories(Manager* dir)
   dir->factory("AddPropertyToGridFromTextFile", Add_property_to_grid_from_text_file::create_new_interface);
   dir->factory("AddPropertyToGridWthNodeidFromTextFile", Add_property_to_grid_with_nodeid_from_text_file::create_new_interface);
 
+  dir->factory("BreakTiesRandom", Break_ties_random::create_new_interface);
+  dir->factory("BreakTiesSpatial", Break_ties_spatial::create_new_interface);
+  dir->factory("BreakTiesSecondary", Break_ties_with_secondary_property::create_new_interface);
 
 	// algorithm related actions
 	dir->factory("RunGeostatAlgorithm", Run_geostat_algo::create_new_interface);

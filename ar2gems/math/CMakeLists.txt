@@ -23,6 +23,8 @@ add_library(ar2gems_math
   correlation_measure_computer.h
   direction_3d.h
   discrete_function.h
+  gstlvector.h
+  gstlpoint.h
   histogram.h
   library_math_init.h
   non_parametric_distribution.h

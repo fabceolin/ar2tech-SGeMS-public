@@ -162,6 +162,7 @@ bool Mask_to_mask_copier::undo_copy()
 	return true;
 }
 
+
 bool Mask_to_mask_copier::copy( const Geostat_grid* server, 
                                  const Grid_continuous_property* server_prop,
                                  Geostat_grid* client, 
@@ -171,11 +172,9 @@ bool Mask_to_mask_copier::copy( const Geostat_grid* server,
 	const Reduced_grid* from_grid = dynamic_cast< const Reduced_grid* >( server );
 
 	if( !from_grid || !to_grid ) return false;
+  if (from_grid != to_grid) return false ; // to remove the 
 
   copy_categorical_definition(server_prop,client_prop);
-
-	if (from_grid != to_grid)
-		to_grid->copyStructure(from_grid);
 
 	for( int i=0; i < server_prop->size() ; i++ ) {
 		if( server_prop->is_informed( i ) ) {

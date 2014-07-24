@@ -23,11 +23,12 @@
 ** ----------------------------------------------------------------------------*/
 
 #include <charts/histogram_statistics.h>
-
+#include <math/non_parametric_distribution.h>
+#include <math/continuous_distribution.h>
 #include <vtkMultiBlockDataSet.h>
+#include <vtkDataArrayIteratorMacro.h>
 
-Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
-                                            const Grid_region* region, const Grid_filter* filter, float min, float max ){
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop,const Grid_region* region, const Grid_filter* filter, float min, float max ){
   
   bool need_memory_swap = !prop->is_in_memory();
   if(need_memory_swap) {
@@ -70,15 +71,26 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
   }
 
   vtkSmartPointer<vtkFloatArray> x = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> cumulative_freq = vtkSmartPointer<vtkFloatArray>::New();
+  
   x->Allocate(ndata);
+  cumulative_freq->Allocate(ndata);
   for(int i=0; i< prop->size(); ++i) {
     if(mask[i]) {
       x->InsertNextValue(prop->get_value(i));
+      cumulative_freq->InsertNextValue((float)i/(ndata+1));
     }
   }
 
 
   x->SetName(prop->name().c_str());
+
+//  vtkDataArrayIteratorMacro(cumulative_freq,
+  std::sort(x->Begin(),x->End());
+
+  vtkSmartPointer<vtkTable> cumulative_freq_table = vtkSmartPointer<vtkTable>::New(); 
+  cumulative_freq_table->AddColumn(x);
+  cumulative_freq_table->AddColumn(cumulative_freq);
 
   vtkSmartPointer<vtkTable> table = vtkSmartPointer<vtkTable>::New(); 
   table->AddColumn(x);
@@ -200,11 +212,11 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
   if(need_memory_swap) {
     prop->swap_to_disk();
   }
-  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table, cumulative_freq_table );
 
 }
-Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights, 
-                                            const Grid_region* region, const Grid_filter* filter, bool normalized_weights , float min, float max ){
+
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, const Grid_weight_property* weights,const Grid_region* region, const Grid_filter* filter, bool normalized_weights , float min, float max ){
   std::vector< std::pair<float, float> > data_weights;
   data_weights.reserve(prop->size());
 
@@ -236,9 +248,7 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
   return build_histogram_table(number_bins, data_weights, prop->name(), prop->grid_name(), min,max );
 }
 
-Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop, 
-                                            const std::vector<float>& weights, const Grid_region* region, const Grid_filter* filter, 
-                                            bool normalized_weights , float min, float max ){
+Continuous_statistics* build_histogram_table(int number_bins, const Grid_continuous_property* prop,const std::vector<float>& weights, const Grid_region* region, const Grid_filter* filter,bool normalized_weights , float min, float max ){
 
 
   bool need_memory_swap = !prop->is_in_memory();
@@ -276,7 +286,6 @@ Continuous_statistics* build_histogram_table(int number_bins, const Grid_continu
   return build_histogram_table(number_bins, data_weights, prop->name(), prop->grid_name() , min,max);
 
 }
-
 
 Continuous_statistics* build_histogram_table( int number_bins, vtkFloatArray* data, float min, float max ){
 
@@ -348,15 +357,26 @@ Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::
 
 
   // Compute the order stats
+  vtkSmartPointer<vtkTable> cumulative_freq_table = vtkSmartPointer<vtkTable>::New();
+  vtkSmartPointer<vtkFloatArray> x = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> cumulative_freq = vtkSmartPointer<vtkFloatArray>::New();
+  x->SetNumberOfValues(data_weights.size());
   std::sort(data_weights.begin(), data_weights.end());
   //Loop over to compute the cumulative weight
   float w_cumul = 0;
   std::vector<float> cweights;
   cweights.reserve(data_weights.size());
-  for( it =  data_weights.begin(); it != data_weights.end(); ++it ) {
+  int index = 0;
+  for( it =  data_weights.begin(); it != data_weights.end(); ++it, ++index ) {
+    x->SetValue(index,it->first);
     w_cumul += it->second;
     cweights.push_back(w_cumul );
   }
+  cumulative_freq->SetArray(&cweights[0],cweights.size(),1);
+  cumulative_freq_table->AddColumn(x);
+  cumulative_freq_table->AddColumn(cumulative_freq);
+
+
 
   //Find the decile
   vtkSmartPointer<vtkVariantArray> quantile_stats_array = vtkSmartPointer<vtkVariantArray>::New();
@@ -427,6 +447,7 @@ Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::
   }
   
   vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
+  vtkSmartPointer<vtkTable> cum_histo_table =  vtkSmartPointer<vtkTable>::New();
   histo_table->AddColumn(histo_vmid);
   histo_table->AddColumn(histo_vmean);
   histo_table->AddColumn(histo_p);
@@ -452,10 +473,164 @@ Continuous_statistics* build_histogram_table(int number_bins, std::vector< std::
 
   }
   vtkSmartPointer<vtkTable> histo_line_table =  vtkSmartPointer<vtkTable>::New();
+  vtkSmartPointer<vtkTable> cum_histo_line_table =  vtkSmartPointer<vtkTable>::New();
   histo_line_table->AddColumn(histo_line_bin);
   histo_line_table->AddColumn(histo_line_p);
 
-  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table );
+  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table, cumulative_freq_table);
 }
 
+Continuous_statistics* build_histogram_table(Non_parametric_distribution* distribution ){
+  
+  std::vector<Non_parametric_distribution::z_iterator::value_type> z_values(distribution->z_begin(),distribution->z_end());
+  
+  // Transfer statistics from the distribution to the histogram
+  vtkSmartPointer<vtkVariantArray> desc_stats_array = vtkSmartPointer<vtkVariantArray>::New();
+  desc_stats_array->Allocate(10);
+  desc_stats_array->SetValue(charts::DATA, "DATA");
+  desc_stats_array->SetValue(charts::GRID, "GRID");
+  desc_stats_array->SetValue(charts::N, vtkVariant(z_values.size()) );
+  desc_stats_array->SetValue(charts::MEAN, distribution->mean());
+  desc_stats_array->SetValue(charts::VARIANCE, distribution->variance());
+  desc_stats_array->SetValue(charts::MIN, distribution->quantile(0.0));
+  desc_stats_array->SetValue(charts::MAX, distribution->quantile(1.0));
+  desc_stats_array->SetValue(charts::SUM, 1.0);
+  desc_stats_array->SetValue(charts::SKEWNESS, distribution->skewness());
+  desc_stats_array->SetValue(charts::KURTOSIS, distribution->kurtosis());
 
+  // Find the decile
+  vtkSmartPointer<vtkVariantArray> quantile_stats_array = vtkSmartPointer<vtkVariantArray>::New();
+  quantile_stats_array->Allocate(13);
+  quantile_stats_array->SetValue(charts::DATA, "DATA");
+  quantile_stats_array->SetValue(charts::GRID, "GRID");
+  quantile_stats_array->SetValue(2,desc_stats_array->GetValue(charts::MIN) );
+  int ip = 3;
+  for(float p = 0.1; p<1.0; p+=0.1, ++ip) {
+    quantile_stats_array->SetValue(ip,distribution->quantile(p) );
+  }
+  quantile_stats_array->SetValue(12,desc_stats_array->GetValue(charts::MAX));
+
+  // construct the data histogram and cumulative histogram (no binning, uses data values directly)
+  vtkSmartPointer<vtkFloatArray> histo_value    = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_freq     = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_cumfreq  = vtkSmartPointer<vtkFloatArray>::New();
+  histo_value->SetName("DATA");
+  histo_freq->SetName("FREQUENCY");
+  histo_cumfreq->SetName("CUMULATIVE_FREQUENCY");
+
+  // Initialize
+  int nDataPoints = z_values.size();
+  double previousvalue = z_values[0] ; // minimum = first value from z_value array (sorted and cleaned from doublets)
+  histo_value->InsertNextValue(previousvalue);
+  histo_freq->InsertNextValue(0.0);
+  double oldcumfreq = distribution->cdf(previousvalue);
+  histo_cumfreq->InsertNextValue(oldcumfreq);
+
+  // Recursion
+  for (int ii=1; ii<nDataPoints; ++ii){
+    double currentvalue = z_values[ii];
+    double cumfreq = distribution->cdf(z_values[ii]);
+    if (currentvalue==previousvalue)
+    {
+      std::cout<< "problem here";
+    }
+    double freq = (cumfreq - oldcumfreq)/(currentvalue-previousvalue);
+    histo_value->InsertNextValue(currentvalue);
+    histo_cumfreq->InsertNextValue(cumfreq);
+    histo_freq->InsertNextValue(freq);
+    oldcumfreq=cumfreq;
+    previousvalue=currentvalue;
+  }
+  
+  vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
+  histo_table->AddColumn(histo_value);
+  histo_table->AddColumn(histo_freq);
+
+  vtkSmartPointer<vtkTable> cumulative_histo_table =  vtkSmartPointer<vtkTable>::New();
+  cumulative_histo_table->AddColumn(histo_value);
+  cumulative_histo_table->AddColumn(histo_cumfreq);
+  
+  
+  /* OLD CODE
+  
+  // Compute the histogram with n bins
+  vtkSmartPointer<vtkFloatArray> histo_p = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_vmid = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_vmean = vtkSmartPointer<vtkFloatArray>::New();
+  histo_p->SetName("DATA");
+  histo_vmid->SetName("Mid binning");
+  histo_vmean->SetName("Mean binning");
+
+  // the number of points is a function of the data spread
+  double max_step = (desc_stats_array->GetValue(charts::MAX)-desc_stats_array->GetValue(charts::MIN))/1000;
+  std::vector<Non_parametric_distribution::z_iterator::value_type  > resampled_z_values;
+  std::vector<Non_parametric_distribution::p_iterator::value_type  > resampled_p_values;
+  for (int ii=1; ii<z_values.size();++ii){
+    Non_parametric_distribution::z_iterator::value_type spread = z_values[ii]-z_values[ii-1];
+    if (spread>max_step){
+      int number_of_entire_steps_fitting_in_the_initial_spread = spread/max_step;
+      Non_parametric_distribution::z_iterator::value_type new_spread=spread/(number_of_entire_steps_fitting_in_the_initial_spread+1.0);
+      for (int jj=0; jj<=number_of_entire_steps_fitting_in_the_initial_spread; ++jj){ // LEss OR EQUAL: to ensure that we have cut the interval
+        Non_parametric_distribution::z_iterator::value_type z = z_values[ii-1]+(float)jj*new_spread;
+        resampled_z_values.push_back(z);
+        resampled_p_values.push_back(distribution->cdf(z));
+      }
+    }else{
+      resampled_z_values.push_back(z_values[ii-1]);
+      resampled_p_values.push_back(distribution->cdf(z_values[ii-1]));
+    }
+  }
+  // insert last value
+  resampled_z_values.push_back(z_values.back());
+  resampled_p_values.push_back(1.0);
+
+  int n_values = resampled_z_values.size();
+
+  histo_p->SetNumberOfValues(n_values);
+  histo_vmid->SetNumberOfValues(n_values);
+  histo_vmean->SetNumberOfValues(n_values);
+
+  for (int ii=0; ii < n_values; ++ii){
+    histo_p->SetValue(ii,resampled_p_values[ii]);
+    histo_vmean->SetValue(ii,resampled_z_values[ii]);
+    histo_vmid->SetValue(ii,resampled_z_values[ii]);
+  }
+
+  vtkSmartPointer<vtkTable> histo_table =  vtkSmartPointer<vtkTable>::New();
+  histo_table->AddColumn(histo_vmid);
+  histo_table->AddColumn(histo_vmean);
+  histo_table->AddColumn(histo_p);
+
+  */
+
+  // Set the table for the line plot
+  // same as histo_p but with min and max prepended and appended
+  int n_values=histo_value->GetNumberOfTuples();
+  vtkSmartPointer<vtkFloatArray> histo_line_value = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_line_freq = vtkSmartPointer<vtkFloatArray>::New();
+  vtkSmartPointer<vtkFloatArray> histo_line_cumfreq = vtkSmartPointer<vtkFloatArray>::New();
+  histo_line_value->SetName("DATA");
+  histo_line_freq->SetName("FREQUENCY_LINE");
+  histo_line_cumfreq->SetName("CUMULATIVE_FREQUENCY_LINE");
+  histo_line_value->SetNumberOfValues(2*n_values);
+  histo_line_freq->SetNumberOfValues(2*n_values);
+  histo_line_cumfreq->SetNumberOfValues(2*n_values);
+
+  for(int i=0; i<n_values-1; ++i) {
+    float mid_point  = histo_value->GetValue( i );
+    float bin_width = ( histo_value->GetValue( i+1 ) - histo_value->GetValue( i ));
+    histo_line_value->SetValue(2*i,mid_point - bin_width/2);
+    histo_line_value->SetValue(2*i+1,mid_point + bin_width/2);
+    histo_line_freq->SetValue(2*i,histo_freq->GetValue(i));
+    histo_line_freq->SetValue(2*i+1,histo_freq->GetValue(i));
+    histo_line_cumfreq->SetValue(2*i,histo_cumfreq->GetValue(i));
+    histo_line_cumfreq->SetValue(2*i+1,histo_cumfreq->GetValue(i));
+  }
+  vtkSmartPointer<vtkTable> histo_line_table =  vtkSmartPointer<vtkTable>::New();
+  histo_line_table->AddColumn(histo_line_value);
+  histo_line_table->AddColumn(histo_line_freq);
+  histo_line_table->AddColumn(histo_line_cumfreq);
+
+  return new Continuous_statistics(desc_stats_array, quantile_stats_array, histo_table, histo_line_table, cumulative_histo_table);
+   
+}

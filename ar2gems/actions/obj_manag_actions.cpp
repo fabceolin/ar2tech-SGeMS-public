@@ -22,8 +22,6 @@
 ** sourceforge.net/projects/sgems.
 ** ----------------------------------------------------------------------------*/
 
-
-
 /**********************************************************************
 ** Author: Nicolas Remy
 ** Copyright (C) 2002-2004 The Board of Trustees of the Leland Stanford Junior
@@ -52,10 +50,9 @@
 **
 **********************************************************************/
 
-
-
 #include <actions/obj_manag_actions.h>
 #include <appli/action.h>
+#include <math/random_numbers.h>
 #include <utils/gstl_messages.h>
 #include <utils/string_manipulation.h>
 #include <utils/error_messages_handler.h>
@@ -69,8 +66,9 @@
 #include <grid/grid_categorical_property.h>
 #include <grid/grid_downscaler.h>
 #include <grid/grid_path.h>
-
 #include <geostat/utilities.h>
+#include <math/angle_convention.h>
+
 
 #if defined (RELEASE_PYTHON_IN_DEBUG) && defined (_DEBUG)
   #undef _DEBUG
@@ -82,17 +80,13 @@
 
 
 #include <GsTL/math/math_functions.h>
-
 // these 3 Qt files are needed by Load_project
 #include <qdir.h>
 #include <qfileinfo.h>
 #include <qstring.h>
 #include <QByteArray>
-
-
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <memory.h>
 #include <list>
 
@@ -101,7 +95,6 @@
 #include <grid/reduced_grid.h>
 #include <qapplication.h>
 
-
 Named_interface* New_rgrid::create_new_interface( std::string& ) {
   return new New_rgrid();
 }
@@ -109,9 +102,6 @@ Named_interface* New_rgrid::create_new_interface( std::string& ) {
 Named_interface* New_cartesian_grid_action::create_new_interface( std::string& ) {
   return new New_cartesian_grid_action();
 }
-
-
-
 
 // AB
 Named_interface* Set_active_region::create_new_interface( std::string& ) {
@@ -132,14 +122,9 @@ Named_interface* RunScript::create_new_interface( std::string& ) {
   return new RunScript();
 }
 
-
-
-
 // name of the python module for parsing Eclipse PRT file
 //const std::string Load_sim::parser = "readprt";
-
 //=============================================
-
 
 bool
 New_rgrid::init( std::string& parameters, GsTL_project* proj,
@@ -180,7 +165,6 @@ New_rgrid::exec() {
   proj_->new_object( name_ );
   return true;
 }
-
 
 //=============================================
 
@@ -248,9 +232,10 @@ New_cartesian_grid_action::exec() {
 
   Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
   grid->set_dimensions( nx_, ny_, nz_,
-                        xsize_, ysize_, zsize_ );
-  grid->origin( GsTLPoint( Ox_, Oy_, Oz_ ) );
-  grid->set_rotation_z(z_rotation_);
+                        xsize_, ysize_, zsize_,
+                        Ox_, Oy_, Oz_,
+                        z_rotation_,
+                        Ox_, Oy_, Oz_);
 
   proj_->new_object( name_ );
   return true;
@@ -2453,5 +2438,3 @@ Named_interface*
 Extract_cell_volume::create_new_interface( std::string& ) {
   return new Extract_cell_volume; 
 }
-
-

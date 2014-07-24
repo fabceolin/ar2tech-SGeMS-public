@@ -59,10 +59,10 @@
 #include <numeric>
 
 Named_interface* create_Cgrid( std::string& name) {
-  return new Cartesian_grid(name, 1,1,1);
+  return new Cartesian_grid(name);
 }
 
-
+/*
 Cartesian_grid::Cartesian_grid(std::string name, int nx, int ny, int nz)
  : RGrid(name){
   set_dimensions( nx, ny, nz );
@@ -73,53 +73,75 @@ Cartesian_grid::Cartesian_grid(std::string name, int nx, int ny, int nz,
  : RGrid(name){
   set_dimensions( nx, ny, nz, xsize, ysize, zsize );
 }
+*/
 
 void Cartesian_grid::set_dimensions( int nx, int ny, int nz ) {
-  // set up a new geometry and pass it to the rgrid
-  Simple_RGrid_geometry* geometry = new Simple_RGrid_geometry();
-  geometry->set_size(0, nx);
-  geometry->set_size(1, ny);
-  geometry->set_size(2, nz);
+  
+  Cartesian_grid_geometry cgrid_geometry(nx, ny, nz, 
+		                                      1, 1, 1,
+                                          0, 0, 0);
 
-  set_geometry(geometry);
-
-  geometry_ = dynamic_cast<Simple_RGrid_geometry*>( RGrid::geom_ );
+  this->set_geometry(&cgrid_geometry);
 }
 
-void Cartesian_grid::set_dimensions( int nx, int ny, int nz,
-				     double xsize, double ysize, double zsize ) {
-  Cartesian_grid::set_dimensions( nx, ny, nz );
-  GsTLCoordVector dims( xsize, ysize, zsize );
-  geometry_->set_cell_dims( dims );
+
+void Cartesian_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z)
+{
+  Cartesian_grid_geometry cgrid_geometry(nx, ny, nz, 
+		                                      xsize, ysize, zsize,
+                                          origin_x, origin_y, origin_z);
+
+  this->set_geometry(&cgrid_geometry);
+
+
+}
+
+void Cartesian_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          double rotation_angle_z, 
+          double rot_pivot_x, double rot_pivot_y, double rot_pivot_z)
+{
+  Cartesian_grid_geometry cgrid_geometry(nx, ny, nz, 
+		                                      xsize, ysize, zsize,
+                                          origin_x, origin_y, origin_z,
+                                          rotation_angle_z, 
+                                          rot_pivot_x, rot_pivot_y, rot_pivot_z);
+
+  this->set_geometry(&cgrid_geometry);
 }
 
 
 void Cartesian_grid::set_geometry( RGrid_geometry* geom ) {
-  if( !dynamic_cast<Simple_RGrid_geometry*>( geom ) ) return;
+  if( !dynamic_cast<Cartesian_grid_geometry*>( geom ) ) return;
 
-  if( geom_ != geom ) {
-    delete geom_;
-    geom_ = geom->clone();
-    connection_is_updated_ = false;
-  }
+  if( geom_ == geom ) return;
+
+  delete geom_;
+  geom_ = geom->clone();
+  
+  delete grid_cursor_;
   grid_cursor_ = new SGrid_cursor(nx(), ny(), nz(), 1);
+  
   property_manager_.set_prop_size( geom->size() );
   region_manager_.set_region_size( geom->size() );
 
 
-  geometry_ = dynamic_cast<Simple_RGrid_geometry*>( RGrid::geom_ );
+  cgrid_geometry_ = dynamic_cast<Cartesian_grid_geometry*>( RGrid::geom_ );
 }
 
 
 
 GsTLInt Cartesian_grid::closest_node( const location_type& P ) const {
-  location_type origin = geometry_->origin();
+  location_type origin = cgrid_geometry_->origin();
   location_type P0;
   P0.x() = P.x() - origin.x();
   P0.y() = P.y() - origin.y();
   P0.z() = P.z() - origin.z();
  
-  GsTLCoordVector cell_sizes = geometry_->cell_dims();
+  GsTLCoordVector cell_sizes = cgrid_geometry_->cell_dims();
   int spacing = grid_cursor_->multigrid_spacing();
  
   // Account for the multi-grid spacing
@@ -145,15 +167,15 @@ GsTLInt Cartesian_grid::closest_node( const location_type& P ) const {
 
 
 GsTL_cube Cartesian_grid::bounding_box() const {
-  GsTLCoordVector sizes = geometry_->cell_dims();
+  GsTLCoordVector sizes = cgrid_geometry_->cell_dims();
   
   const GsTLCoord half = 0.5;
   GsTLCoordVector max_coord;
-  max_coord.x() = geometry_->dim(0) * sizes.x();
-  max_coord.y() = geometry_->dim(1) * sizes.y();
-  max_coord.z() = geometry_->dim(2) * sizes.z();
+  max_coord.x() = cgrid_geometry_->dim(0) * sizes.x();
+  max_coord.y() = cgrid_geometry_->dim(1) * sizes.y();
+  max_coord.z() = cgrid_geometry_->dim(2) * sizes.z();
   
-  GsTLPoint O = geometry_->origin();
+  GsTLPoint O = cgrid_geometry_->origin();
 
   GsTL_box::location_type lower( O + ( -half*sizes) );
   GsTL_box::location_type upper( O + max_coord + ( half*sizes ) );

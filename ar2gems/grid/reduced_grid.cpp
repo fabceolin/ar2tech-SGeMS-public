@@ -153,25 +153,6 @@ Window_neighborhood* Reduced_grid::window_neighborhood( const Grid_template& tem
 }
   
 
-// new methods
-//====================================
-void Reduced_grid::copyStructure(const Reduced_grid * from)
-{
-	GsTLCoordVector v = from->cell_dimensions();
-//	set_dimensions(from->nx(), from->ny(), from->nz(), v.x(), v.y(), v.z());
-	origin(from->origin());
-
-	reduced2original_ = from->reduced2original_;
-	original2reduced_ = from->original2reduced_;
-	active_coords_ = from->active_coords_;
-	mgrid_cursor_ = from->mgrid_cursor_;
-  grid_cursor_ = from->grid_cursor_;
-	active_size_ = from->active_size_;
-
-	mask_ = from->mask_;
-}
-
-
 // returns nx*ny*nz
 GsTLInt Reduced_grid::rgrid_size() const {
 	return RGrid::size();
@@ -193,19 +174,21 @@ const int Reduced_grid::reduced2full(int idInReducedGrid) const{
 
 inline Geostat_grid::location_type Reduced_grid::location( int reduced_node_id ) const {
 	GsTLInt node_id =reduced2full(reduced_node_id);
-	GsTLInt max_nxy = geometry_->dim(0)*geometry_->dim(1);
+	GsTLInt max_nxy = cgrid_geometry_->dim(0)*cgrid_geometry_->dim(1);
 	GsTLInt inxy = node_id % max_nxy; 
 	GsTLInt k = (node_id - inxy)/max_nxy; 
-	GsTLInt j = (inxy - node_id%geometry_->dim(0))/geometry_->dim(0); 
-	GsTLInt i = inxy%geometry_->dim(0);
+	GsTLInt j = (inxy - node_id%cgrid_geometry_->dim(0))/cgrid_geometry_->dim(0); 
+	GsTLInt i = inxy%cgrid_geometry_->dim(0);
 
-	return geometry_->coordinates( i,j,k ); 
+	return cgrid_geometry_->coordinates( i,j,k ); 
 } 
 
 //==============================================
 
 //==============================================
 // The following override the functions inherited
+// This is re-implemnted since we cannot set the size of the
+// property and region at this point
 void Reduced_grid::set_geometry(RGrid_geometry* geom) {
 	if( geom_ != geom ) {
 		delete geom_;
@@ -213,7 +196,7 @@ void Reduced_grid::set_geometry(RGrid_geometry* geom) {
 		connection_is_updated_ = false;
 	}
 
-  geometry_ = dynamic_cast<Simple_RGrid_geometry*>( geom_ );
+  cgrid_geometry_ = dynamic_cast<Cartesian_grid_geometry*>( geom_ );
 
 }
 
@@ -233,60 +216,77 @@ SGrid_cursor* Reduced_grid::cursor() {
   return dynamic_cast<SGrid_cursor*>(mgrid_cursor_); 
 } 
 
-
-/*
-void Reduced_grid::set_dimensions( int nx, int ny, int nz ) {
-  // set up a new geometry and pass it to the rgrid
-  Simple_RGrid_geometry* geometry = new Simple_RGrid_geometry();
-  geometry->set_size(0, nx);
-  geometry->set_size(1, ny);
-  geometry->set_size(2, nz);
-
-  set_geometry(geometry);
-
-
-  geometry_ = dynamic_cast<Simple_RGrid_geometry*>( RGrid::geom_ );
-}
-
-
-*/
-
-
-void Reduced_grid::set_dimensions( int nx, int ny, int nz,
-				     double xsize, double ysize, double zsize,
-             std::vector<bool> mask, float rotation_angle_z ) 
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          const std::vector<bool>& mask )
 {
-
-  Cartesian_grid::set_dimensions( nx, ny, nz );
-  GsTLCoordVector dims( xsize, ysize, zsize );
-  geometry_->set_cell_dims( dims );
-  this->set_rotation_z(rotation_angle_z);
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z );
 
   mask_ = mask;
   mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
   grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
 
-
   build_ijkmap_from_mask();
 	mgrid_cursor_->set_mask(&original2reduced_, &reduced2original_, &mask_ );
-//  mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz,
-//                  &original2reduced_, &reduced2original_, &mask_ );
   
+  // Need to reset the size of the property and region
   active_size_ = mgrid_cursor_->max_index();
 	property_manager_.set_prop_size( mgrid_cursor_->max_index() );
+  region_manager_.set_region_size( mgrid_cursor_->max_index() );
+
+}
+
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          double rotation_angle_z, 
+          double rot_pivot_x, double rot_pivot_y, double rot_pivot_z,
+          const std::vector<bool>& mask )
+{
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z,
+                                  rotation_angle_z, rot_pivot_x, rot_pivot_y, rot_pivot_z);
+
+  mask_ = mask;
+  mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
+  grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
+
+  build_ijkmap_from_mask();
+  mgrid_cursor_->set_mask(&original2reduced_, &reduced2original_, &mask_ );
+  
+  // Need to reset the size of the property and region
+  active_size_ = mgrid_cursor_->max_index();
+  property_manager_.set_prop_size( mgrid_cursor_->max_index() );
   region_manager_.set_region_size( mgrid_cursor_->max_index() );
 }
 
 
 
+
 void Reduced_grid::set_dimensions( int nx, int ny, int nz,
-    double xsize, double ysize, double zsize, float rotation_angle_z)
+    double xsize, double ysize, double zsize, 
+    double origin_x, double origin_y, double origin_z)
 {
 
-  Cartesian_grid::set_dimensions( nx, ny, nz );
-  GsTLCoordVector dims( xsize, ysize, zsize );
-  geometry_->set_cell_dims( dims );
-  this->set_rotation_z(rotation_angle_z);
+  Cartesian_grid::set_dimensions(nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z);
+
+  mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
+  grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
+
+  original2reduced_.clear();
+  original2reduced_.assign(nx*ny*nz,-1);
+}
+
+
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          double rotation_angle_z, 
+          double rot_pivot_x, double rot_pivot_y, double rot_pivot_z )
+{
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z,
+                                  rotation_angle_z, rot_pivot_x, rot_pivot_y, rot_pivot_z);
+
   mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
   grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
 
@@ -333,15 +333,39 @@ void Reduced_grid::mask( const std::vector<bool>& grid_mask)
 }
 
 
-void Reduced_grid::set_dimensions( int nx, int ny, int nz,
-    double xsize, double ysize, double zsize,
-    const std::vector<GsTLGridNode>& ijkCoords, float rotation_angle_z)
-{
 
-  Cartesian_grid::set_dimensions( nx, ny, nz );
-  GsTLCoordVector dims( xsize, ysize, zsize );
-  geometry_->set_cell_dims( dims );
-  this->set_rotation_z(rotation_angle_z);
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          const std::vector<GsTLGridNode>& ijkCoords )
+{
+  
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z);
+
+  mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
+  grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
+
+  build_mask_from_ijk(ijkCoords);
+	mgrid_cursor_->set_mask(&original2reduced_, &reduced2original_, &mask_ );
+
+  active_size_ = mgrid_cursor_->max_index();
+	property_manager_.set_prop_size( mgrid_cursor_->max_index() );
+  region_manager_.set_region_size( mgrid_cursor_->max_index() );
+
+}
+
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          double rotation_angle_z, 
+          double rot_pivot_x, double rot_pivot_y, double rot_pivot_z,
+          const std::vector<GsTLGridNode>& ijkCoords )
+
+{
+  
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z,
+                                  rotation_angle_z, rot_pivot_x, rot_pivot_y, rot_pivot_z);
+
   mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
   grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
 
@@ -353,17 +377,13 @@ void Reduced_grid::set_dimensions( int nx, int ny, int nz,
   region_manager_.set_region_size( mgrid_cursor_->max_index() );
 }
 
-void Reduced_grid::set_dimensions( int nx, int ny, int nz,
-    double xsize, double ysize, double zsize,
-    const std::vector<location_type>& xyzCoords,
-    Geostat_grid::location_type origin, float rotation_angle_z)
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          const std::vector<location_type>& xyzCoords )
 {
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z);
 
-  Cartesian_grid::set_dimensions( nx, ny, nz );
-  GsTLCoordVector dims( xsize, ysize, zsize );
-  geometry_->set_cell_dims( dims );
-  this->origin( origin);
-  this->set_rotation_z(rotation_angle_z);
   mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
   grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
 
@@ -375,6 +395,26 @@ void Reduced_grid::set_dimensions( int nx, int ny, int nz,
   region_manager_.set_region_size( mgrid_cursor_->max_index() );
 }
 
+void Reduced_grid::set_dimensions( int nx, int ny, int nz, 
+		      double xsize, double ysize, double zsize,
+          double origin_x, double origin_y, double origin_z,
+          double rotation_angle_around_z, 
+          double rot_pivot_x, double rot_pivot_y, double rot_pivot_z,
+          const std::vector<location_type>& xyzCoords )
+{
+  Cartesian_grid::set_dimensions( nx, ny, nz, xsize, ysize, zsize, origin_x, origin_y, origin_z,
+                                  rotation_angle_around_z, rot_pivot_x, rot_pivot_y, rot_pivot_z);
+
+  mgrid_cursor_ = new MaskedGridCursor(nx, ny, nz);
+  grid_cursor_ = dynamic_cast<SGrid_cursor*>(mgrid_cursor_);
+
+  build_mask_from_xyz(xyzCoords);
+	mgrid_cursor_->set_mask(&original2reduced_, &reduced2original_, &mask_ );
+
+  active_size_ = mgrid_cursor_->max_index(); 
+	property_manager_.set_prop_size( mgrid_cursor_->max_index() );
+  region_manager_.set_region_size( mgrid_cursor_->max_index() );
+}
 
 void Reduced_grid::build_ijkmap_from_mask() {
 	int i,j,k;
@@ -410,7 +450,7 @@ void Reduced_grid::build_mask_from_ijk(
 
   std::vector<GsTLGridNode>::const_iterator it = ijkCoords.begin();
   mask_.clear();
-  mask_.insert(mask_.begin(),geometry_->size(),false);
+  mask_.insert(mask_.begin(),cgrid_geometry_->size(),false);
   for( ; it != ijkCoords.end() ; ++it ) {
     int index = mgrid_cursor_->cartesian_node_id(it->x(),it->y(),it->z());
     if(index >= 0) mask_[index] = true;
@@ -423,11 +463,11 @@ void Reduced_grid::build_mask_from_xyz(
 {
   std::vector<location_type>::const_iterator it = xyzCoords.begin();
   mask_.clear();
-  mask_.insert(mask_.begin(),geometry_->size(),false);
+  mask_.insert(mask_.begin(),cgrid_geometry_->size(),false);
 
   GsTLGridNode ijk;
   for( ; it != xyzCoords.end() ; ++it ) {
-    geometry_->grid_coordinates(ijk,*it);
+    cgrid_geometry_->grid_coordinates(ijk,*it);
     int index = mgrid_cursor_->cartesian_node_id(ijk[0],ijk[1],ijk[2]);
     if(index >= 0) mask_[index] = true;
   }
@@ -458,9 +498,9 @@ bool Reduced_grid::add_location(GsTLCoord x, GsTLCoord y, GsTLCoord z)
 {
   if(active_size_ >= this->size()) return false;
   const SGrid_cursor* cursor = RGrid::cursor();
-  int i = x/geometry_->dim(0);
-  int j = y/geometry_->dim(1);
-  int k = z/geometry_->dim(2);
+  int i = x/cgrid_geometry_->dim(0);
+  int j = y/cgrid_geometry_->dim(1);
+  int k = z/cgrid_geometry_->dim(2);
   int index = cursor->node_id(i,j,k);
   if(index < 0) return false; 
   mask_[index] = true;
@@ -487,13 +527,13 @@ GsTLInt Reduced_grid::closest_node( const location_type& P ) const {
   }
 */
 
-  location_type origin = geometry_->origin();
+  location_type origin = cgrid_geometry_->origin();
   location_type P0;
   P0.x() = P.x() - origin.x();
   P0.y() = P.y() - origin.y();
   P0.z() = P.z() - origin.z();
 
-  GsTLCoordVector cell_sizes = geometry_->cell_dims();
+  GsTLCoordVector cell_sizes = cgrid_geometry_->cell_dims();
   int spacing = grid_cursor_->multigrid_spacing();
 
   // Account for the multi-grid spacing

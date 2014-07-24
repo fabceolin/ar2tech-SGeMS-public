@@ -122,9 +122,9 @@ public:
 	float z_size() const; 
 
 	/// Coordinates of the origin 
-	float Ox() const; 
-	float Oy() const; 
-	float Oz() const; 
+	double Ox() const; 
+	double Oy() const; 
+	double Oz() const; 
 
 	/// Number of pixels
 	float nx() const; 
@@ -132,6 +132,11 @@ public:
 	float nz() const; 
 
   float rotation_z() const;
+
+	/// Coordinates of the roation origin 
+	double rot_ox() const; 
+	double rot_oy() const; 
+	double rot_oz() const;
 
 	/// name of the grid 
 	QString name() const; 
@@ -150,6 +155,10 @@ public:
 	// no data value
 	bool use_no_data_value() const;
 	float no_data_value() const;
+
+  protected slots:
+    void enable_origin(double angle);
+
 };
 
  
@@ -175,12 +184,16 @@ class FILTERS_DECL Csv_input_grid_dialog : public QWidget, public Ui::CsvGridImp
   float z_size() const; 
  
   /// Coordinates of the origin 
-  float Ox() const; 
-  float Oy() const; 
-  float Oz() const; 
+  double Ox() const; 
+  double Oy() const; 
+  double Oz() const; 
 
   float rotation_z() const;
 
+	/// Coordinates of the roation origin 
+	double rot_ox() const; 
+	double rot_oy() const; 
+	double rot_oz() const;
    
   /// name of the grid 
   QString name() const; 
@@ -188,6 +201,10 @@ class FILTERS_DECL Csv_input_grid_dialog : public QWidget, public Ui::CsvGridImp
   // no data value
   bool use_no_data_value() const;
   float no_data_value() const;
+
+  protected slots:
+    void enable_origin(double angle);
+
 }; 
  
  

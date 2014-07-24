@@ -184,8 +184,7 @@ Simulacre_input_filter::read_reduced_grid( QDataStream& stream, std::string* err
 	if (!grid) return false;
 
 
-	grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, mask );
-	grid->origin( Cartesian_grid::location_type( ox,oy,oz ) );
+	grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz, mask );
 
 	quint32 properties_count;
 	stream >> properties_count;
@@ -252,8 +251,7 @@ Simulacre_input_filter::read_cartesian_grid( QDataStream& stream,
   Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
   if(grid == 0) return 0;
   
-  grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize );
-  grid->origin( Cartesian_grid::location_type( ox,oy,oz ) );
+  grid->set_dimensions( nx, ny, nz, xsize, ysize, zsize, ox,oy,oz );
 
   quint32 properties_count;
   stream >> properties_count;

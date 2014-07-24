@@ -44,6 +44,7 @@
 #include <vtkBitArray.h>
 //#include <vtkMath.h>
 #include <vtkAppendPolyData.h>
+#include <vtkTransform.h>
 
 
 #include <vtkVolumeRayCastCompositeFunction.h>
@@ -116,7 +117,25 @@ bool vtkProp_cgrid::is_visibile(){
 
   image_data_ = vtkUniformGrid::New();
   image_data_->SetExtent(0,grid_->nx(), 0,grid_->ny(), 0,grid_->nz());
-  image_data_->SetOrigin(origin.x()-cell_dims.x()/2, origin.y()-cell_dims.y()/2,origin.z()-cell_dims.z()/2);
+  if(grid_->geometry()->rotation_z() == 0) {
+    image_data_->SetOrigin(origin.x()-cell_dims.x()/2, origin.y()-cell_dims.y()/2,origin.z()-cell_dims.z()/2);
+  }
+  else {  // if roation set origin in the back-rotated space
+    GsTLPoint rotation_origin = grid_->rotation_point() ;
+
+    GsTLPoint delta_origin_rotation_point = origin - rotation_origin;
+    double z_rad = GsTL::PI/180.0*grid_->geometry()->rotation_z(); 
+    double cos_angle = std::cos(z_rad);
+    double sin_angle = std::sin(z_rad);
+    double rot_dx  = delta_origin_rotation_point.x()*cos_angle - delta_origin_rotation_point.y()*sin_angle;
+    double rot_dy  = delta_origin_rotation_point.x()*sin_angle + delta_origin_rotation_point.y()*cos_angle;
+
+    double origin_in_rot_space_x  = delta_origin_rotation_point.x()*cos_angle - delta_origin_rotation_point.y()*sin_angle;// + rotation_origin.x();
+    double origin_in_rot_space_y  = delta_origin_rotation_point.x()*sin_angle + delta_origin_rotation_point.y()*cos_angle;//  + rotation_origin.y();
+
+    //image_data_->SetOrigin(origin_in_rot_space_x, origin_in_rot_space_x, origin.z());
+    image_data_->SetOrigin(origin_in_rot_space_x-cell_dims.x()/2, origin_in_rot_space_y-cell_dims.y()/2, origin.z()-cell_dims.z()/2);
+  }
   image_data_->SetSpacing(cell_dims.x(),cell_dims.y(),cell_dims.z());
 //  image_data_->SetScalarTypeToFloat ();
   image_data_->GetCellData()->SetScalars(0);
@@ -146,7 +165,17 @@ bool vtkProp_cgrid::is_visibile(){
   actor_->SetProperty(vtk_property_);
   actor_->SetMapper(mapper_);
   actor_->PickableOn();
-  actor_->RotateZ(-1.0*grid_->geometry()->rotation_z());
+
+
+  if(grid_->geometry()->rotation_z() != 0) {
+    GsTLPoint rotation_origin = grid_->rotation_point() ;
+
+    vtkSmartPointer<vtkTransform> transform = vtkSmartPointer<vtkTransform>::New();
+    transform->PostMultiply();
+    transform->RotateZ( -1.0*grid_->geometry()->rotation_z() );
+    transform->Translate(rotation_origin.x(), rotation_origin.y(), 0 );
+    actor_->SetUserTransform( transform );
+  }
 
   this->set_visibility(false);
   renderer_->AddActor(actor_);

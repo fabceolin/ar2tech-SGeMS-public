@@ -15,6 +15,7 @@ add_library(ar2gems_actions
   python_script.cpp
   python_wrapper.cpp
   unary_action.cpp
+  tie_breaking_actions.cpp
   
   add_property_to_grid.h
   algorithms_actions.h
@@ -32,6 +33,7 @@ add_library(ar2gems_actions
   python_script.h
   python_wrapper.h
   unary_action.h  
+  tie_breaking_actions.h
 )
 
 if(NOT PYTHON_DEBUG_LIBRARIES OR RELEASE_PYTHON_IN_DEBUG)

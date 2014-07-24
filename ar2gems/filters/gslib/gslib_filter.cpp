@@ -258,10 +258,10 @@ bool Gslib_mgrid_infilter::get_mgrid_ijk_dimensions(
 bool Gslib_mgrid_infilter::get_mgrid_xyz_dimensions(
     std::ifstream& infile, Reduced_grid* grid, 
     int X_col_id, int Y_col_id, int Z_col_id,
-    float x_size, float y_size, float z_size, float angle_z)
+    float x_size, float y_size, float z_size)
 {
 //  bool is_jk = dialog_->is_ijk();
-
+  double angle_z=0;
   double sin_rot_z = std::sin((double)angle_z*GsTL::PI/360.00);
   double cos_rot_z = std::cos((double)angle_z*GsTL::PI/360.00);
 
@@ -353,7 +353,7 @@ bool Gslib_mgrid_infilter::get_mgrid_xyz_dimensions(
                     int((max_xyz[2]-origin[2])/z_size)+1);
 
   grid->set_dimensions(nxyz[0],nxyz[1],nxyz[2],
-         x_size, y_size, z_size, xyz, origin, angle_z);
+    x_size, y_size, z_size, origin.x(), origin.y(), origin.z(),xyz);
 
  // infile.seekg(0, ios::beg);
 
@@ -376,10 +376,12 @@ Geostat_grid* Gslib_mgrid_infilter::readRegularGridFormat(std::ifstream& infile,
 	float Oz = dialog_->Oz();
   float rotation_z_angle = dialog_->rotation_z();
 
+
+  // ignore angle for now
 	grid->set_dimensions( nx, ny, nz,
-		x_size, y_size, z_size);
-	grid->origin( GsTLPoint( Ox,Oy,Oz) );
-  grid->set_rotation_z(rotation_z_angle);
+		x_size, y_size, z_size,  Ox,Oy,Oz);
+//	grid->origin( GsTLPoint( Ox,Oy,Oz) );
+//  grid->set_rotation_z(rotation_z_angle);
 
 	std::string buffer;
 
@@ -578,8 +580,9 @@ Geostat_grid* Gslib_mgrid_infilter::readPointsetFormat(std::ifstream& infile, Re
     return NULL;
   }
 
+  //disabled rotation for now
   get_mgrid_xyz_dimensions(infile,grid,X_col_id,Y_col_id,Z_col_id,
-                             x_size,y_size,z_size, z_rotation);
+                             x_size,y_size,z_size);
 
   infile.clear();
   infile.seekg(0, ios::beg);
@@ -822,12 +825,13 @@ Geostat_grid* Gslib_grid_infilter::read( std::ifstream& infile ) {
   Cartesian_grid* grid = dynamic_cast<Cartesian_grid*>( ni.raw_ptr() );
   appli_assert( grid != 0 );
 
+  // ignore angle for now
   grid->set_dimensions( nx, ny, nz,
-			x_size, y_size, z_size);
-  grid->origin( GsTLPoint( Ox,Oy,Oz) );
+			x_size, y_size, z_size, Ox,Oy,Oz);
+//  grid->origin( GsTLPoint( Ox,Oy,Oz) );
   appli_message( "grid resized to " << nx << "x" << ny << "x" << nz
 		<< "  total=: " << grid->size() );
-  grid->set_rotation_z(rotation_z);
+//  grid->set_rotation_z(rotation_z);
 
   std::string buffer;
   

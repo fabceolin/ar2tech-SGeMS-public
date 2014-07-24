@@ -126,8 +126,9 @@ public:
   GsTLInt nxyz(); 
 
   //angles
-  virtual float rotation_z() const {return geom_->rotation_z(); }
-  virtual void set_rotation_z(float angle_z) {geom_->set_rotation_z(angle_z); }
+  virtual double rotation_z() const {return geom_->rotation_z(); }
+  virtual GsTLPoint rotation_point() const {return geom_->rotation_point(); }
+//  virtual void set_rotation_z(float angle_z) {geom_->set_rotation_z(angle_z); }
  
   // Misc. 
   virtual void set_level( int level); 

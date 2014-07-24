@@ -241,8 +241,19 @@ Csv_input_mgrid_dialog::Csv_input_mgrid_dialog(std::ifstream& infile, QWidget* p
   Z_col_name_->setCurrentIndex(std::min(2,property_names.size())); 
 
   mask_col_name_->addItems(property_names);
-
 	name_->setFocus();
+
+  rot_origin_box->setVisible(false);
+
+  origin_box->setHidden(true);
+  mask_def_box->setHidden(true);
+  nxyz_groupBox->setHidden(true);
+  connect( rotation_z_angle_, SIGNAL(valueChanged(double)), this, SLOT(enable_origin(double)));
+  connect( is_xyz_locations_, SIGNAL(toggled(bool)), origin_box, SLOT(setHidden(bool)));
+  connect( is_xyz_locations_, SIGNAL(toggled(bool)), mask_def_box, SLOT(setHidden(bool)));
+  connect( is_xyz_locations_, SIGNAL(toggled(bool)), nxyz_groupBox, SLOT(setHidden(bool)));
+  connect( is_xyz_locations_, SIGNAL(toggled(bool)), xyz_column, SLOT(setVisible(bool)));
+  
 } 
 
 float Csv_input_mgrid_dialog::x_size() const {
@@ -257,17 +268,17 @@ float Csv_input_mgrid_dialog::z_size() const{
   QString val = z_size_->text();
   return val.toFloat();
 }
-float Csv_input_mgrid_dialog::Ox() const{
+double Csv_input_mgrid_dialog::Ox() const{
   QString val = xmn_->text();
-  return val.toFloat();
+  return val.toDouble();
 }
-float Csv_input_mgrid_dialog::Oy() const{
+double Csv_input_mgrid_dialog::Oy() const{
   QString val = ymn_->text();
-  return val.toFloat();
+  return val.toDouble();
 }
-float Csv_input_mgrid_dialog::Oz() const{
+double Csv_input_mgrid_dialog::Oz() const{
   QString val = zmn_->text();
-  return val.toFloat();
+  return val.toDouble();
 }
 
 float Csv_input_mgrid_dialog::nx() const{
@@ -282,6 +293,19 @@ float Csv_input_mgrid_dialog::nz() const{
 
 float Csv_input_mgrid_dialog::rotation_z() const{
   return rotation_z_angle_->value();
+}
+
+double Csv_input_mgrid_dialog::rot_ox() const{
+  QString val = x_rot->text();
+  return val.toDouble();
+}
+double Csv_input_mgrid_dialog::rot_oy() const{
+  QString val = y_rot->text();
+  return val.toDouble();
+}
+double Csv_input_mgrid_dialog::rot_oz() const{
+  QString val = z_rot->text();
+  return val.toDouble();
 }
 
 QString Csv_input_mgrid_dialog::name() const {
@@ -326,6 +350,13 @@ float Csv_input_mgrid_dialog::no_data_value() const {
   return val.toFloat();
 }
 
+
+void  Csv_input_mgrid_dialog::enable_origin(double angle){
+
+  rot_origin_box->setVisible( angle != 0 );
+
+}
+
 //==============================================================
 
 Csv_input_grid_dialog::Csv_input_grid_dialog( QWidget* parent, 
@@ -333,6 +364,13 @@ Csv_input_grid_dialog::Csv_input_grid_dialog( QWidget* parent,
   : QWidget( parent ) {
   setupUi(this);
   name_->setFocus();
+
+  rot_pivot_container->setVisible(false);
+  rot_origin_box->setVisible(false);
+
+  connect( rotation_z_angle_, SIGNAL(valueChanged(double)), this, SLOT(enable_origin(double)));
+  connect( is_rot_origin_arbitrary, SIGNAL(toggled(bool)), rot_origin_box, SLOT(setVisible(bool)));
+
 }
 
 int Csv_input_grid_dialog::nx() const {
@@ -360,22 +398,36 @@ float Csv_input_grid_dialog::z_size() const{
   QString val = z_size_->text();
   return val.toFloat();
 }
-float Csv_input_grid_dialog::Ox() const{
+double Csv_input_grid_dialog::Ox() const{
   QString val = xmn_->text();
-  return val.toFloat();
+  return val.toDouble();
 }
-float Csv_input_grid_dialog::Oy() const{
+double Csv_input_grid_dialog::Oy() const{
   QString val = ymn_->text();
-  return val.toFloat();
+  return val.toDouble();
 }
-float Csv_input_grid_dialog::Oz() const{
+double Csv_input_grid_dialog::Oz() const{
   QString val = zmn_->text();
-  return val.toFloat();
+  return val.toDouble();
 }
 
 float Csv_input_grid_dialog::rotation_z() const{
   return rotation_z_angle_->value();
 }
+
+double Csv_input_grid_dialog::rot_ox() const{
+  QString val = x_rot->text();
+  return val.toDouble();
+}
+double Csv_input_grid_dialog::rot_oy() const{
+  QString val = y_rot->text();
+  return val.toDouble();
+}
+double Csv_input_grid_dialog::rot_oz() const{
+  QString val = z_rot->text();
+  return val.toDouble();
+}
+
 
 QString Csv_input_grid_dialog::name() const {
   return name_->text();
@@ -389,6 +441,12 @@ bool Csv_input_grid_dialog::use_no_data_value() const {
 float Csv_input_grid_dialog::no_data_value() const {
   QString val = no_data_value_edit_->text();
   return val.toFloat();
+}
+
+void  Csv_input_grid_dialog::enable_origin(double angle){
+
+  rot_pivot_container->setVisible( angle != 0 );
+
 }
 
 

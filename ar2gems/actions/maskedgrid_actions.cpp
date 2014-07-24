@@ -103,18 +103,19 @@ bool Create_mgrid_from_cgrid::exec(){
   }
 
   Reduced_grid* grid = dynamic_cast<Reduced_grid*>( ni.raw_ptr() );
+  GsTLPoint rotation_point = cgrid->geometry()->rotation_point();
+  GsTLPoint origin = cgrid->origin();
 
   //Create the grid
   if( regions.size() == 1 ) {  //avoid a copy of the region array
+
     grid->set_dimensions(
-      cgrid->geometry()->dim(0),
-      cgrid->geometry()->dim(1),
-      cgrid->geometry()->dim(2),
-      cgrid->cell_dimensions()[0],
-      cgrid->cell_dimensions()[1],
-      cgrid->cell_dimensions()[2],
-      regions[0]->data(),
-      cgrid->rotation_z());
+      cgrid->geometry()->dim(0),cgrid->geometry()->dim(1),cgrid->geometry()->dim(2),
+      cgrid->cell_dimensions()[0],cgrid->cell_dimensions()[1],cgrid->cell_dimensions()[2],
+      origin.x(),origin.y(),origin.z(),
+      cgrid->rotation_z(),
+      rotation_point.x(),rotation_point.y(),rotation_point.z(),
+      regions[0]->data());
   } else {
     int mask_size = regions[0]->size();
     std::vector<bool> mask( mask_size );
@@ -126,17 +127,13 @@ bool Create_mgrid_from_cgrid::exec(){
       mask[i] = ok;
     }
     grid->set_dimensions(
-      cgrid->geometry()->dim(0),
-      cgrid->geometry()->dim(1),
-      cgrid->geometry()->dim(2),
-      cgrid->cell_dimensions()[0],
-      cgrid->cell_dimensions()[1],
-      cgrid->cell_dimensions()[2],
-      mask,
-      cgrid->rotation_z());
+      cgrid->geometry()->dim(0),cgrid->geometry()->dim(1),cgrid->geometry()->dim(2),
+      cgrid->cell_dimensions()[0],cgrid->cell_dimensions()[1],cgrid->cell_dimensions()[2],
+      origin.x(),origin.y(),origin.z(),
+      cgrid->rotation_z(),
+      rotation_point.x(),rotation_point.y(),rotation_point.z(),
+      mask);
   }
-
-  grid->origin( cgrid->origin() );
 
   proj_->new_object( mgrid_name_ );
   return true;
