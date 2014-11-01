@@ -103,7 +103,7 @@ Simple_RGrid_geometry::~Simple_RGrid_geometry() {
 
 RGrid_geometry* Simple_RGrid_geometry::clone() const {
   Simple_RGrid_geometry* geom = new Simple_RGrid_geometry(n_[0], n_[1], n_[2],
-                                                          cell_dims_.x(),cell_dims_.y(),cell_dims_.y(),
+                                                          cell_dims_.x(),cell_dims_.y(),cell_dims_.z(),
                                                           origin_.x(), origin_.y(), origin_.z(),
                                                           z_rot_, rotation_point_.x(), rotation_point_.y(), rotation_point_.z() );
 
