@@ -57,7 +57,7 @@ Cartesian_grid_geometry::~Cartesian_grid_geometry() {
 
 RGrid_geometry* Cartesian_grid_geometry::clone() const {
   Cartesian_grid_geometry* geom = new Cartesian_grid_geometry(ncells_[0], ncells_[1], ncells_[2],
-                                                          cell_dims_.x(),cell_dims_.y(),cell_dims_.y(),
+                                                          cell_dims_.x(),cell_dims_.y(),cell_dims_.z(),
                                                           origin_.x(), origin_.y(), origin_.z(),
                                                           z_rot_, rotation_point_.x(), rotation_point_.y(), rotation_point_.z() );
 
